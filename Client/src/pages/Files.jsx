@@ -158,8 +158,8 @@ function Files() {
   };
 
   useEffect(() => {
-    console.log("currentTypeFile");
-    console.log(currentTypeFile);
+    // console.log("currentTypeFile");
+    // console.log(currentTypeFile);
     if (ownerOfFiles && user.id != undefined && currentTypeFile) {
       loadFiles();
     }
@@ -202,6 +202,8 @@ function Files() {
         <TypesFiles
           setCurrentTypeFile={setCurrentTypeFile}
           currentTypeFile={currentTypeFile}
+          filesChanged={filesChanged}
+          setFilesChanged={setFilesChanged}
         />
         {currentTypeFile ? (
           <div>

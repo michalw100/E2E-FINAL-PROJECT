@@ -6,7 +6,7 @@ import "../css/navBar.css";
 
 function Navbar() {
   const { user } = useContext(AuthContext);
-    console.log(user.role);
+    // console.log(user.role);
 
   const preventLink = (e) => {
     e.preventDefault();
