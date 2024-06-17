@@ -16,8 +16,7 @@ import Files from "./pages/Files.jsx";
 import MyClients from "./pages/MyClients.jsx";
 import { AuthProvider, AuthContext } from "./AuthContext";
 import UserDetails from "./pages/UserDetails.jsx";
-import TypeFile from "./components/TypeFile.jsx";
-import TypesFiles from "./pages/TypesFiles.jsx";
+import AdminDashboard from "./pages/AdminDashboard.jsx";
 
 function PrivateRoute({ children }) {
   const { user } = useContext(AuthContext);
@@ -36,6 +35,7 @@ function NestedRoutes() {
       <Route path="/logout" element={<Logout />} />
       <Route path="/userDetails" element={<UserDetails />} />
       <Route path="/userDetails/:id" element={<UserDetails />} />
+      <Route path="/adminDashboard" element={<AdminDashboard />} />
     </Routes>
   );
 }
