@@ -1,0 +1,132 @@
+const pool = require("../DB.js");
+
+async function getClientsEmployee(id) {
+  try {
+    const sql = 
+    "SELECT clients.id AS client_id, employees.id AS employee_id, client_users.id AS client_user_id FROM employees JOIN users ON employees.userID = users.id JOIN employee_client ON employee_client.employeeID = employees.id JOIN clients ON employee_client.clientID = clients.id JOIN users AS client_users ON clients.userID = client_users.id WHERE users.id = ?"
+      // "SELECT clients.id AS client_id, employees.id AS employee_id FROM employees JOIN users ON employees.userID = users.id JOIN employee_client ON employee_client.employeeID = employees.id JOIN clients ON employee_client.clientID = clients.id WHERE users.id = ?";
+    const result = await pool.query(sql, [id]);
+    // console.log("getID")
+    // console.log(result[0])
+    // console.log("1");
+    return result;
+  } catch (err) {
+    throw err;
+  }
+}
+
+async function getUser(id) {
+  try {
+    const sql =
+      "SELECT phone, email, name, userName, users.id, street, zipcode, city, users.addressID, role FROM users LEFT JOIN addresses ON users.addressID = addresses.addressID LEFT JOIN employees ON users.id = employees.userID WHERE users.id = ?";
+    const result = await pool.query(sql, [id]);
+    return result[0];
+  } catch (err) {
+    throw err;
+  }
+}
+
+async function getUserByPasswordAndUserName(userName) {
+  try {
+    const sql =
+      "SELECT password, phone, email, name, userName, users.id, street, zipcode, city, role FROM users NATURAL JOIN passwords LEFT JOIN addresses ON users.addressID = addresses.addressID LEFT JOIN employees ON users.id = employees.userID WHERE userName=?";
+    const result = await pool.query(sql, userName);
+    const user = result[0];
+
+    return user;
+  } catch (err) {
+    throw err;
+  }
+}
+
+async function getClientIDOrEmployeeIDByUserID(userID) {
+  try {
+    const sql =
+      "SELECT clients.id AS client_id, employees.id AS employee_id FROM users LEFT JOIN clients ON users.id = clients.userID LEFT JOIN employees ON users.id = employees.userID WHERE users.id = ?";
+    const result = await pool.query(sql, userID);
+    const id = result[0];
+    return id;
+  } catch (err) {
+    throw err;
+  }
+}
+
+async function createUser(userName, hashedPassword, employeType, role) {
+  try {
+    const sql = "INSERT INTO users (`userName`) VALUES(?)";
+    const newUser = await pool.query(sql, [userName]);
+    const sqlPassword = "INSERT INTO passwords (id, password) VALUES(?,?)";
+    const newPassword = await pool.query(sqlPassword, [
+      newUser[0].insertId,
+      hashedPassword,
+    ]);
+    switch (role) {
+      case "Admin":
+        {
+          const sql =
+            "INSERT INTO cbs_db.employees (`userID`, `role`) VALUES(?, ?)";
+          const newEmployee = await pool.query(sql, [
+            newUser[0].insertId,
+            "Admin",
+          ]);
+        }
+        break;
+      case "Employee":
+        {
+          const sql =
+            "INSERT INTO cbs_db.employees (`userID`, `role`) VALUES(?, ?)";
+          const newEmployee = await pool.query(sql, [
+            newUser[0].insertId,
+            employeType,
+          ]);
+        }
+        break;
+      case "Client":
+        {
+          const sql = "INSERT INTO cbs_db.clients (`userID`) VALUES(?)";
+          const newClient = await pool.query(sql, [newUser[0].insertId]);
+        }
+        break;
+      default:
+        break;
+    }
+    return newUser[0];
+  } catch (err) {
+    throw err;
+  }
+}
+const updateUser = async (id, userName, name, email, phone, street, city, zipcode) => {
+  const user = await getUser(id);
+  let address = user[0].addressID;
+  // console.log(address)
+  let resultAddress;
+  // console.log(address == null)
+
+  try {
+      if (address == null) {
+          const sqlAddress = "INSERT INTO addresses (`street`, `city`, `zipcode`) VALUES (?, ?, ?)";
+          const addressInsert = await pool.query(sqlAddress, [street, city, zipcode]);
+          resultAddress = addressInsert.insertId;
+      } else {
+          const sqlAddress = `UPDATE addresses SET street = ?, city = ?, zipcode = ? WHERE addressID = ?`;
+          await pool.query(sqlAddress, [street, city, zipcode, user[0].addressID]);
+          resultAddress = user[0].addressID;
+      }
+      const sql = `UPDATE users SET userName = ?, name = ?, email = ?, phone = ?, addressID = ? WHERE id = ?`;
+      const result = await pool.query(sql, [userName, name, email, phone, resultAddress, id]);
+      const user1 = await getUser(id);    
+      return result;
+  } catch (err) {
+      throw err;
+  }
+};
+
+
+module.exports = {
+  getClientsEmployee,
+  getUserByPasswordAndUserName,
+  createUser,
+  getUser,
+  updateUser,
+  getClientIDOrEmployeeIDByUserID
+};

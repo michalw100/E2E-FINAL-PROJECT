@@ -1,0 +1,71 @@
+@import url(https://dl.dropboxusercontent.com/u/15746367/fonts/carmela/style.css);
+@import url(https://fonts.googleapis.com/earlyaccess/alefhebrew.css);
+@import url(https://fonts.googleapis.com/earlyaccess/opensanshebrewcondensed.css);
+
+body {
+    /* font-size: 12px; */
+    margin: 0;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    opacity: 100%;
+}
+
+nav {
+
+    height: 18%;
+    /* font-size: 0; */
+    display: flex;
+    align-items: flex-end;
+    align-content: center;
+    background-color: white;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', 'Arial', 'sans-serif';
+    /* background-color: black; */
+    color: white;  
+    border-bottom: 2px solid black;
+    padding: 0;
+    justify-content: space-around;
+}
+
+
+nav a {
+    font-size: 20px;
+    text-decoration: none;
+    text-align: center;
+    color: black;
+    cursor: pointer;
+    text-shadow: 0 0 1px;
+    /* font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; */
+    padding: 10px 20px 10px 20px;
+}
+
+
+nav a:hover {
+    color: rgb(23, 0, 66);
+    transform: scale(1.2);
+}
+
+#logo {
+    order: 6;
+    height: 60px;
+}
+
+nav a {
+    transition: 0.7s;
+}
+
+
+@media screen and (max-width:500px) {
+
+    nav {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #logo {
+        display: none; 
+        order: -1;
+        height: 80px;
+        margin-right: auto;
+    }
+    
+}
+

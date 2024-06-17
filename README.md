@@ -1,1 +1,2 @@
-# E2E-FINAL-PROJECT
+# ProjectReactNodeMySQL
+Michal & Shira
