@@ -6,8 +6,6 @@ import axios from "axios";
 import File from "../components/File";
 import { FaSearch } from "react-icons/fa";
 import { TbDragDrop } from "react-icons/tb";
-import MyImage from "../pictures/Loading.gif";
-import { LiaSortSolid } from "react-icons/lia";
 import { FaSort } from "react-icons/fa6";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
@@ -25,7 +23,6 @@ function Files() {
   const [rejectedFiles, setRejectedFiles] = useState([]);
   const [serverFiles, setServerFiles] = useState([]);
   const [filesChanged, setFilesChanged] = useState(false);
-  const [dateQuery, setDateQuery] = useState("");
   const [searchCriteria, setSearchCriteria] = useState("");
   const [sortCriteria, setSortCriteria] = useState("dating");
   const [filteredFiles, setFilteredFiles] = useState();
@@ -132,7 +129,6 @@ function Files() {
   const handleUpload = async () => {
     const formData = new FormData();
     files.forEach((file) => {
-      // console.log("Client: file.name before upload", file.name);
       formData.append("files", file);
     });
     formData.append("uploaderID", user.id);
@@ -217,17 +213,26 @@ function Files() {
                   </p>
                 </div>
                 {files.length > 0 && (
-                  <div className="files-container">
-                    <h4>Files to be uploaded:</h4>
-                    <ul>
-                      {files.map((file, index) => (
-                        <div key={index} className="file-box">
-                          <span className="file-name">
-                            {file.path || file.name}
-                          </span>
-                        </div>
-                      ))}
-                    </ul>
+                  <div>
+                    <div className="files-container">
+                      <h4>Files to be uploaded:</h4>
+                      <ul>
+                        {files.map((file, index) => (
+                          <div key={index} className="file-box">
+                            <span className="file-name">
+                              {file.path || file.name}
+                            </span>
+                          </div>
+                        ))}
+                      </ul>
+                    </div>
+                    {uploadStatus != "uploading files..." ? (
+                      <button className="upload-btn" onClick={handleUpload}>
+                        Upload
+                      </button>
+                    ) : (
+                      <></>
+                    )}
                   </div>
                 )}
                 {rejectedFiles.length > 0 && (
@@ -244,9 +249,6 @@ function Files() {
                     <p>Only PDF files are allowed.</p>
                   </div>
                 )}
-                <button className="upload-btn" onClick={handleUpload}>
-                  Upload
-                </button>
               </div>
             )}
             {uploadStatus && <p>{uploadStatus}</p>}
