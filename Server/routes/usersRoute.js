@@ -1,13 +1,13 @@
 const express = require("express");
 const router = express.Router();
-const { sendMail } = require('../services/mailService');
+const { sendMail } = require("../services/mailService");
 const {
   getById,
   getClientsEmployee,
   update,
   getClients,
-  // getClientIDOrEmployeeIDByUserID,
-  getEmployees
+  getConnections,
+  getEmployees,
 } = require("../controllers/usersController");
 
 router.use(express.json());
@@ -16,8 +16,30 @@ router.use(express.urlencoded({ extended: true }));
 router.get("/clients", async (req, res) => {
   try {
     const id = req.query.id;
-    const clientOfEmployee = await getClientsEmployee(id);
+    let clientOfEmployee = null;
+    console.log("id");
+    console.log(id);
+    if (id != null) clientOfEmployee = await getClientsEmployee(id);
+    else clientOfEmployee = await getClients(id);
     res.status(200).send(clientOfEmployee);
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+});
+
+router.get("/employees", async (req, res) => {
+  try {
+    const employees = await getEmployees();
+    res.status(200).send(employees);
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+});
+
+router.get("/connections", async (req, res) => {
+  try {
+    const employees = await getConnections();
+    res.status(200).send(employees);
   } catch (err) {
     res.status(500).send({ message: err.message });
   }
@@ -38,25 +60,6 @@ router.get("/", async (req, res) => {
     const id = req.query.id;
     const user = await getById(id);
     res.status(200).send(user);
-  } catch (err) {
-    res.status(500).send({ message: err.message });
-  }
-});
-
-router.get("/employees", async (req, res) => {
-  try {
-    const employees = await getEmployees();
-    res.status(200).send(employees);
-  } catch (err) {
-    res.status(500).send({ message: err.message });
-  }
-});
-
-
-router.get("/clients", async (req, res) => {
-  try {
-    const clients = await getClients();
-    res.status(200).send(clients);
   } catch (err) {
     res.status(500).send({ message: err.message });
   }

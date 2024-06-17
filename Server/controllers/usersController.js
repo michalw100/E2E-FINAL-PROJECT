@@ -3,6 +3,16 @@ const bcrypt = require("bcrypt");
 const { AbilityBuilder, Ability } = require('@casl/ability');
 const { defineAbilitiesFor } = require('../Middlewares/abilities');
 
+async function getConnections() {
+  try {
+    const connections = await model.getConnections();
+    // console.log(clientsEmployee[0]);
+    return connections[0];
+  } catch (err) {
+    throw err;
+  }
+}
+
 async function getClientsEmployee(id) {
   try {
     const clientsEmployee = await model.getClientsEmployee(id);
@@ -17,7 +27,7 @@ async function getEmployees() {
   try {
     const employees = await model.getEmployees();
     // console.log(clientsEmployee[0]);
-    return getEmployees[0];
+    return employees[0];
   } catch (err) {
     throw err;
   }
@@ -26,9 +36,9 @@ async function getEmployees() {
 
 async function getClients() {
   try {
-    const employees = await model.getClients();
+    const clients = await model.getClients();
     // console.log(clientsEmployee[0]);
-    return getEmployees[0];
+    return clients[0];
   } catch (err) {
     throw err;
   }
@@ -141,5 +151,6 @@ module.exports = {
   getById,
   sendToOurEmail,
   getEmployees,
-  getClients
+  getClients,
+  getConnections
 };

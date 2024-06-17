@@ -2,8 +2,8 @@ const pool = require("../DB.js");
 
 async function getEmployees() {
   try {
-    const sql = 
-    "SELECT * from employees LEFT JOIN users ON employees.userID = users.id where role!=`Admin`"
+    const sql =
+      `SELECT * from employees LEFT JOIN users ON employees.userID = users.id where role!="Admin"`;
     const result = await pool.query(sql);
     return result;
   } catch (err) {
@@ -13,8 +13,8 @@ async function getEmployees() {
 
 async function getClients() {
   try {
-    const sql = 
-    "SELECT * from clients LEFT JOIN users ON clients.userID = users.id"
+    const sql =
+      "SELECT * from clients LEFT JOIN users ON clients.userID = users.id";
     const result = await pool.query(sql);
     return result;
   } catch (err) {
@@ -22,12 +22,27 @@ async function getClients() {
   }
 }
 
-async function getEmployees() {
+async function getClientsEmployee(id) {
   try {
-    const sql = 
-    "SELECT clients.id AS client_id, employees.id AS employee_id, client_users.id AS client_user_id FROM employees JOIN users ON employees.userID = users.id JOIN employee_client ON employee_client.employeeID = employees.id JOIN clients ON employee_client.clientID = clients.id JOIN users AS client_users ON clients.userID = client_users.id WHERE users.id = ?"
-      // "SELECT clients.id AS client_id, employees.id AS employee_id FROM employees JOIN users ON employees.userID = users.id JOIN employee_client ON employee_client.employeeID = employees.id JOIN clients ON employee_client.clientID = clients.id WHERE users.id = ?";
+    const sql =
+      "SELECT clients.id AS client_id, employees.id AS employee_id, client_users.id AS client_user_id FROM employees JOIN users ON employees.userID = users.id JOIN employee_client ON employee_client.employeeID = employees.id JOIN clients ON employee_client.clientID = clients.id JOIN users AS client_users ON clients.userID = client_users.id WHERE users.id = ?";
+    // "SELECT clients.id AS client_id, employees.id AS employee_id FROM employees JOIN users ON employees.userID = users.id JOIN employee_client ON employee_client.employeeID = employees.id JOIN clients ON employee_client.clientID = clients.id WHERE users.id = ?";
     const result = await pool.query(sql, [id]);
+    // console.log("getID")
+    // console.log(result[0])
+    // console.log("1");
+    return result;
+  } catch (err) {
+    throw err;
+  }
+}
+
+async function getConnections() {
+  try {
+    const sql =
+      "SELECT clients.id AS client_id, employees.id AS employee_id, client_users.id AS client_user_id,employees.userID AS employee_user_id FROM employees JOIN users ON employees.userID = users.id JOIN employee_client ON employee_client.employeeID = employees.id JOIN clients ON employee_client.clientID = clients.id JOIN users AS client_users ON clients.userID = client_users.id";
+    // "SELECT clients.id AS client_id, employees.id AS employee_id FROM employees JOIN users ON employees.userID = users.id JOIN employee_client ON employee_client.employeeID = employees.id JOIN clients ON employee_client.clientID = clients.id WHERE users.id = ?";
+    const result = await pool.query(sql);
     // console.log("getID")
     // console.log(result[0])
     // console.log("1");
@@ -117,7 +132,16 @@ async function createUser(userName, hashedPassword, employeType, role) {
     throw err;
   }
 }
-const updateUser = async (id, userName, name, email, phone, street, city, zipcode) => {
+const updateUser = async (
+  id,
+  userName,
+  name,
+  email,
+  phone,
+  street,
+  city,
+  zipcode
+) => {
   const user = await getUser(id);
   let address = user[0].addressID;
   // console.log(address)
@@ -125,24 +149,35 @@ const updateUser = async (id, userName, name, email, phone, street, city, zipcod
   // console.log(address == null)
 
   try {
-      if (address == null) {
-          const sqlAddress = "INSERT INTO addresses (`street`, `city`, `zipcode`) VALUES (?, ?, ?)";
-          const addressInsert = await pool.query(sqlAddress, [street, city, zipcode]);
-          resultAddress = addressInsert.insertId;
-      } else {
-          const sqlAddress = `UPDATE addresses SET street = ?, city = ?, zipcode = ? WHERE addressID = ?`;
-          await pool.query(sqlAddress, [street, city, zipcode, user[0].addressID]);
-          resultAddress = user[0].addressID;
-      }
-      const sql = `UPDATE users SET userName = ?, name = ?, email = ?, phone = ?, addressID = ? WHERE id = ?`;
-      const result = await pool.query(sql, [userName, name, email, phone, resultAddress, id]);
-      const user1 = await getUser(id);    
-      return result;
+    if (address == null) {
+      const sqlAddress =
+        "INSERT INTO addresses (`street`, `city`, `zipcode`) VALUES (?, ?, ?)";
+      const addressInsert = await pool.query(sqlAddress, [
+        street,
+        city,
+        zipcode,
+      ]);
+      resultAddress = addressInsert.insertId;
+    } else {
+      const sqlAddress = `UPDATE addresses SET street = ?, city = ?, zipcode = ? WHERE addressID = ?`;
+      await pool.query(sqlAddress, [street, city, zipcode, user[0].addressID]);
+      resultAddress = user[0].addressID;
+    }
+    const sql = `UPDATE users SET userName = ?, name = ?, email = ?, phone = ?, addressID = ? WHERE id = ?`;
+    const result = await pool.query(sql, [
+      userName,
+      name,
+      email,
+      phone,
+      resultAddress,
+      id,
+    ]);
+    const user1 = await getUser(id);
+    return result;
   } catch (err) {
-      throw err;
+    throw err;
   }
 };
-
 
 module.exports = {
   getClients,
@@ -151,5 +186,7 @@ module.exports = {
   createUser,
   getUser,
   updateUser,
-  getClientIDOrEmployeeIDByUserID
+  getClientIDOrEmployeeIDByUserID,
+  getClientsEmployee,
+  getConnections,
 };

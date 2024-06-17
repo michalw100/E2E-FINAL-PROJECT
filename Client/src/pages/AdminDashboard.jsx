@@ -57,9 +57,9 @@ const relationships = [
 ];
 
 const AdminDashboard = () => {
-  const [clients, setClients] = useState(initialClients);
-  const [employees, setEmployees] = useState(initialEmployees);
-  const [clientsemployees, setclientsemployees] = useState(relationships);
+  const [clients, setClients] = useState([]);
+  const [employees, setEmployees] = useState([]);
+  const [clientsemployees, setclientsemployees] = useState([]);
   const [selectedClient, setSelectedClient] = useState(null);
   const [selectedEmployee, setSelectedEmployee] = useState(null);
   const [employeeColors, setEmployeeColors] = useState({});
@@ -70,54 +70,78 @@ const AdminDashboard = () => {
   };
 
   useEffect(() => {
-    // Fetch clients
     fetchClients();
-    // Fetch employees
     fetchEmployees();
+    fetchConnections();
 
     const colors = {};
     initialEmployees.forEach((employee) => {
-      colors[employee.id] = getRandomColor();
+      colors[employee.userID] = getRandomColor();
     });
     setEmployeeColors(colors);
-  }, []);
+  }, [selectedClient, selectedEmployee]);
 
   const fetchClients = async () => {
-    // try {
-    //   const response = await fetch("http://localhost:3000/users/clients", {
-    //     method: "GET",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     credentials: "include",
-    //   });
-    //   if (!response.ok) {
-    //     throw new Error(`HTTP error! status: ${response.status}`);
-    //   }
-    //   const data = await response.json();
-    //   setClients(data);
-    // } catch (error) {
-    //   console.error("Error fetching clients:", error.message);
-    // }
+    try {
+      const response = await fetch("http://localhost:3000/users/clients", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      console.log("fetchClients");
+      console.log(data);
+      setClients(data);
+    } catch (error) {
+      console.error("Error fetching clients:", error.message);
+    }
   };
 
   const fetchEmployees = async () => {
-    // try {
-    //   const response = await fetch("http://localhost:3000/users/employees", {
-    //     method: "GET",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     credentials: "include",
-    //   });
-    //   if (!response.ok) {
-    //     throw new Error(`HTTP error! status: ${response.status}`);
-    //   }
-    //   const data = await response.json();
-    //   setEmployees(data);
-    // } catch (error) {
-    //   console.error("Error fetching employees:", error.message);
-    // }
+    try {
+      const response = await fetch("http://localhost:3000/users/employees", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      console.log("fetchEmployees");
+      console.log(data);
+      setEmployees(data);
+    } catch (error) {
+      console.error("Error fetching employees:", error.message);
+    }
+  };
+
+  const fetchConnections = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/users/connections", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      console.log("fetchConnections");
+      console.log(data);
+      setclientsemployees(data);
+    } catch (error) {
+      console.error("Error fetching employees:", error.message);
+    }
   };
 
   const handleClientClick = (client) => {
@@ -131,13 +155,14 @@ const AdminDashboard = () => {
   // קוד JavaScript כדי להוסיף את הקווים באופן דינמי
   useEffect(() => {
     // עבור כל מערך בין לקוח ועובד, ליצור קו
-    relationships.forEach((relation) => {
-      const client = clients.find((c) => c.id === relation.clientId);
-      const employee = employees.find((e) => e.id === relation.employeeId);
+    clientsemployees.forEach((connectoin) => {
+      const client = clients.find((c) => c.id === connectoin.client_user_id);
+      const employee = employees.find((e) => e.id === connectoin.employee_user_id
+    );
       if (client && employee) {
-        const clientElement = document.querySelector(`#client-${client.id}`);
+        const clientElement = document.querySelector(`#client-${client.userID}`);
         const employeeElement = document.querySelector(
-          `#employee-${employee.id}`
+          `#employee-${employee.userID}`
         );
         if (clientElement && employeeElement) {
           const clientRect = clientElement.getBoundingClientRect();
@@ -159,13 +184,13 @@ const AdminDashboard = () => {
           relationshipLine.style.width = `${length}px`;
           relationshipLine.style.transform = `rotate(${angle}deg)`;
           relationshipLine.style.transformOrigin = "0 0"; // הגדר את נקודת התחלת הסיבוב לתחילת הקו
-          relationshipLine.style.backgroundColor = employeeColors[employee.id]; // קבע צבע לפי העובד
-          relationshipLine.style.borderColor = employeeColors[employee.id]; // קבע צבע המסגרת לפי העובד
+          relationshipLine.style.backgroundColor = employeeColors[employee.userID]; // קבע צבע לפי העובד
+          relationshipLine.style.borderColor = employeeColors[employee.userID]; // קבע צבע המסגרת לפי העובד
           document.body.appendChild(relationshipLine);
         }
       }
     });
-  }, [clients, employees, relationships, employeeColors]);
+  }, [clients, employees, clientsemployees, employeeColors]);
 
   const getEmployeeMargin = () => {
     if (employees.length >= clients.length) return "10px";
@@ -188,13 +213,13 @@ const AdminDashboard = () => {
         <ul>
           {clients.map((client) => (
             <li
-              key={client.id}
+              key={client.userID}
               style={{
                 marginBottom: getClientMargin(),
               }}
             >
               <div onClick={() => handleClientClick(client)}>{client.name}</div>
-              <div id={`client-${client.id}`} className="circle-button">
+              <div id={`client-${client.userID}`} className="circle-button">
                 {client.name.charAt(0)}
               </div>
             </li>
@@ -206,16 +231,16 @@ const AdminDashboard = () => {
         <ul>
           {employees.map((employee) => (
             <li
-              key={employee.id}
+              key={employee.userID}
               style={{
                 marginBottom: getEmployeeMargin(),
               }}
             >
               <div
                 style={{
-                  backgroundColor: employeeColors[employee.id],
+                  backgroundColor: employeeColors[employee.userID],
                 }}
-                id={`employee-${employee.id}`}
+                id={`employee-${employee.userID}`}
                 className="circle-button"
               >
                 {employee.name.charAt(0)}
