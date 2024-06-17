@@ -23,6 +23,17 @@ async function getEmployees() {
   }
 }
 
+
+async function getClients() {
+  try {
+    const employees = await model.getClients();
+    // console.log(clientsEmployee[0]);
+    return getEmployees[0];
+  } catch (err) {
+    throw err;
+  }
+}
+
 // async function getClientIDOrEmployeeIDByUserID(id) {
 //   try {
 //     const type = await model.getClientIDOrEmployeeIDByUserID(id);
@@ -129,5 +140,6 @@ module.exports = {
   create,
   getById,
   sendToOurEmail,
-  getEmployees
+  getEmployees,
+  getClients
 };

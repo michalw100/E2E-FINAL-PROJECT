@@ -5,6 +5,7 @@ const {
   getById,
   getClientsEmployee,
   update,
+  getClients,
   // getClientIDOrEmployeeIDByUserID,
   getEmployees
 } = require("../controllers/usersController");
@@ -46,6 +47,16 @@ router.get("/employees", async (req, res) => {
   try {
     const employees = await getEmployees();
     res.status(200).send(employees);
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+});
+
+
+router.get("/clients", async (req, res) => {
+  try {
+    const clients = await getClients();
+    res.status(200).send(clients);
   } catch (err) {
     res.status(500).send({ message: err.message });
   }

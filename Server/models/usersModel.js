@@ -11,6 +11,17 @@ async function getEmployees() {
   }
 }
 
+async function getClients() {
+  try {
+    const sql = 
+    "SELECT * from clients LEFT JOIN users ON clients.userID = users.id"
+    const result = await pool.query(sql);
+    return result;
+  } catch (err) {
+    throw err;
+  }
+}
+
 async function getEmployees() {
   try {
     const sql = 
@@ -134,6 +145,7 @@ const updateUser = async (id, userName, name, email, phone, street, city, zipcod
 
 
 module.exports = {
+  getClients,
   getEmployees,
   getUserByPasswordAndUserName,
   createUser,
