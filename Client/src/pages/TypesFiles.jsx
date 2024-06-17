@@ -57,6 +57,7 @@ const TypesFiles = ({
         return response;
       })
       .then((data) => {
+        console.log("im hereeeee")
         setFilesChanged(!filesChanged);
         return;
       });

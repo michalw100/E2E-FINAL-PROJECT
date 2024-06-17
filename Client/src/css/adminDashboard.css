@@ -1,0 +1,45 @@
+/* עיצוב לדף הניהול */
+.admin-dashboard {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* סגנונות עבור רשימות ופרטי פריטים */
+.clients-list,
+.employees-list {
+  width: 45%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  height: 80vh;
+  overflow-y: auto;
+}
+
+.clients-list ul,
+.employees-list ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.clients-list ul li,
+.employees-list ul li {
+  margin-bottom: 10px;
+}
+
+.details-section {
+  width: 45%;
+  padding: 10px;
+}
+
+.client-details,
+.employee-details {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.client-details h2,
+.employee-details h2 {
+  margin-top: 0;
+}

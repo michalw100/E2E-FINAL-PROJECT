@@ -6,7 +6,7 @@ import "../css/navBar.css";
 
 function Navbar() {
   const { user } = useContext(AuthContext);
-    console.log(user.role);
+    // console.log(user.role);
 
   const preventLink = (e) => {
     e.preventDefault();
@@ -39,6 +39,7 @@ function Navbar() {
       <Link to="./updates" >Updates</Link>
       {user.role!="Client" && (<Link to="./addUser">Add User</Link>)}
       {user.role!="Client" && (<Link to="./myClients">My Clients</Link>)}
+      {user.role=="Admin" && (<Link to="./adminDashboard">Admin Dashboard</Link>)}
       <Link to="./userDetails" onClick={clearClientID}>My Details</Link>
       <Link
         to="./myFiles"

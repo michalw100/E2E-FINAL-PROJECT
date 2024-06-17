@@ -5,5 +5,5 @@
 /client/dist
 
 # Environment files
-# /server/.env
-# /client/.env
+/server/.env
+/server/log.txt

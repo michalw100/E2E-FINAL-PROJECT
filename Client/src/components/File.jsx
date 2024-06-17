@@ -410,9 +410,9 @@ const File = ({ file, searchCriteria, filesChanged, setFilesChanged }) => {
   const remarkRef = useRef(null);
   const selectRef = useRef(null);
 
-console.log(user.role)
-console.log( file.uploaderID)
-console.log(user.id)
+  // console.log(user.role)
+  // console.log( file.uploaderID)
+  // console.log(user.id)
   const [{ isDragging }, drag] = useDrag(() => ({
     type: "FILE",
     item: { id: file.id, currentType: file.type },
@@ -421,7 +421,6 @@ console.log(user.id)
     }),
   }));
 
-  
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -437,27 +436,28 @@ console.log(user.id)
         changeRemark();
       }
     };
-  
+
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-
-    
   }, []);
   useEffect(() => {
     uploderName();
   }, []);
   const uploderName = async () => {
-    const data = await fetch(`http://localhost:3000/users?id=${file.uploaderID}`, {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
-    })
+    const data = await fetch(
+      `http://localhost:3000/users?id=${file.uploaderID}`,
+      {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+      }
+    );
     const user = await data.json();
-        console.log(user)
-        setUplodersName(user.name);
-        console.log(uplodersName)
+    // console.log(user)
+    setUplodersName(user.name);
+    // console.log(uplodersName)
   };
   const downloadFile = async () => {
     try {
@@ -493,11 +493,11 @@ console.log(user.id)
     }
   };
   const changeStatus = async (newStatus) => {
-    await fetch(`http://localhost:3000/files?id=${file.id}`, {
+    await fetch(`http://localhost:3000/files`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
-      body: JSON.stringify({ status: newStatus }),
+      body: JSON.stringify({ remark: null, status: newStatus, id: file.id }),
     })
       .then((response) => {
         if (!response.ok) {
@@ -534,16 +534,14 @@ console.log(user.id)
 
   const changeRemark = async () => {
     setIsEditing(!isEditing);
-
   };
 
-  const changeRemarkInTheDB = async()=>{
-    
-    await fetch(`http://localhost:3000/files?id=${file.id}`, {
+  const changeRemarkInTheDB = async () => {
+    await fetch(`http://localhost:3000/files`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
-      body: JSON.stringify({ remark: remark }),
+      body: JSON.stringify({ remark: remark, status: null, id: file.id }),
     })
       .then((response) => {
         if (!response.ok) {
@@ -556,8 +554,7 @@ console.log(user.id)
         setFilesChanged(!filesChanged);
         // setIsEditing(!isEditing);
       });
-
-  }
+  };
 
   const handleStatusChange = async (e) => {
     setSelectedStatus(e.target.value);
@@ -578,15 +575,12 @@ console.log(user.id)
     }, 0);
   };
   const employeeChangeStatus = () => {
-if(user.role != "Client")
-  setShowStatus(!showStatus);
-};
+    if (user.role != "Client") setShowStatus(!showStatus);
+  };
 
   const changeStatusEmployeeAndClient = () => {
-    if(user.role != "Client")
-    setShowStatus(!showStatus);
-  else if(user.role == "Client" && file.uploaderID != user.id)
-    {
+    if (user.role != "Client") setShowStatus(!showStatus);
+    else if (user.role == "Client" && file.uploaderID != user.id) {
       setShowStatus(!showStatus);
     }
   };
@@ -618,116 +612,140 @@ if(user.role != "Client")
       style={{ opacity: isDragging ? 0.5 : 1 }}
       className="draggable-file"
     >
-    {(file.name.toLowerCase().includes(searchCriteria) ||
+      {(file.name.toLowerCase().includes(searchCriteria) ||
         file.updatedAt.toLowerCase().includes(searchCriteria) ||
-        (file.remark && file.remark.toLowerCase().includes(searchCriteria))) && (
-          <div className="file-box">
-            <div className="file-info">
-              <div className="file-date">
-                <strong>{highlightSearchTerm(formatDate(file.updatedAt), searchCriteria)}</strong>
-              </div>
-              <div className="file-name">
-                <a
-                  href={viewFileUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="file-name"
-                >
-                  {highlightSearchTerm(file.name, searchCriteria)}
-                </a>
-              </div>
+        (file.remark &&
+          file.remark.toLowerCase().includes(searchCriteria))) && (
+        <div className="file-box">
+          <div className="file-info">
+            <div className="file-date">
+              <strong>
+                {highlightSearchTerm(
+                  formatDate(file.updatedAt),
+                  searchCriteria
+                )}
+              </strong>
             </div>
-            <div className="file-status-container">
-              <div className="header"><strong>status</strong></div>
-              {!showStatus && (
-                <div
-                  className="file-status"
-                  style={{
-                    background:
-                      status === "Absorbed"
-                        ? "rgb(114 164 216)"
-                        : status === "Accepted"
-                          ? "#90e290"
-                          : status === "Postponed"
-                            ? "#d85a5a"
-                            : "rgb(178 174 174)",
-                  }}
-                  onClick={() => {
-                    employeeChangeStatus();
-                    changeStatusEmployeeAndClient();
-                  }}
-                >
-                  {status}
-                </div>
-              )}
-              {showStatus && (
-                <select
-                  ref={selectRef}
-                  value={selectedStatus}
-                  onKeyDown={handleKeyPress}
-                  onChange={handleStatusChange}
-                  onBlur={() => setShowStatus(!showStatus)}
-                >
-                {  user.role == "Client" && file.uploaderID != user.id &&
-                <>
-                  <option value={status}>Select status...</option>
-                 <option value="Accepted">Accepted</option></> } 
-                 {  user.role != "Client" &&
-                <>
-                  <option value={status}>Select status...</option>
-                  <option value="Accepted">Accepted</option>
-                  <option value="Postponed">Postponed</option>
-                  <option value="Absorbed">Absorbed</option></> } 
-                </select>
-              )}
-
-            </div>
-            <div className="file-comments">
-              <div className="header"><strong>remark</strong>
-              </div>
-              {isEditing &&
-                <input
-                  type="text"
-                  ref={remarkRef}
-                  value={remark}
-                  onChange={handleRemarkChange}
-                  onKeyDown={handleKeyPress}
-                  onBlur={()=>{changeRemarkInTheDB(),changeRemark()}}               />
-              }
-              {<div style={{ cursor: "pointer" }}>
-              {status !== "Deleted" && <button className="update" onClick={() => {  changeRemarkInTheDB(),changeRemark(), toggleEdit() }}>
-                  <FaPencil /></button>}
-                {!isEditing && remark}
-              </div>
-              }
-            </div>
-            <div className="header"><strong>uploader</strong>
-          <br/>
-              {uplodersName}
-              </div>
-            <div className="file-actions">
-              {status !== "Deleted" && (
-                <button className="download" onClick={downloadFile}>
-                  <FaDownload />
-                </button>
-              )}
-              {status !== "Deleted" ? (
-                <button className="delete" onClick={deleteFile}>
-                  <MdDelete />
-                </button>
-              ) : (
-                <button className="delete" onClick={nodeleteFile}>
-                  <MdDeleteForever />
-                </button>
-              )}
-              <button className="comments" onClick={commentsFunc}>
-                <FaComments />
-              </button>
+            <div className="file-name">
+              <a
+                href={viewFileUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="file-name"
+              >
+                {highlightSearchTerm(file.name, searchCriteria)}
+              </a>
             </div>
           </div>
-        )}
+          <div className="file-status-container">
+            <div className="header">
+              <strong>status</strong>
+            </div>
+            {!showStatus && (
+              <div
+                className="file-status"
+                style={{
+                  background:
+                    status === "Absorbed"
+                      ? "rgb(114 164 216)"
+                      : status === "Accepted"
+                      ? "#90e290"
+                      : status === "Postponed"
+                      ? "#d85a5a"
+                      : "rgb(178 174 174)",
+                }}
+                onClick={() => {
+                  employeeChangeStatus();
+                  changeStatusEmployeeAndClient();
+                }}
+              >
+                {status}
+              </div>
+            )}
+            {showStatus && (
+              <select
+                ref={selectRef}
+                value={selectedStatus}
+                onKeyDown={handleKeyPress}
+                onChange={handleStatusChange}
+                onBlur={() => setShowStatus(!showStatus)}
+              >
+                {user.role == "Client" && file.uploaderID != user.id && (
+                  <>
+                    <option value={status}>Select status...</option>
+                    <option value="Accepted">Accepted</option>
+                  </>
+                )}
+                {user.role != "Client" && (
+                  <>
+                    <option value={status}>Select status...</option>
+                    <option value="Accepted">Accepted</option>
+                    <option value="Postponed">Postponed</option>
+                    <option value="Absorbed">Absorbed</option>
+                  </>
+                )}
+              </select>
+            )}
+          </div>
+          <div className="file-comments">
+            <div className="header">
+              <strong>remark</strong>
+            </div>
+            {isEditing && (
+              <input
+                type="text"
+                ref={remarkRef}
+                value={remark}
+                onChange={handleRemarkChange}
+                onKeyDown={handleKeyPress}
+                onBlur={() => {
+                  changeRemarkInTheDB(), changeRemark();
+                }}
+              />
+            )}
+            {
+              <div style={{ cursor: "pointer" }}>
+                {status !== "Deleted" && (
+                  <button
+                    className="update"
+                    onClick={() => {
+                      changeRemarkInTheDB(), changeRemark(), toggleEdit();
+                    }}
+                  >
+                    <FaPencil />
+                  </button>
+                )}
+                {!isEditing && remark}
+              </div>
+            }
+          </div>
+          <div className="header">
+            <strong>uploader</strong>
+            <br />
+            {uplodersName}
+          </div>
+          <div className="file-actions">
+            {status !== "Deleted" && (
+              <button className="download" onClick={downloadFile}>
+                <FaDownload />
+              </button>
+            )}
+            {status !== "Deleted" ? (
+              <button className="delete" onClick={deleteFile}>
+                <MdDelete />
+              </button>
+            ) : (
+              <button className="delete" onClick={nodeleteFile}>
+                <MdDeleteForever />
+              </button>
+            )}
+            <button className="comments" onClick={commentsFunc}>
+              <FaComments />
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
 export default File;
-
