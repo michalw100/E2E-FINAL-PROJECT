@@ -1,9 +1,6 @@
 const pool = require("../DB.js");
 
 async function saveFileToDB(fileId, fileName, type, uploaderID, clientID) {
-  // console.log("fileName");
-  // console.log(fileName);
-
   const sql = `INSERT INTO files (driveFileId, name, type, uploaderID, clientID, status) VALUES (?, ?, ?, ?, ?, ?)`;
   const newFile = await pool.query(sql, [
     fileId,

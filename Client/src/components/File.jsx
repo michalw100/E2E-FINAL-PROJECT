@@ -448,7 +448,7 @@ console.log(user.id)
   useEffect(() => {
     uploderName();
   }, []);
-  const uploderName = async (newStatus) => {
+  const uploderName = async () => {
     const data = await fetch(`http://localhost:3000/users?id=${file.uploaderID}`, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
@@ -534,6 +534,11 @@ console.log(user.id)
 
   const changeRemark = async () => {
     setIsEditing(!isEditing);
+
+  };
+
+  const changeRemarkInTheDB = async()=>{
+    
     await fetch(`http://localhost:3000/files?id=${file.id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -549,10 +554,11 @@ console.log(user.id)
       .then((data) => {
         // console.log(filesChanged)
         setFilesChanged(!filesChanged);
-        setIsEditing(!isEditing);
-        return;
+        // setIsEditing(!isEditing);
       });
-  };
+
+  }
+
   const handleStatusChange = async (e) => {
     setSelectedStatus(e.target.value);
     const newStatus = e.target.value;
@@ -686,10 +692,10 @@ if(user.role != "Client")
                   value={remark}
                   onChange={handleRemarkChange}
                   onKeyDown={handleKeyPress}
-                  onBlur={changeRemark}                />
+                  onBlur={()=>{changeRemarkInTheDB(),changeRemark()}}               />
               }
               {<div style={{ cursor: "pointer" }}>
-              {status !== "Deleted" && <button className="update" onClick={() => { toggleEdit() }}>
+              {status !== "Deleted" && <button className="update" onClick={() => {  changeRemarkInTheDB(),changeRemark(), toggleEdit() }}>
                   <FaPencil /></button>}
                 {!isEditing && remark}
               </div>
