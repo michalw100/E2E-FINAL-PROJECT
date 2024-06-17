@@ -6,6 +6,7 @@ const {
   getClientsEmployee,
   update,
   // getClientIDOrEmployeeIDByUserID,
+  getEmployees
 } = require("../controllers/usersController");
 
 router.use(express.json());
@@ -36,6 +37,15 @@ router.get("/", async (req, res) => {
     const id = req.query.id;
     const user = await getById(id);
     res.status(200).send(user);
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+});
+
+router.get("/employees", async (req, res) => {
+  try {
+    const employees = await getEmployees();
+    res.status(200).send(employees);
   } catch (err) {
     res.status(500).send({ message: err.message });
   }

@@ -1,6 +1,17 @@
 const pool = require("../DB.js");
 
-async function getClientsEmployee(id) {
+async function getEmployees() {
+  try {
+    const sql = 
+    "SELECT * from employees LEFT JOIN users ON employees.userID = users.id where role!=`Admin`"
+    const result = await pool.query(sql);
+    return result;
+  } catch (err) {
+    throw err;
+  }
+}
+
+async function getEmployees() {
   try {
     const sql = 
     "SELECT clients.id AS client_id, employees.id AS employee_id, client_users.id AS client_user_id FROM employees JOIN users ON employees.userID = users.id JOIN employee_client ON employee_client.employeeID = employees.id JOIN clients ON employee_client.clientID = clients.id JOIN users AS client_users ON clients.userID = client_users.id WHERE users.id = ?"
@@ -123,7 +134,7 @@ const updateUser = async (id, userName, name, email, phone, street, city, zipcod
 
 
 module.exports = {
-  getClientsEmployee,
+  getEmployees,
   getUserByPasswordAndUserName,
   createUser,
   getUser,
