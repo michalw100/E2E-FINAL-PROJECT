@@ -52,6 +52,29 @@ async function getConnections() {
   }
 }
 
+
+
+async function employeeToClient(employeeID, clientID) {
+  try {
+    const sql = "INSERT INTO employee_client (employeeID, clientID) VALUES (?, ?)";
+    const result = await pool.query(sql, [employeeID, clientID]);
+    return result;
+  } catch (err) {
+    throw err;
+  }
+}
+
+
+async function updateConnection(employeeID, clientID, id) {
+  try {
+    const sql = "UPDATE employee_client SET employeeID = ?, clientID = ? WHERE id = ?";
+    const result = await pool.query(sql, [employeeID, clientID, id]);
+    return result;
+  } catch (err) {
+    throw err;
+  }
+}
+
 async function getUser(id) {
   try {
     const sql =
@@ -189,4 +212,6 @@ module.exports = {
   getClientIDOrEmployeeIDByUserID,
   getClientsEmployee,
   getConnections,
+  employeeToClient,
+  updateConnection
 };

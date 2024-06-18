@@ -8,6 +8,8 @@ const {
   getClients,
   getConnections,
   getEmployees,
+  employeeToClient,
+  updateConnection
 } = require("../controllers/usersController");
 
 router.use(express.json());
@@ -55,14 +57,28 @@ router.get("/connections", async (req, res) => {
 //   }
 // });
 
-router.get("/", async (req, res) => {
+router.post("/connection", async (req, res) => {
   try {
-    const id = req.query.id;
-    const user = await getById(id);
-    res.status(200).send(user);
+    const employeeID = req.body.employeeID;
+    const clientID = req.body.clientID;
+    const connection = await employeeToClient(employeeID, clientID);
+    res.status(200).send(connection);
   } catch (err) {
     res.status(500).send({ message: err.message });
   }
+
+  
+router.put("/connection", async (req, res) => {
+  try {
+    const employeeID = req.body.employeeID;
+    const clientID = req.body.clientID;
+    const id = req.body.id;
+    const connection = await updateConnection(employeeID, clientID, id);
+    res.status(200).send(connection);
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+});
 });
 
 router.put("/", async (req, res) => {

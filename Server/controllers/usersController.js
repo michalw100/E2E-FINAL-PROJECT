@@ -13,6 +13,27 @@ async function getConnections() {
   }
 }
 
+
+async function employeeToClient(employeeID, clientID) {
+  try {
+    const connections = await model.employeeToClient(employeeID, clientID);
+    // console.log(clientsEmployee[0]);
+    return connections[0];
+  } catch (err) {
+    throw err;
+  }
+}
+
+async function updateConnection(employeeID, clientID, id) {
+  try {
+    const connections = await model.updateConnection(employeeID, clientID, id);
+    // console.log(clientsEmployee[0]);
+    return connections[0];
+  } catch (err) {
+    throw err;
+  }
+}
+
 async function getClientsEmployee(id) {
   try {
     const clientsEmployee = await model.getClientsEmployee(id);
@@ -152,5 +173,7 @@ module.exports = {
   sendToOurEmail,
   getEmployees,
   getClients,
-  getConnections
+  getConnections,
+  employeeToClient,
+  updateConnection
 };
