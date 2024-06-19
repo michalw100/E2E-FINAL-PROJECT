@@ -37,15 +37,12 @@ export const AuthProvider = ({ children }) => {
 
   const signIn = async (userName, password) => {
     try {
-      const response = await fetch(
-        `http://localhost:3000/signIn`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          credentials: "include",
-          body: JSON.stringify({ userName, password })
-        }
-      );
+      const response = await fetch(`http://localhost:3000/signIn`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ userName, password }),
+      });
       const userFromDB = await response.json();
       // console.log(userFromDB)
       if (response.ok) {
@@ -101,7 +98,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, signIn, logout, signUp }}>
+    <AuthContext.Provider value={{ user, setUser, signIn, logout, signUp }}>
       {user === undefined ? null : children}
     </AuthContext.Provider>
   );

@@ -109,7 +109,7 @@ const UserDetails = () => {
         if (updatedUser) {
           setUserDetails(updatedUser);
           setSignUpError("The user has been updated successfully");
-          // setUser(updatedUser);
+          setUser(updatedUser);
           // setTimeout(() => {
           //   navigate("/updates");
           // }, 3000);
