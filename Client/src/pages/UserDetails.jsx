@@ -27,8 +27,6 @@ const UserDetails = () => {
     city: currentUser?.city || "",
     zipcode: currentUser?.zipcode || "",
     phone: currentUser?.phone || "",
-    deductionsFile: currentUser?.deductionsFile || "",
-    parentClientID: currentUser?.parentClientID || "",
   });
 
   useEffect(() => {
@@ -77,8 +75,6 @@ const UserDetails = () => {
         city: currentUser.city || "",
         zipcode: currentUser.zipcode || "",
         phone: currentUser.phone || "",
-        deductionsFile: currentUser.deductionsFile || "",
-        parentClientID: currentUser.parentClientID || "",
       });
     }
   }, [currentUser]);
@@ -99,9 +95,7 @@ const UserDetails = () => {
       userDetails.city === "" &&
       userDetails.email === "" &&
       userDetails.zipcode === "" &&
-      userDetails.phone === "" &&
-      userDetails.deductionsFile === "" &&
-      userDetails.parentClientID === ""
+      userDetails.phone === "" 
     ) {
       setSignUpError("Please fill at least one field.");
       return;
@@ -117,7 +111,6 @@ const UserDetails = () => {
     fetch(`http://localhost:3000/users/user?id=${currentUser.id}`, requestOptions)
       .then((response) => response.json())
       .then((updatedUser) => {
-        // console.log(updatedUser)
         setUserDetails(updatedUser);
         setSignUpError("The user has been updated successfully");
         setTimeout(() => {
@@ -196,26 +189,8 @@ const UserDetails = () => {
         onChange={handleChange}
       />
       <br />
-      <input
-        type="text"
-        className="input"
-        value={userDetails.deductionsFile || ""}
-        name="deductionsFile"
-        placeholder="deductionsFile"
-        onChange={handleChange}
-      />
-      <br />
-      <input
-        type="text"
-        className="input"
-        value={userDetails.parentClientID || ""}
-        name="parentClientID"
-        placeholder="parentClientID"
-        onChange={handleChange}
-      />
-      <br />
       {signUpError && (
-        <p className="error" style={{ color: "red" }}>
+        <p className="error" style={{ color:  signUpError=="The user has been updated successfully"? "green":"red" }}>
           {signUpError}
         </p>
       )}

@@ -157,19 +157,15 @@ async function createUser(userName, hashedPassword, employeType, role) {
     throw err;
   }
 }
-const updateUser = async (
-  id,
-  userName,
-  name,
-  email,
-  phone,
-  street,
-  city,
-  zipcode
-) => {
+const updateUser = async (id, userName, name, email, phone, street, city, zipcode) => {
   const user = await getUser(id);
   let address = user[0].addressID;
-  // console.log(address)
+  console.log(userName+" "
+   + name + " " +
+    email+ " " +
+    phone+ " " +
+    resultAddress+ " " +
+    id)
   let resultAddress;
   // console.log(address == null)
 
@@ -198,7 +194,7 @@ const updateUser = async (
       id,
     ]);
     const user1 = await getUser(id);
-    return result;
+    return user1;
   } catch (err) {
     throw err;
   }

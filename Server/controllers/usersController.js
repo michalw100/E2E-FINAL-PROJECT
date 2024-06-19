@@ -154,16 +154,13 @@ async function getByPasswordAndUserName(password, userName) {
 
 async function update(id, userName, name, email, phone, street, city, zipcode) {
   try {
-    return await model.updateUser(
-      id,
-      userName,
-      name,
-      email,
-      phone,
-      street,
-      city,
-      zipcode
-    );
+    console.log(userName+" "
+      + name + " " +
+       email+ " " +
+       phone+ " " +
+       resultAddress+ " " +
+       id)
+    return await model.updateUser(id, userName, name, email, phone, street, city, zipcode);
   } catch (err) {
     throw err;
   }
