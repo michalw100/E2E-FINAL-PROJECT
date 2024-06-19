@@ -120,6 +120,7 @@
 }
 
 .search-container {
+  position: relative;
   display: flex;
   align-items: center;
   border: 1px solid #cccccc;

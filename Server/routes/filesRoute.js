@@ -9,7 +9,8 @@ const {
   viewFile,
   updateRemarkFile,
   updateStatusFile,
-  updateTypeFile
+  updateTypeFile,
+  countTypeFile
 } = require("../controllers/filesController");
 
 const storage = multer.memoryStorage();
@@ -20,6 +21,16 @@ router.get("/", async (req, res) => {
     const type = req.query.typeFile;
     const userID = req.query.userID;
     const files = await listFiles(userID, type);
+    res.status(200).json(files);
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+});
+
+router.get("/type", async (req, res) => {
+  try {
+    const type = req.query.typeFile;
+    const files = await countTypeFile(type);
     res.status(200).json(files);
   } catch (err) {
     res.status(500).send({ message: err.message });

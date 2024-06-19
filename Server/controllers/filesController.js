@@ -40,13 +40,7 @@ async function listFiles(userID, type) {
   }
 }
 
-async function uploadFile(
-  uploaderID,
-  clientID,
-  uploadedFiles,
-  filesNames,
-  type
-) {
+async function uploadFile(uploaderID, clientID, uploadedFiles, filesNames, type) {
   try {
     const realclientID = await getClientIDOrEmployeeIDByUserID(clientID);
     for (const [index, file] of uploadedFiles.entries()) {
@@ -238,7 +232,17 @@ async function updateTypeFile(id, type) {
   }
 }
 
+async function countTypeFile(type) {
+  try {
+    const file = await model.countTypeFile(type);
+    return file[0];
+  } catch (err) {
+    throw err;
+  }
+}
+
 module.exports = {
+  countTypeFile,
   listFiles,
   uploadFile,
   deleteAllFiles,
