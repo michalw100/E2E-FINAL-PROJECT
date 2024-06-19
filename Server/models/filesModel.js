@@ -2,14 +2,7 @@ const pool = require("../DB.js");
 
 async function saveFileToDB(fileId, fileName, type, uploaderID, clientID) {
   const sql = `INSERT INTO files (driveFileId, name, type, uploaderID, clientID, status) VALUES (?, ?, ?, ?, ?, ?)`;
-  const newFile = await pool.query(sql, [
-    fileId,
-    fileName,
-    type,
-    uploaderID,
-    clientID,
-    "Absorbed",
-  ]);
+  const newFile = await pool.query(sql, [fileId, fileName, type, uploaderID, clientID, "Absorbed"]);
   return newFile[0];
 }
 
@@ -19,6 +12,13 @@ async function getFilesByClientID(clientID, type) {
   return files[0];
 }
 
+async function countTypeFile(type) {
+  const sql = `SELECT COUNT(*) FROM files WHERE type = ?`;
+  const files = await pool.query(sql, [type]);
+  return files[0];
+}
+
+
 async function updateRemarkFile(id, remark) {
   const sql = `UPDATE files SET remark = ? WHERE id = ?`;
   const files = await pool.query(sql, [remark, id]);
@@ -26,8 +26,6 @@ async function updateRemarkFile(id, remark) {
 }
 
 async function updateStatusFile(id, status) {
-  // console.log("id");
-  // console.log(id);
   const sql = `UPDATE files SET status = ? WHERE id = ?`;
   const files = await pool.query(sql, [status, id]);
   return files[0];
@@ -53,5 +51,6 @@ module.exports = {
   getFilesByEmployeeID,
   updateRemarkFile,
   updateStatusFile,
-  updateTypeFile
+  updateTypeFile,
+  countTypeFile
 };
