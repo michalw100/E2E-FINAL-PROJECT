@@ -1,23 +1,9 @@
 import React, { useState, useContext, useEffect } from "react";
-// import { useHistory } from 'react-router-dom';
-import { useNavigate } from "react-router-dom";
-
 import { AuthContext } from "../AuthContext";
-import { useLocation } from "react-router";
 
 const UserDetails = () => {
-  // const navigate = useNavigate();
-
-  // const { state } = useLocation();
-  const { user } = useContext(AuthContext);
-
-  // const { user: contextUser } = useContext(AuthContext);
-  const [currentUser,setCurrentUser]=useState(null)
-  // const {setUser} = useContext(AuthContext);
-  // const user = state?.user || contextUser;
-  // console.log("user")
-  // console.log(user)
-
+  const { user, setUser } = useContext(AuthContext);
+  const [currentUser, setCurrentUser] = useState(null);
   const [signUpError, setSignUpError] = useState("");
   const [userDetails, setUserDetails] = useState({
     name: currentUser?.name || "",
@@ -40,9 +26,9 @@ const UserDetails = () => {
             "Content-Type": "application/json",
           },
         });
-  
+
         const data = await response.json();
-  
+
         if (data.clientID) {
           const clientResponse = await fetch(
             `http://localhost:3000/users/user?id=${data.clientID}`,
@@ -51,7 +37,7 @@ const UserDetails = () => {
               credentials: "include",
             }
           );
-  
+
           const client = await clientResponse.json();
           setCurrentUser(client);
         } else {
@@ -61,7 +47,7 @@ const UserDetails = () => {
         setCurrentUser(user);
       }
     };
-  
+
     fetchClientData();
   }, [user, location]);
 
@@ -95,7 +81,7 @@ const UserDetails = () => {
       userDetails.city === "" &&
       userDetails.email === "" &&
       userDetails.zipcode === "" &&
-      userDetails.phone === "" 
+      userDetails.phone === ""
     ) {
       setSignUpError("Please fill at least one field.");
       return;
@@ -108,14 +94,26 @@ const UserDetails = () => {
       body: JSON.stringify(userDetails),
     };
 
-    fetch(`http://localhost:3000/users/user?id=${currentUser.id}`, requestOptions)
-      .then((response) => response.json())
+    fetch(
+      `http://localhost:3000/users/user?id=${currentUser.id}`,
+      requestOptions
+    )
+      .then((response) => {
+        if (!response.ok) {
+          setSignUpError(response.message);
+          return;
+        }
+        return response.json();
+      })
       .then((updatedUser) => {
-        setUserDetails(updatedUser);
-        setSignUpError("The user has been updated successfully");
-        setTimeout(() => {
-          navigate("/updates");
-        }, 3000);
+        if (updatedUser) {
+          setUserDetails(updatedUser);
+          setSignUpError("The user has been updated successfully");
+          // setUser(updatedUser);
+          // setTimeout(() => {
+          //   navigate("/updates");
+          // }, 3000);
+        }
       })
       .catch((error) => {
         setSignUpError(error.message);
@@ -190,7 +188,15 @@ const UserDetails = () => {
       />
       <br />
       {signUpError && (
-        <p className="error" style={{ color:  signUpError=="The user has been updated successfully"? "green":"red" }}>
+        <p
+          className="error"
+          style={{
+            color:
+              signUpError == "The user has been updated successfully"
+                ? "green"
+                : "red",
+          }}
+        >
           {signUpError}
         </p>
       )}

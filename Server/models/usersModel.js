@@ -56,7 +56,8 @@ async function employeeToClient(employeeID, clientID) {
 
 async function deleteConnection(employeeID, clientID) {
   try {
-    const sql = "DELETE FROM employee_client WHERE employeeID = ? AND clientID = ?";
+    const sql =
+      "DELETE FROM employee_client WHERE employeeID = ? AND clientID = ?";
     const result = await pool.query(sql, [employeeID, clientID]);
     console.log(result);
     return result;
@@ -156,18 +157,19 @@ async function createUser(userName, hashedPassword, employeType, role) {
     throw err;
   }
 }
-const updateUser = async (id, userName, name, email, phone, street, city, zipcode) => {
+const updateUser = async (
+  id,
+  userName,
+  name,
+  email,
+  phone,
+  street,
+  city,
+  zipcode
+) => {
   const user = await getUser(id);
   let address = user[0].addressID;
-  console.log(userName+" "
-   + name + " " +
-    email+ " " +
-    phone+ " " +
-    resultAddress+ " " +
-    id)
   let resultAddress;
-  // console.log(address == null)
-
   try {
     if (address == null) {
       const sqlAddress =
