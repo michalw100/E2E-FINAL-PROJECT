@@ -102,7 +102,7 @@ router.put("/connection", async (req, res) => {
   }
 });
 
-router.put("/", async (req, res) => {
+router.put("/user", async (req, res) => {
   try {
     const id = req.query.id;
     await update(
