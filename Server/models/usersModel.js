@@ -64,6 +64,16 @@ async function employeeToClient(employeeID, clientID) {
   }
 }
 
+async function deleteConnection(id) {
+  try {
+    const sql = "DELETE FROM employee_client WHERE id = ?";
+    const result = await pool.query(sql, [id]);
+    return result;
+  } catch (err) {
+    throw err;
+  }
+}
+
 
 async function updateConnection(employeeID, clientID, id) {
   try {
@@ -213,5 +223,6 @@ module.exports = {
   getClientsEmployee,
   getConnections,
   employeeToClient,
-  updateConnection
+  updateConnection, 
+  deleteConnection
 };

@@ -8,6 +8,7 @@ const {
   getConnections,
   getEmployees,
   employeeToClient,
+  deleteConnection,
   updateConnection,
 } = require("../controllers/usersController");
 
@@ -73,6 +74,16 @@ router.post("/connection", async (req, res) => {
     const employeeID = req.body.employeeID;
     const clientID = req.body.clientID;
     const connection = await employeeToClient(employeeID, clientID);
+    res.status(200).send(connection);
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+});
+
+router.delete("/connection", async (req, res) => {
+  try {
+    const id = req.body.id;
+    const connection = await deleteConnection(id);
     res.status(200).send(connection);
   } catch (err) {
     res.status(500).send({ message: err.message });
