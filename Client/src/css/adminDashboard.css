@@ -96,9 +96,8 @@
 }
 
 .delete-button {
-  padding: 10px;
   width: fit-content;
-  background-color: #dc3545;
+   /*background-color: #dc3545;
   color: white;
   border: none;
   border-radius: 5px;
@@ -107,7 +106,13 @@
   transition: background-color 0.3s ease;
   margin-top: 20px;
   margin-left: auto;
-  margin-right: auto;
+  margin-right: auto; */    align-items: center;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    padding: 10px 10px;
+    margin: 15px;
+    /* width: 300px; */
+    background-color: white;
 }
 
 .delete-button:hover {
@@ -115,22 +120,27 @@
 }
 
 .search-container {
-  width: 100%;
-  padding: 10px;
   display: flex;
-  justify-content: center; /* למרכז */
   align-items: center;
-  margin-top: 0px;
-  position: relative; /* להבטיח שרשימת התוצאות תופיע בתוך ה-container */
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  padding: 10px 10px;
+  margin: 15px;
+  width: 300px;
+  background-color: white;
 }
 
 .search-input {
-  width: 300px;
-  padding: 8px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  outline: none;
+ 
+  /* width: fit-content;
+align-items: center;
+   border: 1px solid #cccccc;
+   border-radius: 4px;
+   padding: 10px 10px;
+   background-color: white; */
+   border: none;
+   outline: none;
+   width: 100%;
 }
 
 .search-input::placeholder {
@@ -139,28 +149,43 @@
 
 .search-results {
   position: absolute;
-  top: 100%; /* מיד מתחת לשדה החיפוש */
-  left: 50%; /* ממרכז את הרשימה ביחס לקונטיינר */
-  transform: translateX(-50%); /* ממקם את הרשימה באמצע */
+  top: 100%;
+  left: 50%; 
+  transform: translateX(-50%); 
   z-index: 1000;
-  width: 300px; /* אותו רוחב כמו שדה החיפוש */
+  width: 300px;
   max-height: 200px;
   overflow-y: auto;
   background-color: white;
   border: 1px solid #ccc;
-  border-radius: 0 0 5px 5px; /* פינות עגולות רק בתחתית */
+  border-radius: 0 0 5px 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  display: block; /* תמיד מוצג */
-  padding: 0; /* כדי להסיר את הרווחים הפנימיים */
+  display: block;
+  padding: 0;
 }
 
 .search-result {
-  padding: 8px; /* להתאים לריפוד של שדה החיפוש */
+  padding: 8px;
   cursor: pointer;
-  font-size: 16px; /* אותו גודל גופן כמו שדה החיפוש */
-  color: #666; /* צבע טקסט בהיר יותר */
+  font-size: 16px;
+  color: #666; 
 }
 
 .search-result:hover {
   background-color: #f0f0f0;
+}
+
+.div_to_delete{
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.search_div{
+  margin-left: auto;
+  margin-right: auto;
+
+}
+
+li{
+  cursor: pointer;
 }

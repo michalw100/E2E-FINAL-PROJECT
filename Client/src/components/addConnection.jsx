@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
+import { FaSearch } from "react-icons/fa";
+
 
 const addConnection = ({
   selectedClient,
@@ -91,12 +93,13 @@ const addConnection = ({
   };
 
   return (
-    <div>
+    <div className="search_div">
       {(selectedClient || selectedEmployee) && (
         <div className="search-container">
+        <FaSearch/>
           <input
             type="text"
-            placeholder="Search employees or clients..."
+            placeholder="Search for employees or customers to add a contact"
             onChange={handleSearch}
             value={searchTerm}
             className="search-input"
@@ -130,8 +133,8 @@ const addConnection = ({
             {selectedClient
               ? selectedClient.name
               : triyngToAdd && triyngToAdd.name}
-          </strong>{" "}
-          and{" "}
+          </strong>
+          and
           <strong>
             {selectedEmployee
               ? selectedEmployee.name

@@ -64,7 +64,7 @@ const deleteConnection = ({
   };
 
   return (
-    <div>
+    <div className="div_to_delete">
       {selectedClient && (
         <button onClick={handleDeleteConnection} className="delete-button">
           Click on me and choose a employee to delete{" "}
