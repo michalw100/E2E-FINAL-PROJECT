@@ -77,7 +77,7 @@ router.post("/connection", async (req, res) => {
   try {
     const employeeID = req.body.employeeID;
     const clientID = req.body.clientID;
- 
+
     const connection = await employeeToClient(employeeID, clientID);
     res.status(200).send(connection);
   } catch (err) {
@@ -111,6 +111,8 @@ router.put("/connection", async (req, res) => {
 router.put("/user", async (req, res) => {
   try {
     const id = req.query.id;
+    console.log("body");
+    console.log(req.body.userName);
     await update(
       id,
       req.body.userName,
@@ -122,7 +124,8 @@ router.put("/user", async (req, res) => {
       req.body.zipcode
     );
     const result = await getById(id);
-    // console.log(result)
+    console.log("getById");
+    console.log(result);
     res.status(200).send(result);
   } catch (err) {
     res.status(500).send({ message: err.message });

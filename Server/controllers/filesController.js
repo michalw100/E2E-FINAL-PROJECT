@@ -101,16 +101,36 @@ function bufferToStream(buffer) {
   return stream;
 }
 
-async function deleteAllFiles() {
+async function deleteAllFiles(auth) {
   try {
-    const files = await listFilesFromDrive(auth);
     const drive = google.drive({ version: "v3", auth });
 
+    // Start from the root directory
+    await deleteAllFilesInFolder(drive, "root");
+  } catch (error) {
+    console.error("Error deleting files:", error);
+  }
+}
+
+async function deleteAllFilesInFolder(drive, folderId) {
+  try {
+    const response = await drive.files.list({
+      q: `'${folderId}' in parents`,
+      fields: "files(id, name, mimeType)",
+    });
+
+    const files = response.data.files;
+
     for (const file of files) {
+      if (file.mimeType === "application/vnd.google-apps.folder") {
+        // Recursively delete all contents of this folder
+        await deleteAllFilesInFolder(drive, file.id);
+      }
+
+      // Delete the file or folder
       try {
-        await drive.files.delete({
-          fileId: file.id,
-        });
+        await drive.files.delete({ fileId: file.id });
+        console.log(`Deleted ${file.name} (${file.id})`);
       } catch (error) {
         if (
           error.errors &&
@@ -119,13 +139,12 @@ async function deleteAllFiles() {
         ) {
           console.log(`File not found: ${file.id}`);
         } else {
-          throw error;
+          console.error(`Error deleting ${file.name} (${file.id}):`, error);
         }
       }
     }
-    return;
   } catch (error) {
-    throw error;
+    console.error(`Error listing files in folder ${folderId}:`, error);
   }
 }
 
