@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 import { FaSearch } from "react-icons/fa";
 
-
 const addConnection = ({
   selectedClient,
   selectedEmployee,
@@ -18,9 +17,6 @@ const addConnection = ({
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [triyngToAdd, setTriyngToAdd] = useState(null);
-
-  // console.log("selectedClient")
-  // console.log(selectedClient)
 
   useEffect(() => {
     setSearchTerm("");
@@ -42,7 +38,7 @@ const addConnection = ({
       );
       setSearchResults(filteredEmployees);
     } else setSearchResults([]);
-  }, [searchTerm]);
+  }, [searchTerm, selectedClient, selectedEmployee]);
 
   const handleSearch = (event) => {
     const searchTerm1 = event.target.value.toLowerCase();
@@ -96,7 +92,7 @@ const addConnection = ({
     <div className="search_div">
       {(selectedClient || selectedEmployee) && (
         <div className="search-container">
-        <FaSearch/>
+          <FaSearch />
           <input
             type="text"
             placeholder="Search for employees or customers to add a contact"
@@ -126,7 +122,7 @@ const addConnection = ({
         className="modal"
         overlayClassName="overlay"
       >
-        <h2>Confirm Connection Deletion</h2>
+        <h2>Confirm Connection Addition</h2>
         <p>
           Are you sure you want to add the connection between{" "}
           <strong>

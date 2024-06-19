@@ -156,8 +156,6 @@ function Files() {
   };
 
   useEffect(() => {
-    // console.log("currentTypeFile");
-    // console.log(currentTypeFile);
     if (ownerOfFiles && user.id != undefined && currentTypeFile) {
       loadFiles();
     }
@@ -173,7 +171,6 @@ function Files() {
   });
 
   const loadFiles = async () => {
-    // console.log("Loading files...");
     axios
       .get(`http://localhost:3000/files`, {
         params: {

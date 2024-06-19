@@ -18,12 +18,23 @@ const AdminDashboard = () => {
   const [userToDelete, setUserToDelete] = useState(null);
   const [isModalOpenDelete, setIsModalOpenDelete] = useState(false);
   const [isModalOpenAdd, setIsModalOpenAdd] = useState(false);
-  const [windowWidth, setWindowWidth] = useState(window.width);
+  const [widthChanged, setWidthChanged] = useState(false);
   const [onChange, setOnChange] = useState(false);
+  const [searchCriteria, setSearchCriteria] = useState("");
 
   useEffect(() => {
-    makeLines();
-  }, [windowWidth]);
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (widthChanged) {
+      makeLines();
+      setWidthChanged(false);
+    }
+  }, [widthChanged]);
 
   useEffect(() => {
     setSelectedClient(null);
@@ -57,7 +68,6 @@ const AdminDashboard = () => {
 
       setCurrentClients([selectedClient]);
     }
-    setSelectedEmployee(null);
   }, [selectedClient]);
 
   useEffect(() => {
@@ -82,7 +92,6 @@ const AdminDashboard = () => {
 
       setCurrentEmployees([selectedEmployee]);
     }
-    setSelectedClient(null);
   }, [selectedEmployee]);
 
   useEffect(() => {
@@ -90,7 +99,6 @@ const AdminDashboard = () => {
       id: employee.userID,
       color: getRandomColor(),
     }));
-    console.log(colors);
     setEmployeeColors(colors);
   }, [employees]);
 
@@ -211,8 +219,27 @@ const AdminDashboard = () => {
     }
   };
 
+  const highlightSearchTerm = (text) => {
+    const lowerText = text.toLowerCase();
+    const lowerSearch = searchCriteria.toLowerCase();
+    const index = lowerText.indexOf(lowerSearch);
+    if (index === -1) return text;
+    return (
+      <>
+        {text.substring(0, index)}
+        <strong style={{ fontWeight: "bold", backgroundColor: "#ffcc80" }}>
+          {text.substring(index, index + searchCriteria.length)}
+        </strong>
+        {text.substring(index + searchCriteria.length)}
+      </>
+    );
+  };
+
   const getRandomColor = () => {
-    const getByte = () => 128 + Math.floor(Math.random() * 128);
+    const getByte = () =>
+      Math.random() < 0.5
+        ? Math.floor(Math.random() * 128)
+        : 128 + Math.floor(Math.random() * 128);
     return `rgb(${getByte()}, ${getByte()}, ${getByte()})`;
   };
 
@@ -237,13 +264,12 @@ const AdminDashboard = () => {
   };
 
   const handleClientClick = (client) => {
+    setSearchCriteria("");
     if (triyngToDelete == "Employee") {
       console.log("      triyngToDelete == Employee;");
       setIsModalOpenDelete(true);
       setUserToDelete(client);
     } else {
-      console.log("      setSelectedClient(client);");
-      console.log(client);
       setTriyngToDelete("");
       setSelectedClient(client);
       setSelectedEmployee(null);
@@ -251,13 +277,11 @@ const AdminDashboard = () => {
   };
 
   const handleEmployeeClick = (employee) => {
+    setSearchCriteria("");
     if (triyngToDelete == "Client") {
       setIsModalOpenDelete(true);
       setUserToDelete(employee);
     } else {
-      console.log("      setSelectedEmployee(employee);");
-      console.log(employee);
-
       setTriyngToDelete("");
       setSelectedClient(null);
       setSelectedEmployee(employee);
@@ -274,42 +298,48 @@ const AdminDashboard = () => {
     setUserToDelete(null);
   };
 
+  const handleResize = () => {
+    document
+      .querySelectorAll(".relationship-line")
+      .forEach((line) => line.remove());
+    if (!widthChanged) setWidthChanged(true);
+    console.log("Window width changed:", window.innerWidth);
+  };
+
   return (
     <div className="admin-dashboard">
       {(selectedClient || selectedEmployee) && (
-        <><div className="reset-button-container">
+        <div className="reset-button-container">
           <button onClick={handleResetClick} className="reset-button">
             Show All
           </button>
-          
         </div>
-        <div className="search_div">
-        <div className="search-bar">
-              <FaSearch />
-              {/* <label className="input">Search:</label> */}
-              <input
-                type="text"
-                // value={searchCriteria}
-                placeholder="Search"
-                // onChange={(event) => setSearchCriteria(event.target.value)}
-              />
-            </div></div>
-        <h2>ffffffffffff</h2></>
-
       )}
+      <div className="search_div">
+        <div className="search-bar">
+          <FaSearch />
+          {/* <label className="input">Search:</label> */}
+          <input
+            type="text"
+            value={searchCriteria}
+            placeholder="Search"
+            onChange={(event) => setSearchCriteria(event.target.value)}
+          />
+        </div>
+      </div>
       <div className="content-container">
         <div className="clients-list">
           <h3>Clients</h3>
           <ul>
             {currentClients.map((client) => (
               <li
-              onClick={() => handleClientClick(client)}
+                onClick={() => handleClientClick(client)}
                 key={client.userID}
                 style={{
                   marginBottom: getClientMargin(),
                 }}
               >
-                <div>{client.name}</div>
+                <div>{highlightSearchTerm(client.name)}</div>
                 <div
                   id={`client-${client.userID}`}
                   className="circle-button"
@@ -347,12 +377,15 @@ const AdminDashboard = () => {
                 >
                   {employee.name.charAt(0)}
                 </div>
-                <div>{employee.name}</div>
+                <div>{highlightSearchTerm(employee.name)}</div>
               </li>
             ))}
           </ul>
         </div>
       </div>
+
+      {selectedClient && <h2>{selectedClient.name}</h2>}
+      {selectedEmployee && <h2>{selectedEmployee.name}</h2>}
       <DeleteConnection
         selectedClient={selectedClient}
         selectedEmployee={selectedEmployee}
