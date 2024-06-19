@@ -35,7 +35,10 @@ router.get("/clients", async (req, res) => {
       console.log("id")
       console.log(id)
       if (user.role == "Admin") clientOfEmployee = await getClients();
-      else clientOfEmployee = await getClientsEmployee(id);
+      else 
+      {
+        clientOfEmployee = await getClientsEmployee(id);
+      }
     }
     res.status(200).send(clientOfEmployee);
   } catch (err) {
@@ -104,7 +107,7 @@ router.put("/connection", async (req, res) => {
   }
 });
 
-router.put("/", async (req, res) => {
+router.put("/user", async (req, res) => {
   try {
     const id = req.query.id;
     await update(

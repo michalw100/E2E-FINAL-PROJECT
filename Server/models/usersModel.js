@@ -14,7 +14,7 @@ async function getEmployees() {
 async function getClients() {
   try {
     const sql =
-      "SELECT * from clients LEFT JOIN users ON clients.userID = users.id";
+      "SELECT users.id, users.userName, users.name, users.email, users.phone, users.addressID, clients.id AS client_id, clients.userID, clients.parentClientID, clients.isApproved, clients.notes from clients LEFT JOIN users ON clients.userID = users.id";
     const result = await pool.query(sql);
     return result;
   } catch (err) {
@@ -25,7 +25,7 @@ async function getClients() {
 async function getClientsEmployee(id) {
   try {
     const sql =
-      "SELECT clients.*, users.*, clients.id AS client_id, employees.id AS employee_id, client_users.id AS client_user_id FROM employees JOIN users ON employees.userID = users.id JOIN employee_client ON employee_client.employeeID = employees.id JOIN clients ON employee_client.clientID = clients.id JOIN users AS client_users ON clients.userID = client_users.id WHERE users.id = ?";
+"SELECT users.id, users.userName, users.name, users.email, users.phone, users.addressID, clients.id AS client_id, clients.userID, clients.parentClientID, clients.isApproved, clients.notes FROM clients Left JOIN users ON users.id = clients.userID Left JOIN employee_client ON employee_client.clientID = clients.id LEFT JOIN employees ON employee_client.employeeID = employees.id WHERE employees.id = ?"
     const result = await pool.query(sql, [id]);
     return result;
   } catch (err) {

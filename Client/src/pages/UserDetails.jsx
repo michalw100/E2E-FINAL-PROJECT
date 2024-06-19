@@ -114,7 +114,7 @@ const UserDetails = () => {
       body: JSON.stringify(userDetails),
     };
 
-    fetch(`http://localhost:3000/users?id=${currentUser.id}`, requestOptions)
+    fetch(`http://localhost:3000/users/user?id=${currentUser.id}`, requestOptions)
       .then((response) => response.json())
       .then((updatedUser) => {
         // console.log(updatedUser)
