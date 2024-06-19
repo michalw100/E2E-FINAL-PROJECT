@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../css/adminDashboard.css";
-import Modal from "react-modal";
+import AddConnection from "../components/addConnection";
+import DeleteConnection from "../components/deleteConnection";
 
 const AdminDashboard = () => {
   const [clients, setClients] = useState([]);
@@ -12,11 +13,8 @@ const AdminDashboard = () => {
   const [selectedClient, setSelectedClient] = useState(null);
   const [selectedEmployee, setSelectedEmployee] = useState(null);
   const [employeeColors, setEmployeeColors] = useState({});
-  const [searchTerm, setSearchTerm] = useState("");
   const [triyngToDelete, setTriyngToDelete] = useState("");
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [userToDelete, setUserToDelete] = useState(null);
-  const [searchResults, setSearchResults] = useState([]);
 
   const getRandomColor = () => {
     const getByte = () => 128 + Math.floor(Math.random() * 128);
@@ -153,8 +151,11 @@ const AdminDashboard = () => {
       setIsModalOpen(true);
       setUserToDelete(client);
     } else {
+      console.log("      setSelectedClient(client);");
+      console.log(client);
       setTriyngToDelete("");
       setSelectedClient(client);
+      setSelectedEmployee(null);
     }
   };
 
@@ -163,7 +164,11 @@ const AdminDashboard = () => {
       setIsModalOpen(true);
       setUserToDelete(employee);
     } else {
+      console.log("      setSelectedEmployee(employee);");
+      console.log(employee);
+
       setTriyngToDelete("");
+      setSelectedClient(null);
       setSelectedEmployee(employee);
     }
   };
@@ -253,61 +258,15 @@ const AdminDashboard = () => {
     return employeeColor;
   };
 
-  const handleDeleteConnection = async () => {
-    if (selectedClient) setTriyngToDelete("Client");
-    if (selectedEmployee) setTriyngToDelete("Employee");
-  };
-
-  const handleConfirmDelete = () => {
-    handleModalClose();
-  };
-
-  const handleModalClose = () => {
-    setTriyngToDelete("");
-    setIsModalOpen(false);
-  };
-
-  const handleSearch = (event) => {
-    const searchTerm1 = event.target.value.toLowerCase();
-    setSearchTerm(searchTerm1);
-    if (triyngToDelete == "Employee") {
-      const filteredClients = clients.filter((client) =>
-        client.name.toLowerCase().includes(searchTerm1)
-      );
-      setSearchResults(filteredClients);
-      console.log("filteredClients");
-      console.log(filteredClients);
-    }
-    if (triyngToDelete == "client") {
-      const filteredEmployees = employees.filter((employee) =>
-        employee.name.toLowerCase().includes(searchTerm1)
-      );
-      setSearchResults(filteredEmployees);
-      console.log("filteredEmployees");
-      console.log(filteredEmployees);
-    }
-  };
-
-  const handleSearchItemClick = (item) => {
-    setSearchTerm("");
-    setSearchResults([]);
-    // הוספת הלוגיקה המתאימה לבחירה ברשימת החיפוש
-    if (item.type === "client") {
-      setSelectedClient(item);
-      setSelectedEmployee(null);
-    } else if (item.type === "employee") {
-      setSelectedEmployee(item);
-      setSelectedClient(null);
-    }
-  };
-
   return (
     <div className="admin-dashboard">
-      <div className="reset-button-container">
-        <button onClick={handleResetClick} className="reset-button">
-          Show All{" "}
-        </button>
-      </div>
+      {(selectedClient || selectedEmployee) && (
+        <div className="reset-button-container">
+          <button onClick={handleResetClick} className="reset-button">
+            Show All{" "}
+          </button>
+        </div>
+      )}
       <div className="content-container">
         <div className="clients-list">
           <h3>Clients</h3>
@@ -364,67 +323,22 @@ const AdminDashboard = () => {
           </ul>
         </div>
       </div>
-      {selectedClient && (
-        <button onClick={handleDeleteConnection} className="delete-button">
-          Click on me and choose a employee to delete{" "}
-        </button>
-      )}
-      {selectedEmployee && (
-        <button onClick={handleDeleteConnection} className="delete-button">
-          Click on me and choose a client to delete{" "}
-        </button>
-      )}
-      {(selectedClient || selectedEmployee) && (
-        <div className="search-container">
-          <input
-            type="text"
-            placeholder="Search employees or clients..."
-            onChange={handleSearch}
-            value={searchTerm}
-            className="search-input"
-          />
-          {searchResults.length > 0 && (
-            <ul className="search-results">
-              {searchResults.map((item) => (
-                <li
-                  key={item.userID}
-                  onClick={() => handleSearchItemClick(item)}
-                >
-                  {item.name}
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
-      )}
-      <Modal
-        isOpen={isModalOpen}
-        onRequestClose={handleModalClose}
-        contentLabel="Confirm Connection Deletion"
-        className="modal"
-        overlayClassName="overlay"
-      >
-        <h2>Confirm Connection Deletion</h2>
-        <p>
-          Are you sure you want to delete the connection between{" "}
-          <strong>
-            {selectedClient
-              ? selectedClient.name
-              : userToDelete && userToDelete.name}
-          </strong>{" "}
-          and{" "}
-          <strong>
-            {selectedEmployee
-              ? selectedEmployee.name
-              : userToDelete && userToDelete.name}
-          </strong>
-          ?
-        </p>
-        <button onClick={handleConfirmDelete} autoFocus>
-          Yes
-        </button>
-        <button onClick={handleModalClose}>No</button>
-      </Modal>
+      <DeleteConnection
+        selectedClient={selectedClient}
+        selectedEmployee={selectedEmployee}
+        setTriyngToDelete={setTriyngToDelete}
+        userToDelete={userToDelete}
+      />
+      <AddConnection
+        selectedClient1={selectedClient}
+        selectedEmployee={selectedEmployee}
+        clients={clients}
+        currentClients={currentClients}
+        employees={employees}
+        currentEmployees={currentEmployees}
+        setSelectedClient={setSelectedClient}
+        setSelectedEmployee={setSelectedEmployee}
+      />
     </div>
   );
 };
