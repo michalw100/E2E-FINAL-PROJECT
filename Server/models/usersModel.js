@@ -25,12 +25,8 @@ async function getClients() {
 async function getClientsEmployee(id) {
   try {
     const sql =
-      "SELECT clients.id AS client_id, employees.id AS employee_id, client_users.id AS client_user_id FROM employees JOIN users ON employees.userID = users.id JOIN employee_client ON employee_client.employeeID = employees.id JOIN clients ON employee_client.clientID = clients.id JOIN users AS client_users ON clients.userID = client_users.id WHERE users.id = ?";
-    // "SELECT clients.id AS client_id, employees.id AS employee_id FROM employees JOIN users ON employees.userID = users.id JOIN employee_client ON employee_client.employeeID = employees.id JOIN clients ON employee_client.clientID = clients.id WHERE users.id = ?";
+      "SELECT clients.*, users.*, clients.id AS client_id, employees.id AS employee_id, client_users.id AS client_user_id FROM employees JOIN users ON employees.userID = users.id JOIN employee_client ON employee_client.employeeID = employees.id JOIN clients ON employee_client.clientID = clients.id JOIN users AS client_users ON clients.userID = client_users.id WHERE users.id = ?";
     const result = await pool.query(sql, [id]);
-    // console.log("getID")
-    // console.log(result[0])
-    // console.log("1");
     return result;
   } catch (err) {
     throw err;
@@ -41,11 +37,7 @@ async function getConnections() {
   try {
     const sql =
       "SELECT clients.id AS client_id, employees.id AS employee_id, client_users.id AS client_user_id,employees.userID AS employee_user_id FROM employees JOIN users ON employees.userID = users.id JOIN employee_client ON employee_client.employeeID = employees.id JOIN clients ON employee_client.clientID = clients.id JOIN users AS client_users ON clients.userID = client_users.id";
-    // "SELECT clients.id AS client_id, employees.id AS employee_id FROM employees JOIN users ON employees.userID = users.id JOIN employee_client ON employee_client.employeeID = employees.id JOIN clients ON employee_client.clientID = clients.id WHERE users.id = ?";
     const result = await pool.query(sql);
-    // console.log("getID")
-    // console.log(result[0])
-    // console.log("1");
     return result;
   } catch (err) {
     throw err;
@@ -223,6 +215,6 @@ module.exports = {
   getClientsEmployee,
   getConnections,
   employeeToClient,
-  updateConnection, 
+  updateConnection,
   deleteConnection
 };
