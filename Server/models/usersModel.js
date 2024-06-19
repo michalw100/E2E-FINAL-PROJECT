@@ -14,7 +14,7 @@ async function getEmployees() {
 async function getClients() {
   try {
     const sql =
-      "SELECT * from clients LEFT JOIN users ON clients.userID = users.id";
+      "SELECT users.id, users.userName, users.name, users.email, users.phone, users.addressID, clients.id AS client_id, clients.userID, clients.parentClientID, clients.isApproved, clients.notes from clients LEFT JOIN users ON clients.userID = users.id";
     const result = await pool.query(sql);
     return result;
   } catch (err) {

@@ -47,8 +47,10 @@ async function updateConnection(employeeID, clientID, id) {
 
 async function getClientsEmployee(id) {
   try {
-    const clientsEmployee = await model.getClientsEmployee(id);
-    // console.log(clientsEmployee[0]);
+    const idEmployee = await getClientIDOrEmployeeIDByUserID(id);
+
+    console.log(idEmployee)
+    const clientsEmployee = await model.getClientsEmployee(idEmployee.employee_id);
     return clientsEmployee[0];
   } catch (err) {
     throw err;
@@ -76,15 +78,15 @@ async function getClients() {
   }
 }
 
-// async function getClientIDOrEmployeeIDByUserID(id) {
-//   try {
-//     const type = await model.getClientIDOrEmployeeIDByUserID(id);
-//     // console.log(clientsEmployee[0]);
-//     return type[0];
-//   } catch (err) {
-//     throw err;
-//   }
-// }
+async function getClientIDOrEmployeeIDByUserID(id) {
+  try {
+    const type = await model.getClientIDOrEmployeeIDByUserID(id);
+    // console.log(clientsEmployee[0]);
+    return type[0];
+  } catch (err) {
+    throw err;
+  }
+}
 
 
 async function getById(id) {
@@ -187,5 +189,6 @@ module.exports = {
   getConnections,
   employeeToClient,
   updateConnection,
-  deleteConnection
+  deleteConnection,
+  getClientIDOrEmployeeIDByUserID
 };
