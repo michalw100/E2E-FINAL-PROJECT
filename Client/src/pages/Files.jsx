@@ -216,6 +216,7 @@ function Files() {
           currentTypeFile={currentTypeFile}
           filesChanged={filesChanged}
           setFilesChanged={setFilesChanged}
+          ownerOfFiles = {ownerOfFiles}
         />
         {currentTypeFile ? (
           <div>
