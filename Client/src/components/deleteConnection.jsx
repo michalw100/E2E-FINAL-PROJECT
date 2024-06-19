@@ -4,23 +4,63 @@ import Modal from "react-modal";
 const deleteConnection = ({
   selectedClient,
   selectedEmployee,
+  triyngToDelete,
   setTriyngToDelete,
   userToDelete,
+  isModalOpenDelete,
+  setIsModalOpenDelete,
+  currentClientsemployees,
+  onChange,
+  setOnChange,
 }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const handleConfirmDelete = () => {
-    handleModalClose();
+  const handleConfirmDelete = async () => {
+    const connection = currentClientsemployees.find(
+      (c) =>
+        c.client_user_id ===
+          (selectedClient
+            ? selectedClient.userID
+            : userToDelete && userToDelete.userID) &&
+        c.employee_user_id ===
+          (selectedEmployee
+            ? selectedEmployee.userID
+            : userToDelete && userToDelete.userID)
+    );
+    try {
+      const response = await fetch("http://localhost:3000/users/connection", {
+        method: "DELETE",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          employeeID: connection.employee_id,
+          clientID: connection.client_id,
+        }),
+      });
+      if (response.ok) {
+        setOnChange(!onChange);
+        handleModalClose();
+      } else {
+        console.log(response);
+        handleModalClose();
+      }
+    } catch (error) {
+      console.log(error);
+      handleModalClose();
+    }
   };
 
   const handleModalClose = () => {
     setTriyngToDelete("");
-    setIsModalOpen(false);
+    setIsModalOpenDelete(false);
   };
 
   const handleDeleteConnection = async () => {
-    if (selectedClient) setTriyngToDelete("Client");
-    if (selectedEmployee) setTriyngToDelete("Employee");
+    if (triyngToDelete != "") setTriyngToDelete("");
+    else {
+      if (selectedClient) setTriyngToDelete("Client");
+      if (selectedEmployee) setTriyngToDelete("Employee");
+    }
   };
 
   return (
@@ -36,7 +76,7 @@ const deleteConnection = ({
         </button>
       )}
       <Modal
-        isOpen={isModalOpen}
+        isOpen={isModalOpenDelete}
         onRequestClose={handleModalClose}
         contentLabel="Confirm Connection Deletion"
         className="modal"

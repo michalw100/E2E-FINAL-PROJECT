@@ -15,17 +15,24 @@ const AdminDashboard = () => {
   const [employeeColors, setEmployeeColors] = useState({});
   const [triyngToDelete, setTriyngToDelete] = useState("");
   const [userToDelete, setUserToDelete] = useState(null);
-
-  const getRandomColor = () => {
-    const getByte = () => 128 + Math.floor(Math.random() * 128);
-    return `rgb(${getByte()}, ${getByte()}, ${getByte()})`;
-  };
+  const [isModalOpenDelete, setIsModalOpenDelete] = useState(false);
+  const [isModalOpenAdd, setIsModalOpenAdd] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(window.width);
+  const [onChange, setOnChange] = useState(false);
 
   useEffect(() => {
+    makeLines();
+  }, [windowWidth]);
+
+  useEffect(() => {
+    setSelectedClient(null);
+    setSelectedEmployee(null);
+    setTriyngToDelete("");
+    setUserToDelete(null);
     fetchClients();
     fetchEmployees();
     fetchConnections();
-  }, []);
+  }, [onChange]);
 
   useEffect(() => {
     if (selectedClient) {
@@ -85,6 +92,13 @@ const AdminDashboard = () => {
     console.log(colors);
     setEmployeeColors(colors);
   }, [currentEmployees]);
+
+  useEffect(() => {
+    document
+      .querySelectorAll(".relationship-line")
+      .forEach((line) => line.remove());
+    makeLines();
+  }, [currentClientsemployees, employeeColors]);
 
   const fetchClients = async () => {
     try {
@@ -146,41 +160,6 @@ const AdminDashboard = () => {
     }
   };
 
-  const handleClientClick = (client) => {
-    if (triyngToDelete == "Employee") {
-      setIsModalOpen(true);
-      setUserToDelete(client);
-    } else {
-      console.log("      setSelectedClient(client);");
-      console.log(client);
-      setTriyngToDelete("");
-      setSelectedClient(client);
-      setSelectedEmployee(null);
-    }
-  };
-
-  const handleEmployeeClick = (employee) => {
-    if (triyngToDelete == "Client") {
-      setIsModalOpen(true);
-      setUserToDelete(employee);
-    } else {
-      console.log("      setSelectedEmployee(employee);");
-      console.log(employee);
-
-      setTriyngToDelete("");
-      setSelectedClient(null);
-      setSelectedEmployee(employee);
-    }
-  };
-
-  const handleResetClick = () => {
-    setSelectedClient(null);
-    setSelectedEmployee(null);
-    setCurrentClients(clients);
-    setCurrentEmployees(employees);
-    setCurrentClientsemployees(clientsemployees);
-  };
-
   const makeLines = () => {
     if (employeeColors) {
       // עבור כל מערך בין לקוח ועובד, ליצור קו
@@ -231,12 +210,10 @@ const AdminDashboard = () => {
     }
   };
 
-  useEffect(() => {
-    document
-      .querySelectorAll(".relationship-line")
-      .forEach((line) => line.remove());
-    makeLines();
-  }, [currentClientsemployees, employeeColors]);
+  const getRandomColor = () => {
+    const getByte = () => 128 + Math.floor(Math.random() * 128);
+    return `rgb(${getByte()}, ${getByte()}, ${getByte()})`;
+  };
 
   const getEmployeeMargin = () => {
     if (currentEmployees.length >= currentClients.length) return "10px";
@@ -256,6 +233,44 @@ const AdminDashboard = () => {
     const employeeColor =
       employeeColors.find((e) => e.id === employeeID)?.color || "black";
     return employeeColor;
+  };
+
+  const handleClientClick = (client) => {
+    if (triyngToDelete == "Employee") {
+      console.log("      triyngToDelete == Employee;");
+      setIsModalOpenDelete(true);
+      setUserToDelete(client);
+    } else {
+      console.log("      setSelectedClient(client);");
+      console.log(client);
+      setTriyngToDelete("");
+      setSelectedClient(client);
+      setSelectedEmployee(null);
+    }
+  };
+
+  const handleEmployeeClick = (employee) => {
+    if (triyngToDelete == "Client") {
+      setIsModalOpenDelete(true);
+      setUserToDelete(employee);
+    } else {
+      console.log("      setSelectedEmployee(employee);");
+      console.log(employee);
+
+      setTriyngToDelete("");
+      setSelectedClient(null);
+      setSelectedEmployee(employee);
+    }
+  };
+
+  const handleResetClick = () => {
+    setSelectedClient(null);
+    setSelectedEmployee(null);
+    setCurrentClients(clients);
+    setCurrentEmployees(employees);
+    setCurrentClientsemployees(clientsemployees);
+    setTriyngToDelete("");
+    setUserToDelete(null);
   };
 
   return (
@@ -326,18 +341,26 @@ const AdminDashboard = () => {
       <DeleteConnection
         selectedClient={selectedClient}
         selectedEmployee={selectedEmployee}
+        triyngToDelete={triyngToDelete}
         setTriyngToDelete={setTriyngToDelete}
         userToDelete={userToDelete}
+        isModalOpenDelete={isModalOpenDelete}
+        setIsModalOpenDelete={setIsModalOpenDelete}
+        currentClientsemployees={currentClientsemployees}
+        onChange={onChange}
+        setOnChange={setOnChange}
       />
       <AddConnection
-        selectedClient1={selectedClient}
+        selectedClient={selectedClient}
         selectedEmployee={selectedEmployee}
         clients={clients}
         currentClients={currentClients}
         employees={employees}
         currentEmployees={currentEmployees}
-        setSelectedClient={setSelectedClient}
-        setSelectedEmployee={setSelectedEmployee}
+        isModalOpenAdd={isModalOpenAdd}
+        setIsModalOpenAdd={setIsModalOpenAdd}
+        onChange={onChange}
+        setOnChange={setOnChange}
       />
     </div>
   );
