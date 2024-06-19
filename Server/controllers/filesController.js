@@ -26,7 +26,10 @@ async function listFiles(userID, type) {
       const result = await model.getFilesByClientID(realID[0].client_id, type);
       files = result;
     } else {
-      const result = await model.getFilesByEmployeeID(realID[0].employee_id, type);
+      const result = await model.getFilesByEmployeeID(
+        realID[0].employee_id,
+        type
+      );
       files = result;
     }
     const filteredFiles = files.filter((file) => file.id !== null);
@@ -37,7 +40,13 @@ async function listFiles(userID, type) {
   }
 }
 
-async function uploadFile(uploaderID, clientID, uploadedFiles, filesNames, type) {
+async function uploadFile(
+  uploaderID,
+  clientID,
+  uploadedFiles,
+  filesNames,
+  type
+) {
   try {
     const realclientID = await getClientIDOrEmployeeIDByUserID(clientID);
     for (const [index, file] of uploadedFiles.entries()) {
@@ -218,5 +227,5 @@ module.exports = {
   viewFile,
   updateRemarkFile,
   updateStatusFile,
-  updateTypeFile
+  updateTypeFile,
 };

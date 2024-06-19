@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const { sendMail } = require("../services/mailService");
 const {
   getById,
   getClientsEmployee,
@@ -9,20 +8,32 @@ const {
   getConnections,
   getEmployees,
   employeeToClient,
-  updateConnection
+  updateConnection,
 } = require("../controllers/usersController");
 
 router.use(express.json());
 router.use(express.urlencoded({ extended: true }));
 
+router.get("/user", async (req, res) => {
+  try {
+    const id = req.query.id;
+    const result = await getById(id);
+    res.status(200).send(result);
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+});
+
 router.get("/clients", async (req, res) => {
   try {
     const id = req.query.id;
     let clientOfEmployee = null;
-    console.log("id");
-    console.log(id);
-    if (id != null) clientOfEmployee = await getClientsEmployee(id);
-    else clientOfEmployee = await getClients(id);
+    if (id == null) clientOfEmployee = await getClients();
+    else {
+      const user = await getById(id);
+      if (user.role == "Admin") clientOfEmployee = await getClients();
+      else clientOfEmployee = await getClientsEmployee(id);
+    }
     res.status(200).send(clientOfEmployee);
   } catch (err) {
     res.status(500).send({ message: err.message });
@@ -66,8 +77,8 @@ router.post("/connection", async (req, res) => {
   } catch (err) {
     res.status(500).send({ message: err.message });
   }
+});
 
-  
 router.put("/connection", async (req, res) => {
   try {
     const employeeID = req.body.employeeID;
@@ -78,7 +89,6 @@ router.put("/connection", async (req, res) => {
   } catch (err) {
     res.status(500).send({ message: err.message });
   }
-});
 });
 
 router.put("/", async (req, res) => {

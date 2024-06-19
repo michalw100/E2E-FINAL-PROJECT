@@ -16,8 +16,6 @@ router.post("/", async (req, res) => {
       username: user.userName,
       role: user.role,
     };
-    // console.log("signin");
-    // console.log(user);
     res.status(200).send(user);
   } catch (err) {
     if (err.message == "User does not exist in the system. Want to create an account? Contact Us 02-6237600 or yael.b@c-b-cpa.co.il")

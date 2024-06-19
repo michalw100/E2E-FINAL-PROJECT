@@ -24,7 +24,7 @@ const UsersList = () => {
           return response.json();
         })
         .then((data) => {
-          // console.log(data);
+          console.log(data);
           setUsers(data);
         })
         .catch((error) => setFetchError(error.message));
@@ -48,10 +48,11 @@ const UsersList = () => {
       )}
       {users.name}
       <div className="allClients">
-        {users.map((user) => (
-         <Client  key={user.client_user_id} client={user}/>
+        {users &&
+          users.map((user) => (
+            <Client key={user.id} client={user} />
             // <h2>{user.client_id}</h2>
-        ))}
+          ))}
       </div>
       {/* {selectedUser && <UserDetails user={selectedUser} />} */}
     </div>

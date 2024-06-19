@@ -1,48 +1,87 @@
 import React, { useState, useContext, useEffect } from "react";
 // import { useHistory } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 import { AuthContext } from "../AuthContext";
 import { useLocation } from "react-router";
 
 const UserDetails = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  const { state } = useLocation();
-  const { user: contextUser } = useContext(AuthContext);
+  // const { state } = useLocation();
+  const { user } = useContext(AuthContext);
+
+  // const { user: contextUser } = useContext(AuthContext);
+  const [currentUser,setCurrentUser]=useState(null)
   // const {setUser} = useContext(AuthContext);
-  const user = state?.user || contextUser;
+  // const user = state?.user || contextUser;
   // console.log("user")
   // console.log(user)
 
   const [signUpError, setSignUpError] = useState("");
   const [userDetails, setUserDetails] = useState({
-    name: user?.name || "",
-    userName: user?.userName || "",
-    email: user?.email || "",
-    street: user?.street || "",
-    city: user?.city || "",
-    zipcode: user?.zipcode || "",
-    phone: user?.phone || "",
-    deductionsFile: user?.deductionsFile || "",
-    parentClientID: user?.parentClientID || "",
+    name: currentUser?.name || "",
+    userName: currentUser?.userName || "",
+    email: currentUser?.email || "",
+    street: currentUser?.street || "",
+    city: currentUser?.city || "",
+    zipcode: currentUser?.zipcode || "",
+    phone: currentUser?.phone || "",
+    deductionsFile: currentUser?.deductionsFile || "",
+    parentClientID: currentUser?.parentClientID || "",
   });
 
   useEffect(() => {
-    if (user) {
+    const fetchClientData = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/getClientID", {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        });
+  
+        const data = await response.json();
+  
+        if (data.clientID) {
+          const clientResponse = await fetch(
+            `http://localhost:3000/users/user?id=${data.clientID}`,
+            {
+              method: "GET",
+              credentials: "include",
+            }
+          );
+  
+          const client = await clientResponse.json();
+          setCurrentUser(client);
+        } else {
+          setCurrentUser(user);
+        }
+      } catch (error) {
+        setCurrentUser(user);
+      }
+    };
+  
+    fetchClientData();
+  }, [user, location]);
+
+  useEffect(() => {
+    if (currentUser) {
       setUserDetails({
-        name: user.name || "",
-        userName: user.userName || "",
-        email: user.email || "",
-        street: user.street || "",
-        city: user.city || "",
-        zipcode: user.zipcode || "",
-        phone: user.phone || "",
-        deductionsFile: user.deductionsFile || "",
-        parentClientID: user.parentClientID || "",
+        name: currentUser.name || "",
+        userName: currentUser.userName || "",
+        email: currentUser.email || "",
+        street: currentUser.street || "",
+        city: currentUser.city || "",
+        zipcode: currentUser.zipcode || "",
+        phone: currentUser.phone || "",
+        deductionsFile: currentUser.deductionsFile || "",
+        parentClientID: currentUser.parentClientID || "",
       });
     }
-  }, [user]);
+  }, [currentUser]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -69,20 +108,20 @@ const UserDetails = () => {
     }
 
     const requestOptions = {
-      method: 'PUT',
+      method: "PUT",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
-      body: JSON.stringify(userDetails)
+      body: JSON.stringify(userDetails),
     };
 
-    fetch(`http://localhost:3000/users?id=${user.id}`, requestOptions)
+    fetch(`http://localhost:3000/users?id=${currentUser.id}`, requestOptions)
       .then((response) => response.json())
       .then((updatedUser) => {
         // console.log(updatedUser)
         setUserDetails(updatedUser);
         setSignUpError("The user has been updated successfully");
         setTimeout(() => {
-          navigate('/updates');
+          navigate("/updates");
         }, 3000);
       })
       .catch((error) => {

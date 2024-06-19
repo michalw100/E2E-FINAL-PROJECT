@@ -15,7 +15,7 @@ export const AuthProvider = ({ children }) => {
       if (response.ok) {
         const userSession = await response.json();
         const data = await fetch(
-          `http://localhost:3000/users?id=${userSession.id}`,
+          `http://localhost:3000/users/user?id=${userSession.id}`,
           {
             method: "GET",
             credentials: "include",

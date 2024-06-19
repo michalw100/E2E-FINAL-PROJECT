@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import {
   BrowserRouter,
   Routes,
@@ -26,15 +26,27 @@ function PrivateRoute({ children }) {
 function NestedRoutes() {
   const location = useLocation();
 
+  useEffect(() => {
+    if (!location.pathname.includes("adminDashboard")) {
+      document
+        .querySelectorAll(".relationship-line")
+        .forEach((line) => line.remove());
+    }
+  }, [location]);
+
   return (
     <Routes location={location}>
       <Route path="/updates" element={<Updates />} />
       <Route path="/addUser" element={<SignUp />} />
       <Route path="/myClients" element={<MyClients />} />
       <Route path="/myFiles" element={<Files key={location.key} />} />
+      <Route path="/myFiles/:id" element={<Files key={location.key} />} />
       <Route path="/logout" element={<Logout />} />
-      <Route path="/userDetails" element={<UserDetails />} />
-      <Route path="/userDetails/:id" element={<UserDetails />} />
+      <Route path="/userDetails" element={<UserDetails key={location.key} />} />
+      <Route
+        path="/userDetails/:id"
+        element={<UserDetails key={location.key} />}
+      />
       <Route path="/adminDashboard" element={<AdminDashboard />} />
     </Routes>
   );

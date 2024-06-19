@@ -8,33 +8,33 @@ const Client = ({ client }) => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const response = await fetch(
-          `http://localhost:3000/users?id=${client.client_user_id}`,
-          {
-            method: "GET",
-            credentials: "include",
-          }
-        );
+  // useEffect(() => {
+  //   const fetchUser = async () => {
+  //     try {
+  //       const response = await fetch(
+  //         `http://localhost:3000/users/user?id=${client.userId}`,
+  //         {
+  //           method: "GET",
+  //           credentials: "include",
+  //         }
+  //       );
 
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const userData = await response.json();
-        setUser(userData);
-        // console.log("client")
-        // console.log(userData);
-      } catch (error) {
-        // console.error("Error fetching user:", error.message);
-      }
-    };
+  //       if (!response.ok) {
+  //         throw new Error(`HTTP error! status: ${response.status}`);
+  //       }
+  //       const userData = await response.json();
+  //       setUser(userData);
+  //       // console.log("client")
+  //       // console.log(userData);
+  //     } catch (error) {
+  //       // console.error("Error fetching user:", error.message);
+  //     }
+  //   };
 
-    if (client.client_user_id) {
-      fetchUser();
-    }
-  }, [client.client_user_id]);
+  //   if (client.userId) {
+  //     fetchUser();
+  //   }
+  // }, [client.userId]);
 
   const saveUserDetailsToServer = async () => {
     try {
@@ -43,7 +43,7 @@ const Client = ({ client }) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ clientID: user.id }),
+        body: JSON.stringify({ clientID: client.userID }),
         credentials: "include",
       });
 
@@ -57,24 +57,42 @@ const Client = ({ client }) => {
     }
   };
 
+  const getUser = async() => {try {
+    const response = await fetch(
+      `http://localhost:3000/users/user?id=${client.userID}`,
+      {
+        method: "GET",
+        credentials: "include",
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const userData = await response.json();
+    setUser(userData);
+  } catch (error) {
+    console.error("Error fetching user:", error.message);
+  }}
+
   const viewDetails = async () => {
     await saveUserDetailsToServer();
-    navigate(`/userDetails/${client.client_id}`, { state: { user } });
+    navigate(`/userDetails/${client.userID}`, { state: { user } });
   };
 
   const viewFiles = async () => {
     await saveUserDetailsToServer();
     localStorage.removeItem("selectedTypeFile");
-    navigate(`/myFiles`);
+    navigate(`/myFiles/${client.userID}`);
     // navigate(`/myFiles/${client.client_id}`);
   };
 
   return (
-    <div className="client">
+    <div key={client.id} className="client">
       <h4 id=".clientDetails">
-        {client.client_id}. {user?.name}
+        {client.id}. {client.name}
       </h4>
-      <p className="clientemail">{user?.email} </p>
+      <p className="clientemail">{client.email} </p>
 
       <button className="mydetails" onClick={viewDetails}>
         <ImProfile />

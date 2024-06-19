@@ -19,11 +19,7 @@ router.get("/", async (req, res) => {
   try {
     const type = req.query.typeFile;
     const userID = req.query.userID;
-    // console.log("type");
-    // console.log(type);
     const files = await listFiles(userID, type);
-    // console.log("files");
-    // console.log(files);
     res.status(200).json(files);
   } catch (err) {
     res.status(500).send({ message: err.message });
