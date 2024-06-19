@@ -92,7 +92,7 @@ const AdminDashboard = () => {
     }));
     console.log(colors);
     setEmployeeColors(colors);
-  }, [currentEmployees]);
+  }, [employees]);
 
   useEffect(() => {
     document
