@@ -32,6 +32,8 @@ router.get("/clients", async (req, res) => {
     if (id == null) clientOfEmployee = await getClients();
     else {
       const user = await getById(id);
+      console.log("id")
+      console.log(id)
       if (user.role == "Admin") clientOfEmployee = await getClients();
       else clientOfEmployee = await getClientsEmployee(id);
     }

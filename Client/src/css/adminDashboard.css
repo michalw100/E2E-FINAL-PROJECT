@@ -113,6 +113,7 @@
 .delete-button:hover {
   background-color: #c82333;
 }
+
 .search-container {
   width: 100%;
   padding: 10px;
@@ -120,6 +121,7 @@
   justify-content: center; /* למרכז */
   align-items: center;
   margin-top: 0px;
+  position: relative; /* להבטיח שרשימת התוצאות תופיע בתוך ה-container */
 }
 
 .search-input {
@@ -137,28 +139,28 @@
 
 .search-results {
   position: absolute;
-  top: calc(100% + 10px);
-  left: 0;
+  top: 100%; /* מיד מתחת לשדה החיפוש */
+  left: 50%; /* ממרכז את הרשימה ביחס לקונטיינר */
+  transform: translateX(-50%); /* ממקם את הרשימה באמצע */
   z-index: 1000;
-  width: 100%;
+  width: 300px; /* אותו רוחב כמו שדה החיפוש */
   max-height: 200px;
   overflow-y: auto;
   background-color: white;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 0 0 5px 5px; /* פינות עגולות רק בתחתית */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  display: none;
+  display: block; /* תמיד מוצג */
+  padding: 0; /* כדי להסיר את הרווחים הפנימיים */
 }
 
-.search-results.visible {
-  display: block;
-}
-
-.search-item {
-  padding: 10px;
+.search-result {
+  padding: 8px; /* להתאים לריפוד של שדה החיפוש */
   cursor: pointer;
+  font-size: 16px; /* אותו גודל גופן כמו שדה החיפוש */
+  color: #666; /* צבע טקסט בהיר יותר */
 }
 
-.search-item:hover {
+.search-result:hover {
   background-color: #f0f0f0;
 }

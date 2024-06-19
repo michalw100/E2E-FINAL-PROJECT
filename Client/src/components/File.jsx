@@ -55,7 +55,7 @@ const File = ({ file, searchCriteria, filesChanged, setFilesChanged }) => {
   useEffect(() => {
     uploderName();
   }, []);
-  
+
   const uploderName = async () => {
     const data = await fetch(
       `http://localhost:3000/users/user?id=${file.uploaderID}`,
