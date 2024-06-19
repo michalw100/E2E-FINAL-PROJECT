@@ -4,23 +4,28 @@ import Modal from "react-modal";
 const deleteConnection = ({
   selectedClient,
   selectedEmployee,
+  triyngToDelete,
   setTriyngToDelete,
   userToDelete,
+  isModalOpenDelete,
+  setIsModalOpenDelete,
 }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
   const handleConfirmDelete = () => {
+    
     handleModalClose();
   };
 
   const handleModalClose = () => {
     setTriyngToDelete("");
-    setIsModalOpen(false);
+    setIsModalOpenDelete(false);
   };
 
   const handleDeleteConnection = async () => {
-    if (selectedClient) setTriyngToDelete("Client");
-    if (selectedEmployee) setTriyngToDelete("Employee");
+    if (triyngToDelete != "") setTriyngToDelete("");
+    else {
+      if (selectedClient) setTriyngToDelete("Client");
+      if (selectedEmployee) setTriyngToDelete("Employee");
+    }
   };
 
   return (
@@ -36,7 +41,7 @@ const deleteConnection = ({
         </button>
       )}
       <Modal
-        isOpen={isModalOpen}
+        isOpen={isModalOpenDelete}
         onRequestClose={handleModalClose}
         contentLabel="Confirm Connection Deletion"
         className="modal"

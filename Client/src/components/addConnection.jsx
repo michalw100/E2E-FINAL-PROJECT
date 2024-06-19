@@ -10,47 +10,56 @@ const addConnection = ({
   currentEmployees,
   setSelectedClient,
   setSelectedEmployee,
+  isModalOpenAdd,
+  setIsModalOpenAdd,
 }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const [triyngToAdd, setTriyngToAdd] = useState(null);
 
-  const handleSearch = (event) => {
-    const searchTerm1 = event.target.value.toLowerCase();
-    setSearchTerm(searchTerm1);
+  // console.log("selectedClient")
+  // console.log(selectedClient)
+
+  useEffect(() => {
+    setSearchTerm("");
+  }, [selectedClient, selectedEmployee]);
+
+  useEffect(() => {
     if (selectedEmployee) {
       const filteredClients = clients.filter(
         (client) =>
           !currentClients.some((c) => c.userID === client.userID) &&
-          client.name.toLowerCase().includes(searchTerm1)
+          client.name.toLowerCase().includes(searchTerm)
       );
       setSearchResults(filteredClients);
-      console.log("filteredClients");
-      console.log(filteredClients);
-    }
-    if (selectedClient) {
+    } else if (selectedClient) {
       const filteredEmployees = employees.filter(
         (employee) =>
           !currentEmployees.some((e) => e.userID === employee.userID) &&
-          employee.name.toLowerCase().includes(searchTerm1)
+          employee.name.toLowerCase().includes(searchTerm)
       );
       setSearchResults(filteredEmployees);
-      console.log("filteredEmployees");
-      console.log(filteredEmployees);
-    }
+    } else setSearchResults([]);
+  }, [searchTerm]);
+
+  const handleSearch = (event) => {
+    const searchTerm1 = event.target.value.toLowerCase();
+    setSearchTerm(searchTerm1);
   };
 
   const handleSearchItemClick = (item) => {
-    setSearchTerm("");
-    setSearchResults([]);
-    // הוספת הלוגיקה המתאימה לבחירה ברשימת החיפוש
-    if (item.type === "client") {
-      console.log("item.type === client");
-      setSelectedClient(item);
-      setSelectedEmployee(null);
-    } else if (item.type === "employee") {
-      setSelectedEmployee(item);
-      setSelectedClient(null);
-    }
+    // setSearchTerm("");
+    // setSearchResults([]);
+    setTriyngToAdd(item);
+    setIsModalOpenAdd(true);
+  };
+
+  const handleConfirmAdd = () => {
+    handleModalClose();
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpenAdd(false);
   };
 
   return (
@@ -79,6 +88,34 @@ const addConnection = ({
           )}
         </div>
       )}
+      <Modal
+        isOpen={isModalOpenAdd}
+        onRequestClose={handleModalClose}
+        contentLabel="Confirm Connection Deletion"
+        className="modal"
+        overlayClassName="overlay"
+      >
+        <h2>Confirm Connection Deletion</h2>
+        <p>
+          Are you sure you want to add the connection between{" "}
+          <strong>
+            {selectedClient
+              ? selectedClient.name
+              : triyngToAdd && triyngToAdd.name}
+          </strong>{" "}
+          and{" "}
+          <strong>
+            {selectedEmployee
+              ? selectedEmployee.name
+              : triyngToAdd && triyngToAdd.name}
+          </strong>
+          ?
+        </p>
+        <button onClick={handleConfirmAdd} autoFocus>
+          Yes
+        </button>
+        <button onClick={handleModalClose}>No</button>
+      </Modal>
     </div>
   );
 };

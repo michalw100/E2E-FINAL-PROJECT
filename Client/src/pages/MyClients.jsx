@@ -12,6 +12,8 @@ const UsersList = () => {
   // const returnMassege = false;
   useEffect(() => {
     if (user && user.id) {
+      console.log("user.id")
+      console.log(user)
       fetch(`http://localhost:3000/users/clients?id=${user.id}`, {
         method: "GET",
         headers: { "Content-Type": "application/json" },
@@ -50,7 +52,7 @@ const UsersList = () => {
       <div className="allClients">
         {users &&
           users.map((user) => (
-            <Client key={user.id} client={user} />
+            <Client key={user.userID} client={user} />
             // <h2>{user.client_id}</h2>
           ))}
       </div>
