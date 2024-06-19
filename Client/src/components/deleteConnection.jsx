@@ -9,10 +9,45 @@ const deleteConnection = ({
   userToDelete,
   isModalOpenDelete,
   setIsModalOpenDelete,
+  currentClientsemployees,
+  onChange,
+  setOnChange,
 }) => {
-  const handleConfirmDelete = () => {
-    
-    handleModalClose();
+  const handleConfirmDelete = async () => {
+    const connection = currentClientsemployees.find(
+      (c) =>
+        c.client_user_id ===
+          (selectedClient
+            ? selectedClient.userID
+            : userToDelete && userToDelete.userID) &&
+        c.employee_user_id ===
+          (selectedEmployee
+            ? selectedEmployee.userID
+            : userToDelete && userToDelete.userID)
+    );
+    try {
+      const response = await fetch("http://localhost:3000/users/connection", {
+        method: "DELETE",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          employeeID: connection.employee_id,
+          clientID: connection.client_id,
+        }),
+      });
+      if (response.ok) {
+        setOnChange(!onChange);
+        handleModalClose();
+      } else {
+        console.log(response);
+        handleModalClose();
+      }
+    } catch (error) {
+      console.log(error);
+      handleModalClose();
+    }
   };
 
   const handleModalClose = () => {

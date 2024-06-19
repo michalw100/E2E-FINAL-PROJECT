@@ -32,11 +32,10 @@ router.get("/clients", async (req, res) => {
     if (id == null) clientOfEmployee = await getClients();
     else {
       const user = await getById(id);
-      console.log("id")
-      console.log(id)
+      console.log("id");
+      console.log(id);
       if (user.role == "Admin") clientOfEmployee = await getClients();
-      else 
-      {
+      else {
         clientOfEmployee = await getClientsEmployee(id);
       }
     }
@@ -78,6 +77,7 @@ router.post("/connection", async (req, res) => {
   try {
     const employeeID = req.body.employeeID;
     const clientID = req.body.clientID;
+ 
     const connection = await employeeToClient(employeeID, clientID);
     res.status(200).send(connection);
   } catch (err) {
@@ -87,8 +87,9 @@ router.post("/connection", async (req, res) => {
 
 router.delete("/connection", async (req, res) => {
   try {
-    const id = req.body.id;
-    const connection = await deleteConnection(id);
+    const employeeID = req.body.employeeID;
+    const clientID = req.body.clientID;
+    const connection = await deleteConnection(employeeID, clientID);
     res.status(200).send(connection);
   } catch (err) {
     res.status(500).send({ message: err.message });

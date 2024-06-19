@@ -1,7 +1,7 @@
 const model = require("../models/usersModel");
 const bcrypt = require("bcrypt");
-const { AbilityBuilder, Ability } = require('@casl/ability');
-const { defineAbilitiesFor } = require('../Middlewares/abilities');
+const { AbilityBuilder, Ability } = require("@casl/ability");
+const { defineAbilitiesFor } = require("../Middlewares/abilities");
 
 async function getConnections() {
   try {
@@ -13,21 +13,23 @@ async function getConnections() {
   }
 }
 
-
-async function deleteConnection(id) {
+async function deleteConnection(employeeID, clientID) {
   try {
-    const connections = await model.deleteConnection(id);
+    const connections = await model.deleteConnection(employeeID, clientID);
     return connections[0];
   } catch (err) {
     throw err;
   }
 }
 
-
-
 async function employeeToClient(employeeID, clientID) {
   try {
-    const connections = await model.employeeToClient(employeeID, clientID);
+    const employeeUserID = await getClientIDOrEmployeeIDByUserID(employeeID);
+    const clientUserID = await getClientIDOrEmployeeIDByUserID(clientID);
+    const connections = await model.employeeToClient(
+      employeeUserID.employee_id,
+      clientUserID.client_id
+    );
     // console.log(clientsEmployee[0]);
     return connections[0];
   } catch (err) {
@@ -49,8 +51,10 @@ async function getClientsEmployee(id) {
   try {
     const idEmployee = await getClientIDOrEmployeeIDByUserID(id);
 
-    console.log(idEmployee)
-    const clientsEmployee = await model.getClientsEmployee(idEmployee.employee_id);
+    console.log(idEmployee);
+    const clientsEmployee = await model.getClientsEmployee(
+      idEmployee.employee_id
+    );
     return clientsEmployee[0];
   } catch (err) {
     throw err;
@@ -66,7 +70,6 @@ async function getEmployees() {
     throw err;
   }
 }
-
 
 async function getClients() {
   try {
@@ -87,7 +90,6 @@ async function getClientIDOrEmployeeIDByUserID(id) {
     throw err;
   }
 }
-
 
 async function getById(id) {
   try {
@@ -134,7 +136,9 @@ async function getByPasswordAndUserName(password, userName) {
     const result = await model.getUserByPasswordAndUserName(userName);
     const user = result[0];
     if (!user) {
-      throw new Error("User does not exist in the system. Want to create an account? Contact Us 02-6237600 or yael.b@c-b-cpa.co.il");
+      throw new Error(
+        "User does not exist in the system. Want to create an account? Contact Us 02-6237600 or yael.b@c-b-cpa.co.il"
+      );
     }
     if (!user.role) {
       user.role = "Client";
@@ -150,7 +154,6 @@ async function getByPasswordAndUserName(password, userName) {
     throw err;
   }
 }
-
 
 async function update(id, userName, name, email, phone, street, city, zipcode) {
   try {
@@ -169,12 +172,12 @@ async function update(id, userName, name, email, phone, street, city, zipcode) {
   }
 }
 
-const { sendMail } = require('../services/mailService');
+const { sendMail } = require("../services/mailService");
 
 const sendToOurEmail = (req, res) => {
   const { email, name, subject, text } = req.body;
   sendMail(email, subject, text, name);
-  res.send('Welcome email sent!');
+  res.send("Welcome email sent!");
 };
 
 module.exports = {
@@ -190,5 +193,5 @@ module.exports = {
   employeeToClient,
   updateConnection,
   deleteConnection,
-  getClientIDOrEmployeeIDByUserID
+  getClientIDOrEmployeeIDByUserID,
 };

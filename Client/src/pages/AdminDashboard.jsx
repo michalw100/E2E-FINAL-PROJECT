@@ -18,16 +18,21 @@ const AdminDashboard = () => {
   const [isModalOpenDelete, setIsModalOpenDelete] = useState(false);
   const [isModalOpenAdd, setIsModalOpenAdd] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.width);
+  const [onChange, setOnChange] = useState(false);
 
   useEffect(() => {
     makeLines();
   }, [windowWidth]);
 
   useEffect(() => {
+    setSelectedClient(null);
+    setSelectedEmployee(null);
+    setTriyngToDelete("");
+    setUserToDelete(null);
     fetchClients();
     fetchEmployees();
     fetchConnections();
-  }, []);
+  }, [onChange]);
 
   useEffect(() => {
     if (selectedClient) {
@@ -264,6 +269,8 @@ const AdminDashboard = () => {
     setCurrentClients(clients);
     setCurrentEmployees(employees);
     setCurrentClientsemployees(clientsemployees);
+    setTriyngToDelete("");
+    setUserToDelete(null);
   };
 
   return (
@@ -339,6 +346,9 @@ const AdminDashboard = () => {
         userToDelete={userToDelete}
         isModalOpenDelete={isModalOpenDelete}
         setIsModalOpenDelete={setIsModalOpenDelete}
+        currentClientsemployees={currentClientsemployees}
+        onChange={onChange}
+        setOnChange={setOnChange}
       />
       <AddConnection
         selectedClient={selectedClient}
@@ -347,10 +357,10 @@ const AdminDashboard = () => {
         currentClients={currentClients}
         employees={employees}
         currentEmployees={currentEmployees}
-        setSelectedClient={setSelectedClient}
-        setSelectedEmployee={setSelectedEmployee}
         isModalOpenAdd={isModalOpenAdd}
         setIsModalOpenAdd={setIsModalOpenAdd}
+        onChange={onChange}
+        setOnChange={setOnChange}
       />
     </div>
   );

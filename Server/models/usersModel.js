@@ -2,8 +2,7 @@ const pool = require("../DB.js");
 
 async function getEmployees() {
   try {
-    const sql =
-      `SELECT * from employees LEFT JOIN users ON employees.userID = users.id where role!="Admin"`;
+    const sql = `SELECT * from employees LEFT JOIN users ON employees.userID = users.id where role!="Admin"`;
     const result = await pool.query(sql);
     return result;
   } catch (err) {
@@ -25,7 +24,7 @@ async function getClients() {
 async function getClientsEmployee(id) {
   try {
     const sql =
-"SELECT users.id, users.userName, users.name, users.email, users.phone, users.addressID, clients.id AS client_id, clients.userID, clients.parentClientID, clients.isApproved, clients.notes FROM clients Left JOIN users ON users.id = clients.userID Left JOIN employee_client ON employee_client.clientID = clients.id LEFT JOIN employees ON employee_client.employeeID = employees.id WHERE employees.id = ?"
+      "SELECT users.id, users.userName, users.name, users.email, users.phone, users.addressID, clients.id AS client_id, clients.userID, clients.parentClientID, clients.isApproved, clients.notes FROM clients Left JOIN users ON users.id = clients.userID Left JOIN employee_client ON employee_client.clientID = clients.id LEFT JOIN employees ON employee_client.employeeID = employees.id WHERE employees.id = ?";
     const result = await pool.query(sql, [id]);
     return result;
   } catch (err) {
@@ -44,11 +43,10 @@ async function getConnections() {
   }
 }
 
-
-
 async function employeeToClient(employeeID, clientID) {
   try {
-    const sql = "INSERT INTO employee_client (employeeID, clientID) VALUES (?, ?)";
+    const sql =
+      "INSERT INTO employee_client (employeeID, clientID) VALUES (?, ?)";
     const result = await pool.query(sql, [employeeID, clientID]);
     return result;
   } catch (err) {
@@ -56,20 +54,21 @@ async function employeeToClient(employeeID, clientID) {
   }
 }
 
-async function deleteConnection(id) {
+async function deleteConnection(employeeID, clientID) {
   try {
-    const sql = "DELETE FROM employee_client WHERE id = ?";
-    const result = await pool.query(sql, [id]);
+    const sql = "DELETE FROM employee_client WHERE employeeID = ? AND clientID = ?";
+    const result = await pool.query(sql, [employeeID, clientID]);
+    console.log(result);
     return result;
   } catch (err) {
     throw err;
   }
 }
 
-
 async function updateConnection(employeeID, clientID, id) {
   try {
-    const sql = "UPDATE employee_client SET employeeID = ?, clientID = ? WHERE id = ?";
+    const sql =
+      "UPDATE employee_client SET employeeID = ?, clientID = ? WHERE id = ?";
     const result = await pool.query(sql, [employeeID, clientID, id]);
     return result;
   } catch (err) {
@@ -216,5 +215,5 @@ module.exports = {
   getConnections,
   employeeToClient,
   updateConnection,
-  deleteConnection
+  deleteConnection,
 };

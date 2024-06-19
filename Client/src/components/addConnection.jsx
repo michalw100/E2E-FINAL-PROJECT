@@ -8,10 +8,10 @@ const addConnection = ({
   currentClients,
   employees,
   currentEmployees,
-  setSelectedClient,
-  setSelectedEmployee,
   isModalOpenAdd,
   setIsModalOpenAdd,
+  onChange,
+  setOnChange,
 }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
@@ -48,13 +48,41 @@ const addConnection = ({
   };
 
   const handleSearchItemClick = (item) => {
-    // setSearchTerm("");
-    // setSearchResults([]);
     setTriyngToAdd(item);
     setIsModalOpenAdd(true);
   };
 
-  const handleConfirmAdd = () => {
+  const handleConfirmAdd = async () => {
+    const clientId = selectedClient
+      ? selectedClient.userID
+      : triyngToAdd && triyngToAdd.userID;
+    const employeeId = selectedEmployee
+      ? selectedEmployee.userID
+      : triyngToAdd && triyngToAdd.userID;
+    try {
+      console.log();
+      const response = await fetch("http://localhost:3000/users/connection", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          employeeID: employeeId,
+          clientID: clientId,
+        }),
+      });
+      if (response.ok) {
+        setOnChange(!onChange);
+        handleModalClose();
+      } else {
+        console.log(response);
+        handleModalClose();
+      }
+    } catch (error) {
+      console.log(error);
+      handleModalClose();
+    }
     handleModalClose();
   };
 
