@@ -11,6 +11,7 @@ const dynamicCheckAbilities = (req, res, next) => {
     return res.status(403).send({ message: "User not authenticated" });
   }
 
+  
   let subject;
   switch (user.role) {
     case "Admin":

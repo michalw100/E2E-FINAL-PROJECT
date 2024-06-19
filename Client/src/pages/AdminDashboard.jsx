@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../css/adminDashboard.css";
 import AddConnection from "../components/addConnection";
 import DeleteConnection from "../components/deleteConnection";
+import { FaSearch } from "react-icons/fa";
 
 const AdminDashboard = () => {
   const [clients, setClients] = useState([]);
@@ -276,11 +277,25 @@ const AdminDashboard = () => {
   return (
     <div className="admin-dashboard">
       {(selectedClient || selectedEmployee) && (
-        <div className="reset-button-container">
+        <><div className="reset-button-container">
           <button onClick={handleResetClick} className="reset-button">
-            Show All{" "}
+            Show All
           </button>
+          
         </div>
+        <div className="search_div">
+        <div className="search-bar">
+              <FaSearch />
+              {/* <label className="input">Search:</label> */}
+              <input
+                type="text"
+                // value={searchCriteria}
+                placeholder="Search"
+                // onChange={(event) => setSearchCriteria(event.target.value)}
+              />
+            </div></div>
+        <h2>ffffffffffff</h2></>
+
       )}
       <div className="content-container">
         <div className="clients-list">
@@ -288,7 +303,7 @@ const AdminDashboard = () => {
           <ul>
             {currentClients.map((client) => (
               <li
-                onClick={() => handleClientClick(client)}
+              onClick={() => handleClientClick(client)}
                 key={client.userID}
                 style={{
                   marginBottom: getClientMargin(),
