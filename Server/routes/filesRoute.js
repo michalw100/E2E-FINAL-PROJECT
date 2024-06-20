@@ -29,8 +29,10 @@ router.get("/", async (req, res) => {
 
 router.get("/type", async (req, res) => {
   try {
-    const type = req.query.typeFile;
-    const files = await countTypeFile(type);
+    const type = req.query.type;
+    const clientID = req.query.clientID;
+    console.log(req.query)
+    const files = await countTypeFile(type, clientID);
     res.status(200).json(files);
   } catch (err) {
     res.status(500).send({ message: err.message });

@@ -232,9 +232,9 @@ async function updateTypeFile(id, type) {
   }
 }
 
-async function countTypeFile(type) {
+async function countTypeFile(type, clientID) {
   try {
-    const file = await model.countTypeFile(type);
+    const file = await model.countTypeFile(type, clientID);
     return file[0];
   } catch (err) {
     throw err;

@@ -12,9 +12,11 @@ async function getFilesByClientID(clientID, type) {
   return files[0];
 }
 
-async function countTypeFile(type) {
-  const sql = `SELECT COUNT(*) FROM files WHERE type = ?`;
-  const files = await pool.query(sql, [type]);
+async function countTypeFile(type, clientID) {
+  console.log(type)
+  const sql = `SELECT COUNT(*) AS count FROM files WHERE type = ? AND clientID = ?`;
+  const files = await pool.query(sql, [type, clientID]);
+  console.log(files[0])
   return files[0];
 }
 

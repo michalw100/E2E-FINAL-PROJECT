@@ -7,12 +7,7 @@ import Modal from "react-modal";
 
 Modal.setAppElement("#root");
 
-const TypesFiles = ({
-  setCurrentTypeFile,
-  currentTypeFile,
-  setFilesChanged,
-  filesChanged,
-}) => {
+const TypesFiles = ({ setCurrentTypeFile, currentTypeFile, setFilesChanged, filesChanged, ownerOfFiles}) => {
   const types = [
     "Current material for accounting",
     "Material for an annual report",
@@ -172,6 +167,7 @@ const TypesFiles = ({
           {types.map((type, index) => (
             <TypeFile
               key={index}
+              ownerOfFiles={ownerOfFiles}
               typeFile={type}
               setCurrentTypeFile={setCurrentTypeFile}
               onFileDrop={handleFileDrop}

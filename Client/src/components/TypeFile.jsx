@@ -1,12 +1,18 @@
 import React, {useEffect, useState} from "react";
 import { useDrop } from "react-dnd";
 
-const TypeFile = ({ typeFile, setCurrentTypeFile, onFileDrop }) => {
+const TypeFile = ({ typeFile, setCurrentTypeFile, onFileDrop, ownerOfFiles }) => {
   const [countOfType, setCountOfType] = useState(0);
-
+  console.log("ownerOfFiles    "+ownerOfFiles)
+  const [clientID, setClientID] = useState(ownerOfFiles);
   useEffect(() => {
+   if(ownerOfFiles!=null) 
+    {
+      setClientID(ownerOfFiles);
+      console.log("hgfds       "+clientID)
+    }
     countTypes();
-  }, []);
+  }, [ ,ownerOfFiles]);
 
   const [{ isOver }, drop] = useDrop({
     accept: "FILE",
@@ -19,21 +25,22 @@ const TypeFile = ({ typeFile, setCurrentTypeFile, onFileDrop }) => {
   });
 
   const countTypes = async () => {
-    const data = await fetch(
-      `http://localhost:3000/files/type`,
-      {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({ typeFile }),
-      }
-
-    );
-    const countType = await data.json();
-    setCountOfType(countType);
-
-    console.log(countType)
-    // console.log(uplodersName)
+    try{
+      const data = await fetch(
+        `http://localhost:3000/files/type?type=${typeFile}&&clientID=${clientID}`,
+        {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include"
+        }
+  
+      );
+      const countType = await data.json();
+      setCountOfType(countType);
+    }
+    catch(err){
+      console.log(err)
+    }
   };
 
   const handleTypeFileClick = () => {
@@ -44,8 +51,10 @@ const TypeFile = ({ typeFile, setCurrentTypeFile, onFileDrop }) => {
   return (
     <div ref={drop} style={{ border: isOver ? "2px solid green" : "none" }}>
       <button className="type-file-button" onClick={handleTypeFileClick}>
-        {typeFile}  {countOfType}
+        <strong>{typeFile}</strong>
       </button>
+{countOfType.count} files
+<hr></hr>
     </div>
   );
 };
