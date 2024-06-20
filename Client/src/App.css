@@ -255,6 +255,8 @@ h5{
   margin: 1%;
 }
 
+
+
 @media screen and (max-width:900px) {
 
   .allClients {
@@ -355,15 +357,24 @@ h5{
   border-radius: 4px;
   padding: 10px 10px;
   margin: 15px;
-  width: 300px; /* Set a fixed width */
-  background-color: white; /* Ensure the background is white */
-}
+  width: 300px;
+  background-color: white;}
 
 .search-bar input {
   border: none;
   outline: none;
-  width: 100%; /* Ensure the input takes up the full width of the search bar */
+  }
+.filesTitle{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* border: 1px solid #cccccc; */
+  /* border-radius: 4px; */
+  padding: 2px;
+  margin: 10px;
 }
+
+
 /* 
 .line {
   width:400px;
@@ -895,3 +906,4 @@ form button:hover {
   pointer-events: all;
   opacity: 1;
 }
+

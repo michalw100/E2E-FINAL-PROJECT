@@ -43,7 +43,7 @@ GROUP BY
   const files = await pool.query(sql, [userID, type]);
   console.log("files[0]")
   console.log(files)
-  console.log(type + " " +userID)
+  console.log(type + " " + userID)
   return files[0];
 }
 
@@ -62,14 +62,11 @@ async function updateStatusFile(id, status) {
 }
 
 async function getFilesByEmployeeID(userID, type) {
-  const sql = `
-SELECT files.id, files.driveFileId, files.uploaderID, files.createdAt, files.updatedAt, files.name, files.type, files.status, files.remark, files.clientID, files.topicID FROM employee_client LEFT JOIN clients ON employee_client.clientID = clients.id LEFT JOIN files ON files.clientID = clients.id  WHERE employee_client.employeeID = ? AND files.type = ? `;
+  const sql = `SELECT files.id, files.driveFileId, files.uploaderID, files.createdAt, files.updatedAt, files.name, files.type, files.status, files.remark, files.clientID, files.topicID FROM employee_client LEFT JOIN clients ON employee_client.clientID = clients.id LEFT JOIN files ON files.clientID = clients.id  WHERE employee_client.employeeID = ? AND files.type = ? `;
   const files = await pool.query(sql, [userID, type]);
   return files[0];
 }
 async function updateTypeFile(id, type) {
-  // console.log("id");
-  // console.log(id);
   const sql = `UPDATE files SET type = ? WHERE id = ?`;
   const files = await pool.query(sql, [type, id]);
   return files[0];
