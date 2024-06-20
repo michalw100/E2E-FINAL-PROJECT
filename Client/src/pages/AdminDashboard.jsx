@@ -220,7 +220,7 @@ const AdminDashboard = () => {
   };
 
   const highlightSearchTerm = (text) => {
-    if(!text) return "למה זה קורה?"
+    if (!text) return "למה זה קורה?";
     const lowerText = text.toLowerCase();
     const lowerSearch = searchCriteria.toLowerCase();
     const index = lowerText.indexOf(lowerSearch);
@@ -349,7 +349,7 @@ const AdminDashboard = () => {
                       triyngToDelete == "Employee" ? "red" : "#ccc",
                   }}
                 >
-                  {client.name.charAt(0)}
+                  {client.name ? client.name.charAt(0) : "oooof"}
                 </div>
               </li>
             ))}
@@ -376,7 +376,7 @@ const AdminDashboard = () => {
                   id={`employee-${employee.userID}`}
                   className="circle-button"
                 >
-                  {employee.name.charAt(0)}
+                  {employee.name ? employee.name.charAt(0) : "oooof"}
                 </div>
                 <div>{highlightSearchTerm(employee.name)}</div>
               </li>
