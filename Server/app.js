@@ -24,8 +24,9 @@ app.use(
   session({
     secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: false, // שיניתי מ-true ל-false
-    cookie: { secure: false, httpOnly: true }, // ודא ש-httpOnly מוגדר
+    saveUninitialized: false,
+    cookie: { secure: false, httpOnly: true, maxAge: 15 * 60 * 1000 },
+    // cookie: { secure: false, httpOnly: true, maxAge: 30 * 1000 },
   })
 );
 
@@ -39,36 +40,28 @@ const logger = (req, res, next) => {
 };
 app.use(logger);
 
-const emailRoute = require("./routes/emailRoute");
-app.use("/sendEmail", emailRoute);
-
-const signInRoute = require("./routes/signInRoute");
-app.use("/signIn", signInRoute);
+const extendSession = (req, res, next) => {
+  if (req.session.user) {
+    req.session.touch();
+  }
+  next();
+};
 
 const checkAuth = (req, res, next) => {
-  // console.log("req.session.user");
-  // console.log(req.session.user);
   if (req.session.user) {
     next();
   } else {
-    // console.log("oopsssss")
     res.status(401).send({ message: "You are not logged in" });
   }
 };
 
-app.use(checkAuth);
-
 const checkClearClientID = (req, res, next) => {
   if (req.session.clientID) {
-    delete req.session.clientID; // מחיקת ה-clientID מה-session
-   
-    res.sendStatus(200); // שולח סטטוס 200 במקרה של מחיקה מוצלחת
-  } else {
-    res.sendStatus(404); // או סטטוס 404 אם ה-clientID לא נמצא ב-session
+    delete req.session.clientID;
+    res.sendStatus(200);
+    res.sendStatus(404);
   }
 };
-
-app.use("/clearClientID", checkClearClientID);
 
 const checkClientID = (req, res, next) => {
   const clientId = req.body.clientID || req.query.clientID;
@@ -80,33 +73,40 @@ const checkClientID = (req, res, next) => {
   }
 };
 
-app.post("/storeClientID", checkClientID);
+const emailRoute = require("./routes/emailRoute");
+const signInRoute = require("./routes/signInRoute");
+const signUpRoute = require("./routes/signUpRoute");
+const filesRoute = require("./routes/filesRoute");
+const logoutRoute = require("./routes/logoutRoute");
+const usersRoute = require("./routes/usersRoute");
 
-app.get("/getClientID", (req, res) => {
+app.use("/sendEmail", checkAuth, extendSession, emailRoute);
+app.use("/signIn", signInRoute);
+app.use("/signUp", signUpRoute);
+app.use("/files", checkAuth, extendSession, filesRoute);
+app.use("/logout", checkAuth, extendSession, logoutRoute);
+app.use("/users", checkAuth, extendSession, usersRoute);
+app.use("/clearClientID", checkAuth, extendSession, checkClearClientID);
+app.post("/storeClientID", checkAuth, extendSession, checkClientID);
+app.get("/getClientID", checkAuth, extendSession, (req, res) => {
   if (req.session.clientID) {
     res.status(200).json({ clientID: req.session.clientID });
   } else {
     res.status(404).json({ message: "ClientID not found in session" });
   }
 });
+app.post("/refreshSession", checkAuth, extendSession, (req, res) => {
+  res.status(200).json({ message: "Session refreshed" });
+});
 
 app.use("/checkAuth", (req, res) => {
   res.status(200).json(req.session.user);
 });
 
-const signUpRoute = require("./routes/signUpRoute");
-app.use("/signUp", signUpRoute);
-
-const filesRoute = require("./routes/filesRoute");
-app.use("/files", filesRoute);
-
-const logoutRoute = require("./routes/logoutRoute");
-app.use("/logout", logoutRoute);
-
-const usersRoute = require("./routes/usersRoute");
-app.use("/users", usersRoute);
-
-
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
 
 // const server = http.createServer(app);
 
@@ -154,13 +154,7 @@ app.use("/users", usersRoute);
 //   });
 // });
 
-
 // const PORT = process.env.PORT || 3000;
 // server.listen(PORT, () => {
 //   console.log(`Server running on port ${PORT}`);
 // });
-
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
