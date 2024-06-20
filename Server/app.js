@@ -4,6 +4,8 @@ const fs = require("fs");
 const cors = require("cors");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
+const http = require("http");
+const WebSocket = require('ws');
 require("dotenv").config();
 
 const app = express();
@@ -103,6 +105,60 @@ app.use("/logout", logoutRoute);
 
 const usersRoute = require("./routes/usersRoute");
 app.use("/users", usersRoute);
+
+
+
+// const server = http.createServer(app);
+
+// // הגדרת WebSocket server
+// const wss = new WebSocket.Server({ server });
+
+// // ניהול חיבורי WebSocket
+// wss.on('connection', (ws) => {
+//   console.log('New client connected');
+
+//   ws.on('message', (data) => {
+//     const { topic, message } = JSON.parse(data);
+//     wss.clients.forEach((client) => {
+//       if (client.readyState === WebSocket.OPEN) {
+//         client.send(JSON.stringify({ topic, message }));
+//       }
+//     });
+//   });
+
+//   ws.on('close', () => {
+//     console.log('Client disconnected');
+//   });
+// });
+
+// const PORT = process.env.PORT || 3000;
+// server.listen(PORT, () => {
+//   console.log(`Server running on port ${PORT}`);
+// });
+
+// // יצירת שרת HTTP עם Express
+// const server = http.createServer(app);
+
+// // הפעלת Socket.IO על השרת
+// const io = socketIo(server);
+
+// io.on('connection', (socket) => {
+//   console.log('New client connected');
+
+//   socket.on('message', (data) => {
+//     io.emit('message', data);
+//   });
+
+//   socket.on('disconnect', () => {
+//     console.log('Client disconnected');
+//   });
+// });
+
+
+// const PORT = process.env.PORT || 3000;
+// server.listen(PORT, () => {
+//   console.log(`Server running on port ${PORT}`);
+// });
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
