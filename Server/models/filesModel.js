@@ -12,13 +12,41 @@ async function getFilesByClientID(clientID, type) {
   return files[0];
 }
 
-async function countTypeFile(type, clientID) {
+async function countTypeFileByClientID(type, userID) {
   console.log(type)
-  const sql = `SELECT COUNT(*) AS count FROM files WHERE type = ? AND clientID = ?`;
-  const files = await pool.query(sql, [type, clientID]);
+  const sql = `SELECT COUNT(*) AS count FROM files LEFT JOIN clients ON files.clientID =  clients.id WHERE type = ? AND clients.userID = ?`
+  // `SELECT COUNT(*) AS count FROM files WHERE type = ? AND clientID = ?`;
+  const files = await pool.query(sql, [type, userID]);
   console.log(files[0])
   return files[0];
 }
+
+async function countTypeFileByEmployeeID(type, userID) {
+  console.log(type)
+  const sql = `SELECT
+    e.id AS employeeID,
+    COUNT(f.id) AS count
+    FROM
+    employees emp
+JOIN
+    users e ON emp.userID = e.id
+JOIN
+    employee_client ec ON emp.id = ec.employeeID
+JOIN
+    clients c ON ec.clientID = c.id
+LEFT JOIN
+    files f ON c.id = f.clientID
+WHERE
+    e.id = ? AND type = ?
+GROUP BY
+    e.id`
+  const files = await pool.query(sql, [userID, type]);
+  console.log("files[0]")
+  console.log(files)
+  console.log(type + " " +userID)
+  return files[0];
+}
+
 
 
 async function updateRemarkFile(id, remark) {
@@ -54,5 +82,6 @@ module.exports = {
   updateRemarkFile,
   updateStatusFile,
   updateTypeFile,
-  countTypeFile
+  countTypeFileByClientID,
+  countTypeFileByEmployeeID
 };
