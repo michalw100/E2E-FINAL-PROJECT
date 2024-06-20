@@ -3,13 +3,12 @@ import { AuthContext } from "../AuthContext";
 
 const SignUp = () => {
   const { signUp, user } = useContext(AuthContext);
-  const [userName, setUserName] = useState("q");
-  const [password, setPassword] = useState("1");
-  const [passwordVerify, setPasswordVerify] = useState("1");
+  const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordVerify, setPasswordVerify] = useState("");
   const [signUpError, setSignUpError] = useState("");
   const [employeType, setEmployeType] = useState("Role 1");
   const [userRole, setUserRole] = useState("Client");
-
 
   const handleRegistration = async () => {
     if (!userName || !password || !passwordVerify) {
@@ -72,10 +71,10 @@ const SignUp = () => {
         onChange={(e) => setUserRole(e.target.value)}
       >
         <option value="Client">Client</option>
-        {user.role=="Admin" && (
+        {user.role == "Admin" && (
           <>
-              <option value="Employee">Employee</option>
-              <option value="Admin">Admin</option>
+            <option value="Employee">Employee</option>
+            <option value="Admin">Admin</option>
           </>
         )}
       </select>

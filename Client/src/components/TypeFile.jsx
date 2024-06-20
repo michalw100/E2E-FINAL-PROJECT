@@ -1,19 +1,20 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { useDrop } from "react-dnd";
 
-const TypeFile = ({ typeFile, setCurrentTypeFile, onFileDrop, ownerOfFiles }) => {
+const TypeFile = ({
+  typeFile,
+  setCurrentTypeFile,
+  onFileDrop,
+  ownerOfFiles,
+}) => {
   const [countOfType, setCountOfType] = useState(0);
-  console.log("ownerOfFiles    "+ownerOfFiles)
-  const [clientID, setClientID] = useState(ownerOfFiles);
+  console.log("ownerOfFiles    " + ownerOfFiles);
+
   useEffect(() => {
-   if(ownerOfFiles!=null) 
-    {
-      setClientID(ownerOfFiles);
-      console.log("hgfds       "+clientID)
-    }
-    
+    if (ownerOfFiles != null) {
     countTypes();
-  }, [ ,ownerOfFiles]);
+    }
+  }, [ownerOfFiles]);
 
   const [{ isOver }, drop] = useDrop({
     accept: "FILE",
@@ -26,21 +27,19 @@ const TypeFile = ({ typeFile, setCurrentTypeFile, onFileDrop, ownerOfFiles }) =>
   });
 
   const countTypes = async () => {
-    try{
+    try {
       const data = await fetch(
-        `http://localhost:3000/files/type?type=${typeFile}&&clientID=${clientID}`,
+        `http://localhost:3000/files/type?type=${typeFile}&&clientID=${ownerOfFiles}`,
         {
           method: "GET",
           headers: { "Content-Type": "application/json" },
-          credentials: "include"
+          credentials: "include",
         }
-  
       );
       const countType = await data.json();
       setCountOfType(countType);
-    }
-    catch(err){
-      console.log(err)
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -54,8 +53,8 @@ const TypeFile = ({ typeFile, setCurrentTypeFile, onFileDrop, ownerOfFiles }) =>
       <button className="type-file-button" onClick={handleTypeFileClick}>
         <strong>{typeFile}</strong>
       </button>
-{countOfType.count} files
-<hr></hr>
+      {countOfType.count} files
+      <hr></hr>
     </div>
   );
 };

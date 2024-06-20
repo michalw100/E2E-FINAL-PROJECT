@@ -19,9 +19,6 @@ const File = ({ file, searchCriteria, filesChanged, setFilesChanged }) => {
   const remarkRef = useRef(null);
   const selectRef = useRef(null);
 
-  // console.log(user.role)
-  // console.log( file.uploaderID)
-  // console.log(user.id)
   const [{ isDragging }, drag] = useDrag(() => ({
     type: "FILE",
     item: { id: file.id, currentType: file.type },
@@ -31,6 +28,7 @@ const File = ({ file, searchCriteria, filesChanged, setFilesChanged }) => {
   }));
 
   useEffect(() => {
+    uploderName();
     const handleClickOutside = (event) => {
       if (
         selectRef.current &&
@@ -52,10 +50,6 @@ const File = ({ file, searchCriteria, filesChanged, setFilesChanged }) => {
     };
   }, []);
 
-  useEffect(() => {
-    uploderName();
-  }, []);
-
   const uploderName = async () => {
     const data = await fetch(
       `http://localhost:3000/users/user?id=${file.uploaderID}`,
@@ -70,6 +64,7 @@ const File = ({ file, searchCriteria, filesChanged, setFilesChanged }) => {
     setUplodersName(user.name);
     // console.log(uplodersName)
   };
+
   const downloadFile = async () => {
     try {
       const response = await axios.get(
@@ -103,6 +98,7 @@ const File = ({ file, searchCriteria, filesChanged, setFilesChanged }) => {
       console.error("Error downloading file:", error.message);
     }
   };
+
   const changeStatus = async (newStatus) => {
     await fetch(`http://localhost:3000/files`, {
       method: "PUT",
@@ -122,6 +118,7 @@ const File = ({ file, searchCriteria, filesChanged, setFilesChanged }) => {
         return;
       });
   };
+
   const formatDate = (dateString) => {
     const options = {
       year: "numeric",
@@ -133,14 +130,17 @@ const File = ({ file, searchCriteria, filesChanged, setFilesChanged }) => {
     };
     return new Date(dateString).toLocaleDateString("he-IL", options);
   };
+
   const deleteFile = () => {
     setStatus("Deleted");
     changeStatus("Deleted");
   };
+
   const nodeleteFile = () => {
     setStatus("Accepted");
     changeStatus("Accepted");
   };
+
   const commentsFunc = () => {};
 
   const changeRemark = async () => {
@@ -167,16 +167,7 @@ const File = ({ file, searchCriteria, filesChanged, setFilesChanged }) => {
       });
   };
 
-  const handleStatusChange = async (e) => {
-    setSelectedStatus(e.target.value);
-    const newStatus = e.target.value;
-    setStatus(newStatus);
-    setShowStatus(!showStatus);
-    changeStatus(newStatus);
-  };
-  const handleRemarkChange = (e) => {
-    setRemark(e.target.value);
-  };
+
   const toggleEdit = () => {
     setIsEditing(true);
     setTimeout(() => {
@@ -185,6 +176,7 @@ const File = ({ file, searchCriteria, filesChanged, setFilesChanged }) => {
       }
     }, 0);
   };
+
   const employeeChangeStatus = () => {
     if (user.role != "Client") setShowStatus(!showStatus);
   };
@@ -196,11 +188,7 @@ const File = ({ file, searchCriteria, filesChanged, setFilesChanged }) => {
     }
   };
 
-  const handleKeyPress = (e) => {
-    if (e.key === "Escape") {
-      setIsEditing(false);
-    }
-  };
+
   const highlightSearchTerm = (text, searchTerm) => {
     const lowerText = text.toLowerCase();
     const lowerSearch = searchTerm.toLowerCase();
@@ -215,6 +203,23 @@ const File = ({ file, searchCriteria, filesChanged, setFilesChanged }) => {
         {text.substring(index + searchTerm.length)}
       </>
     );
+  };
+
+  const handleStatusChange = async (e) => {
+    setSelectedStatus(e.target.value);
+    const newStatus = e.target.value;
+    setStatus(newStatus);
+    setShowStatus(!showStatus);
+    changeStatus(newStatus);
+  };
+
+  const handleRemarkChange = (e) => {
+    setRemark(e.target.value);
+  };
+  const handleKeyPress = (e) => {
+    if (e.key === "Escape") {
+      setIsEditing(false);
+    }
   };
   const viewFileUrl = `http://localhost:3000/files/view/${file.driveFileId}`;
   return (
