@@ -232,10 +232,19 @@ async function updateTypeFile(id, type) {
   }
 }
 
-async function countTypeFile(type, clientID) {
+async function countTypeFile(type, userID) {
   try {
-    const file = await model.countTypeFile(type, clientID);
-    return file[0];
+    let files;
+    // console.log(userID);
+    const realID = await getClientIDOrEmployeeIDByUserID(userID);
+    if (realID[0].client_id) {
+      const result = await model.countTypeFileByClientID(type, userID);
+      files = result;
+    } else {
+      const result = await model.countTypeFileByEmployeeID(type, userID);
+      files = result;
+    }
+    return files[0];
   } catch (err) {
     throw err;
   }
