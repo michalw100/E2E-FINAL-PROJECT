@@ -14,7 +14,7 @@ async function getFilesByClientID(clientID, type) {
 
 async function countTypeFileByClientID(type, userID) {
   console.log(type)
-  const sql = `SELECT COUNT(*) AS count FROM files LEFT JOIN clients ON files.clientID =  clients.id WHERE type = 'Current material for accounting' AND clients.userID = ?`
+  const sql = `SELECT COUNT(*) AS count FROM files LEFT JOIN clients ON files.clientID =  clients.id WHERE type = ? AND clients.userID = ?`
   // `SELECT COUNT(*) AS count FROM files WHERE type = ? AND clientID = ?`;
   const files = await pool.query(sql, [type, userID]);
   console.log(files[0])
@@ -37,11 +37,13 @@ JOIN
 LEFT JOIN
     files f ON c.id = f.clientID
 WHERE
-    e.id = ?
+    e.id = ? AND type = ?
 GROUP BY
-    e.id;`
-  const files = await pool.query(sql, [type, userID]);
-  console.log(files[0])
+    e.id`
+  const files = await pool.query(sql, [userID, type]);
+  console.log("files[0]")
+  console.log(files)
+  console.log(type + " " +userID)
   return files[0];
 }
 

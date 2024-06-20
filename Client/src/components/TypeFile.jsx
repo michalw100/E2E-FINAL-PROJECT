@@ -1,14 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDrop } from "react-dnd";
 
-const TypeFile = ({
-  typeFile,
-  setCurrentTypeFile,
-  onFileDrop,
-  ownerOfFiles,
-}) => {
+const TypeFile = ({ typeFile, setCurrentTypeFile, onFileDrop, ownerOfFiles }) => {
   const [countOfType, setCountOfType] = useState(0);
-  console.log("ownerOfFiles    " + ownerOfFiles);
 
   useEffect(() => {
     if (ownerOfFiles != null) {
@@ -37,8 +31,16 @@ const TypeFile = ({
           credentials: "include",
         }
       );
-      const countType = await data.json();
-      setCountOfType(countType);
+      console.log("data")
+      console.log(data.Response)
+
+      if (!data.Response ) {
+        setCountOfType(0);
+      }
+      else {
+        const countType = await data.json();
+        setCountOfType(countType);
+      }
     } catch (err) {
       console.log(err);
     }
