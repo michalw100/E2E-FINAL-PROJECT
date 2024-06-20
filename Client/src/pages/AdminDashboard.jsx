@@ -220,6 +220,7 @@ const AdminDashboard = () => {
   };
 
   const highlightSearchTerm = (text) => {
+    if(!text) return "למה זה קורה?"
     const lowerText = text.toLowerCase();
     const lowerSearch = searchCriteria.toLowerCase();
     const index = lowerText.indexOf(lowerSearch);
