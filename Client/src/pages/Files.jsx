@@ -189,22 +189,19 @@ function Files() {
       .catch((error) => {
         setUploadStatus(error.response.data.message);
       });
-      
-      // const startIndex = (pageNumber - 1) * pageSize;
-      // const endIndex = Math.min(startIndex + pageSize, serverFiles.length);
-      // setFilteredFiles(serverFiles.slice(startIndex, endIndex));
-      // const startIndex = (currentPage - 1) * pageSize; // חישוב האינדקס הראשי לקבצים בעמוד הנוכחי
-      // const endIndex = Math.min(startIndex + pageSize, serverFiles.length); // חישוב האינדקס הסופי לקבצים בעמוד הנוכחי
-      // const filesForPage = serverFiles.slice(startIndex, endIndex); // חיתוך המערך לקבצים של העמוד הנוכחי
-      // setFilteredFiles(filesForPage); // עדכון הקבצים שמוצגים בממשק לקבצים בעמוד הנוכחי
-    
+  };
+  // קבל את הקבצים הנוכחיים להצגה על פי העמוד הנוכחי
+  const getCurrentFiles = () => {
+    if (filteredFiles) {
+      const endIndex = currentPage * 15;
+      return filteredFiles.slice(0, endIndex);
+    }
+    return [];
   };
 
   const handleLoadMore = () => {
     setCurrentPage(currentPage + 1);
   };
-  
-
 
   return (
     <DndProvider backend={HTML5Backend}>
@@ -214,7 +211,7 @@ function Files() {
           currentTypeFile={currentTypeFile}
           filesChanged={filesChanged}
           setFilesChanged={setFilesChanged}
-          ownerOfFiles = {ownerOfFiles}
+          ownerOfFiles={ownerOfFiles}
         />
         {currentTypeFile ? (
           <div>
@@ -300,24 +297,25 @@ function Files() {
               />
             </div>
             <div className="files">
-              {filteredFiles &&
-                filteredFiles.map((file, index) => (
-                  <File
-                    key={file.id}
-                    file={file}
-                    searchCriteria={searchCriteria}
-                    filesChanged={filesChanged}
-                    setFilesChanged={setFilesChanged}
-                  />
-                ))}
+              {getCurrentFiles().map((file, index) => (
+                <File
+                  key={file.id}
+                  file={file}
+                  searchCriteria={searchCriteria}
+                  filesChanged={filesChanged}
+                  setFilesChanged={setFilesChanged}
+                />
+              ))}
             </div>
-            {filteredFiles.length < serverFiles.length ? (
-  <button className="load-more-btn" onClick={handleLoadMore}>
-    Load More Files ({serverFiles.length - filteredFiles.length} remaining)
-  </button>
-) : (
-  <p>This client has no files to display for this page.</p>
-)}          </div>
+            {filteredFiles.length > currentPage * 15 ? (
+              <button className="load-more-btn" onClick={handleLoadMore}>
+                Load More Files ({filteredFiles.length - currentPage * 15}{" "}
+                remaining)
+              </button>
+            ) : (
+              <p>There are no more files to load.</p>
+            )}{" "}
+          </div>
         ) : (
           <div className="hand">
             turn in the 3 points on the side

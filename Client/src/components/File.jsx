@@ -260,6 +260,7 @@ const File = ({ file, searchCriteria, filesChanged, setFilesChanged }) => {
             {!showStatus && (
               <div
                 className="file-status"
+                ref={selectRef}
                 style={{
                   background:
                     status === "Absorbed"
@@ -325,7 +326,8 @@ const File = ({ file, searchCriteria, filesChanged, setFilesChanged }) => {
                   <button
                     className="update"
                     onClick={() => {
-                      changeRemarkInTheDB(), changeRemark(), toggleEdit();
+                      // changeRemarkInTheDB(), 
+                      changeRemark(), toggleEdit();
                     }}
                   >
                     <FaPencil />
