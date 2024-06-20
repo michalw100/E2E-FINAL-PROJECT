@@ -96,7 +96,7 @@ const SignUp = () => {
         </p>
       )}
       <button className="btnOkSignUp" onClick={handleRegistration}>
-        Connect
+        Save
       </button>
       <br />
     </div>

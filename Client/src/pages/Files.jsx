@@ -26,7 +26,7 @@ function Files() {
   const [searchCriteria, setSearchCriteria] = useState("");
   const [sortCriteria, setSortCriteria] = useState("dating");
   const [filteredFiles, setFilteredFiles] = useState();
-  // const [currentPage, setCurrentPage] = useState(1); // State for current page of displayed files
+  const [currentPage, setCurrentPage] = useState(1); // State for current page of displayed files
   // const [pageSize, setPageSize] = useState(10); // State for number of files per page
 
   // const response = fetch("http://localhost:3000/files/deleteAllFiles", {
@@ -193,19 +193,17 @@ function Files() {
       // const startIndex = (pageNumber - 1) * pageSize;
       // const endIndex = Math.min(startIndex + pageSize, serverFiles.length);
       // setFilteredFiles(serverFiles.slice(startIndex, endIndex));
-  
+      // const startIndex = (currentPage - 1) * pageSize; // חישוב האינדקס הראשי לקבצים בעמוד הנוכחי
+      // const endIndex = Math.min(startIndex + pageSize, serverFiles.length); // חישוב האינדקס הסופי לקבצים בעמוד הנוכחי
+      // const filesForPage = serverFiles.slice(startIndex, endIndex); // חיתוך המערך לקבצים של העמוד הנוכחי
+      // setFilteredFiles(filesForPage); // עדכון הקבצים שמוצגים בממשק לקבצים בעמוד הנוכחי
+    
   };
 
-// useEffect(() => {
-//     loadFiles(currentPage); // Load files on initial render and page change
-//   }, [ownerOfFiles, filesChanged, currentTypeFile, currentPage]); // Update files on relevant changes
-
-//   const handleLoadMore = () => {
-//     if (filteredFiles.length < serverFiles.length) {
-//       setCurrentPage(currentPage + 1);
-//       loadFiles(currentPage + 1);
-//     }
-//   };
+  const handleLoadMore = () => {
+    setCurrentPage(currentPage + 1);
+  };
+  
 
 
   return (
@@ -313,10 +311,13 @@ function Files() {
                   />
                 ))}
             </div>
-         {/* {filteredFiles.length < serverFiles.length ? ( <button className="load-more-btn" onClick={handleLoadMore}>
-                Load More Files ({serverFiles.length - filteredFiles.length} remaining)
-              </button>) :(<p>This client has no files to display for this page.</p>)} */}
-          </div>
+            {filteredFiles.length < serverFiles.length ? (
+  <button className="load-more-btn" onClick={handleLoadMore}>
+    Load More Files ({serverFiles.length - filteredFiles.length} remaining)
+  </button>
+) : (
+  <p>This client has no files to display for this page.</p>
+)}          </div>
         ) : (
           <div className="hand">
             turn in the 3 points on the side

@@ -11,6 +11,7 @@ const TypeFile = ({ typeFile, setCurrentTypeFile, onFileDrop, ownerOfFiles }) =>
       setClientID(ownerOfFiles);
       console.log("hgfds       "+clientID)
     }
+    
     countTypes();
   }, [ ,ownerOfFiles]);
 
