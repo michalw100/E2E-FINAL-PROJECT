@@ -2,7 +2,7 @@ const pool = require("../DB.js");
 
 async function getEmployees() {
   try {
-    const sql = `SELECT * from employees LEFT JOIN users ON employees.userID = users.id where role!="Admin"`;
+    const sql = `SELECT * from employees LEFT JOIN users ON employees.userID = users.id where role!="Admin" AND users.name IS NOT NULL`;
     const result = await pool.query(sql);
     return result;
   } catch (err) {
@@ -13,7 +13,7 @@ async function getEmployees() {
 async function getClients() {
   try {
     const sql =
-      "SELECT users.id, users.userName, users.name, users.email, users.phone, users.addressID, clients.id AS client_id, clients.userID, clients.parentClientID, clients.isApproved, clients.notes from clients LEFT JOIN users ON clients.userID = users.id";
+      "SELECT users.id, users.userName, users.name, users.email, users.phone, users.addressID, clients.id AS client_id, clients.userID, clients.parentClientID, clients.isApproved, clients.notes from clients LEFT JOIN users ON clients.userID = users.id WHERE users.name IS NOT NULL";
     const result = await pool.query(sql);
     return result;
   } catch (err) {
@@ -157,16 +157,7 @@ async function createUser(userName, hashedPassword, employeType, role) {
     throw err;
   }
 }
-const updateUser = async (
-  id,
-  userName,
-  name,
-  email,
-  phone,
-  street,
-  city,
-  zipcode
-) => {
+const updateUser = async ( id, userName, name, email, phone, street, city, zipcode) => {
   const user = await getUser(id);
   let address = user[0].addressID;
   let resultAddress;

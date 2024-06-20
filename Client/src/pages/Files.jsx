@@ -27,7 +27,7 @@ function Files() {
   const [sortCriteria, setSortCriteria] = useState("dating");
   const [filteredFiles, setFilteredFiles] = useState();
   const [currentPage, setCurrentPage] = useState(1); // State for current page of displayed files
-  // const [pageSize, setPageSize] = useState(10); // State for number of files per page
+  const [currentClient, setCurrentClient] = useState("?"); // State for number of files per page
 
   // const response = fetch("http://localhost:3000/files/deleteAllFiles", {
   //   method: "DELETE",
@@ -90,6 +90,7 @@ function Files() {
       if (user.role === "Client") {
         setShowDrop(true);
         setOwnerOfFiles(user.id);
+        setCurrentClient(user.name)
       } else {
         fetch("http://localhost:3000/getClientID", {
           method: "GET",
@@ -103,6 +104,8 @@ function Files() {
           .then((data) => {
             if (data.clientID) {
               setOwnerOfFiles(data.clientID);
+              setCurrentClient(user.name)
+              console.log(user.name)
               setShowDrop(true);
             } else setOwnerOfFiles(user.id);
           })
@@ -263,8 +266,21 @@ function Files() {
                 )}
               </div>
             )}
-            {uploadStatus && <p>{uploadStatus}</p>}
-            <h5>Your files:</h5>
+                        {uploadStatus && <p>{uploadStatus}</p>}
+                        <div className="filesTitle">
+                        <h5 className="yourFiles">{currentClient}'s files:</h5>
+
+            <div className="search-bar">
+              <FaSearch />
+              {/* <label className="input">Search:</label> */}
+              <input
+                type="text"
+                value={searchCriteria}
+                placeholder="Search"
+                onChange={(event) => setSearchCriteria(event.target.value)}
+              />
+            </div>
+              </div>
             <div className="search-bar">
               {/* <LiaSortSolid /> */}
               <FaSort />
@@ -285,16 +301,6 @@ function Files() {
                 <option value="alphabetical">Alphabetical</option>
                 <option value="random">random</option>
               </select>
-            </div>
-            <div className="search-bar">
-              <FaSearch />
-              {/* <label className="input">Search:</label> */}
-              <input
-                type="text"
-                value={searchCriteria}
-                placeholder="Search"
-                onChange={(event) => setSearchCriteria(event.target.value)}
-              />
             </div>
             <div className="files">
               {getCurrentFiles().map((file, index) => (
