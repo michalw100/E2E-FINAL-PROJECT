@@ -12,7 +12,7 @@ const TypeFile = ({
 
   useEffect(() => {
     if (ownerOfFiles != null) {
-    countTypes();
+      countTypes();
     }
   }, [ownerOfFiles]);
 
@@ -20,6 +20,7 @@ const TypeFile = ({
     accept: "FILE",
     drop: (item) => {
       onFileDrop(item.id, item.name, item.currentType, typeFile);
+      countTypes();
     },
     collect: (monitor) => ({
       isOver: monitor.isOver(),
