@@ -40,7 +40,13 @@ async function listFiles(userID, type) {
   }
 }
 
-async function uploadFile(uploaderID, clientID, uploadedFiles, filesNames, type) {
+async function uploadFile(
+  uploaderID,
+  clientID,
+  uploadedFiles,
+  filesNames,
+  type
+) {
   try {
     const realclientID = await getClientIDOrEmployeeIDByUserID(clientID);
     for (const [index, file] of uploadedFiles.entries()) {
@@ -234,22 +240,17 @@ async function updateTypeFile(id, type) {
 
 async function countTypeFile(type, userID) {
   try {
-    // console.log(userID);
     const realID = await getClientIDOrEmployeeIDByUserID(userID);
     if (realID[0].client_id) {
       const result = await model.countTypeFileByClientID(type, userID);
-      console.log("===== " + result)
       return result[0];
     } else {
       const result = await model.countTypeFileByEmployeeID(type, userID);
-      console.log("******************" + result)
-      if (result==[])
-      {
-        return 0;
+      if (!result[0]) {
+        return { employeeID: userID, count: 0 };
       }
       return result[0];
-      console.log("@@@@@@@@@@@@@@@@@@")
-      }
+    }
   } catch (err) {
     throw err;
   }

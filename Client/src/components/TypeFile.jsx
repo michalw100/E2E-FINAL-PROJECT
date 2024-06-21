@@ -32,9 +32,9 @@ const TypeFile = ({ typeFile, setCurrentTypeFile, onFileDrop, ownerOfFiles }) =>
         }
       );
       console.log("data")
-      console.log(data.Response)
+      console.log(data)
 
-      if (!data.Response ) {
+      if (!data) {
         setCountOfType(0);
       }
       else {

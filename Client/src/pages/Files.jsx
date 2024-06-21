@@ -89,8 +89,7 @@ function Files() {
     if (user && user.id !== undefined) {
       if (user.role === "Client") {
         setShowDrop(true);
-        setOwnerOfFiles(user.id);
-        setCurrentClient(user.name)
+        setCurrentClient(user.name);
       } else {
         fetch("http://localhost:3000/getClientID", {
           method: "GET",
@@ -104,8 +103,7 @@ function Files() {
           .then((data) => {
             if (data.clientID) {
               setOwnerOfFiles(data.clientID);
-              setCurrentClient(user.name)
-              console.log(user.name)
+              console.log(user.name);
               setShowDrop(true);
             } else setOwnerOfFiles(user.id);
           })
@@ -115,6 +113,36 @@ function Files() {
       }
     }
   }, [user, location]);
+
+  useEffect(() => {
+    if (ownerOfFiles)
+      if (ownerOfFiles == user.id) setCurrentClient(user.name);
+      else {
+        getClientName();
+      }
+  }, [ownerOfFiles]);
+
+  const getClientName = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/users/user?id=${ownerOfFiles}`,
+        {
+          method: "GET",
+          credentials: "include",
+        }
+      );
+      if (response.ok) {
+        const client = await response.json();
+        console.log("client");
+        console.log(client.name);
+        setCurrentClient(client.name);
+      } else {
+        console.error(response.message);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   useEffect(() => {
     const savedTypeFile = localStorage.getItem("selectedTypeFile");
@@ -266,21 +294,23 @@ function Files() {
                 )}
               </div>
             )}
-                        {uploadStatus && <p>{uploadStatus}</p>}
-                        <div className="filesTitle">
-                        <h5 className="yourFiles">{currentClient}'s files:</h5>
+            {uploadStatus && <p>{uploadStatus}</p>}
+            <div className="filesTitle">
+              {currentClient && (
+                <h5 className="yourFiles">{currentClient}'s files:</h5>
+              )}
 
-            <div className="search-bar">
-              <FaSearch />
-              {/* <label className="input">Search:</label> */}
-              <input
-                type="text"
-                value={searchCriteria}
-                placeholder="Search"
-                onChange={(event) => setSearchCriteria(event.target.value)}
-              />
-            </div>
+              <div className="search-bar">
+                <FaSearch />
+                {/* <label className="input">Search:</label> */}
+                <input
+                  type="text"
+                  value={searchCriteria}
+                  placeholder="Search"
+                  onChange={(event) => setSearchCriteria(event.target.value)}
+                />
               </div>
+            </div>
             <div className="search-bar">
               {/* <LiaSortSolid /> */}
               <FaSort />
