@@ -91,7 +91,7 @@ function Files() {
         setShowDrop(true);
         setCurrentClient(user.name);
       } else {
-        fetch("http://localhost:3000/getClientID", {
+        fetch("http://localhost:3000/myClient/getClientID", {
           method: "GET",
           credentials: "include",
           headers: {
