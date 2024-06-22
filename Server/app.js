@@ -1,6 +1,6 @@
 const express = require("express");
-const path = require("path");
-const fs = require("fs");
+// const path = require("path");
+// const fs = require("fs");
 const cors = require("cors");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
@@ -8,100 +8,61 @@ const http = require("http");
 // const WebSocket = require('ws');
 require("dotenv").config();
 
-const app = express();
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-const corsOptions = {
-  origin: process.env.CORS_ORIGIN,
-  credentials: true,
-};
-app.use(cors(corsOptions));
-
-app.use(cookieParser());
-
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
-    // cookie: { secure: false, httpOnly: true, maxAge: 30 * 60 * 1000 },
-    cookie: { secure: false, httpOnly: true },
-  })
-);
-
-const logger = (req, res, next) => {
-  const url = req.url;
-  const date = new Date();
-  const msg = `Date: ${date}, Url:${url} \n`;
-  fs.appendFile(path.join(__dirname, "log.txt"), msg, () => {
-    next();
-  });
-};
-app.use(logger);
-
-const extendSession = (req, res, next) => {
-  if (req.session.user) {
-    req.session.touch();
-  }
-  next();
-};
-
-const checkAuth = (req, res, next) => {
-  if (req.session.user) {
-    next();
-  } else {
-    res.status(401).send({ message: "You are not logged in" });
-  }
-};
-
-const checkClearClientID = (req, res, next) => {
-  if (req.session.clientID) {
-    delete req.session.clientID;
-    res.sendStatus(200);
-    res.sendStatus(404);
-  }
-};
-
-const checkClientID = (req, res, next) => {
-  const clientId = req.body.clientID || req.query.clientID;
-  if (clientId) {
-    req.session.clientID = clientId;
-    res.status(200).json({ message: "ClientID stored successfully" });
-  } else {
-    res.status(400).json({ message: "No ClientID provided" });
-  }
-};
-
 const emailRoute = require("./routes/emailRoute");
 const signInRoute = require("./routes/signInRoute");
 const signUpRoute = require("./routes/signUpRoute");
 const filesRoute = require("./routes/filesRoute");
 const logoutRoute = require("./routes/logoutRoute");
 const usersRoute = require("./routes/usersRoute");
+const myClientRoute = require("./routes/myClientRoute");
 
-app.use("/sendEmail", checkAuth, extendSession, emailRoute);
+// const checkClearClientID = require('./Middlewares/verifyclientID');
+const logger = require('./Middlewares/logger');
+// const extendSession = require("./Middlewares/verifySession");
+const checkAuth = require("./Middlewares/checkAuth");
+
+const app = express();
+const corsOptions = {origin: process.env.CORS_ORIGIN, credentials: true};
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cors(corsOptions));
+app.use(cookieParser());
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: false, httpOnly: true },
+  })
+);
+
+app.use(logger);
 app.use("/signIn", signInRoute);
+app.use(checkAuth);
+// app.use(extendSession);
 app.use("/signUp", signUpRoute);
-app.use("/files", checkAuth, extendSession, filesRoute);
-app.use("/logout", checkAuth, extendSession, logoutRoute);
-app.use("/users", checkAuth, extendSession, usersRoute);
-app.use("/clearClientID", checkAuth, extendSession, checkClearClientID);
-app.post("/storeClientID", checkAuth, extendSession, checkClientID);
-app.get("/getClientID", checkAuth, extendSession, (req, res) => {
-  if (req.session.clientID) {
-    res.status(200).json({ clientID: req.session.clientID });
-  } else {
-    res.status(404).json({ message: "ClientID not found in session" });
-  }
-});
-app.post("/refreshSession", checkAuth, extendSession, (req, res) => {
-  res.status(200).json({ message: "Session refreshed" });
-});
+app.use("/sendEmail", emailRoute);
+app.use("/files", filesRoute);
+app.use("/logout", logoutRoute);
+app.use("/users", usersRoute);
+app.use("/myClient", myClientRoute);
 
-app.use("/checkAuth", (req, res) => {
-  res.status(200).json(req.session.user);
-});
+
+// const storeClientID = (req, res, next) => {
+//   const clientId = req.body.clientID || req.query.clientID;
+//   if (clientId) {
+//     req.session.clientID = clientId;
+//     res.status(200).json({ message: "ClientID stored successfully" });
+//   } else {
+//     res.status(400).json({ message: "No ClientID provided" });
+//   }
+// };
+
+// app.post("/refreshSession", (req, res) => {
+//   res.status(200).json({ message: "Session refreshed" });
+// });
+
+app.use("/checkAuth", (req, res) => {res.status(200).json(req.session.user);});
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
