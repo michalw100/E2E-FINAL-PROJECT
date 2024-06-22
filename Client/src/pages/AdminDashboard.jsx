@@ -267,7 +267,6 @@ const AdminDashboard = () => {
   const handleClientClick = (client) => {
     setSearchCriteria("");
     if (triyngToDelete == "Employee") {
-      console.log("      triyngToDelete == Employee;");
       setIsModalOpenDelete(true);
       setUserToDelete(client);
     } else {
@@ -304,7 +303,6 @@ const AdminDashboard = () => {
       .querySelectorAll(".relationship-line")
       .forEach((line) => line.remove());
     if (!widthChanged) setWidthChanged(true);
-    console.log("Window width changed:", window.innerWidth);
   };
 
   return (

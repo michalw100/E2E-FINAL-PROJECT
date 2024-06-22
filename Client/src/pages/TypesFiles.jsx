@@ -52,7 +52,6 @@ const TypesFiles = ({ setCurrentTypeFile, currentTypeFile, setFilesChanged, file
         return response;
       })
       .then((data) => {
-        console.log("im hereeeee")
         setFilesChanged(!filesChanged);
         return;
       });

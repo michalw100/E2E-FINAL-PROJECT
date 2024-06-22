@@ -32,8 +32,7 @@ router.get("/clients", async (req, res) => {
     if (id == null) clientOfEmployee = await getClients();
     else {
       const user = await getById(id);
-      console.log("id");
-      console.log(id);
+
       if (user.role == "Admin") clientOfEmployee = await getClients();
       else {
         clientOfEmployee = await getClientsEmployee(id);
@@ -111,8 +110,6 @@ router.put("/connection", async (req, res) => {
 router.put("/user", async (req, res) => {
   try {
     const id = req.query.id;
-    console.log("body");
-    console.log(req.body.userName);
     await update(
       id,
       req.body.userName,
@@ -124,8 +121,7 @@ router.put("/user", async (req, res) => {
       req.body.zipcode
     );
     const result = await getById(id);
-    console.log("getById");
-    console.log(result);
+
     res.status(200).send(result);
   } catch (err) {
     res.status(500).send({ message: err.message });

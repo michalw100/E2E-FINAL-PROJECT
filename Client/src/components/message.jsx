@@ -10,7 +10,7 @@ const ChatScreen = () => {
     const ws = new WebSocket('ws://your_server_address'); // כתובת השרת שלך
 
     ws.onopen = () => {
-      console.log('WebSocket connected');
+      // console.log('WebSocket connected');
       setSocket(ws);
     };
 

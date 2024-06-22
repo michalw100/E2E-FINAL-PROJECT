@@ -98,8 +98,7 @@ router.put("/", async (req, res) => {
     const remark = req.body.remark;
     const status = req.body.status;
     const type = req.body.type;
-    console.log(remark);
-    console.log(type);
+
 
     if (remark) {
       const response = await updateRemarkFile(fileId, remark);

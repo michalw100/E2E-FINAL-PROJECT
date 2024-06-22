@@ -31,8 +31,6 @@ const TypeFile = ({ typeFile, setCurrentTypeFile, onFileDrop, ownerOfFiles }) =>
           credentials: "include",
         }
       );
-      console.log("data")
-      console.log(data)
 
       if (!data) {
         setCountOfType(0);

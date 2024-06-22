@@ -1,31 +1,36 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
-app.get("/getClientID", (req, res) => {
+router.get("/getClientID", (req, res) => {
+  console.log("getClientID");
   if (req.session.clientID) {
-    res.status(200).json({ clientID: req.session.clientID });
+    console.log(req.session.clientID);
+    res.status(200).send({ clientID: req.session.clientID });
   } else {
-    res.status(404).json({ message: "ClientID not found in session" });
+    console.log("false");
+    res.status(404).send({ message: "ClientID not found in session" });
   }
 });
 
-app.get("/clearClientID", (req, res, next) => {
-    if (req.session.clientID) {
-      delete req.session.clientID;
-      res.sendStatus(200);
-      res.sendStatus(404);
-    }
-  });
+router.get("/clearClientID", (req, res, next) => {
+  console.log("clearClientID");
+  if (req.session.clientID) {
+    delete req.session.clientID;
+    res.sendStatus(200);
+  } else res.sendStatus(404);
+});
 
-app.post("/storeClientID", (req, res, next) => {
-    const clientId = req.body.clientID || req.query.clientID;
-    if (clientId) {
-      req.session.clientID = clientId;
-      res.status(200).json({ message: "ClientID stored successfully" });
-    } else {
-      res.status(400).json({ message: "No ClientID provided" });
-    }
-  });
-
+router.post("/storeClientID", (req, res, next) => {
+  console.log("storeClientID");
+  const clientId = req.body.clientID || req.query.clientID;
+  if (clientId) {
+    console.log(clientId);
+    req.session.clientID = clientId;
+    res.status(200).json({ message: "ClientID stored successfully" });
+  } else {
+    console.log("false");
+    res.status(400).json({ message: "No ClientID provided" });
+  }
+});
 
 module.exports = router;

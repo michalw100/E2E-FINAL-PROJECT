@@ -12,8 +12,7 @@ const UsersList = () => {
   // const returnMassege = false;
   useEffect(() => {
     if (user && user.id) {
-      console.log("user.id")
-      console.log(user)
+
       fetch(`http://localhost:3000/users/clients?id=${user.id}`, {
         method: "GET",
         headers: { "Content-Type": "application/json" },
@@ -26,7 +25,6 @@ const UsersList = () => {
           return response.json();
         })
         .then((data) => {
-          console.log(data);
           setUsers(data);
         })
         .catch((error) => setFetchError(error.message));

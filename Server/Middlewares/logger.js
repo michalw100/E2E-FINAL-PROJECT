@@ -1,3 +1,5 @@
+const path = require("path");
+const fs = require("fs");
 
 const logger = (req, res, next) => {
     const url = req.url;

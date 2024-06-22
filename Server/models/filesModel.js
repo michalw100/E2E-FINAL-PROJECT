@@ -20,7 +20,6 @@ async function countTypeFileByClientID(type, userID) {
 }
 
 async function countTypeFileByEmployeeID(type, userID) {
-  console.log(type)
   const sql = `SELECT
     e.id AS employeeID,
     COUNT(f.id) AS count
@@ -39,9 +38,6 @@ WHERE
 GROUP BY
     e.id`
   const files = await pool.query(sql, [userID, type]);
-  console.log("files[0]")
-  console.log(files)
-  console.log(type + " " + userID)
   return files[0];
 }
 

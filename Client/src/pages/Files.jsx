@@ -103,7 +103,6 @@ function Files() {
           .then((data) => {
             if (data.clientID) {
               setOwnerOfFiles(data.clientID);
-              console.log(user.name);
               setShowDrop(true);
             } else setOwnerOfFiles(user.id);
           })
@@ -133,8 +132,7 @@ function Files() {
       );
       if (response.ok) {
         const client = await response.json();
-        console.log("client");
-        console.log(client.name);
+
         setCurrentClient(client.name);
       } else {
         console.error(response.message);

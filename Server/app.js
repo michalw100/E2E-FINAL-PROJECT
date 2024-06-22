@@ -1,6 +1,4 @@
 const express = require("express");
-// const path = require("path");
-// const fs = require("fs");
 const cors = require("cors");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
@@ -46,22 +44,6 @@ app.use("/files", filesRoute);
 app.use("/logout", logoutRoute);
 app.use("/users", usersRoute);
 app.use("/myClient", myClientRoute);
-
-
-// const storeClientID = (req, res, next) => {
-//   const clientId = req.body.clientID || req.query.clientID;
-//   if (clientId) {
-//     req.session.clientID = clientId;
-//     res.status(200).json({ message: "ClientID stored successfully" });
-//   } else {
-//     res.status(400).json({ message: "No ClientID provided" });
-//   }
-// };
-
-// app.post("/refreshSession", (req, res) => {
-//   res.status(200).json({ message: "Session refreshed" });
-// });
-
 app.use("/checkAuth", (req, res) => {res.status(200).json(req.session.user);});
 
 const PORT = process.env.PORT || 3000;

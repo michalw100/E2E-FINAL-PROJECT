@@ -58,7 +58,6 @@ const addConnection = ({
       ? selectedEmployee.userID
       : triyngToAdd && triyngToAdd.userID;
     try {
-      console.log();
       const response = await fetch("http://localhost:3000/users/connection", {
         method: "POST",
         credentials: "include",
