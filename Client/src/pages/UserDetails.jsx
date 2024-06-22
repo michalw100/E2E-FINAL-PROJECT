@@ -18,7 +18,7 @@ const UserDetails = () => {
   useEffect(() => {
     const fetchClientData = async () => {
       try {
-        const response = await fetch("http://localhost:3000/getClientID", {
+        const response = await fetch("http://localhost:3000/myClient/getClientID", {
           method: "GET",
           credentials: "include",
           headers: {

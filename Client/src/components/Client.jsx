@@ -38,7 +38,7 @@ const Client = ({ client }) => {
 
   const saveUserDetailsToServer = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/storeClientID`, {
+      const response = await fetch(`http://localhost:3000/muClient/storeClientID`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

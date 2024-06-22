@@ -14,7 +14,7 @@ function Navbar() {
 
   const clearClientID = async () => {
     try {
-      const response = await fetch("http://localhost:3000/clearClientID", {
+      const response = await fetch("http://localhost:3000/myClient/clearClientID", {
         method: "GET",
         credentials: "include",
       });
