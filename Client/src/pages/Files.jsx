@@ -11,6 +11,7 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import TypesFiles from "./TypesFiles.jsx";
 import { FaRegHandPointRight } from "react-icons/fa6";
+import { MdDelete } from "react-icons/md";
 
 function Files() {
   const location = useLocation();
@@ -231,6 +232,10 @@ function Files() {
     setCurrentPage(currentPage + 1);
   };
 
+  const handleDelete = (index) => {
+    setFiles((prevFiles) => prevFiles.filter((_, i) => i !== index));
+  };
+
   return (
     <DndProvider backend={HTML5Backend}>
       <div className="page_files">
@@ -246,7 +251,12 @@ function Files() {
           <div>
             {showDrop && (
               <div>
-                <div className="draganddrop" {...getRootProps()}>
+                <div className="draganddrop" {...getRootProps()}       style={{
+        pointerEvents:  uploadStatus == "uploading files..."
+        ? 'none' : 'auto',
+        opacity: uploadStatus == "uploading files..." ? 0.5 : 1,
+      }}
+>
                   <input {...getInputProps()} multiple />
                   <p>
                     <TbDragDrop /> Drag 'n' drop PDF files here, or click to
@@ -263,6 +273,7 @@ function Files() {
                             <span className="file-name">
                               {file.path || file.name}
                             </span>
+                            <button className="delete" onClick={() => handleDelete(index)}><MdDelete /></button>
                           </div>
                         ))}
                       </ul>
