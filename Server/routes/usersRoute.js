@@ -10,6 +10,7 @@ const {
   employeeToClient,
   deleteConnection,
   updateConnection,
+  getClientByCkientId
 } = require("../controllers/usersController");
 const checkAbilities = require("../Middlewares/checkAbilities");
 
@@ -21,6 +22,17 @@ router.get("/user", async (req, res) => {
     const id = req.query.id;
     const result = await getById(id);
     checkAbilities("read", result.role);
+    res.status(200).send(result);
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+});
+
+router.get("/client",   checkAbilities("read", "Clients"),
+async (req, res) => {
+  try {
+    const id = req.query.id;
+    const result = await getClientByCkientId(id);
     res.status(200).send(result);
   } catch (err) {
     res.status(500).send({ message: err.message });

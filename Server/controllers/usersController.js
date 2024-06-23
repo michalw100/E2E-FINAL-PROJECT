@@ -12,6 +12,16 @@ async function getConnections() {
     throw err;
   }
 }
+async function getClientByCkientId(id) {
+  try {
+    const user = await model.getClientByCkientId();
+    // console.log(clientsEmployee[0]);
+    return user[0].name;
+  } catch (err) {
+    throw err;
+  }
+}
+
 
 async function deleteConnection(employeeID, clientID) {
   try {
@@ -195,4 +205,5 @@ module.exports = {
   updateConnection,
   deleteConnection,
   getClientIDOrEmployeeIDByUserID,
+  getClientByCkientId
 };

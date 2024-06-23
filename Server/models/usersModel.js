@@ -10,6 +10,16 @@ async function getEmployees() {
   }
 }
 
+async function getClientByCkientId(id) {
+  try {
+    const sql = `SELECT name from clients where clientID = ?`;
+    const result = await pool.query(sql);
+    return result;
+  } catch (err) {
+    throw err;
+  }
+}
+
 async function getClients() {
   try {
     const sql =
@@ -205,4 +215,5 @@ module.exports = {
   employeeToClient,
   updateConnection,
   deleteConnection,
+  getClientByCkientId
 };
