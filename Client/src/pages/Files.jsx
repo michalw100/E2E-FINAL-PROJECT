@@ -89,7 +89,7 @@ function Files() {
     if (user && user.id !== undefined) {
       if (user.role === "Client") {
         setShowDrop(true);
-        setCurrentClient(user.name);
+        setOwnerOfFiles(user.id);
       } else {
         fetch("http://localhost:3000/myClient/getClientID", {
           method: "GET",
@@ -132,7 +132,6 @@ function Files() {
       );
       if (response.ok) {
         const client = await response.json();
-
         setCurrentClient(client.name);
       } else {
         console.error(response.message);
@@ -241,6 +240,7 @@ function Files() {
           filesChanged={filesChanged}
           setFilesChanged={setFilesChanged}
           ownerOfFiles={ownerOfFiles}
+          serverFiles={serverFiles}
         />
         {currentTypeFile ? (
           <div>

@@ -6,10 +6,10 @@ import "../App.css";
 function SignIn() {
   const { signIn } = useContext(AuthContext);
   const [loginError, setLoginError] = useState("");
-  // const [userName, setUserName] = useState("Client 4");
-  const [userName, setUserName] = useState("Employee 8");
-  // const [password, setPassword] = useState("4");
-  const [password, setPassword] = useState("18");
+  const [userName, setUserName] = useState("Client 4");
+  // const [userName, setUserName] = useState("Employee 8");
+  const [password, setPassword] = useState("4");
+  // const [password, setPassword] = useState("18");
 
   const handleLogin = async () => {
     if (!userName || !password) {

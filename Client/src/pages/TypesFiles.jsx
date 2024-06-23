@@ -8,7 +8,7 @@ import "../css/typeFile.css"
 
 Modal.setAppElement("#root");
 
-const TypesFiles = ({ setCurrentTypeFile, currentTypeFile, setFilesChanged, filesChanged, ownerOfFiles}) => {
+const TypesFiles = ({ setCurrentTypeFile, currentTypeFile, setFilesChanged, filesChanged, ownerOfFiles,serverFiles}) => {
   const types = [
     "Current material for accounting",
     "Material for an annual report",
@@ -173,6 +173,7 @@ const TypesFiles = ({ setCurrentTypeFile, currentTypeFile, setFilesChanged, file
               onFileDrop={handleFileDrop}
               onMouseEnter={handleDragOver}
               onMouseLeave={handleDragLeave}
+              serverFiles={serverFiles}
             />
           ))}
         </div>

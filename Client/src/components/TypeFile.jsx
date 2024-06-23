@@ -1,14 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useDrop } from "react-dnd";
-import "../css/typeFile.css"
-const TypeFile = ({ typeFile, setCurrentTypeFile, onFileDrop, ownerOfFiles }) => {
+import "../css/typeFile.css";
+const TypeFile = ({
+  typeFile,
+  setCurrentTypeFile,
+  onFileDrop,
+  ownerOfFiles,
+  serverFiles,
+}) => {
   const [countOfType, setCountOfType] = useState(0);
 
   useEffect(() => {
     if (ownerOfFiles != null) {
       countTypes();
     }
-  }, [ownerOfFiles]);
+  }, [ownerOfFiles, serverFiles]);
 
   const [{ isOver }, drop] = useDrop({
     accept: "FILE",
@@ -34,8 +40,7 @@ const TypeFile = ({ typeFile, setCurrentTypeFile, onFileDrop, ownerOfFiles }) =>
 
       if (!data) {
         setCountOfType(0);
-      }
-      else {
+      } else {
         const countType = await data.json();
         setCountOfType(countType);
       }
