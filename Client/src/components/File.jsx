@@ -238,6 +238,8 @@ const File = ({ file, searchCriteria, filesChanged, setFilesChanged }) => {
     >
       {(file.name.toLowerCase().includes(searchCriteria) ||
         file.updatedAt.toLowerCase().includes(searchCriteria) ||
+        ownerName.toLowerCase().includes(searchCriteria) ||
+        uplodersName.toLowerCase().includes(searchCriteria) ||
         (file.remark &&
           file.remark.toLowerCase().includes(searchCriteria))) && (
         <div className="file-box">
@@ -348,12 +350,12 @@ const File = ({ file, searchCriteria, filesChanged, setFilesChanged }) => {
           <div className="header">
             <strong>uploader</strong>
             <br />
-            {uplodersName}
+            {highlightSearchTerm(uplodersName, searchCriteria)}
           </div>
           <div className="header">
             <strong>owner</strong>
             <br />
-            {ownerName}
+            {highlightSearchTerm(ownerName, searchCriteria)}
           </div>
           <div className="file-actions">
             {status !== "Deleted" && (
