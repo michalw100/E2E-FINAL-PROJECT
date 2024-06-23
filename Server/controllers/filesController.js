@@ -241,8 +241,8 @@ async function updateTypeFile(id, type) {
 async function countTypeFile(type, userID) {
   try {
     const realID = await getClientIDOrEmployeeIDByUserID(userID);
-    console.log("realID");
-    console.log(realID);
+    // console.log("realID");
+    // console.log(realID);
     if (realID[0].client_id) {
       const result = await model.countTypeFileByClientID(type, userID);
       return result[0];
