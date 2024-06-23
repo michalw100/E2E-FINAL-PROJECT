@@ -4,11 +4,18 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import TypeFile from "../components/TypeFile";
 import { useDrop } from "react-dnd";
 import Modal from "react-modal";
-import "../css/typeFile.css"
+import "../css/typeFile.css";
 
 Modal.setAppElement("#root");
 
-const TypesFiles = ({ setCurrentTypeFile, currentTypeFile, setFilesChanged, filesChanged, ownerOfFiles,serverFiles}) => {
+const TypesFiles = ({
+  setCurrentTypeFile,
+  currentTypeFile,
+  setFilesChanged,
+  filesChanged,
+  ownerOfFiles,
+  serverFiles,
+}) => {
   const types = [
     "Current material for accounting",
     "Material for an annual report",
@@ -101,36 +108,29 @@ const TypesFiles = ({ setCurrentTypeFile, currentTypeFile, setFilesChanged, file
 
   const animateDots = (animate) => {
     const dots = document.querySelectorAll(".openbtn .dot");
-    const originalTransforms = [];
-
-    dots.forEach((dot) => {
-      originalTransforms.push(dot.style.transform); // שומר את הטרנספורם המקורי של כל נקודה
-    });
-
+  
     if (!animate) {
-      dots.forEach((dot, index) => {
-        dot.style.transition = "transform 0.3s ease-in-out";
+      dots.forEach((dot) => {
+        dot.classList.remove("animate");
         dot.style.transform = `translateY(-20px) scale(1.2)`;
       });
     } else {
       dots.forEach((dot, index) => {
         setTimeout(() => {
-          dot.style.transition = "transform 0.3s ease-in-out";
-          dot.style.transform = originalTransforms[index]; // מחזיר את הנקודה למקום המקורי שלה
+          dot.classList.add("animate");
+          dot.style.transform = ""; // מחזיר את הנקודה למקום המקורי שלה
         }, index * 100); // נותן זמן סט הפעלה שונה לכל נקודה
       });
     }
   };
 
   useEffect(() => {
-    // console.log("WOWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW");
-    // console.log(currentTypeFile + "hiii");
     if (currentTypeFile === null) {
       animateDots(true);
     } else {
       animateDots(false);
     }
-  }, [, currentTypeFile]);
+  }, [currentTypeFile]);
 
   useEffect(() => {
     if (isModalOpen) {
@@ -161,6 +161,7 @@ const TypesFiles = ({ setCurrentTypeFile, currentTypeFile, setFilesChanged, file
           onMouseEnter={handleSidebarMouseEnter}
           onMouseLeave={handleSidebarMouseLeave}
           ref={sidebarRef}
+          style={!isOver ? { overflow: "hidden", right: "0" } : undefined}
         >
           <h3>Select the file type</h3>
 
