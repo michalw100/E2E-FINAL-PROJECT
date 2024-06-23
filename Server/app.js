@@ -53,7 +53,7 @@ app.use("/checkAuth", (req, res) => {
 });
 
 cron.schedule("0 */15 * * * *", () => {
-  console.log("חידשתיאת עצמי!!!");
+  console.log("I've reload myself...");
   if (app && app.get("sessionMiddleware")) {
     app.get("sessionMiddleware")(null, {}, () => {});
   }

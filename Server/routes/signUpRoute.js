@@ -5,30 +5,28 @@ const { create } = require("../controllers/usersController");
 router.use(express.json());
 const verifyRole = require("../Middlewares/verifyRole");
 
-// const dynamicCheckAbilities = (req, res, next) => {
-//   const user = req.body; 
-//   if (!user||!user.role) {
-//     return res.status(403).send({ message: "User not authenticated" });
-//   }
-//   let subject;
-//   switch (user.role) {
-//     case "Admin":
-//       subject = "Employees";
-//       break;
-//     case "Client":
-//       subject = "Clients";
-//       break;
-//     case "Role 1":
-//     case "Role 2":
-//     default:
-//       subject = "Employees";
-//       break;
-//   }
-//   const abilityMiddleware = checkAbilities("create", subject);
-//   abilityMiddleware(req, res, next);
-// };
+const dynamicCheckAbilities = (req, res, next) => {
+  const user = req.body;
+  if (!user || !user.role) {
+    return res.status(403).send({ message: "User not authenticated" });
+  }
+  let subject;
+  switch (user.role) {
+    case "Client":
+      subject = "Clients";
+      break;
+    case "Admin":
+    case "Role 1":
+    case "Role 2":
+    default:
+      subject = "Employees";
+      break;
+  }
+  const abilityMiddleware = checkAbilities("create", subject);
+  abilityMiddleware(req, res, next);
+};
 
-router.post("/", verifyRole("Admin", "Employee"), async (req, res) => {
+router.post("/", dynamicCheckAbilities, async (req, res) => {
   try {
     const response = await create(
       req.body.userName,
