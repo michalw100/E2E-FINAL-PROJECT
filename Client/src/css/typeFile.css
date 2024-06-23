@@ -2,10 +2,9 @@
   background: none;
   border: none;
   color: #333;
-  font-size: 16px;
-  padding: 10px 15px; /* Adjust padding to fit content */
+  /* font-size: 16px; */
+  padding: 10px; /* Adjust padding to fit content */
   text-align: left;
-  width: 100%; /* Ensure button takes full width */
   cursor: pointer;
   border-top: 1px solid #ddd; /* Lighter border color */
   transition: background-color 0.3s; /* Smooth background color transition */
@@ -16,7 +15,6 @@
 }
 
 .sidebar {
-  padding: 10px; /* Increased padding for better spacing */
   height: 100%;
   width: 0;
   position: fixed;
@@ -85,7 +83,7 @@
   cursor: pointer;
   background: none;
   color: #333;
-  padding: 15px;
+  padding: 8px;
   border: none;
   position: fixed;
   top: 50%;
@@ -103,7 +101,7 @@
   background-color: black;
   border-radius: 50%;
   padding: 1%;
-  margin: 1%;
+  margin: 30%;
   transition: transform 0.3s ease-in-out;
 }
 

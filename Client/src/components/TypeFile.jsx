@@ -58,7 +58,7 @@ const TypeFile = ({
     <div ref={drop} style={{ border: isOver ? "2px solid green" : "none" }}>
       <button className="type-file-button" onClick={handleTypeFileClick}>
         <strong>{typeFile}</strong>
-      </button>
+      </button><br/>
       {countOfType.count} files
       <hr></hr>
     </div>
