@@ -10,7 +10,7 @@ const {
   employeeToClient,
   deleteConnection,
   updateConnection,
-  getClientByCkientId
+  getClientByCkientId,
 } = require("../controllers/usersController");
 const checkAbilities = require("../Middlewares/checkAbilities");
 
@@ -28,10 +28,10 @@ router.get("/user", checkAbilities("read", "Clients"), async (req, res) => {
   }
 });
 
-router.get("/client",   checkAbilities("read", "Clients"),
-async (req, res) => {
+router.get("/client", checkAbilities("read", "Clients"), async (req, res) => {
   try {
     const id = req.query.id;
+    console.log(id)
     const result = await getClientByCkientId(id);
     res.status(200).send(result);
   } catch (err) {

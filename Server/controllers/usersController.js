@@ -14,9 +14,9 @@ async function getConnections() {
 }
 async function getClientByCkientId(id) {
   try {
-    const user = await model.getClientByCkientId();
+    const user = await model.getClientByCkientId(id);
     // console.log(clientsEmployee[0]);
-    return user[0].name;
+    return user[0];
   } catch (err) {
     throw err;
   }

@@ -52,7 +52,7 @@ const File = ({ file, searchCriteria, filesChanged, setFilesChanged }) => {
   }, []);
 
   const uploderName = async () => {
-    const data = await fetch(
+    const data1 = await fetch(
       `http://localhost:3000/users/user?id=${file.uploaderID}`,
       {
         method: "GET",
@@ -60,16 +60,19 @@ const File = ({ file, searchCriteria, filesChanged, setFilesChanged }) => {
         credentials: "include",
       }
     );
-    const uploader = await data.json();
+    const uploader = await data1.json();
     setUplodersName(uploader.name);
-    `http://localhost:3000/users/client?id=${file.clientID}`,
+    const data2 = await fetch(
+      `http://localhost:3000/users/client?id=${file.clientID}`,
       {
         method: "GET",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
-      };
-    const owner = await data.json();
-    setOwnerName(owner.name);
+      }
+    );
+
+    const owner = await data2.json();
+    setOwnerName(owner[0].name);
   };
 
   const downloadFile = async () => {

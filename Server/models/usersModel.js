@@ -12,8 +12,10 @@ async function getEmployees() {
 
 async function getClientByCkientId(id) {
   try {
-    const sql = `SELECT name from clients where clientID = ?`;
-    const result = await pool.query(sql);
+    console.log(id)
+    const sql = `SELECT name from clients left join users on clients.userID = users.id where clients.id = ?`;
+    const result = await pool.query(sql, [id]);
+    console.log(result)
     return result;
   } catch (err) {
     throw err;
@@ -167,7 +169,16 @@ async function createUser(userName, hashedPassword, employeType, role) {
     throw err;
   }
 }
-const updateUser = async ( id, userName, name, email, phone, street, city, zipcode) => {
+const updateUser = async (
+  id,
+  userName,
+  name,
+  email,
+  phone,
+  street,
+  city,
+  zipcode
+) => {
   const user = await getUser(id);
   let address = user[0].addressID;
   let resultAddress;
@@ -215,5 +226,5 @@ module.exports = {
   employeeToClient,
   updateConnection,
   deleteConnection,
-  getClientByCkientId
+  getClientByCkientId,
 };
