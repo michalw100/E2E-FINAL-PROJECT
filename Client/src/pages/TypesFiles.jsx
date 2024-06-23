@@ -4,6 +4,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import TypeFile from "../components/TypeFile";
 import { useDrop } from "react-dnd";
 import Modal from "react-modal";
+import "../css/typeFile.css"
 
 Modal.setAppElement("#root");
 

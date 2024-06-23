@@ -29,6 +29,6 @@
   },
   "devDependencies": {
     "@casl/ability": "^6.7.1",
-    "nodemon": "^3.1.0"
+    "nodemon": "^3.1.4"
   }
 }

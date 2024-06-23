@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDrop } from "react-dnd";
-
+import "../css/typeFile.css"
 const TypeFile = ({ typeFile, setCurrentTypeFile, onFileDrop, ownerOfFiles }) => {
   const [countOfType, setCountOfType] = useState(0);
 

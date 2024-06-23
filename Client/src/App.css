@@ -366,7 +366,7 @@ h5{
   }
 .filesTitle{
   display: flex;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
   /* border: 1px solid #cccccc; */
   /* border-radius: 4px; */
@@ -720,7 +720,7 @@ form button:hover {
 /*type-file*/
 
 
-
+/* 
 .types-files{
   margin-top: 10%;
   display: flex;
@@ -736,7 +736,6 @@ form button:hover {
   border-radius: 8px;
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
   margin-bottom: 1rem;
 }
 
@@ -746,12 +745,12 @@ form button:hover {
   gap: 1em;
   margin: 35px;
   margin-left: 90px;
-}
+} */
 /* body {
   font-family: Arial, sans-serif;
 } */
 
-.sidebar {
+/* .sidebar {
   padding: 2px;
 
   height: 100%;
@@ -760,10 +759,10 @@ form button:hover {
   z-index: 1;
   top: 0;
   right: 0;
-  background-color: #fafafa; /* Light background color */
+  background-color: #fafafa; 
   overflow-x: hidden;
   transition: 0.5s;
-  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2); 
 }
 
 
@@ -779,6 +778,8 @@ form button:hover {
   background: none;
   border: none;
   cursor: pointer;
+  position: fixed;
+
   color: #333;
 }
 
@@ -789,16 +790,17 @@ form button:hover {
   color: #333;
   display: block;
   transition: 0.3s;
-  border-bottom: 1px solid #ddd; /* Lighter border color */
+  border-bottom: 1px solid #ddd; 
 }
 
 .sidebar a:hover {
-  background-color: #e7e7e7; /* Hover background color */
+  background-color: #e7e7e7; 
   color: #000;
 }
 
 .type-file-button {
   background: none;
+  
   border: none;
   color: #333;
   font-size: 16px;
@@ -806,8 +808,8 @@ form button:hover {
   text-align: left;
   width: 100%;
   cursor: pointer;
-  border-top: 1px solid #ddd; /* Lighter border color */
-  transition: background-color 0.3s; /* Smooth background color transition */
+  border-top: 1px solid #ddd; 
+  transition: background-color 0.3s; 
 }
 
 .type-file-button:first-child {
@@ -815,8 +817,7 @@ form button:hover {
 }
 
 .type-file-button:hover {
-  background-color: #e7e7e7; /* Hover background color */
-}
+  background-color: #e7e7e7; 
 
 .openbtn {
   font-size: 20px;
@@ -832,7 +833,7 @@ form button:hover {
   display: flex;
   flex-direction: column;
   align-items: center;
-  z-index: 2; /* Above the sidebar */
+  z-index: 2;
 }
 
 .dot {
@@ -840,7 +841,7 @@ form button:hover {
   height: 10px;
   background-color: black;
   border-radius: 50%;
-  transition: transform 0.3s ease, opacity 0.3s ease; /* אנימציה עבור התנועה והשקפתיות */
+  transition: transform 0.3s ease, opacity 0.3s ease; 
 }
 
 .dot:nth-child(1) {
@@ -848,11 +849,11 @@ form button:hover {
 }
 
 .dot:nth-child(2) {
-  animation: dotAnimation 3s infinite alternate 0.5s; /* מאיחור של 0.5 שניות */
+  animation: dotAnimation 3s infinite alternate 0.5s; 
 }
 
 .dot:nth-child(3) {
-  animation: dotAnimation 3s infinite alternate 1s; /* מאיחור של 1 שניות */
+  animation: dotAnimation 3s infinite alternate 1s;
 }
 
 @keyframes dotAnimation {
@@ -906,4 +907,4 @@ form button:hover {
   pointer-events: all;
   opacity: 1;
 }
-
+ */

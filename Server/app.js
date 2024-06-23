@@ -3,6 +3,7 @@ const cors = require("cors");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const http = require("http");
+// const cron = require("node-cron"); // יבוא של חבילת node-cron
 // const WebSocket = require('ws');
 require("dotenv").config();
 
@@ -45,6 +46,13 @@ app.use("/logout", logoutRoute);
 app.use("/users", usersRoute);
 app.use("/myClient", myClientRoute);
 app.use("/checkAuth", (req, res) => {res.status(200).json(req.session.user);});
+
+// הגדרת קרון לביצוע ריפרש של SESSION_SECRET כל 15 דקות
+// cron.schedule("*/15 * * * *", () => {
+//   const newSessionSecret = crypto.randomBytes(64).toString("hex");
+//   app.set("SESSION_SECRET", newSessionSecret);
+//   console.log(`SESSION_SECRET refreshed to: ${newSessionSecret}`);
+// });
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

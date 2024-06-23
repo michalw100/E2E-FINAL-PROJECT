@@ -1,36 +1,34 @@
 const express = require("express");
 const router = express.Router();
 const { create } = require("../controllers/usersController");
-const checkAbilities = require("../Middlewares/checkAbilities");
+// const checkAbilities = require("../Middlewares/checkAbilities");
 router.use(express.json());
-router.use(express.urlencoded({ extended: true }));
+const verifyRole = require("../Middlewares/verifyRole");
 
-const dynamicCheckAbilities = (req, res, next) => {
-  const user = req.body; 
-  if (!user||!user.role) {
-    return res.status(403).send({ message: "User not authenticated" });
-  }
+// const dynamicCheckAbilities = (req, res, next) => {
+//   const user = req.body; 
+//   if (!user||!user.role) {
+//     return res.status(403).send({ message: "User not authenticated" });
+//   }
+//   let subject;
+//   switch (user.role) {
+//     case "Admin":
+//       subject = "Employees";
+//       break;
+//     case "Client":
+//       subject = "Clients";
+//       break;
+//     case "Role 1":
+//     case "Role 2":
+//     default:
+//       subject = "Employees";
+//       break;
+//   }
+//   const abilityMiddleware = checkAbilities("create", subject);
+//   abilityMiddleware(req, res, next);
+// };
 
-  
-  let subject;
-  switch (user.role) {
-    case "Admin":
-      subject = "Employees";
-      break;
-    case "Client":
-      subject = "Clients";
-      break;
-    case "Role 1":
-    case "Role 2":
-    default:
-      subject = "Employees";
-      break;
-  }
-  const abilityMiddleware = checkAbilities("create", subject);
-  abilityMiddleware(req, res, next);
-};
-
-router.post("/", dynamicCheckAbilities, async (req, res) => {
+router.post("/", verifyRole("Admin", "Employee"), async (req, res) => {
   try {
     const response = await create(
       req.body.userName,
