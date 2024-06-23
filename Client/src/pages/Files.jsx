@@ -12,6 +12,8 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import TypesFiles from "./TypesFiles.jsx";
 import { FaRegHandPointRight } from "react-icons/fa6";
 import { MdDelete } from "react-icons/md";
+import Modal from "react-modal";
+Modal.setAppElement("#root");
 
 function Files() {
   const location = useLocation();
@@ -27,8 +29,10 @@ function Files() {
   const [searchCriteria, setSearchCriteria] = useState("");
   const [sortCriteria, setSortCriteria] = useState("dating");
   const [filteredFiles, setFilteredFiles] = useState();
-  const [currentPage, setCurrentPage] = useState(1); // State for current page of displayed files
-  const [currentClient, setCurrentClient] = useState("?"); // State for number of files per page
+  const [currentPage, setCurrentPage] = useState(1);
+  const [currentClient, setCurrentClient] = useState("?");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [pendingIndex, setPendingIndex] = useState(null);
 
   // const response = fetch("http://localhost:3000/files/deleteAllFiles", {
   //   method: "DELETE",
@@ -233,7 +237,18 @@ function Files() {
   };
 
   const handleDelete = (index) => {
-    setFiles((prevFiles) => prevFiles.filter((_, i) => i !== index));
+    setFiles((prevFiles) => prevFiles.filter((_, i) => i !== pendingIndex));
+  };
+
+  const confirmNotUpload = async () => {
+    handleDelete();
+    setPendingIndex(null);
+    setIsModalOpen(false);
+  };
+
+  const cancelNotUpload = () => {
+    setPendingIndex(null);
+    setIsModalOpen(false);
   };
 
   return (
@@ -251,12 +266,15 @@ function Files() {
           <div>
             {showDrop && (
               <div>
-                <div className="draganddrop" {...getRootProps()}       style={{
-        pointerEvents:  uploadStatus == "uploading files..."
-        ? 'none' : 'auto',
-        opacity: uploadStatus == "uploading files..." ? 0.5 : 1,
-      }}
->
+                <div
+                  className="draganddrop"
+                  {...getRootProps()}
+                  style={{
+                    pointerEvents:
+                      uploadStatus == "uploading files..." ? "none" : "auto",
+                    opacity: uploadStatus == "uploading files..." ? 0.5 : 1,
+                  }}
+                >
                   <input {...getInputProps()} multiple />
                   <p>
                     <TbDragDrop /> Drag 'n' drop PDF files here, or click to
@@ -273,7 +291,15 @@ function Files() {
                             <span className="file-name">
                               {file.path || file.name}
                             </span>
-                            <button className="delete" onClick={() => handleDelete(index)}><MdDelete /></button>
+                            <button
+                              className="delete"
+                              onClick={() => {
+                                setPendingIndex(index);
+                                setIsModalOpen(true);
+                              }}
+                            >
+                              <MdDelete />
+                            </button>
                           </div>
                         ))}
                       </ul>
@@ -368,6 +394,23 @@ function Files() {
             <FaRegHandPointRight />
           </div>
         )}
+        <Modal
+          isOpen={isModalOpen}
+          onRequestClose={cancelNotUpload}
+          contentLabel="Confirm File Drop"
+          className="modal"
+          overlayClassName="overlay"
+        >
+          <h2>Are you sure?</h2>
+          <p>
+            Are you sure you don't want to upload the file{" "}
+            <strong>{pendingIndex}</strong> ?
+          </p>
+          <button onClick={confirmNotUpload} autoFocus>
+            Yes
+          </button>
+          <button onClick={cancelNotUpload}>No</button>
+        </Modal>
       </div>
     </DndProvider>
   );
