@@ -129,3 +129,7 @@
     transform: translateY(-20px) scale(1.2);
   }
 }
+
+.hand{
+  font-size: 25px;
+}
