@@ -17,7 +17,7 @@ const checkAbilities = require("../Middlewares/checkAbilities");
 router.use(express.json());
 router.use(express.urlencoded({ extended: true }));
 
-router.get("/user", async (req, res) => {
+router.get("/user", checkAbilities("read", "Clients"), async (req, res) => {
   try {
     const id = req.query.id;
     const result = await getById(id);

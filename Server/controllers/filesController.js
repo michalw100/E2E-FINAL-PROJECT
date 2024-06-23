@@ -103,17 +103,18 @@ function bufferToStream(buffer) {
 
 async function deleteAllFiles(auth) {
   try {
-    const drive = google.drive({ version: "v3", auth });
 
     // Start from the root directory
-    await deleteAllFilesInFolder(drive, "root");
+    await deleteAllFilesInFolder( "root");
   } catch (error) {
     console.error("Error deleting files:", error);
   }
 }
 
-async function deleteAllFilesInFolder(drive, folderId) {
+async function deleteAllFilesInFolder( folderId) {
   try {
+    const drive = google.drive({ version: "v3", auth });
+
     const response = await drive.files.list({
       q: `'${folderId}' in parents`,
       fields: "files(id, name, mimeType)",
