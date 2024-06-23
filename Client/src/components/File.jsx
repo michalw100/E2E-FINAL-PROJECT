@@ -15,6 +15,7 @@ const File = ({ file, searchCriteria, filesChanged, setFilesChanged }) => {
   const [status, setStatus] = useState(file.status);
   const [selectedStatus, setSelectedStatus] = useState("");
   const [uplodersName, setUplodersName] = useState(file.remark || "");
+  const [ownerName, setOwnerName] = useState(file.remark || "");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const remarkRef = useRef(null);
   const selectRef = useRef(null);
@@ -59,10 +60,16 @@ const File = ({ file, searchCriteria, filesChanged, setFilesChanged }) => {
         credentials: "include",
       }
     );
-    const user = await data.json();
-    // console.log(user)
-    setUplodersName(user.name);
-    // console.log(uplodersName)
+    const uploader = await data.json();
+    setUplodersName(uploader.name);
+    `http://localhost:3000/users/client?id=${file.clientID}`,
+      {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+      };
+    const owner = await data.json();
+    setOwnerName(owner.name);
   };
 
   const downloadFile = async () => {
@@ -167,7 +174,6 @@ const File = ({ file, searchCriteria, filesChanged, setFilesChanged }) => {
       });
   };
 
-
   const toggleEdit = () => {
     setIsEditing(true);
     setTimeout(() => {
@@ -187,7 +193,6 @@ const File = ({ file, searchCriteria, filesChanged, setFilesChanged }) => {
       setShowStatus(!showStatus);
     }
   };
-
 
   const highlightSearchTerm = (text, searchTerm) => {
     const lowerText = text.toLowerCase();
@@ -326,7 +331,7 @@ const File = ({ file, searchCriteria, filesChanged, setFilesChanged }) => {
                   <button
                     className="update"
                     onClick={() => {
-                      // changeRemarkInTheDB(), 
+                      // changeRemarkInTheDB(),
                       changeRemark(), toggleEdit();
                     }}
                   >
@@ -341,6 +346,11 @@ const File = ({ file, searchCriteria, filesChanged, setFilesChanged }) => {
             <strong>uploader</strong>
             <br />
             {uplodersName}
+          </div>
+          <div className="header">
+            <strong>owner</strong>
+            <br />
+            {ownerName}
           </div>
           <div className="file-actions">
             {status !== "Deleted" && (
