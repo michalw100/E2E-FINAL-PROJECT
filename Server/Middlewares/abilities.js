@@ -12,6 +12,7 @@ const defineAbilitiesFor = (role) => {
       case "Client":
         can("read", "Clients");
         can("update", "Clients");
+        can("update", "Users");
         can("update", "files");
         can("delete", "files");
         can("read", "files");
@@ -21,6 +22,7 @@ const defineAbilitiesFor = (role) => {
       case "Role 1":
         can("update", "Clients");
         can("create", "Clients");
+        can("update", "Users");
         can("read", "Clients");
         can("update", "files");
         can("create", "files");
@@ -30,6 +32,7 @@ const defineAbilitiesFor = (role) => {
       case "Role 2":
         can("update", "Clients");
         can("create", "Clients");
+        can("update", "Users");
         can("read", "Clients");
         can("update", "files");
         can("create", "files");

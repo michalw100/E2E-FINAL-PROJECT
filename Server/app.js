@@ -5,6 +5,7 @@ const cookieParser = require("cookie-parser");
 const http = require("http");
 // const cron = require("node-cron"); // יבוא של חבילת node-cron
 // const WebSocket = require('ws');
+const cron = require("node-cron"); // ייבוא של חבילת node-cron
 require("dotenv").config();
 
 const emailRoute = require("./routes/emailRoute");
@@ -15,13 +16,11 @@ const logoutRoute = require("./routes/logoutRoute");
 const usersRoute = require("./routes/usersRoute");
 const myClientRoute = require("./routes/myClientRoute");
 
-// const checkClearClientID = require('./Middlewares/verifyclientID');
-const logger = require('./Middlewares/logger');
-// const extendSession = require("./Middlewares/verifySession");
+const logger = require("./Middlewares/logger");
 const checkAuth = require("./Middlewares/checkAuth");
 
 const app = express();
-const corsOptions = {origin: process.env.CORS_ORIGIN, credentials: true};
+const corsOptions = { origin: process.env.CORS_ORIGIN, credentials: true };
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors(corsOptions));
@@ -30,29 +29,50 @@ app.use(
   session({
     secret: process.env.SESSION_SECRET,
     resave: false,
+
     saveUninitialized: false,
-    cookie: { secure: false, httpOnly: true },
+    cookie: {
+      secure: false,
+      httpOnly: true,
+      sameSite: "Lax",
+    },
   })
 );
 
 app.use(logger);
 app.use("/signIn", signInRoute);
 app.use(checkAuth);
-// app.use(extendSession);
 app.use("/signUp", signUpRoute);
 app.use("/sendEmail", emailRoute);
 app.use("/files", filesRoute);
 app.use("/logout", logoutRoute);
 app.use("/users", usersRoute);
 app.use("/myClient", myClientRoute);
-app.use("/checkAuth", (req, res) => {res.status(200).json(req.session.user);});
+app.use("/checkAuth", (req, res) => {
+  res.status(200).json(req.session.user);
+});
 
-// הגדרת קרון לביצוע ריפרש של SESSION_SECRET כל 15 דקות
-// cron.schedule("*/15 * * * *", () => {
-//   const newSessionSecret = crypto.randomBytes(64).toString("hex");
-//   app.set("SESSION_SECRET", newSessionSecret);
-//   console.log(`SESSION_SECRET refreshed to: ${newSessionSecret}`);
-// });
+cron.schedule("0 */15 * * * *", () => {
+  console.log("I've reload myself...");
+  if (app && app.get("sessionMiddleware")) {
+    app.get("sessionMiddleware")(null, {}, () => {});
+  }
+});
+
+// שמירת middleware של הסשן כדי לגשת אליו ב-cron job
+app.set(
+  "sessionMiddleware",
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      secure: false,
+      httpOnly: true,
+      sameSite: "Lax",
+    },
+  })
+);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
