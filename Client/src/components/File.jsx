@@ -359,7 +359,7 @@ const File = ({ file, searchCriteria, filesChanged, setFilesChanged }) => {
            <div className="box"><div className="header">
             <strong>owner</strong>
             <br />
-            {ownerName}
+            {highlightSearchTerm(ownerName, searchCriteria)}
             </div>
             </div>
           <div className="file-actions">
