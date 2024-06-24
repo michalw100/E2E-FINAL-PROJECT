@@ -17,6 +17,7 @@ function PrivateRoute({ children }) {
 }
 
 function App() {
+  const apiKey = process.env.REACT_APP_STREAM_API_KEY;
   const [isUploading, setIsUploading] = useState(false);
 
   return (
@@ -33,6 +34,7 @@ function App() {
                   <NestedRoutes
                     isUploading={isUploading}
                     setIsUploading={setIsUploading}
+                    apiKey={apiKey}
                   />
                 </Layout>
               </PrivateRoute>

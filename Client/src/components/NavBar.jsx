@@ -51,6 +51,9 @@ function Navbar({ isUploading }) {
       </a>
       <Link to="./updates" onClick={(e) => handleLinkClick(e)}>
         Updates
+      </Link> 
+      <Link to="./chats" onClick={(e) => handleLinkClick(e)}>
+        Chats
       </Link>
       {user.role != "Client" && (
         <Link to="./addUser" onClick={(e) => handleLinkClick(e)}>

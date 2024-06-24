@@ -15,7 +15,6 @@ router.post("/", async (req, res) => {
       username: user.userName,
       role: user.role,
     };
-    // model.updateStreamToken(myToken, user.id);
     res.status(200).send(user);
   } catch (err) {
     if (
