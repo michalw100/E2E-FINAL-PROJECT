@@ -748,3 +748,130 @@ form button:hover {
 ul{
   padding: 0;
 }
+
+
+
+/* סגנון כללי */
+
+
+@media (max-width: 768px) {
+  
+  .file-box {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .file-info,
+  .box,
+  .file-actions {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .file-info {
+    flex: 1;
+  }
+
+  .file-name {
+    flex: 2;
+  }
+
+  .file-status-container,
+  .file-comments,
+  .header {
+    flex: 1;
+  }
+
+  .file-actions {
+    flex-direction: row;
+  }
+
+  .file-actions button {
+    margin: 0 5px;
+  }
+
+  /* סגנון כללי */
+.file-box {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.file-info,
+.box,
+.file-actions {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.file-info {
+  align-items: flex-start;
+}
+
+.file-name a {
+  word-break: break-word;
+  text-decoration: none;
+  color: #007bff;
+}
+
+.file-status-container,
+.file-comments,
+.header {
+  display: flex;
+  flex-direction: column;
+}
+
+.file-status-container select,
+.file-comments input {
+  width: 100%;
+}
+
+.file-actions button {
+  margin-bottom: 5px;
+}
+
+@media (min-width: 768px) {
+  .file-box {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .file-info,
+  .box,
+  .file-actions {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .file-info {
+    flex: 1;
+  }
+
+  .file-name {
+    flex: 2;
+  }
+
+  .file-status-container,
+  .file-comments,
+  .header {
+    flex: 1;
+  }
+
+  .file-actions {
+    flex-direction: row;
+  }
+
+  .file-actions button {
+    margin: 0 5px;
+  }
+}
+
+}
