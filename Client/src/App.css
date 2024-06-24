@@ -748,8 +748,12 @@ form button:hover {
 ul{
   padding: 0;
 }
-
-
+/* 
+.res {
+  flex-direction: row;
+  flex: 1;
+  display: flex;
+} */
 
 /* סגנון כללי */
 
@@ -783,47 +787,18 @@ ul{
   .file-actions {
     flex-direction: row;
   }
-
   .file-actions button {
     margin: 0 5px;
   }
+  /* .res {
+    flex-direction: row;
+    flex: 1;
+    display: flex;
+  } */
+  .file-info, .box, .file-actions {
+    flex-direction: column;
 }
 
-/* סגנון למסכים גדולים */
-@media (min-width: 768px) {
-  .file-box {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .file-info,
-  .box,
-  .file-actions {
-    flex-direction: row;
-    align-items: center;
-  }
-
-  .file-info {
-    flex: 1;
-  }
-
-  .file-name {
-    flex: 2;
-  }
-
-  .file-status-container,
-  .file-comments {
-    flex: 1;
-    flex-direction: row;
-    align-items: center;
-  }
-
-  .file-actions {
-    flex-direction: row;
-  }
-
-  .file-actions button {
-    margin: 0 5px;
-  }
 }
+
+/*  */
