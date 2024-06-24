@@ -92,7 +92,7 @@ async function updateConnection(employeeID, clientID, id) {
 async function getUser(id) {
   try {
     const sql =
-      "SELECT phone, email, name, userName, users.id, street, zipcode, city, users.addressID, role FROM users LEFT JOIN addresses ON users.addressID = addresses.addressID LEFT JOIN employees ON users.id = employees.userID WHERE users.id = ?";
+      "SELECT phone, email, name, userName, users.id, street, zipcode, city, users.addressID, roleת streamToken FROM users LEFT JOIN addresses ON users.addressID = addresses.addressID LEFT JOIN employees ON users.id = employees.userID WHERE users.id = ?";
     const result = await pool.query(sql, [id]);
     return result[0];
   } catch (err) {
@@ -103,7 +103,7 @@ async function getUser(id) {
 async function getUserByPasswordAndUserName(userName) {
   try {
     const sql =
-      "SELECT password, phone, email, name, userName, users.id, street, zipcode, city, role FROM users NATURAL JOIN passwords LEFT JOIN addresses ON users.addressID = addresses.addressID LEFT JOIN employees ON users.id = employees.userID WHERE userName=?";
+      "SELECT password, phone, email, name, userName, users.id, street, zipcode, city, role, streamToken FROM users NATURAL JOIN passwords LEFT JOIN addresses ON users.addressID = addresses.addressID LEFT JOIN employees ON users.id = employees.userID WHERE userName=?";
     const result = await pool.query(sql, userName);
     const user = result[0];
 
@@ -118,6 +118,18 @@ async function getClientIDOrEmployeeIDByUserID(userID) {
     const sql =
       "SELECT clients.id AS client_id, employees.id AS employee_id FROM users LEFT JOIN clients ON users.id = clients.userID LEFT JOIN employees ON users.id = employees.userID WHERE users.id = ?";
     const result = await pool.query(sql, userID);
+    const id = result[0];
+    return id;
+  } catch (err) {
+    throw err;
+  }
+}
+
+
+async function updateStreamToken(token) {
+  try {
+    const sql ="UPDATE users SET streamToken = ?" ;
+    const result = await pool.query(sql, token);
     const id = result[0];
     return id;
   } catch (err) {
@@ -227,4 +239,5 @@ module.exports = {
   updateConnection,
   deleteConnection,
   getClientByCkientId,
+  updateStreamToken
 };

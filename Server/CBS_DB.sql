@@ -21,6 +21,7 @@ CREATE TABLE
         email VARCHAR(255),
         phone VARCHAR(20),
 		addressID int,
+        streamToken VARCHAR(255) default NULL,
         -- isClient BOOLEAN DEFAULT false,
 		FOREIGN KEY (addressID) REFERENCES addresses (addressID)
     );
