@@ -238,11 +238,12 @@ const File = ({ file, searchCriteria, filesChanged, setFilesChanged }) => {
     >
       {(file.name.toLowerCase().includes(searchCriteria) ||
         file.updatedAt.toLowerCase().includes(searchCriteria) ||
+        uplodersName.toLowerCase().includes(searchCriteria) ||
+        ownerName.toLowerCase().includes(searchCriteria) ||
         (file.remark &&
           file.remark.toLowerCase().includes(searchCriteria))) && (
         <div className="file-box">
-         
-            <div className="file-info">
+          <div className="file-info">
             <div className="file-date">
               <strong>
                 {highlightSearchTerm(
@@ -262,106 +263,109 @@ const File = ({ file, searchCriteria, filesChanged, setFilesChanged }) => {
               </a>
             </div>
           </div>
-          
+
           <div className="box">
             <div className="file-status-container">
-            <div className="header">
-              <strong>status</strong>
-            </div>
-            {!showStatus && (
-              <div
-                className="file-status"
-                ref={selectRef}
-                style={{
-                  background:
-                    status === "Absorbed"
-                      ? "rgb(114 164 216)"
-                      : status === "Accepted"
-                      ? "#90e290"
-                      : status === "Postponed"
-                      ? "#d85a5a"
-                      : "rgb(178 174 174)",
-                }}
-                onClick={() => {
-                  employeeChangeStatus();
-                  changeStatusEmployeeAndClient();
-                }}
-              >
-                {status}
+              <div className="header">
+                <strong>status</strong>
               </div>
-            )}
-            {showStatus && (
-              <select
-                ref={selectRef}
-                value={selectedStatus}
-                onKeyDown={handleKeyPress}
-                onChange={handleStatusChange}
-                onBlur={() => setShowStatus(!showStatus)}
-              >
-                {user.role == "Client" && file.uploaderID != user.id && (
-                  <>
-                    <option value={status}>Select status...</option>
-                    <option value="Accepted">Accepted</option>
-                  </>
-                )}
-                {user.role != "Client" && (
-                  <>
-                    <option value={status}>Select status...</option>
-                    <option value="Accepted">Accepted</option>
-                    <option value="Postponed">Postponed</option>
-                    <option value="Absorbed">Absorbed</option>
-                  </>
-                )}
-              </select>
-            )}
-          </div>
+              {!showStatus && (
+                <div
+                  className="file-status"
+                  ref={selectRef}
+                  style={{
+                    background:
+                      status === "Absorbed"
+                        ? "rgb(114 164 216)"
+                        : status === "Accepted"
+                        ? "#90e290"
+                        : status === "Postponed"
+                        ? "#d85a5a"
+                        : "rgb(178 174 174)",
+                  }}
+                  onClick={() => {
+                    employeeChangeStatus();
+                    changeStatusEmployeeAndClient();
+                  }}
+                >
+                  {status}
+                </div>
+              )}
+              {showStatus && (
+                <select
+                  ref={selectRef}
+                  value={selectedStatus}
+                  onKeyDown={handleKeyPress}
+                  onChange={handleStatusChange}
+                  onBlur={() => setShowStatus(!showStatus)}
+                >
+                  {user.role == "Client" && file.uploaderID != user.id && (
+                    <>
+                      <option value={status}>Select status...</option>
+                      <option value="Accepted">Accepted</option>
+                    </>
+                  )}
+                  {user.role != "Client" && (
+                    <>
+                      <option value={status}>Select status...</option>
+                      <option value="Accepted">Accepted</option>
+                      <option value="Postponed">Postponed</option>
+                      <option value="Absorbed">Absorbed</option>
+                    </>
+                  )}
+                </select>
+              )}
+            </div>
           </div>
           <div className="box">
             <div className="file-comments">
-            <div className="header">
-              <strong>remark</strong>
-            </div>
-            {isEditing && (
-              <input
-                type="text"
-                ref={remarkRef}
-                value={remark}
-                onChange={handleRemarkChange}
-                onKeyDown={handleKeyPress}
-                onBlur={() => {
-                  changeRemarkInTheDB(), changeRemark();
-                }}
-              />
-            )}
-            {
-              <div style={{ cursor: "pointer" }}>
-                {status !== "Deleted" && (
-                  <button
-                    className="update"
-                    onClick={() => {
-                      // changeRemarkInTheDB(),
-                      changeRemark(), toggleEdit();
-                    }}
-                  >
-                    <FaPencil />
-                  </button>
-                )}
-                {!isEditing && remark}
+              <div className="header">
+                <strong>remark</strong>
               </div>
-            }
-          </div></div>
+              {isEditing && (
+                <input
+                  type="text"
+                  ref={remarkRef}
+                  value={remark}
+                  onChange={handleRemarkChange}
+                  onKeyDown={handleKeyPress}
+                  onBlur={() => {
+                    changeRemarkInTheDB(), changeRemark();
+                  }}
+                />
+              )}
+              {
+                <div style={{ cursor: "pointer" }}>
+                  {status !== "Deleted" && (
+                    <button
+                      className="update"
+                      onClick={() => {
+                        // changeRemarkInTheDB(),
+                        changeRemark(), toggleEdit();
+                      }}
+                    >
+                      <FaPencil />
+                    </button>
+                  )}
+                  {!isEditing && remark}
+                </div>
+              }
+            </div>
+          </div>
           <div className="box">
-          <div className="header">
-            <strong>uploader</strong>
-            <br />
-            {uplodersName}
-          </div></div>
-           <div className="box"><div className="header">
-            <strong>owner</strong>
-            <br />
-            {highlightSearchTerm(ownerName, searchCriteria)}
+            <div className="header">
+              <strong>uploader</strong>
+              <br />
+              {highlightSearchTerm(uplodersName, searchCriteria)}
             </div>
+          </div>
+          <div className="box">
+            <div className="header">
+              <strong>owner</strong>
+              <br />
+              {highlightSearchTerm(ownerName, searchCriteria)}
             </div>
+          </div>
           <div className="file-actions">
             {status !== "Deleted" && (
               <button className="download" onClick={downloadFile}>
