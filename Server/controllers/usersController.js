@@ -1,7 +1,8 @@
 const model = require("../models/usersModel");
 const bcrypt = require("bcrypt");
-const { AbilityBuilder, Ability } = require("@casl/ability");
 const { defineAbilitiesFor } = require("../Middlewares/abilities");
+const { StreamChat } = require("stream-chat");
+require("dotenv").config();
 
 async function getConnections() {
   try {
@@ -21,7 +22,6 @@ async function getClientByCkientId(id) {
     throw err;
   }
 }
-
 
 async function deleteConnection(employeeID, clientID) {
   try {
@@ -123,6 +123,9 @@ async function getById(id) {
 }
 
 async function create(userName, password, employeType, role) {
+  const apiKey = process.env.STREAM_API_KEY;
+  const apiSecret = process.env.STREAM_API_SECRET;
+
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
     const response = await model.createUser(
@@ -131,6 +134,15 @@ async function create(userName, password, employeType, role) {
       employeType,
       role
     );
+    const serverClient = StreamChat.getInstance(apiKey, apiSecret);
+
+    await serverClient.upsertUser({
+      id: response.insertId,
+      name: userName,
+    });
+
+    const myToken = serverClient.createToken(response.insertId);
+
     return { userID: response.insertId };
   } catch (err) {
     if (
@@ -205,5 +217,5 @@ module.exports = {
   updateConnection,
   deleteConnection,
   getClientIDOrEmployeeIDByUserID,
-  getClientByCkientId
+  getClientByCkientId,
 };
