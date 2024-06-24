@@ -753,20 +753,16 @@ ul{
 
 /* סגנון כללי */
 
-
 @media (max-width: 768px) {
-  
   .file-box {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
   }
 
   .file-info,
   .box,
   .file-actions {
-    flex-direction: row;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .file-info {
@@ -778,9 +774,10 @@ ul{
   }
 
   .file-status-container,
-  .file-comments,
-  .header {
+  .file-comments {
+    flex-direction: row;
     flex: 1;
+    align-items: center;
   }
 
   .file-actions {
@@ -790,53 +787,9 @@ ul{
   .file-actions button {
     margin: 0 5px;
   }
-
-  /* סגנון כללי */
-.file-box {
-  display: flex;
-  flex-direction: column;
-  padding: 10px;
-  margin: 10px 0;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-.file-info,
-.box,
-.file-actions {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 10px;
-}
-
-.file-info {
-  align-items: flex-start;
-}
-
-.file-name a {
-  word-break: break-word;
-  text-decoration: none;
-  color: #007bff;
-}
-
-.file-status-container,
-.file-comments,
-.header {
-  display: flex;
-  flex-direction: column;
-}
-
-.file-status-container select,
-.file-comments input {
-  width: 100%;
-}
-
-.file-actions button {
-  margin-bottom: 5px;
-}
-
+/* סגנון למסכים גדולים */
 @media (min-width: 768px) {
   .file-box {
     flex-direction: row;
@@ -860,9 +813,10 @@ ul{
   }
 
   .file-status-container,
-  .file-comments,
-  .header {
+  .file-comments {
     flex: 1;
+    flex-direction: row;
+    align-items: center;
   }
 
   .file-actions {
@@ -872,6 +826,4 @@ ul{
   .file-actions button {
     margin: 0 5px;
   }
-}
-
 }
