@@ -3,8 +3,7 @@ const cors = require("cors");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const http = require("http");
-// const cron = require("node-cron"); // יבוא של חבילת node-cron
-// const WebSocket = require('ws');
+const WebSocket = require('ws');
 const cron = require("node-cron"); // ייבוא של חבילת node-cron
 require("dotenv").config();
 
@@ -15,6 +14,7 @@ const filesRoute = require("./routes/filesRoute");
 const logoutRoute = require("./routes/logoutRoute");
 const usersRoute = require("./routes/usersRoute");
 const myClientRoute = require("./routes/myClientRoute");
+const chatRoute = require("./routes/chatRoute"); 
 
 const logger = require("./Middlewares/logger");
 const checkAuth = require("./Middlewares/checkAuth");
@@ -48,6 +48,7 @@ app.use("/files", filesRoute);
 app.use("/logout", logoutRoute);
 app.use("/users", usersRoute);
 app.use("/myClient", myClientRoute);
+app.use("/chat", chatRoute); // חיבור רואוט הצ'אט
 app.use("/checkAuth", (req, res) => {
   res.status(200).json(req.session.user);
 });
@@ -85,45 +86,7 @@ app.listen(PORT, () => {
 // const wss = new WebSocket.Server({ server });
 
 // // ניהול חיבורי WebSocket
-// wss.on('connection', (ws) => {
-//   console.log('New client connected');
-
-//   ws.on('message', (data) => {
-//     const { topic, message } = JSON.parse(data);
-//     wss.clients.forEach((client) => {
-//       if (client.readyState === WebSocket.OPEN) {
-//         client.send(JSON.stringify({ topic, message }));
-//       }
-//     });
-//   });
-
-//   ws.on('close', () => {
-//     console.log('Client disconnected');
-//   });
-// });
-
-// const PORT = process.env.PORT || 3000;
-// server.listen(PORT, () => {
-//   console.log(`Server running on port ${PORT}`);
-// });
-
-// // יצירת שרת HTTP עם Express
-// const server = http.createServer(app);
-
-// // הפעלת Socket.IO על השרת
-// const io = socketIo(server);
-
-// io.on('connection', (socket) => {
-//   console.log('New client connected');
-
-//   socket.on('message', (data) => {
-//     io.emit('message', data);
-//   });
-
-//   socket.on('disconnect', () => {
-//     console.log('Client disconnected');
-//   });
-// });
+// chatRoute(server);
 
 // const PORT = process.env.PORT || 3000;
 // server.listen(PORT, () => {
