@@ -35,8 +35,6 @@ function Navbar({ isUploading}) {
   };
 
   const handleLinkClick = (e, func1 = null, func2 = null) => {
-    console.log("isUploading")
-    console.log(isUploading)
     if (isUploading) {
       e.preventDefault(); // מונע את הניגון של הקישור במידה והתנאי לא מתקיים
       window.open(e.target.href, "_blank"); // פותח את הקישור בכרטיסיה חדשה

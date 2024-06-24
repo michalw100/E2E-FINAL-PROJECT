@@ -98,8 +98,7 @@
   margin-bottom: 20px;
   position: sticky;
   top: 0;
-  background-color: white;
-  z-index: 999;
+  /* z-index: 999; */
   margin-bottom: 20px;
 }
 
