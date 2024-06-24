@@ -90,7 +90,7 @@ const Client = ({ client }) => {
   return (
     <div key={client.id} className="client">
       <h4 id=".clientDetails">
-        {client.id}. {client.name}
+        {client.id}. {client.userName}
       </h4>
       <p className="clientemail">{client.email} </p>
 

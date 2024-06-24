@@ -12,10 +12,10 @@ async function getEmployees() {
 
 async function getClientByCkientId(id) {
   try {
-    console.log(id)
+    console.log(id);
     const sql = `SELECT name from clients left join users on clients.userID = users.id where clients.id = ?`;
     const result = await pool.query(sql, [id]);
-    console.log(result)
+    console.log(result);
     return result;
   } catch (err) {
     throw err;
@@ -125,11 +125,10 @@ async function getClientIDOrEmployeeIDByUserID(userID) {
   }
 }
 
-
-async function updateStreamToken(token) {
+async function updateStreamToken(token, userId) {
   try {
-    const sql ="UPDATE users SET streamToken = ?" ;
-    const result = await pool.query(sql, token);
+    const sql = "UPDATE users SET streamToken = ? WHERE id = ? ";
+    const result = await pool.query(sql, [token, userId]);
     const id = result[0];
     return id;
   } catch (err) {
@@ -181,7 +180,16 @@ async function createUser(userName, hashedPassword, employeType, role) {
     throw err;
   }
 }
-const updateUser = async ( id, userName,name,email,phone,street,city,zipcode) => {
+const updateUser = async (
+  id,
+  userName,
+  name,
+  email,
+  phone,
+  street,
+  city,
+  zipcode
+) => {
   const user = await getUser(id);
   let address = user[0].addressID;
   let resultAddress;
@@ -230,5 +238,5 @@ module.exports = {
   updateConnection,
   deleteConnection,
   getClientByCkientId,
-  updateStreamToken
+  updateStreamToken,
 };

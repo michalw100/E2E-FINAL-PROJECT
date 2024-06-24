@@ -16,6 +16,18 @@ router.post("/", async (req, res) => {
       username: user.userName,
       role: user.role,
     };
+    try {
+      await serverClient.upsertUser({
+        id: `user-${user.id}`,
+        name: userName,
+      });
+    } catch (streamError) {
+      throw new Error(`Stream Chat Error: ${streamError.message}`);
+    }
+
+    const myToken = serverClient.createToken(`user-${response.user.id}`);
+    console.log(myToken);
+    model.updateStreamToken(myToken, response.user.id);
     res.status(200).send(user);
   } catch (err) {
     if (err.message == "User does not exist in the system. Want to create an account? Contact Us 02-6237600 or yael.b@c-b-cpa.co.il")
