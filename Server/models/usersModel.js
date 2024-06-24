@@ -92,7 +92,7 @@ async function updateConnection(employeeID, clientID, id) {
 async function getUser(id) {
   try {
     const sql =
-      "SELECT phone, email, name, userName, users.id, street, zipcode, city, users.addressID, roleת streamToken FROM users LEFT JOIN addresses ON users.addressID = addresses.addressID LEFT JOIN employees ON users.id = employees.userID WHERE users.id = ?";
+      "SELECT phone, email, name, userName, users.id, street, zipcode, city, users.addressID, role, streamToken FROM users LEFT JOIN addresses ON users.addressID = addresses.addressID LEFT JOIN employees ON users.id = employees.userID WHERE users.id = ?";
     const result = await pool.query(sql, [id]);
     return result[0];
   } catch (err) {
@@ -181,16 +181,7 @@ async function createUser(userName, hashedPassword, employeType, role) {
     throw err;
   }
 }
-const updateUser = async (
-  id,
-  userName,
-  name,
-  email,
-  phone,
-  street,
-  city,
-  zipcode
-) => {
+const updateUser = async ( id, userName,name,email,phone,street,city,zipcode) => {
   const user = await getUser(id);
   let address = user[0].addressID;
   let resultAddress;
