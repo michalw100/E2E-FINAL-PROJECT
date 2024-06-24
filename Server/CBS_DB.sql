@@ -141,28 +141,28 @@ VALUES
     ('רחוב 5', 'עיר 5', '56789');
 
 INSERT INTO
-    users (userName, name, email, phone, addressID)
+    users (userName, name, email, phone, addressID, streamToken)
 VALUES
-    ('Client1', 'Client 1', 'client1@example.com', '1234567890', 1),
-    ('Client 2', 'Client 2', 'client2@example.com', '1234567891', 2),
-    ('Client 3', 'Client 3', 'client3@example.com', '1234567892', 3),
-    ('Client 4', 'Client 4', 'client4@example.com', '1234567893', 4),
-    ('Client 5', 'Client 5', 'client5@example.com', '1234567894', 5),
-    ('Client 6', 'Client 6', 'client6@example.com', '1234567895', 1),
-    ('Client 7', 'Client 7', 'client7@example.com', '1234567896', 2),
-    ('Client 8', 'Client 8', 'client8@example.com', '1234567897', 3),
-    ('Client 9', 'Client 9', 'client9@example.com', '1234567898', 4),
-    ('Client 10', 'Client 10', 'client10@example.com', '1234567899', 5),
-    ('Employee 1', 'Employee 1', 'employee1@example.com', '0987654321', 6),
-    ('Employee 2', 'Employee 2', 'employee2@example.com', '0987654322', 7),
-    ('Employee 3', 'Employee 3', 'employee3@example.com', '0987654323', 8),
-    ('Employee 4', 'Employee 4', 'employee4@example.com', '0987654324', 9),
-    ('Employee 5', 'Employee 5', 'employee5@example.com', '0987654325', 10),
-    ('Employee 6', 'Employee 6', 'employee6@example.com', '0987654326', 11),
-    ('Employee 7', 'Employee 7', 'employee7@example.com', '0987654327', 12),
-    ('Employee 8', 'Employee 8', 'employee8@example.com', '0987654328', 13),
-    ('Employee 9', 'Employee 9', 'employee9@example.com', '0987654329', 14),
-    ('Employee 10', 'Employee 10', 'employee10@example.com', '0987654330', 15);
+    ('Client1', 'Client 1', 'client1@example.com', '1234567890', 1,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlci00In0.fEKU1XglcDcdXHKf6OL-'),
+    ('Client 2', 'Client 2', 'client2@example.com', '1234567891', 2,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlci0yIn0.81erpPi88IvI_mJdv8TGrDaduKD2A9pXpV17QleJ9QQ'),
+    ('Client 3', 'Client 3', 'client3@example.com', '1234567892', 3,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlci0zIn0.FGNo3Zbvocxw7fRp0yTJ7hstLSnrl4DTXn-_dKksqFo'),
+    ('Client 4', 'Client 4', 'client4@example.com', '1234567893', 4,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlci00In0.fEKU1XglcDcdXHKf6OL-3LkNwK9CUjioTuej84639GE'),
+    ('Client 5', 'Client 5', 'client5@example.com', '1234567894', 5,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlci01In0.lddw7yhTkwnylUnk82zjx43M20pSuoHKSIpEIqFFxDI'),
+    ('Client 6', 'Client 6', 'client6@example.com', '1234567895', 1,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlci02In0.hB2mW7_OficCI2JaDlxB_iBQ3MoGt6RuHiQa0kmwOwI'),
+    ('Client 7', 'Client 7', 'client7@example.com', '1234567896', 2,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlci03In0._yCPiL-q3nvMRzPg1ttYYShjDSHmDMamPYs5TlFjXbE'),
+    ('Client 8', 'Client 8', 'client8@example.com', '1234567897', 3,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlci04In0.MFmpXLPbJ_NdGVU9HNIeOTFpCpVgQiPfptS6FSlWPe4'),
+    ('Client 9', 'Client 9', 'client9@example.com', '1234567898', 4,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlci05In0.TBgCGHwJ6XjA9dRZqM3ZO1Q7LC-3y2IROtHojA47Pb0'),
+    ('Client 10', 'Client 10', 'client10@example.com', '1234567899', 5,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlci0xMCJ9.5hE1cob5SwcwL053UIfzDV6ukjt3C6i3dUs-lRQMIO0'),
+    ('Employee 1', 'Employee 1', 'employee1@example.com', '0987654321', 6,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlci0xMSJ9.DyIfGWKeoHdz7sC4Oh0yya_N5-YRgkrGVILAgxl_164'),
+    ('Employee 2', 'Employee 2', 'employee2@example.com', '0987654322', 7,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlci0xMiJ9.Whw6y_ujCmrhrkCpm1xGFcNajgzGNFOvrFJ18td7stM'),
+    ('Employee 3', 'Employee 3', 'employee3@example.com', '0987654323', 8,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlci0xMyJ9.Beg4rR2pldDP_lldZIdhw0_gI8Uo8RSo4vIKQHotCW4'),
+    ('Employee 4', 'Employee 4', 'employee4@example.com', '0987654324', 9,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlci0xNCJ9.34Fflof0MnBiDe7qWuhPN5f2BKDJz0Oi0RnCeERvMmM'),
+    ('Employee 5', 'Employee 5', 'employee5@example.com', '0987654325', 10,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlci0xNSJ9.d4n1W5AfW3ECKPvmU5ut4ZGW3mZf-lgoij92cDxizOY'),
+    ('Employee 6', 'Employee 6', 'employee6@example.com', '0987654326', 11,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlci0xNiJ9.aj4Q03s9EtbP6OB3astXAHrZdKpQnVQyc2nhVxKwo1k'),
+    ('Employee 7', 'Employee 7', 'employee7@example.com', '0987654327', 12,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlci0xNyJ9.nK9Y3MQSoMjPHrW9Taa29_G0uv3lxh6XHUf9kJ0Wl-Q'),
+    ('Employee 8', 'Employee 8', 'employee8@example.com', '0987654328', 13,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlci0xOCJ9.MyyGBFqWBZi2c1Id70LtBHfUouhsPQbs_5gfzwW8sM4'),
+    ('Employee 9', 'Employee 9', 'employee9@example.com', '0987654329', 14,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlci0xOSJ9.7ZFDVvqivtGUgZRb7bRlU1hFrBGHhAvPoBF1QhnRhJ0'),
+    ('Employee 10', 'Employee 10', 'employee10@example.com', '0987654330', 15,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlci0yMCJ9.ZPQLpRtbJp5xwgrIpQYmlUllTrUyKpdZtwXakdut9Ys');
 
 
 -- Insert 10 rows into parent_client
