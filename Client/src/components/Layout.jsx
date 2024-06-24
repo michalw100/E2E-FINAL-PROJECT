@@ -1,15 +1,15 @@
-import React from 'react';
-import Navbar from './NavBar';
-import Footer from './Footer';
+import React from "react";
+import Navbar from "./NavBar";
+import Footer from "./Footer";
 
-function Layout({ children }) {
-    return (
-        <div>
-            <Navbar />
-            <main>{children}</main>
-            {/* <Footer /> */}
-        </div>
-    );
+function Layout({ children, isUploading }) {
+  return (
+    <div>
+      <Navbar isUploading={isUploading} />
+      <main>{children}</main>
+      {/* <Footer /> */}
+    </div>
+  );
 }
 
 export default Layout;

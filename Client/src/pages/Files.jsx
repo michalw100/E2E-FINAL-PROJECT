@@ -15,7 +15,7 @@ import { MdDelete } from "react-icons/md";
 import Modal from "react-modal";
 Modal.setAppElement("#root");
 
-function Files() {
+function Files({ setIsUploading, isUploading }) {
   const location = useLocation();
   const { user } = useContext(AuthContext);
   const [currentTypeFile, setCurrentTypeFile] = useState(null);
@@ -153,6 +153,11 @@ function Files() {
     }
   }, []);
 
+  useEffect(() => {
+    if (uploadStatus == "uploading files...") setIsUploading(true);
+    else setIsUploading(false);
+  }, [uploadStatus]);
+
   const onDrop = useCallback((acceptedFiles) => {
     setFiles((prevFiles) => [...prevFiles, ...acceptedFiles]);
   }, []);
@@ -261,6 +266,7 @@ function Files() {
           setFilesChanged={setFilesChanged}
           ownerOfFiles={ownerOfFiles}
           serverFiles={serverFiles}
+          isUploading={isUploading}
         />
         {currentTypeFile ? (
           <div>

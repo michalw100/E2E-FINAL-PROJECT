@@ -15,6 +15,7 @@ const TypesFiles = ({
   filesChanged,
   ownerOfFiles,
   serverFiles,
+  isUploading,
 }) => {
   const types = [
     "Current material for accounting",
@@ -108,7 +109,7 @@ const TypesFiles = ({
 
   const animateDots = (animate) => {
     const dots = document.querySelectorAll(".openbtn .dot");
-  
+
     if (!animate) {
       dots.forEach((dot) => {
         dot.classList.remove("animate");
@@ -175,6 +176,7 @@ const TypesFiles = ({
               onMouseEnter={handleDragOver}
               onMouseLeave={handleDragLeave}
               serverFiles={serverFiles}
+              isUploading={isUploading}
             />
           ))}
         </div>

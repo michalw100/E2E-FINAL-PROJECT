@@ -7,6 +7,7 @@ const TypeFile = ({
   onFileDrop,
   ownerOfFiles,
   serverFiles,
+  isUploading,
 }) => {
   const [countOfType, setCountOfType] = useState(0);
 
@@ -50,15 +51,18 @@ const TypeFile = ({
   };
 
   const handleTypeFileClick = () => {
-    setCurrentTypeFile(typeFile);
-    localStorage.setItem("selectedTypeFile", typeFile);
+    if (!isUploading) {
+      setCurrentTypeFile(typeFile);
+      localStorage.setItem("selectedTypeFile", typeFile);
+    }
   };
 
   return (
     <div ref={drop} style={{ border: isOver ? "2px solid green" : "none" }}>
       <button className="type-file-button" onClick={handleTypeFileClick}>
         <strong>{typeFile}</strong>
-      </button><br/>
+      </button>
+      <br />
       {countOfType.count} files
       <hr></hr>
     </div>

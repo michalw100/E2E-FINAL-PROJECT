@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   BrowserRouter,
   Routes,
@@ -23,7 +23,7 @@ function PrivateRoute({ children }) {
   return user ? children : <Navigate to="/aboutUs" />;
 }
 
-function NestedRoutes() {
+function NestedRoutes({ setIsUploading, isUploading}) {
   const location = useLocation();
 
   useEffect(() => {
@@ -39,8 +39,26 @@ function NestedRoutes() {
       <Route path="/updates" element={<Updates />} />
       <Route path="/addUser" element={<SignUp />} />
       <Route path="/myClients" element={<MyClients />} />
-      <Route path="/myFiles" element={<Files key={location.key} />} />
-      <Route path="/myFiles/:id" element={<Files key={location.key} />} />
+      <Route
+        path="/myFiles"
+        element={
+          <Files
+            key={location.key}
+            isUploading={isUploading}
+            setIsUploading={setIsUploading}
+          />
+        }
+      />
+      <Route
+        path="/myFiles/:id"
+        element={
+          <Files
+            key={location.key}
+            isUploading={isUploading}
+            setIsUploading={setIsUploading}
+          />
+        }
+      />
       <Route path="/logout" element={<Logout />} />
       <Route path="/userDetails" element={<UserDetails key={location.key} />} />
       <Route
@@ -53,6 +71,8 @@ function NestedRoutes() {
 }
 
 function App() {
+  const [isUploading, setIsUploading] = useState(false);
+
   return (
     <BrowserRouter>
       <AuthProvider>
@@ -63,8 +83,11 @@ function App() {
             path="/*"
             element={
               <PrivateRoute>
-                <Layout>
-                  <NestedRoutes />
+                <Layout isUploading={isUploading}>
+                  <NestedRoutes
+                    isUploading={isUploading}
+                    setIsUploading={setIsUploading}
+                  />
                 </Layout>
               </PrivateRoute>
             }
