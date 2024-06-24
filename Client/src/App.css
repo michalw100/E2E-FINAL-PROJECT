@@ -186,7 +186,7 @@ footer iframe {
 .files-container {
   margin-top: 20px;
 }
-
+/* 
 .file-box {
   display: flex;
   justify-content: space-between;
@@ -195,7 +195,7 @@ footer iframe {
   padding: 10px;
   margin-bottom: 10px;
   border-radius: 4px;
-}
+} */
 
 .upload-btn {
   background-color: #007bff;
@@ -375,6 +375,36 @@ h5{
 }
 
 
+/* Responsive styles for mobile devices */
+@media (max-width: 600px) {
+  .file-box {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .file-actions {
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .file-name,
+  .file-status,
+  .upload-btn,
+  .search-bar {
+    font-size: 12px;
+    margin-right: 0;
+  }
+
+  .upload-btn {
+    padding: 6px 12px;
+    margin-left: 0;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+}
 /* 
 .line {
   width:400px;
@@ -638,10 +668,10 @@ form button:hover {
 } */
 @media only screen and (max-width: 600px) {
   /* כאן נכניס את העיצוב הרספונסיבי לגודלי מסך של פלאפונים */
-  .file-box {
+  /* .file-box {
     margin: 5px;
     padding: 10px;
-  }
+  } */
 
   .file-details {
     flex-direction: column;
@@ -675,11 +705,10 @@ form button:hover {
     background-color: white;
 }
 
-.file-box {
-  /* width: 100%; */
+/* .file-box {
   display: flex;
   justify-content: space-between;
-}
+} */
 
 .file-info,
 .file-status-container,

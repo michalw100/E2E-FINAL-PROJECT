@@ -13,7 +13,6 @@ const {
   getClientByCkientId,
 } = require("../controllers/usersController");
 const checkAbilities = require("../Middlewares/checkAbilities");
-
 router.use(express.json());
 router.use(express.urlencoded({ extended: true }));
 

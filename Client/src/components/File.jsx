@@ -241,7 +241,8 @@ const File = ({ file, searchCriteria, filesChanged, setFilesChanged }) => {
         (file.remark &&
           file.remark.toLowerCase().includes(searchCriteria))) && (
         <div className="file-box">
-          <div className="file-info">
+         
+            <div className="file-info">
             <div className="file-date">
               <strong>
                 {highlightSearchTerm(
@@ -261,7 +262,9 @@ const File = ({ file, searchCriteria, filesChanged, setFilesChanged }) => {
               </a>
             </div>
           </div>
-          <div className="file-status-container">
+          
+          <div className="box">
+            <div className="file-status-container">
             <div className="header">
               <strong>status</strong>
             </div>
@@ -312,7 +315,9 @@ const File = ({ file, searchCriteria, filesChanged, setFilesChanged }) => {
               </select>
             )}
           </div>
-          <div className="file-comments">
+          </div>
+          <div className="box">
+            <div className="file-comments">
             <div className="header">
               <strong>remark</strong>
             </div>
@@ -344,17 +349,19 @@ const File = ({ file, searchCriteria, filesChanged, setFilesChanged }) => {
                 {!isEditing && remark}
               </div>
             }
-          </div>
+          </div></div>
+          <div className="box">
           <div className="header">
             <strong>uploader</strong>
             <br />
             {uplodersName}
-          </div>
-          <div className="header">
+          </div></div>
+           <div className="box"><div className="header">
             <strong>owner</strong>
             <br />
             {ownerName}
-          </div>
+            </div>
+            </div>
           <div className="file-actions">
             {status !== "Deleted" && (
               <button className="download" onClick={downloadFile}>
