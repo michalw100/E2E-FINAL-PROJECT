@@ -14,7 +14,10 @@ import ChannelMessages from "../components/Messages";
 
 const ChatApp = ({ apiKey }) => {
   const [clientReady, setClientReady] = useState(false);
+  console.log("apiKey")
+  console.log(apiKey)
   const chatClient = StreamChat.getInstance(apiKey);
+  console.log("chatClient")
   const { user } = useContext(AuthContext);
 
   const userId = `user-${user.id}`;

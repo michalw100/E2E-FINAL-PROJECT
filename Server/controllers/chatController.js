@@ -24,17 +24,29 @@
 //   getMessages
 // };
 
+// controllers/chatController.js
+const { createChat, getChatById, getChatByName } = require('../models/chatModel');
 
-const { createChannel } = require('../models/chatModel');
+async function createChatController(req, res) {
+  const { name } = req.body;
+  const chat = await createChat(name);
+  return chat;
+}
 
-const createChatChannel = async (req, res) => {
-  const { channelId, members } = req.body;
-  try {
-    const channel = await createChannel(channelId, members);
-    res.status(200).json(channel);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
+async function getChatByIdController(req, res) {
+  const { id } = req.params;
+  const chat = await getChatById(id);
+  return chat;
+}
+
+async function getChatByNameController(req, res) {
+  const { name } = req.params;
+  const chat = await getChatByName(name);
+  return chat;
+}
+
+module.exports = {
+  createChatController,
+  getChatByIdController,
+  getChatByNameController
 };
-
-module.exports = { createChatChannel };

@@ -48,7 +48,7 @@ app.use("/files", filesRoute);
 app.use("/logout", logoutRoute);
 app.use("/users", usersRoute);
 app.use("/myClient", myClientRoute);
-app.use("/chat", chatRoute); // חיבור רואוט הצ'אט
+app.use("/chat", chatRoute);
 app.use("/checkAuth", (req, res) => {
   res.status(200).json(req.session.user);
 });

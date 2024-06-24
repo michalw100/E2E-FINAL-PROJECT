@@ -7,7 +7,15 @@ import { AuthContext } from "../AuthContext";
 import axios from "axios";
 import { MdDelete } from "react-icons/md";
 import { useDrag } from "react-dnd";
-const File = ({ file, searchCriteria, filesChanged, setFilesChanged }) => {
+import createChatChannel from "../helpers/chanels.js";
+
+const File = ({
+  file,
+  searchCriteria,
+  filesChanged,
+  setFilesChanged,
+  apiKey,
+}) => {
   const { user } = useContext(AuthContext);
   const [remark, setRemark] = useState(file.remark || "");
   const [showStatus, setShowStatus] = useState(false);
@@ -151,7 +159,9 @@ const File = ({ file, searchCriteria, filesChanged, setFilesChanged }) => {
     changeStatus("Accepted");
   };
 
-  const commentsFunc = () => {};
+  const commentsFunc = () => {
+    createChatChannel(apiKey, user.id, user.streamToken);
+  };
 
   const changeRemark = async () => {
     setIsEditing(!isEditing);

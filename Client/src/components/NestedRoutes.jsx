@@ -43,6 +43,7 @@ function NestedRoutes({ setIsUploading, isUploading, apiKey }) {
             key={location.key}
             isUploading={isUploading}
             setIsUploading={setIsUploading}
+            apiKey={apiKey}
           />
         }
       />

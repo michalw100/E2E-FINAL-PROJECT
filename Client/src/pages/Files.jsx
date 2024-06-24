@@ -15,7 +15,7 @@ import { MdDelete } from "react-icons/md";
 import Modal from "react-modal";
 Modal.setAppElement("#root");
 
-function Files({ setIsUploading, isUploading }) {
+function Files({ setIsUploading, isUploading,apiKey }) {
   const location = useLocation();
   const { user } = useContext(AuthContext);
   const [currentTypeFile, setCurrentTypeFile] = useState(null);
@@ -381,6 +381,7 @@ function Files({ setIsUploading, isUploading }) {
                   searchCriteria={searchCriteria}
                   filesChanged={filesChanged}
                   setFilesChanged={setFilesChanged}
+                  apiKey={apiKey}
                 />
               ))}
             </div>
