@@ -307,108 +307,115 @@ const AdminDashboard = () => {
 
   return (
     <div className="admin-dashboard">
-      {(selectedClient || selectedEmployee) && (
-        <div className="reset-button-container">
-          <button onClick={handleResetClick} className="reset-button">
-            Show All
-          </button>
+      <div className="main-content">
+        {(selectedClient || selectedEmployee) && (
+          <div className="reset-button-container">
+            <button onClick={handleResetClick} className="reset-button">
+              Show All
+            </button>
+          </div>
+        )}
+        <div className="search_div">
+          <div className="search-bar">
+            <FaSearch />
+            {/* <label className="input">Search:</label> */}
+            <input
+              type="text"
+              value={searchCriteria}
+              placeholder="Search"
+              onChange={(event) => setSearchCriteria(event.target.value)}
+            />
+          </div>
         </div>
-      )}
-      <div className="search_div">
-        <div className="search-bar">
-          <FaSearch />
-          {/* <label className="input">Search:</label> */}
-          <input
-            type="text"
-            value={searchCriteria}
-            placeholder="Search"
-            onChange={(event) => setSearchCriteria(event.target.value)}
+        <div className="content-container">
+          <div className="clients-list">
+            <h3>Clients</h3>
+            <ul>
+              {currentClients.map((client) => (
+                <li
+                  onClick={() => handleClientClick(client)}
+                  key={client.userID}
+                  style={{
+                    marginBottom: getClientMargin(),
+                  }}
+                >
+                  <div>{highlightSearchTerm(client.name)}</div>
+                  <div
+                    id={`client-${client.userID}`}
+                    className="circle-button"
+                    style={{
+                      backgroundColor:
+                        triyngToDelete == "Employee" ? "red" : "#ccc",
+                    }}
+                  >
+                    {client.name ? client.name.charAt(0) : "oooof"}
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="employees-list">
+            <h3>Employees</h3>
+            <ul>
+              {currentEmployees.map((employee) => (
+                <li
+                  onClick={() => handleEmployeeClick(employee)}
+                  key={employee.userID}
+                  style={{
+                    marginBottom: getEmployeeMargin(),
+                  }}
+                >
+                  <div
+                    style={{
+                      backgroundColor:
+                        triyngToDelete == "Client"
+                          ? "red"
+                          : getEmployeeColor(employee.userID),
+                    }}
+                    id={`employee-${employee.userID}`}
+                    className="circle-button"
+                  >
+                    {employee.name ? employee.name.charAt(0) : "oooof"}
+                  </div>
+                  <div>{highlightSearchTerm(employee.name)}</div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div className="content-container-second">
+        {selectedClient && <h2>{selectedClient.name}</h2>}
+        {selectedEmployee && <h2>{selectedEmployee.name}</h2>}
+        <div className="deleteConnectionContainer">
+          <DeleteConnection
+            selectedClient={selectedClient}
+            selectedEmployee={selectedEmployee}
+            triyngToDelete={triyngToDelete}
+            setTriyngToDelete={setTriyngToDelete}
+            userToDelete={userToDelete}
+            isModalOpenDelete={isModalOpenDelete}
+            setIsModalOpenDelete={setIsModalOpenDelete}
+            currentClientsemployees={currentClientsemployees}
+            onChange={onChange}
+            setOnChange={setOnChange}
+          />
+        </div>
+        <div className="addConnectionContainer">
+          <AddConnection
+            selectedClient={selectedClient}
+            selectedEmployee={selectedEmployee}
+            clients={clients}
+            currentClients={currentClients}
+            employees={employees}
+            currentEmployees={currentEmployees}
+            isModalOpenAdd={isModalOpenAdd}
+            setIsModalOpenAdd={setIsModalOpenAdd}
+            onChange={onChange}
+            setOnChange={setOnChange}
           />
         </div>
       </div>
-      <div className="content-container">
-        <div className="clients-list">
-          <h3>Clients</h3>
-          <ul>
-            {currentClients.map((client) => (
-              <li
-                onClick={() => handleClientClick(client)}
-                key={client.userID}
-                style={{
-                  marginBottom: getClientMargin(),
-                }}
-              >
-                <div>{highlightSearchTerm(client.name)}</div>
-                <div
-                  id={`client-${client.userID}`}
-                  className="circle-button"
-                  style={{
-                    backgroundColor:
-                      triyngToDelete == "Employee" ? "red" : "#ccc",
-                  }}
-                >
-                  {client.name ? client.name.charAt(0) : "oooof"}
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="employees-list">
-          <h3>Employees</h3>
-          <ul>
-            {currentEmployees.map((employee) => (
-              <li
-                onClick={() => handleEmployeeClick(employee)}
-                key={employee.userID}
-                style={{
-                  marginBottom: getEmployeeMargin(),
-                }}
-              >
-                <div
-                  style={{
-                    backgroundColor:
-                      triyngToDelete == "Client"
-                        ? "red"
-                        : getEmployeeColor(employee.userID),
-                  }}
-                  id={`employee-${employee.userID}`}
-                  className="circle-button"
-                >
-                  {employee.name ? employee.name.charAt(0) : "oooof"}
-                </div>
-                <div>{highlightSearchTerm(employee.name)}</div>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-
-      {selectedClient && <h2>{selectedClient.name}</h2>}
-      {selectedEmployee && <h2>{selectedEmployee.name}</h2>}
-      <DeleteConnection
-        selectedClient={selectedClient}
-        selectedEmployee={selectedEmployee}
-        triyngToDelete={triyngToDelete}
-        setTriyngToDelete={setTriyngToDelete}
-        userToDelete={userToDelete}
-        isModalOpenDelete={isModalOpenDelete}
-        setIsModalOpenDelete={setIsModalOpenDelete}
-        currentClientsemployees={currentClientsemployees}
-        onChange={onChange}
-        setOnChange={setOnChange}
-      />
-      <AddConnection
-        selectedClient={selectedClient}
-        selectedEmployee={selectedEmployee}
-        clients={clients}
-        currentClients={currentClients}
-        employees={employees}
-        currentEmployees={currentEmployees}
-        isModalOpenAdd={isModalOpenAdd}
-        setIsModalOpenAdd={setIsModalOpenAdd}
-        onChange={onChange}
-        setOnChange={setOnChange}
-      />
     </div>
   );
 };

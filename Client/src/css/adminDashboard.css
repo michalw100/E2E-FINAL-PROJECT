@@ -1,6 +1,27 @@
-.admin-dashboard {
+.main-content {
+  width: 70%;
+}
+
+.side-content {
+  justify-content: center;
+  align-items: center;
+  width: 30%;
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+}
+
+.deleteConnectionContainer,
+.addConnectionContainer {
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.admin-dashboard {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .clients-list,
@@ -65,7 +86,8 @@
 .content-container {
   display: flex;
   justify-content: space-between;
-  flex-grow: 1; /* תוספת גובה כדי למלא את הקוביה */
+  flex-grow: 1;
+  margin-bottom: 20px;
 }
 
 .reset-button-container {
@@ -78,6 +100,7 @@
   top: 0;
   background-color: white;
   z-index: 999;
+  margin-bottom: 20px;
 }
 
 .reset-button {
@@ -97,22 +120,14 @@
 
 .delete-button {
   width: fit-content;
-   /*background-color: #dc3545;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s ease;
-  margin-top: 20px;
-  margin-left: auto;
-  margin-right: auto; */    align-items: center;
-    border: 1px solid #cccccc;
-    border-radius: 4px;
-    padding: 10px 10px;
-    margin: 15px;
-    /* width: 300px; */
-    background-color: white;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  padding: 10px 10px;
+  margin: 15px;
+  /* width: 300px; */
+  background-color: white;
 }
 
 .delete-button:hover {
@@ -122,6 +137,7 @@
 .search-container {
   position: relative;
   display: flex;
+  justify-content: center;
   align-items: center;
   border: 1px solid #cccccc;
   border-radius: 4px;
@@ -132,16 +148,11 @@
 }
 
 .search-input {
- 
-  /* width: fit-content;
-align-items: center;
-   border: 1px solid #cccccc;
-   border-radius: 4px;
-   padding: 10px 10px;
-   background-color: white; */
-   border: none;
-   outline: none;
-   width: 100%;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  outline: none;
+  width: 100%;
 }
 
 .search-input::placeholder {
@@ -149,10 +160,12 @@ align-items: center;
 }
 
 .search-results {
+  justify-content: center;
+  align-items: center;
   position: absolute;
   top: 100%;
-  left: 50%; 
-  transform: translateX(-50%); 
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 1000;
   width: 300px;
   max-height: 200px;
@@ -171,24 +184,76 @@ align-items: center;
   padding: 8px;
   cursor: pointer;
   font-size: 16px;
-  color: #666; 
+  color: #666;
 }
 
 .search-result:hover {
   background-color: #f0f0f0;
 }
 
-.div_to_delete{
+.div_to_delete {
+  justify-content: center;
+  align-items: center;
   margin-right: auto;
   margin-left: auto;
 }
 
-.search_div{
-  margin-left: auto;
-  margin-right: auto;
-
+.search_div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto; /* מרכז אופקית */
+  margin-bottom: 20px;
+  width: 100%; /* לוודא שהוא ממלא את רוחב המיכל הראשי */
 }
 
-li{
+.search-bar {
+  display: flex;
+  align-items: center;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  padding: 10px 10px;
+  background-color: white;
+  width: 300px; /* רוחב התיבה */
+}
+
+.search-bar input {
+  border: none;
+  outline: none;
+  width: 100%;
+}
+
+li {
   cursor: pointer;
+}
+
+.content-container-second {
+  justify-content: flex-start; /* מתחיל למעלה */
+  align-items: center; /* מיישר במרכז אופקית */
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding-top: 5%; /* שולט בכמה התוכן יהיה מהחלק העליון */
+}
+
+/* Media query for small screens */
+@media (max-width: 768px) {
+  .admin-dashboard {
+    flex-direction: column;
+  }
+
+  .main-content,
+  .side-content {
+    width: 100%;
+  }
+
+  .clients-list,
+  .employees-list {
+    width: 100%;
+    align-items: center;
+  }
+
+  .content-container-second {
+    width: 100%;
+  }
 }

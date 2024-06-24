@@ -94,7 +94,9 @@ const addConnection = ({
           <FaSearch />
           <input
             type="text"
-            placeholder="Search for employees or customers to add a contact"
+            placeholder={`Search for ${
+              selectedEmployee ? "clients" : "employees"
+            } to add a contact`}
             onChange={handleSearch}
             value={searchTerm}
             className="search-input"
