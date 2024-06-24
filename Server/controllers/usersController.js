@@ -137,11 +137,14 @@ async function create(userName, password, employeType, role) {
     const serverClient = StreamChat.getInstance(apiKey, apiSecret);
 
     await serverClient.upsertUser({
-      id: response.insertId,
+      id: `user-${response.insertId}`,
+      // id: String(response.insertId),
       name: userName,
     });
 
     const myToken = serverClient.createToken(response.insertId);
+    console.log(myToken);
+    model.updateStreamToken(myToken, response.insertId);
 
     return { userID: response.insertId };
   } catch (err) {
