@@ -9,9 +9,9 @@ router.use(express.urlencoded({ extended: true }));
 
 router.post("/", async (req, res) => {
   try {
-    // const apiKey = process.env.STREAM_API_KEY;
-    // const apiSecret = process.env.STREAM_API_SECRET;
-    // const serverClient = StreamChat.getInstance(apiKey, apiSecret);
+    const apiKey = process.env.STREAM_API_KEY;
+    const apiSecret = process.env.STREAM_API_SECRET;
+    const serverClient = StreamChat.getInstance(apiKey, apiSecret);
 
     const userName = req.body.userName;
     const password = req.body.password;
@@ -21,18 +21,18 @@ router.post("/", async (req, res) => {
       username: user.userName,
       role: user.role,
     };
-    // try {
-    //   await serverClient.upsertUser({
-    //     id: `user-${user.id}`,
-    //     name: userName,
-    //   });
-    // } catch (streamError) {
-    //   throw new Error(`Stream Chat Error: ${streamError.message}`);
-    // }
+    try {
+      await serverClient.upsertUser({
+        id: `user-${user.id}`,
+        name: userName,
+      });
+    } catch (streamError) {
+      throw new Error(`Stream Chat Error: ${streamError.message}`);
+    }
 
-    // const myToken = serverClient.createToken(`user-${response.user.id}`);
-    // console.log(myToken);
-    // model.updateStreamToken(myToken, response.user.id);
+    const myToken = serverClient.createToken(`user-${user.id}`);
+    console.log(myToken);
+    model.updateStreamToken(myToken, user.id);
     res.status(200).send(user);
   } catch (err) {
     if (err.message == "User does not exist in the system. Want to create an account? Contact Us 02-6237600 or yael.b@c-b-cpa.co.il")

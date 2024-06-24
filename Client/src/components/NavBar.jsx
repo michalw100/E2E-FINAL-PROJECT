@@ -4,7 +4,7 @@ import { AuthContext } from "../AuthContext";
 import { CgProfile } from "react-icons/cg";
 import "../css/navBar.css";
 
-function Navbar({ isUploading}) {
+function Navbar({ isUploading }) {
   const { user } = useContext(AuthContext);
   // console.log(user.role);
 
@@ -34,7 +34,7 @@ function Navbar({ isUploading}) {
     localStorage.removeItem("selectedTypeFile");
   };
 
-  const handleLinkClick = (e, func1 = null, func2 = null) => {
+  const handleLinkClick = (e, func1, func2) => {
     if (isUploading) {
       e.preventDefault(); // מונע את הניגון של הקישור במידה והתנאי לא מתקיים
       window.open(e.target.href, "_blank"); // פותח את הקישור בכרטיסיה חדשה
@@ -67,7 +67,7 @@ function Navbar({ isUploading}) {
       )}
       <Link
         to="./userDetails"
-        onClick={(e) => handleLinkClick(e, () => clearClientID)}
+        onClick={(e) => handleLinkClick(e, clearClientID)}
       >
         My Details
       </Link>
@@ -75,13 +75,7 @@ function Navbar({ isUploading}) {
         <Link
           to="./myFiles"
           className={!user ? "disabled" : ""}
-          onClick={(e) =>
-            handleLinkClick(
-              e,
-              () => clearClientID,
-              () => clearLocalStorage
-            )
-          }
+          onClick={(e) => handleLinkClick(e, clearClientID, clearLocalStorage)}
         >
           My Files
         </Link>
