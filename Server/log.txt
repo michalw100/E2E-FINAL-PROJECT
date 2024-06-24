@@ -1719,3 +1719,10 @@ Date: Mon Jun 24 2024 18:04:19 GMT+0300 (שעון ישראל (קיץ)), Url:/fil
 Date: Mon Jun 24 2024 18:04:19 GMT+0300 (שעון ישראל (קיץ)), Url:/files/type?type=Material%20for%20an%20annual%20report&&clientID=11 
 Date: Mon Jun 24 2024 18:04:19 GMT+0300 (שעון ישראל (קיץ)), Url:/files/type?type=Approvals,%20tax%20coordination%20and%20miscellaneous&&clientID=11 
 Date: Mon Jun 24 2024 18:04:19 GMT+0300 (שעון ישראל (קיץ)), Url:/files/type?type=Reports%20and%20information%20to%20download&&clientID=11 
+Date: Mon Jun 24 2024 20:22:43 GMT+0300 (שעון ישראל (קיץ)), Url:/signIn 
+Date: Mon Jun 24 2024 20:22:44 GMT+0300 (שעון ישראל (קיץ)), Url:/signIn 
+Date: Mon Jun 24 2024 20:22:45 GMT+0300 (שעון ישראל (קיץ)), Url:/signIn 
+Date: Mon Jun 24 2024 20:22:45 GMT+0300 (שעון ישראל (קיץ)), Url:/signIn 
+Date: Mon Jun 24 2024 20:22:45 GMT+0300 (שעון ישראל (קיץ)), Url:/signIn 
+Date: Mon Jun 24 2024 20:22:45 GMT+0300 (שעון ישראל (קיץ)), Url:/signIn 
+Date: Mon Jun 24 2024 20:22:46 GMT+0300 (שעון ישראל (קיץ)), Url:/signIn 
