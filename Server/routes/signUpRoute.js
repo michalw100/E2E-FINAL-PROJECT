@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { create } = require("../controllers/usersController");
-// const checkAbilities = require("../Middlewares/checkAbilities");
+const checkAbilities = require("../Middlewares/checkAbilities");
 router.use(express.json());
 const verifyRole = require("../Middlewares/verifyRole");
 
