@@ -17,7 +17,7 @@ function PrivateRoute({ children }) {
 }
 
 function App() {
-  const apiKey = process.env.REACT_APP_STREAM_API_KEY;
+  const apiKey = "k7tfp92tr4he";
   const [isUploading, setIsUploading] = useState(false);
 
   return (

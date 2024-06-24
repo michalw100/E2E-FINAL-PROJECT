@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { AuthContext } from "../AuthContext";
 import {
   Chat,
   Channel,
@@ -17,23 +18,27 @@ const ChatApp = ({ apiKey }) => {
   const { user } = useContext(AuthContext);
 
   const userId = `user-${user.id}`;
+  console.log(user.streamToken);
+  console.log("user.streamToken");
   const userToken = user.streamToken;
   useEffect(() => {
-    const setupClient = async () => {
-      await chatClient.connectUser(
-        {
-          id: userId,
-        },
-        userToken
-      );
-      setClientReady(true);
-    };
+    if (userToken && userId) {
+      const setupClient = async () => {
+        await chatClient.connectUser(
+          {
+            id: userId,
+          },
+          userToken
+        );
+        setClientReady(true);
+      };
 
-    setupClient();
+      setupClient();
 
-    return () => {
-      chatClient.disconnectUser();
-    };
+      return () => {
+        chatClient.disconnectUser();
+      };
+    }
   }, [userId, userToken]);
 
   if (!clientReady) return <div>Loading...</div>;
