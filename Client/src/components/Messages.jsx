@@ -9,21 +9,19 @@ const ChannelMessages = () => {
   const { messages } = useChannelStateContext();
   const messagesEndRef = useRef(null);
 
-  // const scrollToBottom = () => {
-  //   messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  // };
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
-  // useEffect(() => {
-  //   scrollToBottom();
-  // }, [messages]);
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
 
   return (
     <div>
       <MessageList />
       <div ref={messagesEndRef} />
-      <div id="input">
-        <MessageInput />
-      </div>
+      <MessageInput />
     </div>
   );
 };

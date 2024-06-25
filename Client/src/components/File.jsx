@@ -164,7 +164,7 @@ const File = ({
   const commentsFunc = async () => {
     try {
       const chat = await createChatChannel(apiKey, user.id, user.streamToken);
-      navigate("../chats#input");
+      navigate("../chats");
 
     } catch (err) {
       console.log(err);
