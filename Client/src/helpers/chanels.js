@@ -1,14 +1,8 @@
 import { StreamChat } from "stream-chat";
-import axios from "axios"; // אם תצטרך לשלוח בקשות HTTP לשרת
 
 // פונקציה ליצירת צאט חדש
 const createChatChannel = async (apiKey, userId, userToken) => {
   console.log(apiKey, userId, userToken);
-  // יצירת מופע של הלקוח של Stream
-  // const client = new StreamChat(
-  //   "k7tfp92tr4he",
-  //   "2svwycsvzuc62baxt5d9nnvwayu3fr7trx6jvegxyamqs5r7fj899mtb3hyrzkad"
-  // );
   const client = StreamChat.getInstance("k7tfp92tr4he");
   console.log("apiKey, userId, userToken");
 
@@ -20,7 +14,7 @@ const createChatChannel = async (apiKey, userId, userToken) => {
     body: JSON.stringify({ name: "Group Chat" }),
   })
     .then((response) => {
-      console.log('response');
+      console.log("response");
       console.log(response);
 
       if (!response.ok) {
@@ -29,15 +23,15 @@ const createChatChannel = async (apiKey, userId, userToken) => {
       return response;
     })
     .then((data) => {
-      console.log("filesChanged")
-      console.log(data)
+      console.log("filesChanged");
+      console.log(data);
       chat = data;
       return;
     });
-    console.log('chat');
-    const chatId = await chat.json();
-    console.log(chatId);
-    try {
+  console.log("chat");
+  const chatId = await chat.json();
+  console.log(chatId);
+  try {
     console.log(apiKey, userId, chatId);
     if (chatId && userId) {
       // קישור המשתמש לקליינט של Stream
@@ -54,16 +48,15 @@ const createChatChannel = async (apiKey, userId, userToken) => {
       // יצירת צאט חדש
       const channel = client.channel("messaging", `chat-${chatId}`, {
         members: members,
-        name: "Group Chat",
+        name: "new Group Chat",
         // data: {
         //   type: "team",
-          description: "This is a team chat for project XYZ",
+        description: "This is a team chat for project XYZ",
         // },
       });
 
       // שמירת הצאט בשרת
       await channel.create();
-
       return channel.data;
     }
   } catch (error) {

@@ -8,6 +8,7 @@ import axios from "axios";
 import { MdDelete } from "react-icons/md";
 import { useDrag } from "react-dnd";
 import createChatChannel from "../helpers/chanels.js";
+import { useNavigate } from 'react-router-dom';
 
 const File = ({
   file,
@@ -16,6 +17,7 @@ const File = ({
   setFilesChanged,
   apiKey,
 }) => {
+  const navigate = useNavigate();
   const { user } = useContext(AuthContext);
   const [remark, setRemark] = useState(file.remark || "");
   const [showStatus, setShowStatus] = useState(false);
@@ -159,8 +161,14 @@ const File = ({
     changeStatus("Accepted");
   };
 
-  const commentsFunc = () => {
-    createChatChannel(apiKey, user.id, user.streamToken);
+  const commentsFunc = async () => {
+    try {
+      const chat = await createChatChannel(apiKey, user.id, user.streamToken);
+      navigate("../chats");
+
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const changeRemark = async () => {
