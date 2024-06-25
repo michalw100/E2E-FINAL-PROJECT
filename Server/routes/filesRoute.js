@@ -24,6 +24,8 @@ router.get("/", checkAbilities("read", "files"), async (req, res) => {
     const files = await listFiles(userID, type);
     res.status(200).send(files);
   } catch (err) {
+    console.log("err");
+    console.log(err);
     res.status(500).send({ message: err.message });
   }
 });

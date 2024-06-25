@@ -27,10 +27,13 @@
 // controllers/chatController.js
 const { createChat, getChatById, getChatByName } = require('../models/chatModel');
 
-async function createChatController(req, res) {
-  const { name } = req.body;
+async function createChatController(name) {
+  console.log("name");
+  console.log(name);
   const chat = await createChat(name);
-  return chat;
+  console.log("chat")
+  console.log(chat.insertId)
+  return chat.insertId;
 }
 
 async function getChatByIdController(req, res) {
