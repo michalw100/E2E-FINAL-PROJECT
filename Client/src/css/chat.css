@@ -1,4 +1,4 @@
-.chat-container {
+/* .chat-container {
     display: flex;
     height: 100vh;
   }
@@ -20,16 +20,15 @@
     flex: 1;
     overflow-y: auto;
   }
-  
+   */
 
    #root {
-    margin: unset;
-    padding: unset;
+    /* margin: unset;
+    padding: unset; */
     height: 100%;
   }
   
   #root {
-    display: flex;
     height: 100%;
   
     .str-chat-channel-list {

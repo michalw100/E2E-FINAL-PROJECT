@@ -21,7 +21,9 @@ const ChannelMessages = () => {
     <div>
       <MessageList />
       <div ref={messagesEndRef} />
-      <MessageInput />
+      <div id="input">
+        <MessageInput />
+      </div>
     </div>
   );
 };
