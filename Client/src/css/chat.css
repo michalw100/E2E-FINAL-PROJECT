@@ -2,10 +2,10 @@
   height: 100vh;
 
   flex-grow: 1;
-  overflow-y: auto; /* מאפשר גלילה פנימית */
+  overflow-y: auto; 
 }
 .messagesList {
-  height: 100vh;
+  height: 85vh;
   display: flex;
   flex-direction: column;
 }

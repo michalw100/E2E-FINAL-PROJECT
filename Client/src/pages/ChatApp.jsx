@@ -16,17 +16,19 @@ import "../css/chat.css";
 const ChatApp = ({ apiKey }) => {
   const [clientReady, setClientReady] = useState(false);
   const chatClient = StreamChat.getInstance(apiKey);
-  console.log("chatClient")
-  console.log(chatClient)
+  console.log("chatClient");
+  console.log(chatClient);
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
     return () => {
-      console.log("disconnecting");
-      chatClient.disconnectUser();
+      if (clientReady) {
+        console.log("disconnecting");
+        chatClient.disconnectUser();
+      }
     };
   }, []);
-  
+
   useEffect(() => {
     if (user.id) {
       const userId = `user-${user.id}`;
