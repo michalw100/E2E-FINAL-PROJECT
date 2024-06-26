@@ -157,8 +157,8 @@ const File = ({
   };
 
   const nodeleteFile = () => {
-    setStatus("Accepted");
-    changeStatus("Accepted");
+    setStatus("Absorbed");
+    changeStatus("Absorbed");
   };
 
   const commentsFunc = async () => {

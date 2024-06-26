@@ -239,6 +239,34 @@ async function updateTypeFile(id, type) {
   }
 }
 
+async function numFilesPerMonth(userID) {
+  try {
+    const numFilesPerMonth = await model.numFilesPerMonth(userID);
+    return numFilesPerMonth[0];
+  } catch (err) {
+    throw err;
+  }
+}
+
+
+async function numberFilesTypes(userID) {
+  try {
+    const numberFilesType = await model.numberFilesTypes(userID);
+    return numberFilesType[0];
+  } catch (err) {
+    throw err;
+  }
+}
+
+async function getStatus(userID) {
+  try {
+    const status = await model.getStatus(userID);
+    return status[0];
+  } catch (err) {
+    throw err;
+  }
+}
+
 async function countTypeFile(type, userID) {
   try {
     const realID = await getClientIDOrEmployeeIDByUserID(userID);
@@ -269,4 +297,7 @@ module.exports = {
   updateRemarkFile,
   updateStatusFile,
   updateTypeFile,
+  numFilesPerMonth,
+  getStatus,
+  numberFilesTypes
 };

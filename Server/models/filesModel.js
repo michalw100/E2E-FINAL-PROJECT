@@ -12,6 +12,71 @@ async function getFilesByClientID(clientID, type) {
   return files[0];
 }
 
+
+async function numFilesPerMonth(userID) {
+  try {
+    const sql = `WITH RECURSIVE months AS (
+    SELECT 1 AS month
+    UNION ALL
+    SELECT month + 1
+    FROM months
+    WHERE month < 12
+)
+SELECT 
+    m.month, 
+    COALESCE(f.count, 0) AS count
+FROM 
+    months m
+LEFT JOIN (
+    SELECT 
+        MONTH(createdAt) AS month,
+        COUNT(*) AS count
+    FROM 
+        files
+    WHERE 
+        uploaderID = 4 AND YEAR(createdAt) = YEAR(CURDATE())
+    GROUP BY 
+        MONTH(createdAt)
+) f 
+ON 
+    m.month = f.month
+ORDER BY 
+    m.month;
+`;
+    const result = await pool.query(sql, [userID]);
+    return result;
+  } catch (err) {
+    throw err;
+  }
+}
+
+
+async function getStatus(userID) {
+  try {
+    const sql = `SELECT status, COUNT(*) AS count
+FROM files
+WHERE uploaderID = ?
+GROUP BY status;`;
+    const result = await pool.query(sql, [userID]);
+    return result;
+  } catch (err) {
+    throw err;
+  }
+}
+async function numberFilesTypes(userID) {
+  try {
+    const sql = `
+SELECT type, COUNT(*) AS count
+FROM files
+WHERE uploaderID = ?
+GROUP BY type`;
+    const result = await pool.query(sql, [userID]);
+    return result;
+  } catch (err) {
+    throw err;
+  }
+}
+
 async function countTypeFileByClientID(type, userID) {
   const sql = `SELECT COUNT(*) AS count FROM files LEFT JOIN clients ON files.clientID =  clients.id WHERE type = ? AND clients.userID = ?`
   // `SELECT COUNT(*) AS count FROM files WHERE type = ? AND clientID = ?`;
@@ -74,5 +139,8 @@ module.exports = {
   updateStatusFile,
   updateTypeFile,
   countTypeFileByClientID,
-  countTypeFileByEmployeeID
+  countTypeFileByEmployeeID,
+  numFilesPerMonth,
+  getStatus,
+  numberFilesTypes
 };
