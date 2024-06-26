@@ -5,7 +5,50 @@
   overflow-y: auto; 
 }
 .messagesList {
-  height: 85vh;
+  height: 85%;
   display: flex;
   flex-direction: column;
+}
+
+/* קובץ CSS: chat.css */
+
+/* סגנון כללי לפס הגלילה */
+::-webkit-scrollbar {
+  width: 8px; /* רוחב פס הגלילה */
+  height: 8px; /* גובה פס הגלילה האופקי */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888; /* צבע פס הגלילה */
+  border-radius: 4px; /* עיגול פינות פס הגלילה */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555; /* צבע פס הגלילה כאשר העכבר מעל */
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* צבע הרקע של פס הגלילה */
+}
+
+/* התאמה אישית של פס הגלילה עבור מחלקות ספציפיות */
+.messagesList {
+  overflow: auto; /* לוודא שיש גלילה פנימית */
+}
+
+.messagesList::-webkit-scrollbar {
+  width: 8px;
+}
+
+.messagesList::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.messagesList::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.messagesList::-webkit-scrollbar-track {
+  background: #f1f1f1;
 }
