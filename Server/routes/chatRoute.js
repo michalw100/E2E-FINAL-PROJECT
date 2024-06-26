@@ -5,6 +5,9 @@ const {
   getChatByIdController,
   getChatByNameController,
 } = require("../controllers/chatController");
+const StreamChat = require("stream-chat");
+require("dotenv").config();
+
 router.use(express.json());
 router.use(express.urlencoded({ extended: true }));
 router.post("/", async (req, res) => {
@@ -12,6 +15,16 @@ router.post("/", async (req, res) => {
     const { name } = req.body;
     const chat = await createChatController(name);
     res.status(200).json(chat);
+  } catch (error) {
+
+    res.status(500).send({ error: error.message });
+  }
+});
+
+router.get("/instance", async (req, res) => {
+  try {
+    const chatClient = StreamChat.getInstance(process.env.STREAM_API_KEY);
+    res.status(200).send(chatClient);
   } catch (error) {
     res.status(500).send({ error: error.message });
   }

@@ -18,10 +18,12 @@ const ChannelMessages = () => {
   }, [messages]);
 
   return (
-    <div>
-      <MessageList />
-      <div ref={messagesEndRef} />
-      <MessageInput />
+    <div className="messagesList">
+      <div className="messagesList">
+        <MessageList />
+        <div ref={messagesEndRef} />
+        <MessageInput />
+      </div>
     </div>
   );
 };
