@@ -3,38 +3,11 @@ import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { LuFiles } from "react-icons/lu";
 import { ImProfile } from "react-icons/im";
+import { FaComments } from "react-icons/fa";
+
 
 const Client = ({ client }) => {
   const navigate = useNavigate();
-  const [user, setUser] = useState(null);
-
-  // useEffect(() => {
-  //   const fetchUser = async () => {
-  //     try {
-  //       const response = await fetch(
-  //         `http://localhost:3000/users/user?id=${client.userId}`,
-  //         {
-  //           method: "GET",
-  //           credentials: "include",
-  //         }
-  //       );
-
-  //       if (!response.ok) {
-  //         throw new Error(`HTTP error! status: ${response.status}`);
-  //       }
-  //       const userData = await response.json();
-  //       setUser(userData);
-  //       // console.log("client")
-  //       // console.log(userData);
-  //     } catch (error) {
-  //       // console.error("Error fetching user:", error.message);
-  //     }
-  //   };
-
-  //   if (client.userId) {
-  //     fetchUser();
-  //   }
-  // }, [client.userId]);
 
   const saveUserDetailsToServer = async () => {
     try {
@@ -57,34 +30,21 @@ const Client = ({ client }) => {
     }
   };
 
-  const getUser = async() => {try {
-    const response = await fetch(
-      `http://localhost:3000/users/user?id=${client.userID}`,
-      {
-        method: "GET",
-        credentials: "include",
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    const userData = await response.json();
-    setUser(userData);
-  } catch (error) {
-    console.error("Error fetching user:", error.message);
-  }}
-
   const viewDetails = async () => {
     await saveUserDetailsToServer();
-    navigate(`/userDetails/${client.userID}`, { state: { user } });
+    navigate(`/userDetails/${client.userID}`);
   };
 
   const viewFiles = async () => {
     await saveUserDetailsToServer();
     localStorage.removeItem("selectedTypeFile");
     navigate(`/myFiles/${client.userID}`);
-    // navigate(`/myFiles/${client.client_id}`);
+  };
+
+  const viewChat = async () => {
+    // await saveUserDetailsToServer();
+    // localStorage.removeItem("selectedTypeFile");
+    // navigate(`/chat/${client.userID}`);
   };
 
   return (
@@ -99,6 +59,9 @@ const Client = ({ client }) => {
       </button>
       <button className="mydetails" onClick={viewFiles}>
         <LuFiles />
+      </button>     
+      <button className="mydetails" onClick={viewChat}>
+        <FaComments />
       </button>
     </div>
   );
