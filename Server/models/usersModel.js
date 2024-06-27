@@ -139,7 +139,7 @@ async function updateStreamToken(token, userId) {
 async function createUser(userName, hashedPassword, employeType, role) {
   try {
     const sql = "INSERT INTO users (`userName`,`name`) VALUES(?,?)";
-    const newUser = await pool.query(sql, [userName]);
+    const newUser = await pool.query(sql, [userName,userName]);
     const sqlPassword = "INSERT INTO passwords (id, password) VALUES(?,?)";
     const newPassword = await pool.query(sqlPassword, [
       newUser[0].insertId,

@@ -8,7 +8,7 @@ import axios from "axios";
 import { MdDelete } from "react-icons/md";
 import { useDrag } from "react-dnd";
 import createChatChannel from "../helpers/chanels.js";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const File = ({
   file,
@@ -165,7 +165,6 @@ const File = ({
     try {
       const chat = await createChatChannel(apiKey, user.id, user.streamToken);
       navigate("../chats");
-
     } catch (err) {
       console.log(err);
     }
@@ -365,7 +364,7 @@ const File = ({
                       <FaPencil />
                     </button>
                   )}
-                  {!isEditing && remark}
+                  {!isEditing && highlightSearchTerm(remark, searchCriteria)}
                 </div>
               }
             </div>

@@ -13,7 +13,7 @@ const {
   countTypeFile,
   numFilesPerMonth,
   getStatus,
-  numberFilesTypes
+  numberFilesTypes,
 } = require("../controllers/filesController");
 const checkAbilities = require("../Middlewares/checkAbilities");
 
@@ -44,31 +44,44 @@ router.get("/type", checkAbilities("read", "files"), async (req, res) => {
   }
 });
 
-router.get("/number-files-uploaded-per-month", checkAbilities("read", "files"), async (req, res) => {
-  try {
-    const userID = req.query.id;
-    const numberFilesPerWeek = await numFilesPerMonth(userID);
-    res.status(200).send(numberFilesPerWeek);
-  } catch (err) {
-    res.status(500).send({ message: err.message });
+router.get(
+  "/number-files-uploaded-per-month",
+  checkAbilities("read", "files"),
+  async (req, res) => {
+    try {
+      const userID = req.query.id;
+      const numberFilesPerWeek = await numFilesPerMonth(userID);
+      console.log("numberFilesPerWeek");
+      console.log(numberFilesPerWeek);
+      res.status(200).send(numberFilesPerWeek);
+    } catch (err) {
+      res.status(500).send({ message: err.message });
+    }
   }
-});
+);
 
-
-router.get("/number-files-in-type", checkAbilities("read", "files"), async (req, res) => {
-  try {
-    const userID = req.query.id;
-    const numberFilesType = await numberFilesTypes(userID);
-    res.status(200).send(numberFilesType);
-  } catch (err) {
-    res.status(500).send({ message: err.message });
+router.get(
+  "/number-files-in-type",
+  checkAbilities("read", "files"),
+  async (req, res) => {
+    try {
+      const userID = req.query.id;
+      const numberFilesType = await numberFilesTypes(userID);
+      console.log("numberFilesType");
+      console.log(numberFilesType);
+      res.status(200).send(numberFilesType);
+    } catch (err) {
+      res.status(500).send({ message: err.message });
+    }
   }
-});
+);
 
 router.get("/all-status", checkAbilities("read", "files"), async (req, res) => {
   try {
     const userID = req.query.id;
     const status = await getStatus(userID);
+    console.log("status");
+    console.log(status);
     res.status(200).send(status);
   } catch (err) {
     res.status(500).send({ message: err.message });
