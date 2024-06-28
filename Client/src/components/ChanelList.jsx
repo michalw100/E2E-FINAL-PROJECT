@@ -6,7 +6,10 @@ const ChannelListContainer = () => {
 
   return (
     <ChannelList
-      filters={{ members: { $in: [client.userID] } }}
+    filters={{
+      // id: specificChannelID,
+      members: { $in: [client.userID] }
+    }}
       sort={{ last_message_at: -1 }}
       options={{ subscribe: true, state: true }}
     />

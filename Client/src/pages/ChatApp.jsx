@@ -13,14 +13,16 @@ import ChannelListContainer from "../components/ChanelList";
 import ChannelMessages from "../components/Messages";
 import "../css/chat.css";
 
-const ChatApp = ({ apiKey }) => {
+const ChatApp = () => {
   const [clientReady, setClientReady] = useState(false);
-  const chatClient = StreamChat.getInstance(apiKey);
-  console.log("chatClient");
-  console.log(chatClient);
+  const [apiKey, setApiKey] = useState(null);
+  const [chatClient, setChatClient] = useState(null);
+  /****************** */
+
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
+    getApiKey();
     return () => {
       if (clientReady) {
         console.log("disconnecting");
@@ -30,22 +32,51 @@ const ChatApp = ({ apiKey }) => {
   }, []);
 
   useEffect(() => {
-    if (user.id) {
-      const userId = `user-${user.id}`;
-      const userToken = user.streamToken;
-      const setupClient = async () => {
-        await chatClient.connectUser(
-          {
-            id: userId,
-          },
-          userToken
-        );
-        setClientReady(true);
-      };
+    if (apiKey) {
+      setChatClient(StreamChat.getInstance(apiKey));
+      console.log("StreamChat");
+    }
+  }, [apiKey]);
 
+  useEffect(() => {
+    console.log("client trying to ready");
+    console.log(!clientReady && user.id && apiKey);
+    if (!clientReady && user.id && apiKey) {
       setupClient();
     }
-  }, [user]);
+  }, [user, chatClient]);
+
+  const setupClient = async () => {
+    const userId = `user-${user.id}`;
+      const userToken = user.streamToken;
+    await chatClient.connectUser(
+      {
+        id: userId,
+      },
+      userToken
+    );
+    setClientReady(true);
+  };
+
+  const getApiKey = async () => {
+    try {
+      const data = await fetch(`http://localhost:3000/chat/apiKey`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+      });
+      console.log(data);
+      if (!data) {
+      } else {
+        const [apiKey] = await data.json();
+        console.log("apiKey");
+        console.log(apiKey);
+        setApiKey(apiKey);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   if (!clientReady) return <div>Loading...</div>;
 
