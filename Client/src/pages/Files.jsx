@@ -381,7 +381,7 @@ function Files({ setIsUploading, isUploading,apiKey }) {
                   searchCriteria={searchCriteria}
                   filesChanged={filesChanged}
                   setFilesChanged={setFilesChanged}
-                  apiKey={apiKey}
+                  ownerOfFiles={ownerOfFiles}
                 />
               ))}
             </div>

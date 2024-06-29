@@ -74,18 +74,15 @@ router.get("/user", checkAbilities("read", "Clients"), async (req, res) => {
 //   }
 // );
 
-router.get(
-  "/chatMembers",
-  async (req, res) => {
-    try {
-      const id = req.query.id;
-      const employees = await getManagers(id);
-      res.status(200).send([employees]);
-    } catch (err) {
-      res.status(500).send({ message: err.message });
-    }
+router.get("/chatMembers", async (req, res) => {
+  try {
+    const id = req.query.id;
+    const members = await getManagers(id);
+    res.status(200).send([members]);
+  } catch (err) {
+    res.status(500).send({ message: err.message });
   }
-);
+});
 
 router.get(
   "/connections",
