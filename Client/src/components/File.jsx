@@ -166,7 +166,7 @@ const File = ({
       console.log("ownerOfFiles")
       console.log(ownerOfFiles)
       await chanel.createChatChannel(file.id, ownerOfFiles, file.name);
-      navigate("../chats");
+      // navigate("../chats");
     } catch (err) {
       console.log(err);
     }

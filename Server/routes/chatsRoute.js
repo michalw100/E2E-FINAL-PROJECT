@@ -5,7 +5,7 @@ const {
   createChatControlleryByUserID,
   getChatByNameController,
   getChatControlleryByUserID,
-  getChatControllerByFileID
+  getChatControllerByFileID,
 } = require("../controllers/chatController");
 require("dotenv").config();
 
@@ -16,10 +16,8 @@ router.post("/chat", async (req, res) => {
   try {
     const { fileID, userID } = req.body;
     let chat;
-    if(fileID)
-       chat = await createChatControllerByFileID(fileID);
-    if(userID)
-      chat = await createChatControlleryByUserID(userID);
+    if (fileID) chat = await createChatControllerByFileID(fileID);
+    else if (userID) chat = await createChatControlleryByUserID(userID);
     res.status(200).json(chat);
   } catch (error) {
     res.status(500).send({ error: error.message });
@@ -28,13 +26,16 @@ router.post("/chat", async (req, res) => {
 
 router.get("/chat", async (req, res) => {
   try {
-    const { fileID, userID } = req.body;
+    const { fileID, userID } = req.query;
+    console.log(fileID);
+    console.log(userID);
     let chat;
-    if(fileID)
-       chat = await getChatControllerByFileID(fileID);
-    if(userID)
-      chat = await getChatControlleryByUserID(userID);
-    res.status(200).json(chat);
+    if (fileID) chat = await getChatControllerByFileID(fileID);
+    else if (userID) chat = await getChatControlleryByUserID(userID);
+    console.log("chatchatchatchatchatchat");
+    console.log(chat);
+    if (chat) res.status(200).json(chat);
+    else res.status(204).send();
   } catch (error) {
     res.status(500).send({ error: error.message });
   }
@@ -81,18 +82,18 @@ router.get("/clearChatIDFronSession", (req, res, next) => {
   } else res.sendStatus(404);
 });
 
-router.post("/storeChatIDFronSession", async (req, res, next) => {
-  // console.log("storeClientID");
-  const chatName = req.body.chatName || req.query.chatName;
-  if (chatName) {
-    const chatId = await getChatByNameController(chatName);
-    req.session.chatId = chatId;
-    res.status(200).json({ message: "chatId stored successfully" });
-  } else {
-    // console.log("false");
-    res.status(400).json({ message: "No chatId provided" });
-  }
-});
+// router.post("/storeChatIDFronSession", async (req, res, next) => {
+//   // console.log("storeClientID");
+//   const chatName = req.body.chatName || req.query.chatName;
+//   if (chatName) {
+//     const chatId = await getChatByNameController(chatName);
+//     req.session.chatId = chatId;
+//     res.status(200).json({ message: "chatId stored successfully" });
+//   } else {
+//     // console.log("false");
+//     res.status(400).json({ message: "No chatId provided" });
+//   }
+// });
 
 // router.get("/:id", async (req, res) => {
 //   try {

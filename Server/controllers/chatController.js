@@ -22,7 +22,7 @@ async function createChatControllerByFileID(filedID) {
 
 async function getChatControlleryByUserID(userID) {
   try{
-    const chat = await model.createChatControlleryByUserID(userID);
+    const chat = await model.getChatControlleryByUserID(userID);
     return chat.insertId;  
   }
   catch(err){
@@ -32,8 +32,8 @@ async function getChatControlleryByUserID(userID) {
 
 async function getChatControllerByFileID(filedID) {
   try{
-    const chat = await model.createChatControllerByFileID(filedID);
-    return chat.insertId;  
+    const chat = await model.getChatControllerByFileID(filedID);
+    return chat[0];  
   }
   catch(err){
     throw err;

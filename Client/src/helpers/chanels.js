@@ -2,50 +2,39 @@ import { StreamChat } from "stream-chat";
 
 // פונקציה ליצירת צאט חדש
 const createChatChannel = async (fileId, userId, name) => {
-  const apiKey = await getApiKey();
-  // const client = StreamChat.getInstance(apiKey);
-  // await fetch(`http://localhost:3000/chat`, {
-  //   method: "post",
-  //   headers: { "Content-Type": "application/json" },
-  //   credentials: "include",
-  //   body: JSON.stringify({ name: name }),
-  // })
-  //   .then((response) => {
-  //     if (!response.ok) {
-  //       console.log(response);
-  //     }
-  //     return response;
-  //   })
-  //   .then((data) => {
-  //     chat = data;
-  //     return;
-  //   });
-  // const chatId = await chat.json();
-  const userIds = await getChatMembers(userId);
-  const chatMembers = userIds.map(member => `user-${member.employeeUserID || member.userID}`);
-
-  // try {
-  //   if (chatId && userId) {
-  //     await client.connectUser({ id: `user-${userId}` }, userToken);
-  //     const members = [
-  //       `user-20`,
-  //       `user-18`,
-  //       `user-4`,
-  //       `user-5`,
-  //     ];
-  //     const channel = client.channel("messaging", `chat-${chatId}`, {
-  //       members: members,
-  //       name: "new Group Chat",
-  //       // description: "This is a team chat for project XYZ",
-  //     });
-
-  //     await channel.create();
-  //     return channel.data;
-  //   }
-  // } catch (error) {
-  //   console.error("Error creating channel:", error);
-  //   throw error;
-  // }
+  const chatId = await getChatID(fileId, userId);
+  console.log("chatId");
+  console.log(chatId);
+  if (chatId) {
+  } else {
+    console.log("new chet");
+    const userIds = await getChatMembers(userId);
+    const chatMembers = userIds.map(
+      (member) => `user-${member.employeeUserID || member.userID}`
+    );
+    chatMembers.push(`user-${userId}`);
+    const apiKey = await getApiKey();
+    const client = StreamChat.getInstance(apiKey);
+    const newChatId = await createChatID(fileId, userId);
+    console.log("chatId");
+    console.log(newChatId);
+    try {
+      if (chatId && userId) {
+        await client.connectUser({ id: `user-${userId}` }, userToken);
+        const members = chatMembers;
+        const channel = client.channel("messaging", `chat-${newChatId}`, {
+          members: members,
+          name: name,
+          // description: "This is a team chat for project XYZ",
+        });
+        await channel.create();
+        return channel.data;
+      }
+    } catch (error) {
+      console.error("Error creating channel:", error);
+      throw error;
+    }
+  }
 };
 
 const getApiKey = async () => {
@@ -88,6 +77,56 @@ const getChatMembers = async (userId) => {
       members = data[0];
     });
   return members;
+};
+
+const getChatID = async (fileID, userID) => {
+  let chat;
+  await fetch(
+    `http://localhost:3000/chat/chat?fileID=${fileID}&?userId=${userID}`,
+    {
+      method: "GET",
+      credentials: "include",
+    }
+  )
+    .then((response) => {
+      console.log("response.status");
+      console.log(response.status);
+      if (!response.ok) {
+        console.log("response.status = " + response.status);
+        console.log(response);
+      }
+      if (response.status == 204) return false;
+
+      console.log(response);
+      return response.json();
+    })
+    .then((data) => {
+      // const chat = data.json();
+      console.log(data);
+      chat = data;
+    });
+  return chat;
+};
+
+const createChatID = async (fileID, userId) => {
+  let chat;
+  await fetch(`http://localhost:3000/chat/chat`, {
+    method: "post",
+    headers: { "Content-Type": "application/json" },
+    credentials: "include",
+    body: JSON.stringify({ fileID: fileID, userId: userId }),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        console.log(response);
+      }
+      return response.json();
+    })
+    .then((data) => {
+      chat = data;
+      return;
+    });
+  return chat;
 };
 
 export default { createChatChannel, getApiKey };

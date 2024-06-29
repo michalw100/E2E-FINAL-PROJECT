@@ -10,9 +10,9 @@ async function createChat(name) {
   }
 }
 
-async function createChatControllerByFileID(filedID) {
+async function createChatControllerByFileID(fileID) {
   try{
-    const result = await pool.query('INSERT INTO chats (filedID) VALUES (?)', [filedID]);
+    const result = await pool.query('INSERT INTO chats (fileID) VALUES (?)', [fileID]);
     return result[0];
   
   } catch(err){
@@ -30,9 +30,9 @@ async function createChatControlleryByUserID(userID) {
   }
 }
 
-async function getChatControllerByFileID(filedID) {
+async function getChatControllerByFileID(fileID) {
   try{
-    const result = await pool.query('SELECT * FROM chats WHERE filedID = ?', [filedID]);
+    const result = await pool.query('SELECT * FROM chats WHERE fileID = ?', [fileID]);
     return result[0];
   
   } catch(err){
