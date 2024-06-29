@@ -30,7 +30,7 @@ router.get("/apiKey", async (req, res) => {
   }
 });
 
-router.get("/getChatID", (req, res) => {
+router.get("/getChatIDFronSession", (req, res) => {
   // console.log("getClientID");
   if (req.session.chatID) {
     // console.log(req.session.clientID);
@@ -41,7 +41,7 @@ router.get("/getChatID", (req, res) => {
   }
 });
 
-router.get("/clearChatID", (req, res, next) => {
+router.get("/clearChatIDFronSession", (req, res, next) => {
   // console.log("clearClientID");
   if (req.session.chatID) {
     delete req.session.chatID;
@@ -49,7 +49,7 @@ router.get("/clearChatID", (req, res, next) => {
   } else res.sendStatus(404);
 });
 
-router.post("/storeChatID", async (req, res, next) => {
+router.post("/storeChatIDFronSession", async (req, res, next) => {
   // console.log("storeClientID");
   const chatName = req.body.chatName || req.query.chatName;
   if (chatName) {
