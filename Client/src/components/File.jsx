@@ -15,7 +15,7 @@ const File = ({
   searchCriteria,
   filesChanged,
   setFilesChanged,
-  apiKey,
+  ownerOfFiles,
 }) => {
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
@@ -163,7 +163,9 @@ const File = ({
 
   const commentsFunc = async () => {
     try {
-      const chat = await chanel.createChatChannel(file.id, user.id, file.name);
+      console.log("ownerOfFiles")
+      console.log(ownerOfFiles)
+      await chanel.createChatChannel(file.id, ownerOfFiles, file.name);
       navigate("../chats");
     } catch (err) {
       console.log(err);

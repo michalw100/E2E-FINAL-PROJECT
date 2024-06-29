@@ -1,10 +1,9 @@
 import { StreamChat } from "stream-chat";
 
 // פונקציה ליצירת צאט חדש
-const createChatChannel = async ({ fileId, userId, name }) => {
+const createChatChannel = async (fileId, userId, name) => {
   const apiKey = await getApiKey();
   // const client = StreamChat.getInstance(apiKey);
-  // let chat = null;
   // await fetch(`http://localhost:3000/chat`, {
   //   method: "post",
   //   headers: { "Content-Type": "application/json" },
@@ -22,10 +21,9 @@ const createChatChannel = async ({ fileId, userId, name }) => {
   //     return;
   //   });
   // const chatId = await chat.json();
-  const chatMembers = await chatMembers(userId);
+  const userIds = await getChatMembers(userId);
+  const chatMembers = userIds.map(member => `user-${member.employeeUserID || member.userID}`);
 
-  console.log("chatMembers");
-  console.log(chatMembers);
   // try {
   //   if (chatId && userId) {
   //     await client.connectUser({ id: `user-${userId}` }, userToken);
@@ -70,24 +68,26 @@ const getApiKey = async () => {
   }
 };
 
-const getChatMwmbers = async (userId) => {
+const getChatMembers = async (userId) => {
+  let members;
   await fetch(`http://localhost:3000/users/chatMembers?id=${userId}`, {
     method: "GET",
-    // headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json" },
     credentials: "include",
   })
     .then((response) => {
       if (!response.ok) {
         console.log(response);
       }
-      return response;
+      console.log(response);
+      return response.json();
     })
     .then((data) => {
-      chat = data;
-      return;
+      // const chat = data.json();
+      console.log(data[0]);
+      members = data[0];
     });
-  const chatMembers = await chat.json();
-  return chatMembers;
+  return members;
 };
 
 export default { createChatChannel, getApiKey };
