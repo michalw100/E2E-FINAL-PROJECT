@@ -9,7 +9,7 @@ require("dotenv").config();
 
 router.use(express.json());
 router.use(express.urlencoded({ extended: true }));
-router.post("/", async (req, res) => {
+router.post("/chat", async (req, res) => {
   try {
     const { name } = req.body;
     const chat = await createChatController(name);
