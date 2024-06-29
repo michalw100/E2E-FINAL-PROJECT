@@ -1,14 +1,44 @@
-const {
-  createChat,
-  getChatById,
-  getChatByName,
-} = require("../models/chatModel");
+const model = require("../models/chatModel");
 
-async function createChatController(name) {
-  const chat = await createChat(name);
-  return chat.insertId;
+async function createChatControlleryByUserID(userID) {
+  try{
+    const chat = await model.createChatControlleryByUserID(userID);
+    return chat.insertId;  
+  }
+  catch(err){
+    throw err;
+  }
 }
 
+async function createChatControllerByFileID(filedID) {
+  try{
+    const chat = await model.createChatControllerByFileID(filedID);
+    return chat.insertId;  
+  }
+  catch(err){
+    throw err;
+  }
+}
+
+async function getChatControlleryByUserID(userID) {
+  try{
+    const chat = await model.createChatControlleryByUserID(userID);
+    return chat.insertId;  
+  }
+  catch(err){
+    throw err;
+  }
+}
+
+async function getChatControllerByFileID(filedID) {
+  try{
+    const chat = await model.createChatControllerByFileID(filedID);
+    return chat.insertId;  
+  }
+  catch(err){
+    throw err;
+  }
+}
 // async function getChatByIdController(req, res) {
 //   const { id } = req.params;
 //   const chat = await getChatById(id);
@@ -16,15 +46,24 @@ async function createChatController(name) {
 // }
 
 async function getChatByNameController(name) {
-  const chat = await getChatByName(name);
-  if (!chat) {
-    const chatID = await createChatController(name);
-    return chatID;
-  } else return chat.id;
+  try{
+    const chat = await model.getChatByName(name);
+    if (!chat) {
+      const chatID = await model.createChatController(name);
+      return chatID;
+    } else return chat.id;
+  
+  } catch(err){
+    throw err;
+  }
 }
 
 module.exports = {
   createChatController,
+  createChatControllerByFileID,
+  getChatControlleryByUserID,
+  getChatControllerByFileID,
+  createChatControlleryByUserID,
   // getChatByIdController,
   getChatByNameController,
 };

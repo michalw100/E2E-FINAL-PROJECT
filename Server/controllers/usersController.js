@@ -7,7 +7,6 @@ require("dotenv").config();
 async function getConnections() {
   try {
     const connections = await model.getConnections();
-    // console.log(clientsEmployee[0]);
     return connections[0];
   } catch (err) {
     throw err;
@@ -57,19 +56,19 @@ async function updateConnection(employeeID, clientID, id) {
   }
 }
 
-async function getClientsEmployee(id) {
-  try {
-    const idEmployee = await getClientIDOrEmployeeIDByUserID(id);
+// async function getClientsEmployee(id) {
+//   try {
+//     const idEmployee = await getClientIDOrEmployeeIDByUserID(id);
 
-    console.log(idEmployee);
-    const clientsEmployee = await model.getClientsEmployee(
-      idEmployee.employee_id
-    );
-    return clientsEmployee[0];
-  } catch (err) {
-    throw err;
-  }
-}
+//     console.log(idEmployee);
+//     const clientsEmployee = await model.getClientsEmployee(
+//       idEmployee.employee_id
+//     );
+//     return clientsEmployee[0];
+//   } catch (err) {
+//     throw err;
+//   }
+// }
 
 async function getEmployees() {
   try {
@@ -224,7 +223,7 @@ const sendToOurEmail = (req, res) => {
 
 module.exports = {
   update,
-  getClientsEmployee,
+  // getClientsEmployee,
   getByPasswordAndUserName,
   create,
   getById,

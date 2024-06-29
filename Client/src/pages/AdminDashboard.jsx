@@ -111,7 +111,7 @@ const AdminDashboard = () => {
 
   const fetchClients = async () => {
     try {
-      const response = await fetch("http://localhost:3000/users/clients", {
+      const response = await fetch("http://localhost:3000/clients/clients", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -171,7 +171,6 @@ const AdminDashboard = () => {
 
   const makeLines = () => {
     if (employeeColors) {
-      // עבור כל מערך בין לקוח ועובד, ליצור קו
       currentClientsemployees.forEach((connectoin) => {
         const client = currentClients.find(
           (c) => c.userID === connectoin.client_user_id
@@ -205,13 +204,13 @@ const AdminDashboard = () => {
             relationshipLine.style.left = `${clientRect.right}px`;
             relationshipLine.style.width = `${length}px`;
             relationshipLine.style.transform = `rotate(${angle}deg)`;
-            relationshipLine.style.transformOrigin = "0 0"; // הגדר את נקודת התחלת הסיבוב לתחילת הקו
+            relationshipLine.style.transformOrigin = "0 0";
             relationshipLine.style.backgroundColor = getEmployeeColor(
               employee.userID
-            ); // קבע צבע לפי העובד
+            );
             relationshipLine.style.borderColor = getEmployeeColor(
               employee.userID
-            ); // קבע צבע המסגרת לפי העובד
+            );
             document.body.appendChild(relationshipLine);
           }
         }

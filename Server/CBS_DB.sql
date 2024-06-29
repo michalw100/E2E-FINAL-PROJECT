@@ -126,9 +126,9 @@ CREATE TABLE
     chats (
         id INT AUTO_INCREMENT PRIMARY KEY,
         fileID INT NOT NULL,
-        clientID INT NOT NULL,
+        userID INT NOT NULL,
         FOREIGN KEY (fileID) REFERENCES files (id),
-        FOREIGN KEY (clientID) REFERENCES clients (id)
+        FOREIGN KEY (userID) REFERENCES users (id)
     );
 
 -- Insert data into addresses
