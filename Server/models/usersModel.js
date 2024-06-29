@@ -60,17 +60,17 @@ async function getUserByPasswordAndUserName(userName) {
   }
 }
 
-// async function getClientIDOrEmployeeIDByUserID(userID) {
-//   try {
-//     const sql =
-//       "SELECT clients.id AS client_id, employees.id AS employee_id FROM users LEFT JOIN clients ON users.id = clients.userID LEFT JOIN employees ON users.id = employees.userID WHERE users.id = ?";
-//     const result = await pool.query(sql, userID);
-//     const id = result[0];
-//     return id;
-//   } catch (err) {
-//     throw err;
-//   }
-// }
+async function getClientIDOrEmployeeIDByUserID(userID) {
+  try {
+    const sql =
+      "SELECT clients.id AS client_id, employees.id AS employee_id FROM users LEFT JOIN clients ON users.id = clients.userID LEFT JOIN employees ON users.id = employees.userID WHERE users.id = ?";
+    const result = await pool.query(sql, userID);
+    const id = result[0];
+    return id;
+  } catch (err) {
+    throw err;
+  }
+}
 
 async function updateStreamToken(token, userId) {
   try {
@@ -170,7 +170,7 @@ module.exports = {
   createUser,
   getUser,
   updateUser,
-  // getClientIDOrEmployeeIDByUserID,
+  getClientIDOrEmployeeIDByUserID,
   // getClientsEmployee,
   // getConnections,
   // employeeToClient,

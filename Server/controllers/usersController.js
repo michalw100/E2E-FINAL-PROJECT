@@ -27,15 +27,15 @@ async function getManagers(id) {
 }
 
 
-// async function getClientIDOrEmployeeIDByUserID(id) {
-//   try {
-//     const type = await model.getClientIDOrEmployeeIDByUserID(id);
-//     // console.log(clientsEmployee[0]);
-//     return type[0];
-//   } catch (err) {
-//     throw err;
-//   }
-// }
+async function getClientIDOrEmployeeIDByUserID(id) {
+  try {
+    const type = await model.getClientIDOrEmployeeIDByUserID(id);
+    // console.log(clientsEmployee[0]);
+    return type[0];
+  } catch (err) {
+    throw err;
+  }
+}
 
 async function getById(id) {
   try {
@@ -159,6 +159,6 @@ module.exports = {
   // employeeToClient,
   // updateConnection,
   // deleteConnection,
-  // getClientIDOrEmployeeIDByUserID,
+  getClientIDOrEmployeeIDByUserID,
   getClientByCkientId,
 };
