@@ -70,15 +70,15 @@ async function updateConnection(employeeID, clientID, id) {
 //   }
 // }
 
-async function getEmployees() {
-  try {
-    const employees = await model.getEmployees();
-    // console.log(clientsEmployee[0]);
-    return employees[0];
-  } catch (err) {
-    throw err;
-  }
-}
+// async function getEmployees() {
+//   try {
+//     const employees = await model.getEmployees();
+//     // console.log(clientsEmployee[0]);
+//     return employees[0];
+//   } catch (err) {
+//     throw err;
+//   }
+// }
 
 async function getManagers(id) {
   try {
@@ -91,15 +91,15 @@ async function getManagers(id) {
   }
 }
 
-async function getClients() {
-  try {
-    const clients = await model.getClients();
-    // console.log(clientsEmployee[0]);
-    return clients[0];
-  } catch (err) {
-    throw err;
-  }
-}
+// async function getClients() {
+//   try {
+//     const clients = await model.getClients();
+//     // console.log(clientsEmployee[0]);
+//     return clients[0];
+//   } catch (err) {
+//     throw err;
+//   }
+// }
 
 async function getClientIDOrEmployeeIDByUserID(id) {
   try {
@@ -228,9 +228,9 @@ module.exports = {
   create,
   getById,
   sendToOurEmail,
-  getEmployees,
+  // getEmployees,
   getManagers,
-  getClients,
+  // getClients,
   getConnections,
   employeeToClient,
   updateConnection,

@@ -14,6 +14,7 @@ const usersRoute = require("./routes/usersRoute");
 const myClientRoute = require("./routes/myClientRoute");
 const chatRoute = require("./routes/chatRoute"); 
 const clientRoute = require("./routes/clientRoute"); 
+const employeeRoute = require("./routes/employeeRoute"); 
 
 const logger = require("./Middlewares/logger");
 const checkAuth = require("./Middlewares/checkAuth");
@@ -49,6 +50,8 @@ app.use("/users", usersRoute);
 app.use("/myClient", myClientRoute);
 app.use("/chat", chatRoute);
 app.use("/clients", clientRoute);
+app.use("/employees", employeeRoute);
+
 app.use("/checkAuth", (req, res) => {
   res.status(200).json(req.session.user);
 });

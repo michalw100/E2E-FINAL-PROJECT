@@ -131,7 +131,7 @@ const AdminDashboard = () => {
 
   const fetchEmployees = async () => {
     try {
-      const response = await fetch("http://localhost:3000/users/employees", {
+      const response = await fetch("http://localhost:3000/employees/employees", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

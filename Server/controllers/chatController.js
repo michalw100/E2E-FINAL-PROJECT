@@ -58,12 +58,24 @@ async function getChatByNameController(name) {
   }
 }
 
+async function getManagers(id) {
+  try {
+    const managers = await model.getManagers();
+    const employees = await model.getEmployeesOfClient(id);
+    // console.log(clientsEmployee[0]);
+    return [...employees[0], ...managers[0]];
+  } catch (err) {
+    throw err;
+  }
+}
+
 module.exports = {
-  createChatController,
+  // createChatController,
   createChatControllerByFileID,
   getChatControlleryByUserID,
   getChatControllerByFileID,
   createChatControlleryByUserID,
   // getChatByIdController,
   getChatByNameController,
+  getManagers
 };
