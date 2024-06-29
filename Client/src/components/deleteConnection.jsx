@@ -26,7 +26,7 @@ const deleteConnection = ({
             : userToDelete && userToDelete.userID)
     );
     try {
-      const response = await fetch("http://localhost:3000/users/connection", {
+      const response = await fetch("http://localhost:3000/connections", {
         method: "DELETE",
         credentials: "include",
         headers: {

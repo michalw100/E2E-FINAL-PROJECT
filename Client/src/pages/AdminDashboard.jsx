@@ -151,7 +151,7 @@ const AdminDashboard = () => {
 
   const fetchConnections = async () => {
     try {
-      const response = await fetch("http://localhost:3000/users/connections", {
+      const response = await fetch("http://localhost:3000/connections", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

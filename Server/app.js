@@ -12,9 +12,10 @@ const filesRoute = require("./routes/filesRoute");
 const logoutRoute = require("./routes/logoutRoute");
 const usersRoute = require("./routes/usersRoute");
 const myClientRoute = require("./routes/myClientRoute");
-const chatRoute = require("./routes/chatRoute"); 
-const clientRoute = require("./routes/clientRoute"); 
-const employeeRoute = require("./routes/employeeRoute"); 
+const chatsRoute = require("./routes/chatsRoute"); 
+const clientsRoute = require("./routes/clientsRoute"); 
+const employeesRoute = require("./routes/employeesRoute"); 
+const connectionsRoute = require("./routes/connectionsRoute"); 
 
 const logger = require("./Middlewares/logger");
 const checkAuth = require("./Middlewares/checkAuth");
@@ -48,9 +49,10 @@ app.use("/files", filesRoute);
 app.use("/logout", logoutRoute);
 app.use("/users", usersRoute);
 app.use("/myClient", myClientRoute);
-app.use("/chat", chatRoute);
-app.use("/clients", clientRoute);
-app.use("/employees", employeeRoute);
+app.use("/chat", chatsRoute);
+app.use("/clients", clientsRoute);
+app.use("/connections", connectionsRoute);
+app.use("/employees", employeesRoute);
 
 app.use("/checkAuth", (req, res) => {
   res.status(200).json(req.session.user);

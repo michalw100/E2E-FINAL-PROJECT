@@ -84,18 +84,18 @@ router.get("/chatMembers", async (req, res) => {
   }
 });
 
-router.get(
-  "/connections",
-  checkAbilities("create", "employees"),
-  async (req, res) => {
-    try {
-      const employees = await getConnections();
-      res.status(200).send(employees);
-    } catch (err) {
-      res.status(500).send({ message: err.message });
-    }
-  }
-);
+// router.get(
+//   "/connections",
+//   checkAbilities("create", "employees"),
+//   async (req, res) => {
+//     try {
+//       const employees = await getConnections();
+//       res.status(200).send(employees);
+//     } catch (err) {
+//       res.status(500).send({ message: err.message });
+//     }
+//   }
+// );
 
 // router.get("/type", async (req, res) => {
 //   try {
@@ -107,52 +107,52 @@ router.get(
 //   }
 // });
 
-router.post(
-  "/connection",
-  checkAbilities("create", "employees"),
-  async (req, res) => {
-    try {
-      const employeeID = req.body.employeeID;
-      const clientID = req.body.clientID;
+// router.post(
+//   "/connection",
+//   checkAbilities("create", "employees"),
+//   async (req, res) => {
+//     try {
+//       const employeeID = req.body.employeeID;
+//       const clientID = req.body.clientID;
 
-      const connection = await employeeToClient(employeeID, clientID);
-      res.status(200).send(connection);
-    } catch (err) {
-      res.status(500).send({ message: err.message });
-    }
-  }
-);
+//       const connection = await employeeToClient(employeeID, clientID);
+//       res.status(200).send(connection);
+//     } catch (err) {
+//       res.status(500).send({ message: err.message });
+//     }
+//   }
+// );
 
-router.delete(
-  "/connection",
-  checkAbilities("create", "employees"),
-  async (req, res) => {
-    try {
-      const employeeID = req.body.employeeID;
-      const clientID = req.body.clientID;
-      const connection = await deleteConnection(employeeID, clientID);
-      res.status(200).send(connection);
-    } catch (err) {
-      res.status(500).send({ message: err.message });
-    }
-  }
-);
+// router.delete(
+//   "/connection",
+//   checkAbilities("create", "employees"),
+//   async (req, res) => {
+//     try {
+//       const employeeID = req.body.employeeID;
+//       const clientID = req.body.clientID;
+//       const connection = await deleteConnection(employeeID, clientID);
+//       res.status(200).send(connection);
+//     } catch (err) {
+//       res.status(500).send({ message: err.message });
+//     }
+//   }
+// );
 
-router.put(
-  "/connection",
-  checkAbilities("create", "employees"),
-  async (req, res) => {
-    try {
-      const employeeID = req.body.employeeID;
-      const clientID = req.body.clientID;
-      const id = req.body.id;
-      const connection = await updateConnection(employeeID, clientID, id);
-      res.status(200).send(connection);
-    } catch (err) {
-      res.status(500).send({ message: err.message });
-    }
-  }
-);
+// router.put(
+//   "/connection",
+//   checkAbilities("create", "employees"),
+//   async (req, res) => {
+//     try {
+//       const employeeID = req.body.employeeID;
+//       const clientID = req.body.clientID;
+//       const id = req.body.id;
+//       const connection = await updateConnection(employeeID, clientID, id);
+//       res.status(200).send(connection);
+//     } catch (err) {
+//       res.status(500).send({ message: err.message });
+//     }
+//   }
+// );
 
 router.put("/user", checkAbilities("update", "Users"), async (req, res) => {
   try {

@@ -2,16 +2,9 @@ const model = require("../models/usersModel");
 const bcrypt = require("bcrypt");
 const { defineAbilitiesFor } = require("../Middlewares/abilities");
 const { StreamChat } = require("stream-chat");
+const { sendMail } = require("../services/mailService");
 require("dotenv").config();
 
-async function getConnections() {
-  try {
-    const connections = await model.getConnections();
-    return connections[0];
-  } catch (err) {
-    throw err;
-  }
-}
 async function getClientByCkientId(id) {
   try {
     const user = await model.getClientByCkientId(id);
@@ -21,64 +14,6 @@ async function getClientByCkientId(id) {
     throw err;
   }
 }
-
-async function deleteConnection(employeeID, clientID) {
-  try {
-    const connections = await model.deleteConnection(employeeID, clientID);
-    return connections[0];
-  } catch (err) {
-    throw err;
-  }
-}
-
-async function employeeToClient(employeeID, clientID) {
-  try {
-    const employeeUserID = await getClientIDOrEmployeeIDByUserID(employeeID);
-    const clientUserID = await getClientIDOrEmployeeIDByUserID(clientID);
-    const connections = await model.employeeToClient(
-      employeeUserID.employee_id,
-      clientUserID.client_id
-    );
-    // console.log(clientsEmployee[0]);
-    return connections[0];
-  } catch (err) {
-    throw err;
-  }
-}
-
-async function updateConnection(employeeID, clientID, id) {
-  try {
-    const connections = await model.updateConnection(employeeID, clientID, id);
-    // console.log(clientsEmployee[0]);
-    return connections[0];
-  } catch (err) {
-    throw err;
-  }
-}
-
-// async function getClientsEmployee(id) {
-//   try {
-//     const idEmployee = await getClientIDOrEmployeeIDByUserID(id);
-
-//     console.log(idEmployee);
-//     const clientsEmployee = await model.getClientsEmployee(
-//       idEmployee.employee_id
-//     );
-//     return clientsEmployee[0];
-//   } catch (err) {
-//     throw err;
-//   }
-// }
-
-// async function getEmployees() {
-//   try {
-//     const employees = await model.getEmployees();
-//     // console.log(clientsEmployee[0]);
-//     return employees[0];
-//   } catch (err) {
-//     throw err;
-//   }
-// }
 
 async function getManagers(id) {
   try {
@@ -91,25 +26,16 @@ async function getManagers(id) {
   }
 }
 
-// async function getClients() {
+
+// async function getClientIDOrEmployeeIDByUserID(id) {
 //   try {
-//     const clients = await model.getClients();
+//     const type = await model.getClientIDOrEmployeeIDByUserID(id);
 //     // console.log(clientsEmployee[0]);
-//     return clients[0];
+//     return type[0];
 //   } catch (err) {
 //     throw err;
 //   }
 // }
-
-async function getClientIDOrEmployeeIDByUserID(id) {
-  try {
-    const type = await model.getClientIDOrEmployeeIDByUserID(id);
-    // console.log(clientsEmployee[0]);
-    return type[0];
-  } catch (err) {
-    throw err;
-  }
-}
 
 async function getById(id) {
   try {
@@ -213,8 +139,6 @@ async function update(id, userName, name, email, phone, street, city, zipcode) {
   }
 }
 
-const { sendMail } = require("../services/mailService");
-
 const sendToOurEmail = (req, res) => {
   const { email, name, subject, text } = req.body;
   sendMail(email, subject, text, name);
@@ -231,10 +155,10 @@ module.exports = {
   // getEmployees,
   getManagers,
   // getClients,
-  getConnections,
-  employeeToClient,
-  updateConnection,
-  deleteConnection,
-  getClientIDOrEmployeeIDByUserID,
+  // getConnections,
+  // employeeToClient,
+  // updateConnection,
+  // deleteConnection,
+  // getClientIDOrEmployeeIDByUserID,
   getClientByCkientId,
 };
