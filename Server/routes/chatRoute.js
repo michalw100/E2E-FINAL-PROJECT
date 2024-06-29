@@ -1,18 +1,39 @@
 const express = require("express");
 const router = express.Router();
 const {
-  createChatController,
-  getChatByIdController,
+  createChatControllerByFileID,
+  createChatControlleryByUserID,
   getChatByNameController,
+  getChatControlleryByUserID,
+  getChatControllerByFileID
 } = require("../controllers/chatController");
 require("dotenv").config();
 
 router.use(express.json());
 router.use(express.urlencoded({ extended: true }));
+
 router.post("/chat", async (req, res) => {
   try {
-    const { name } = req.body;
-    const chat = await createChatController(name);
+    const { fileID, userID } = req.body;
+    let chat;
+    if(fileID)
+       chat = await createChatControllerByFileID(fileID);
+    if(userID)
+      chat = await createChatControlleryByUserID(userID);
+    res.status(200).json(chat);
+  } catch (error) {
+    res.status(500).send({ error: error.message });
+  }
+});
+
+router.get("/chat", async (req, res) => {
+  try {
+    const { fileID, userID } = req.body;
+    let chat;
+    if(fileID)
+       chat = await getChatControllerByFileID(fileID);
+    if(userID)
+      chat = await getChatControlleryByUserID(userID);
     res.status(200).json(chat);
   } catch (error) {
     res.status(500).send({ error: error.message });
