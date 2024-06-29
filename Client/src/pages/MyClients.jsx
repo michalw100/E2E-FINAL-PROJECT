@@ -13,7 +13,7 @@ const UsersList = () => {
   useEffect(() => {
     if (user && user.id) {
 
-      fetch(`http://localhost:3000/users/clients?id=${user.id}`, {
+      fetch(`http://localhost:3000/clients/clients?id=${user.id}`, {
         method: "GET",
         headers: { "Content-Type": "application/json" },
         credentials: "include",

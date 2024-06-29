@@ -12,7 +12,7 @@ ChartJS.register(
   BarElement,
   ArcElement,
   LineElement,
-  PointElement // Ensure PointElement is registered
+  PointElement
 );
 
 function UpdatesPage() {
