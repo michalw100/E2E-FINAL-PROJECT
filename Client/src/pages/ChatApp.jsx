@@ -62,7 +62,6 @@ const ChatApp = () => {
     try {
       const data = await fetch(`http://localhost:3000/chat/apiKey`, {
         method: "GET",
-        headers: { "Content-Type": "application/json" },
         credentials: "include",
       });
       console.log(data);

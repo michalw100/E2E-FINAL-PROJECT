@@ -125,8 +125,8 @@ CREATE TABLE
 CREATE TABLE
     chats (
         id INT AUTO_INCREMENT PRIMARY KEY,
-        fileID INT NOT NULL,
-        userID INT NOT NULL,
+        fileID INT,
+        userID INT,
         FOREIGN KEY (fileID) REFERENCES files (id),
         FOREIGN KEY (userID) REFERENCES users (id)
     );
