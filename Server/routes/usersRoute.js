@@ -7,6 +7,7 @@ const {
   getClients,
   getConnections,
   getEmployees,
+  getManagers,
   employeeToClient,
   deleteConnection,
   updateConnection,
@@ -67,6 +68,19 @@ router.get(
     try {
       const employees = await getEmployees();
       res.status(200).send(employees);
+    } catch (err) {
+      res.status(500).send({ message: err.message });
+    }
+  }
+);
+
+router.get(
+  "/chatMembers",
+  async (req, res) => {
+    try {
+      const id = req.query.id;
+      const employees = await getManagers(id);
+      res.status(200).send([employees]);
     } catch (err) {
       res.status(500).send({ message: err.message });
     }

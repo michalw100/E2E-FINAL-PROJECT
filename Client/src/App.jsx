@@ -17,7 +17,6 @@ function PrivateRoute({ children }) {
 }
 
 function App() {
-  const apiKey = "k7tfp92tr4he";
   const [isUploading, setIsUploading] = useState(false);
 
   return (
@@ -34,7 +33,6 @@ function App() {
                   <NestedRoutes
                     isUploading={isUploading}
                     setIsUploading={setIsUploading}
-                    apiKey={apiKey}
                   />
                 </Layout>
               </PrivateRoute>

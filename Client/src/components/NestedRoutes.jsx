@@ -9,7 +9,7 @@ import UserDetails from "../pages/UserDetails.jsx";
 import Chats from "../pages/ChatApp.jsx";
 import AdminDashboard from "../pages/AdminDashboard.jsx";
 
-function NestedRoutes({ setIsUploading, isUploading, apiKey }) {
+function NestedRoutes({ setIsUploading, isUploading }) {
   const location = useLocation();
 
   useEffect(() => {
@@ -24,7 +24,7 @@ function NestedRoutes({ setIsUploading, isUploading, apiKey }) {
     <Routes location={location}>
       <Route path="/updates" element={<Updates />} />
       <Route path="/addUser" element={<SignUp />} />
-      <Route path="/chats" element={<Chats apiKey={apiKey} />} />
+      <Route path="/chats" element={<Chats/>} />
       <Route path="/myClients" element={<MyClients />} />
       <Route
         path="/myFiles"
@@ -43,7 +43,6 @@ function NestedRoutes({ setIsUploading, isUploading, apiKey }) {
             key={location.key}
             isUploading={isUploading}
             setIsUploading={setIsUploading}
-            apiKey={apiKey}
           />
         }
       />

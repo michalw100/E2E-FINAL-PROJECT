@@ -7,7 +7,7 @@ import { AuthContext } from "../AuthContext";
 import axios from "axios";
 import { MdDelete } from "react-icons/md";
 import { useDrag } from "react-dnd";
-import createChatChannel from "../helpers/chanels.js";
+import chanel from "../helpers/chanels.js";
 import { useNavigate } from "react-router-dom";
 
 const File = ({
@@ -163,7 +163,7 @@ const File = ({
 
   const commentsFunc = async () => {
     try {
-      const chat = await createChatChannel(apiKey, user.id, user.streamToken);
+      const chat = await chanel.createChatChannel(file.id, user.id, file.name);
       navigate("../chats");
     } catch (err) {
       console.log(err);

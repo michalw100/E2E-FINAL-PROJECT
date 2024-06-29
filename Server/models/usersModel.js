@@ -10,6 +10,30 @@ async function getEmployees() {
   }
 }
 
+async function getEmployeesOfClient(id) {
+  try {
+    const sql = `SELECT e.userID AS employeeUserID
+FROM clients c
+JOIN employee_client ec ON c.id = ec.clientID
+JOIN employees e ON ec.employeeID = e.id
+WHERE c.userID = ?`;
+    const result = await pool.query(sql, [id]);
+    return result;
+  } catch (err) {
+    throw err;
+  }
+}
+
+async function getManagers() {
+  try {
+    const sql = `SELECT userID from employees where role = "Admin"`;
+    const result = await pool.query(sql);
+    return result;
+  } catch (err) {
+    throw err;
+  }
+}
+
 async function getClientByCkientId(id) {
   try {
     console.log(id);
@@ -139,7 +163,7 @@ async function updateStreamToken(token, userId) {
 async function createUser(userName, hashedPassword, employeType, role) {
   try {
     const sql = "INSERT INTO users (`userName`,`name`) VALUES(?,?)";
-    const newUser = await pool.query(sql, [userName,userName]);
+    const newUser = await pool.query(sql, [userName, userName]);
     const sqlPassword = "INSERT INTO passwords (id, password) VALUES(?,?)";
     const newPassword = await pool.query(sqlPassword, [
       newUser[0].insertId,
@@ -227,6 +251,7 @@ const updateUser = async (
 module.exports = {
   // getClients,
   getEmployees,
+  getManagers,
   getUserByPasswordAndUserName,
   createUser,
   getUser,
@@ -239,4 +264,5 @@ module.exports = {
   deleteConnection,
   getClientByCkientId,
   updateStreamToken,
+  getEmployeesOfClient,
 };
