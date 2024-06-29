@@ -41,6 +41,17 @@ router.get("/chat", async (req, res) => {
   }
 });
 
+// router.get("/chatMembers", async (req, res) => {
+//   try {
+//     const id = req.query.id;
+//     const members = await getManagers(id);
+//     res.status(200).send([members]);
+//   } catch (err) {
+//     res.status(500).send({ message: err.message });
+//   }
+// });
+
+
 router.get("/apiKey", async (req, res) => {
   try {
     const apiKey = process.env.STREAM_API_KEY;

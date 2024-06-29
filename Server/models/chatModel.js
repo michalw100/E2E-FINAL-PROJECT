@@ -72,6 +72,17 @@ async function getChatByName(name) {
   }
 }
 
+async function getManagers() {
+  try {
+    const sql = `SELECT userID from employees where role = "Admin"`;
+    const result = await pool.query(sql);
+    return result;
+  } catch (err) {
+    throw err;
+  }
+}
+
+
 module.exports = {
   createChat,
   getChatById,
@@ -79,5 +90,6 @@ module.exports = {
   createChatControllerByFileID,
   createChatControlleryByUserID,
   getChatControllerByFileID,
-  getChatControlleryByUserID
+  getChatControlleryByUserID,
+  getManagers
 };

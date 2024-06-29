@@ -1,15 +1,5 @@
 const pool = require("../DB.js");
 
-async function getEmployees() {
-  try {
-    const sql = `SELECT * from employees LEFT JOIN users ON employees.userID = users.id where role!="Admin" AND users.name IS NOT NULL`;
-    const result = await pool.query(sql);
-    return result;
-  } catch (err) {
-    throw err;
-  }
-}
-
 async function getEmployeesOfClient(id) {
   try {
     const sql = `SELECT e.userID AS employeeUserID
@@ -46,73 +36,6 @@ async function getClientByCkientId(id) {
   }
 }
 
-// async function getClients() {
-//   try {
-//     const sql =
-//       "SELECT users.id, users.userName, users.name, users.email, users.phone, users.addressID, clients.id AS client_id, clients.userID, clients.parentClientID, clients.isApproved, clients.notes from clients LEFT JOIN users ON clients.userID = users.id WHERE users.name IS NOT NULL";
-//     const result = await pool.query(sql);
-//     return result;
-//   } catch (err) {
-//     throw err;
-//   }
-// }
-
-// async function getClientsEmployee(id) {
-//   try {
-//     const sql =
-//       "SELECT users.id, users.userName, users.name, users.email, users.phone, users.addressID, clients.id AS client_id, clients.userID, clients.parentClientID, clients.isApproved, clients.notes FROM clients Left JOIN users ON users.id = clients.userID Left JOIN employee_client ON employee_client.clientID = clients.id LEFT JOIN employees ON employee_client.employeeID = employees.id WHERE employees.id = ?";
-//     const result = await pool.query(sql, [id]);
-//     return result;
-//   } catch (err) {
-//     throw err;
-//   }
-// }
-
-async function getConnections() {
-  try {
-    const sql =
-      "SELECT clients.id AS client_id, employees.id AS employee_id, client_users.id AS client_user_id,employees.userID AS employee_user_id FROM employees JOIN users ON employees.userID = users.id JOIN employee_client ON employee_client.employeeID = employees.id JOIN clients ON employee_client.clientID = clients.id JOIN users AS client_users ON clients.userID = client_users.id";
-    const result = await pool.query(sql);
-    return result;
-  } catch (err) {
-    throw err;
-  }
-}
-
-async function employeeToClient(employeeID, clientID) {
-  try {
-    const sql =
-      "INSERT INTO employee_client (employeeID, clientID) VALUES (?, ?)";
-    const result = await pool.query(sql, [employeeID, clientID]);
-    return result;
-  } catch (err) {
-    throw err;
-  }
-}
-
-async function deleteConnection(employeeID, clientID) {
-  try {
-    const sql =
-      "DELETE FROM employee_client WHERE employeeID = ? AND clientID = ?";
-    const result = await pool.query(sql, [employeeID, clientID]);
-    console.log(result);
-    return result;
-  } catch (err) {
-    throw err;
-  }
-}
-
-async function updateConnection(employeeID, clientID, id) {
-  try {
-    const sql =
-      "UPDATE employee_client SET employeeID = ?, clientID = ? WHERE id = ?";
-    const result = await pool.query(sql, [employeeID, clientID, id]);
-    return result;
-  } catch (err) {
-    throw err;
-  }
-}
-
 async function getUser(id) {
   try {
     const sql =
@@ -137,17 +60,17 @@ async function getUserByPasswordAndUserName(userName) {
   }
 }
 
-async function getClientIDOrEmployeeIDByUserID(userID) {
-  try {
-    const sql =
-      "SELECT clients.id AS client_id, employees.id AS employee_id FROM users LEFT JOIN clients ON users.id = clients.userID LEFT JOIN employees ON users.id = employees.userID WHERE users.id = ?";
-    const result = await pool.query(sql, userID);
-    const id = result[0];
-    return id;
-  } catch (err) {
-    throw err;
-  }
-}
+// async function getClientIDOrEmployeeIDByUserID(userID) {
+//   try {
+//     const sql =
+//       "SELECT clients.id AS client_id, employees.id AS employee_id FROM users LEFT JOIN clients ON users.id = clients.userID LEFT JOIN employees ON users.id = employees.userID WHERE users.id = ?";
+//     const result = await pool.query(sql, userID);
+//     const id = result[0];
+//     return id;
+//   } catch (err) {
+//     throw err;
+//   }
+// }
 
 async function updateStreamToken(token, userId) {
   try {
@@ -204,16 +127,7 @@ async function createUser(userName, hashedPassword, employeType, role) {
     throw err;
   }
 }
-const updateUser = async (
-  id,
-  userName,
-  name,
-  email,
-  phone,
-  street,
-  city,
-  zipcode
-) => {
+const updateUser = async (id, userName, name, email, phone, street, city, zipcode) => {
   const user = await getUser(id);
   let address = user[0].addressID;
   let resultAddress;
@@ -250,18 +164,18 @@ const updateUser = async (
 
 module.exports = {
   // getClients,
-  getEmployees,
+  // getEmployees,
   getManagers,
   getUserByPasswordAndUserName,
   createUser,
   getUser,
   updateUser,
-  getClientIDOrEmployeeIDByUserID,
+  // getClientIDOrEmployeeIDByUserID,
   // getClientsEmployee,
-  getConnections,
-  employeeToClient,
-  updateConnection,
-  deleteConnection,
+  // getConnections,
+  // employeeToClient,
+  // updateConnection,
+  // deleteConnection,
   getClientByCkientId,
   updateStreamToken,
   getEmployeesOfClient,

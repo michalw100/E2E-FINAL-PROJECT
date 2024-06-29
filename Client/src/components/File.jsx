@@ -73,7 +73,7 @@ const File = ({
     const uploader = await data1.json();
     setUplodersName(uploader.name);
     const data2 = await fetch(
-      `http://localhost:3000/users/client?id=${file.clientID}`,
+      `http://localhost:3000/clients/client?id=${file.clientID}`,
       {
         method: "GET",
         headers: { "Content-Type": "application/json" },
