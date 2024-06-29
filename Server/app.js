@@ -12,10 +12,10 @@ const filesRoute = require("./routes/filesRoute");
 const logoutRoute = require("./routes/logoutRoute");
 const usersRoute = require("./routes/usersRoute");
 const myClientRoute = require("./routes/myClientRoute");
-const chatsRoute = require("./routes/chatsRoute"); 
-const clientsRoute = require("./routes/clientsRoute"); 
-const employeesRoute = require("./routes/employeesRoute"); 
-const connectionsRoute = require("./routes/connectionsRoute"); 
+const chatsRoute = require("./routes/chatsRoute");
+const clientsRoute = require("./routes/clientsRoute");
+const employeesRoute = require("./routes/employeesRoute");
+const connectionsRoute = require("./routes/connectionsRoute");
 
 const logger = require("./Middlewares/logger");
 const checkAuth = require("./Middlewares/checkAuth");
@@ -41,10 +41,10 @@ app.use(
 );
 
 app.use(logger);
+app.use("/sendEmail", emailRoute);
 app.use("/signIn", signInRoute);
 app.use(checkAuth);
 app.use("/signUp", signUpRoute);
-app.use("/sendEmail", emailRoute);
 app.use("/files", filesRoute);
 app.use("/logout", logoutRoute);
 app.use("/users", usersRoute);

@@ -382,6 +382,7 @@ function Files({ setIsUploading, isUploading,apiKey }) {
                   filesChanged={filesChanged}
                   setFilesChanged={setFilesChanged}
                   ownerOfFiles={ownerOfFiles}
+                  userToken={user.streamToken}
                 />
               ))}
             </div>

@@ -1,7 +1,7 @@
 import { StreamChat } from "stream-chat";
 
 // פונקציה ליצירת צאט חדש
-const createChatChannel = async (fileId, userId, name) => {
+const createChatChannel = async (userToken, fileId, userId, name) => {
   const chatId = await getChatID(fileId, userId);
   console.log("chatId");
   console.log(chatId);
@@ -16,13 +16,17 @@ const createChatChannel = async (fileId, userId, name) => {
     const apiKey = await getApiKey();
     const client = StreamChat.getInstance(apiKey);
     const newChatId = await createChatID(fileId, userId);
-    console.log("chatId");
+    console.log("newChatId");
     console.log(newChatId);
     try {
-      if (chatId && userId) {
+      if (newChatId && userId) {
+        console.log("chatId && userId");
+        // confirmChat(newChatId, userId)
         await client.connectUser({ id: `user-${userId}` }, userToken);
         const members = chatMembers;
-        const channel = client.channel("messaging", `chat-${newChatId}`, {
+        console.log("members");
+        console.log(members);
+        const channel = client.channel("messaging", `chats-${newChatId}`, {
           members: members,
           name: name,
           // description: "This is a team chat for project XYZ",
