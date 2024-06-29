@@ -3,7 +3,7 @@ const router = express.Router();
 const {
   createChatControllerByFileID,
   createChatControlleryByUserID,
-  getChatByNameController,
+  // getChatByNameController,
   getChatControlleryByUserID,
   getChatControllerByFileID,
 } = require("../controllers/chatController");

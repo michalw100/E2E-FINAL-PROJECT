@@ -147,18 +147,11 @@ const sendToOurEmail = (req, res) => {
 
 module.exports = {
   update,
-  // getClientsEmployee,
   getByPasswordAndUserName,
   create,
   getById,
   sendToOurEmail,
-  // getEmployees,
   getManagers,
-  // getClients,
-  // getConnections,
-  // employeeToClient,
-  // updateConnection,
-  // deleteConnection,
   getClientIDOrEmployeeIDByUserID,
   getClientByCkientId,
 };

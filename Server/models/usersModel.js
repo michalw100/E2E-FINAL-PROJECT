@@ -163,19 +163,12 @@ const updateUser = async (id, userName, name, email, phone, street, city, zipcod
 };
 
 module.exports = {
-  // getClients,
-  // getEmployees,
   getManagers,
   getUserByPasswordAndUserName,
   createUser,
   getUser,
   updateUser,
   getClientIDOrEmployeeIDByUserID,
-  // getClientsEmployee,
-  // getConnections,
-  // employeeToClient,
-  // updateConnection,
-  // deleteConnection,
   getClientByCkientId,
   updateStreamToken,
   getEmployeesOfClient,
