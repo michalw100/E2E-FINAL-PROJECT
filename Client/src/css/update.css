@@ -46,6 +46,14 @@
     margin: 0;
  }
 
+.p{
+  text-align: center;
+  font-size: 180%;
+
+}
+ /* .chart-container-1{
+ 
+ } */
   
 @media screen and (max-width:900px) {
     .updates {

@@ -27,13 +27,13 @@ router.post("/chat", async (req, res) => {
 router.get("/chat", async (req, res) => {
   try {
     const { fileID, userID } = req.query;
-    console.log(fileID);
-    console.log(userID);
+    // console.log(fileID);
+    // console.log(userID);
     let chat;
     if (fileID) chat = await getChatControllerByFileID(fileID);
     else if (userID) chat = await getChatControlleryByUserID(userID);
-    console.log("chatchatchatchatchatchat");
-    console.log(chat);
+    // console.log("chatchatchatchatchatchat");
+    // console.log(chat);
     if (chat) res.status(200).json(chat);
     else res.status(204).send();
   } catch (error) {
@@ -55,8 +55,8 @@ router.get("/chat", async (req, res) => {
 router.get("/apiKey", async (req, res) => {
   try {
     const apiKey = process.env.STREAM_API_KEY;
-    console.log("apiKey");
-    console.log([apiKey]);
+    // console.log("apiKey");
+    // console.log([apiKey]);
     res.status(200).send([apiKey]);
   } catch (error) {
     res.status(500).send({ error: error.message });

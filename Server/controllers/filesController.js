@@ -258,10 +258,19 @@ async function numberFilesTypes(userID) {
   }
 }
 
+
 async function getStatus(userID) {
   try {
-    const status = await model.getStatus(userID);
+    let status;
+    const realID = await getClientIDOrEmployeeIDByUserID(userID);
+    if (realID[0].client_id) {
+      const result = await model.getStatusClient(userID);
+      status = result;
+    } else {
+      const result = await model.getStatusEmployee(userID);
+      status = result;}
     return status[0];
+    
   } catch (err) {
     throw err;
   }
@@ -287,6 +296,15 @@ async function countTypeFile(type, userID) {
   }
 }
 
+async function getFilesNumber(userID) {
+  try {
+    const fileNum = await model.getFilesNumber(userID);
+    return fileNum[0];
+  } catch (err) {
+    throw err;
+  }
+}
+
 module.exports = {
   countTypeFile,
   listFiles,
@@ -299,5 +317,6 @@ module.exports = {
   updateTypeFile,
   numFilesPerMonth,
   getStatus,
-  numberFilesTypes
+  numberFilesTypes,
+  getFilesNumber
 };

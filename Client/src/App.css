@@ -189,16 +189,6 @@ footer iframe {
 .files-container {
   margin-top: 20px;
 }
-/* 
-.file-box {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border: 1px solid #cccccc;
-  padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 4px;
-} */
 
 .upload-btn {
   background-color: #007bff;
@@ -227,7 +217,6 @@ footer iframe {
   border-radius: 8px;
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
   margin-bottom: 1rem;
 }
 
@@ -244,9 +233,7 @@ h1, h4, h2 {
 }
 
 .mydetails{
-  /* background-color: #e3a241; */
   border: 2px solid #cccccc;
-
 }
 
 

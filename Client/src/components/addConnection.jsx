@@ -73,11 +73,11 @@ const addConnection = ({
         setOnChange(!onChange);
         handleModalClose();
       } else {
-        console.log(response);
+        // console.log(response);
         handleModalClose();
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       handleModalClose();
     }
     handleModalClose();

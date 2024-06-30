@@ -45,17 +45,4 @@ router.delete("/", checkAbilities("create", "employees"), async (req, res) => {
   }
 );
 
-// router.put("/",checkAbilities("create", "employees"), async (req, res) => {
-//     try {
-//       const employeeID = req.body.employeeID;
-//       const clientID = req.body.clientID;
-//       const id = req.body.id;
-//       const connection = await updateConnection(employeeID, clientID, id);
-//       res.status(200).send(connection);
-//     } catch (err) {
-//       res.status(500).send({ message: err.message });
-//     }
-//   }
-// );
-
 module.exports = router;

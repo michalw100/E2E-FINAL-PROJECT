@@ -16,7 +16,7 @@ router.use(express.urlencoded({ extended: true }));
 router.get("/client", checkAbilities("read", "Clients"), async (req, res) => {
   try {
     const id = req.query.id;
-    console.log(id)
+    // console.log(id)
     const result = await getClientByCkientId(id);
     res.status(200).send(result);
   } catch (err) {

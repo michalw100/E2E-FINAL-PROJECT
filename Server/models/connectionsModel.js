@@ -34,17 +34,6 @@ async function deleteConnection(employeeID, clientID) {
   }
 }
 
-// async function updateConnection(employeeID, clientID, id) {
-//   try {
-//     const sql =
-//       "UPDATE employee_client SET employeeID = ?, clientID = ? WHERE id = ?";
-//     const result = await pool.query(sql, [employeeID, clientID, id]);
-//     return result;
-//   } catch (err) {
-//     throw err;
-//   }
-// }
-
 
 async function getClientIDOrEmployeeIDByUserID(userID) {
     try {

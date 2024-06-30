@@ -20,11 +20,15 @@ function UpdatesPage() {
   const { user } = useContext(AuthContext);
   const [statusData, setStatusData] = useState([]);
   const [types, setTypes] = useState([]);
+  // const [numberFiles, setNumberFiles] = useState([]);
+
 
   useEffect(() => {
     fetchFilesPerMonth();
     getStatus();
     getTypes();
+  //  getNumberFiles();
+
   }, [user]);
 
   const getStatus = async () => {
@@ -43,6 +47,26 @@ function UpdatesPage() {
       console.error("Error fetching status data:", error);
     }
   };
+
+  // const getNumberFiles = async () => {
+  //   try {
+  //     const response = await fetch(`http://localhost:3000/files/number-files?id=${user.id}`, {
+  //       method: "GET",
+  //       credentials: "include",
+  //       headers: {
+  //         Accept: "application/json",
+  //         "Content-Type": "application/json",
+  //       },
+  //     });
+  //     const data = await response.json();
+  //     setNumberFiles(data.fileCount);
+  //     console.log("number files")
+  //     console.log(data.fileCount)
+
+  //   } catch (error) {
+  //     console.error("Error fetching status data:", error);
+  //   }
+  // };
 
   const getTypes = async () => {
     try {
@@ -168,6 +192,10 @@ function UpdatesPage() {
       <h2 className="title">Updates</h2>
 
       <div className="updates">
+         {/* <div className="chart-container">
+          <div className="title-div"><h3>files</h3></div>
+          <p className="p">{numberFiles}</p>
+        </div> */}
         <div className="chart-container">
           <div className="title-div"><h3>File Counts per Type</h3></div>
           <Bar className="canvas" data={barData} options={options} />
