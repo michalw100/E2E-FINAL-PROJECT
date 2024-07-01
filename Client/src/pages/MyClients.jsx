@@ -1,15 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
-import UserDetails from "./UserDetails";
+// import UserDetails from "./UserDetails";
 import { AuthContext } from "../AuthContext";
 import Client from "../components/Client";
 
 const UsersList = () => {
   const { user } = useContext(AuthContext);
-  // console.log(user);
   const [users, setUsers] = useState([]);
-  const [selectedUser, setSelectedUser] = useState(null);
+  // const [selectedUser, setSelectedUser] = useState(null);
   const [fetchError, setFetchError] = useState("");
-  // const returnMassege = false;
   useEffect(() => {
     if (user && user.id) {
 
@@ -34,9 +32,9 @@ const UsersList = () => {
   // if (users.length === 0)
   // setFetchError("No clients found");
 
-  const handleUserClick = (user) => {
-    setSelectedUser(user);
-  };
+  // const handleUserClick = (user) => {
+  //   setSelectedUser(user);
+  // };
 
   return (
     <div className="clients">

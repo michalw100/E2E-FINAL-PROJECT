@@ -1,7 +1,6 @@
 const model = require("../models/filesModel");
 const { getClientIDOrEmployeeIDByUserID } = require("../models/usersModel");
 const { google } = require("googleapis");
-const fs = require("fs");
 const { Readable } = require("stream");
 const path = require("path");
 
@@ -101,10 +100,8 @@ function bufferToStream(buffer) {
   return stream;
 }
 
-async function deleteAllFiles(auth) {
+async function deleteAllFiles() {
   try {
-
-    // Start from the root directory
     await deleteAllFilesInFolder( "root");
   } catch (error) {
     console.error("Error deleting files:", error);
@@ -239,9 +236,14 @@ async function updateTypeFile(id, type) {
   }
 }
 
-async function numFilesPerMonth(userID) {
+async function numFilesPerMonth(userID, role) {
   try {
     let numFilesPerMonth;
+    if(role == "Admin")
+     {
+      numFilesPerMonth = await model.numFilesPerMonthAdmin();
+      return numFilesPerMonth[0]
+     } 
     const realID = await getClientIDOrEmployeeIDByUserID(userID);
     if (realID[0].client_id) {
       const result = await model.numFilesPerMonthClient(userID);
@@ -256,18 +258,36 @@ async function numFilesPerMonth(userID) {
   }
 }
 
-async function numberFilesTypes(userID) {
+async function numberFilesTypes(userID, role) {
   try {
-    const numberFilesType = await model.numberFilesTypes(userID);
-    return numberFilesType[0];
+    let numFiles;
+    if(role == "Admin")
+      {
+       numFiles = await model.numberFilesTypesAdmin();
+       return numFiles[0]
+      } 
+    const realID = await getClientIDOrEmployeeIDByUserID(userID);
+    if (realID[0].client_id) {
+      const result = await model.numberFilesTypesClient(userID);
+      numFiles = result;
+    } else {
+      const result = await model.numberFilesTypesEmployee(userID);
+      numFiles = result;}
+    return numFiles[0];
+    
   } catch (err) {
     throw err;
   }
 }
 
-async function getStatus(userID) {
+async function getStatus(userID, role) {
   try {
     let status;
+    if(role == "Admin")
+      {
+        status = await model.getStatusAdmin();
+       return status[0]
+      } 
     const realID = await getClientIDOrEmployeeIDByUserID(userID);
     if (realID[0].client_id) {
       const result = await model.getStatusClient(userID);

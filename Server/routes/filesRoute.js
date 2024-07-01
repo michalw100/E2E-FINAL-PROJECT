@@ -14,7 +14,7 @@ const {
   numFilesPerMonth,
   getStatus,
   numberFilesTypes,
-  getFilesNumber,  
+  // getFilesNumber,  
 } = require("../controllers/filesController");
 const checkAbilities = require("../Middlewares/checkAbilities");
 
@@ -45,15 +45,13 @@ router.get("/type", checkAbilities("read", "files"), async (req, res) => {
   }
 });
 
-router.get("/number-files-uploaded-per-month",
-  checkAbilities("read", "files"),
-  async (req, res) => {
+router.get("/number-files-uploaded-per-month", checkAbilities("read", "files"), async (req, res) => {
     try {
       const userID = req.query.id;
-      const numberFilesPerWeek = await numFilesPerMonth(userID);
-      // console.log("numberFilesPerWeek");
-      // console.log(numberFilesPerWeek);
-      res.status(200).send(numberFilesPerWeek);
+      // console.log(req.session.user)
+      const numberFiles = await numFilesPerMonth(userID, req.session.user.role);
+      // console.log(numberFiles)
+      res.status(200).send(numberFiles);
     } catch (err) {
       res.status(500).send({ message: err.message });
     }
@@ -71,12 +69,10 @@ router.get("/number-files-uploaded-per-month",
 //   }
 // );
 
-router.get( "/number-files-in-type",
-  checkAbilities("read", "files"),
-  async (req, res) => {
+router.get( "/number-files-in-type", checkAbilities("read", "files"), async (req, res) => {
     try {
       const userID = req.query.id;
-      const numberFilesType = await numberFilesTypes(userID);
+      const numberFilesType = await numberFilesTypes(userID, req.session.user.role);
       res.status(200).send(numberFilesType);
     } catch (err) {
       res.status(500).send({ message: err.message });
@@ -87,9 +83,9 @@ router.get( "/number-files-in-type",
 router.get("/all-status", checkAbilities("read", "files"), async (req, res) => {
   try {
     const userID = req.query.id;
-    const status = await getStatus(userID);
-    console.log("status");
-    console.log(status);
+    const status = await getStatus(userID, req.session.user.role);
+    // console.log("status");
+    // console.log(status);
     res.status(200).send(status);
   } catch (err) {
     res.status(500).send({ message: err.message });
@@ -120,21 +116,17 @@ router.post("/upload", checkAbilities("create", "files"), upload.array("files"),
   }
 );
 
-router.delete("/deleteAllFiles",
-  checkAbilities("delete", "files"),
-  async (req, res) => {
+router.delete("/deleteAllFiles", checkAbilities("delete", "files"), async (req, res) => {
     try {
-      const files = await deleteAllFiles();
+      await deleteAllFiles();
       res.status(200).send({ message: "All files deleted successfully" });
     } catch (err) {
       res.status(500).send({ message: err.message });
-    }
+    } 
   }
 );
 
-router.get("/download/:fileId",
-  checkAbilities("read", "files"),
-  async (req, res) => {
+router.get("/download/:fileId", checkAbilities("read", "files"), async (req, res) => {
     try {
       const fileId = req.params.fileId;
       const response = await downloadFile(res, fileId);
@@ -145,9 +137,7 @@ router.get("/download/:fileId",
   }
 );
 
-router.get( "/view/:fileId",
-  checkAbilities("read", "files"),
-  async (req, res) => {
+router.get( "/view/:fileId", checkAbilities("read", "files"), async (req, res) => {
     try {
       const fileId = req.params.fileId;
       const response = await viewFile(res, fileId);

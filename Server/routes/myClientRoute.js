@@ -4,7 +4,6 @@ const checkAbilities = require("../Middlewares/checkAbilities");
 
 router.get("/getClientID", checkAbilities("read", "Clients"), (req, res) => {
   if (req.session.clientID) {
-    // console.log(req.session.clientID);
     res.status(200).send({ clientID: req.session.clientID });
   } else {
     // console.log("false");

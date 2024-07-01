@@ -24,11 +24,12 @@ function UpdatesPage() {
 
 
   useEffect(() => {
-    fetchFilesPerMonth();
-    getStatus();
-    getTypes();
-  //  getNumberFiles();
-
+    if (user && user.id) {
+      fetchFilesPerMonth();
+      getStatus();
+      getTypes();
+    //  getNumberFiles();
+    }
   }, [user]);
 
   const getStatus = async () => {
@@ -105,6 +106,7 @@ function UpdatesPage() {
       }
       // Sort by month
       data.sort((a, b) => a.month - b.month);
+      console.log(data)
       setNumFilesPerMonth(data);
     } catch (error) {
       console.error("Error fetching files per month:", error);
