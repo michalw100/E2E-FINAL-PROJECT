@@ -194,10 +194,24 @@ function UpdatesPage() {
       <h2 className="title">Updates</h2>
 
       <div className="updates">
-         {/* <div className="chart-container">
+         <div className="chart-container">
           <div className="title-div"><h3>files</h3></div>
-          <p className="p">{numberFiles}</p>
-        </div> */}
+          <p className="p">0</p>
+        </div>
+        <div className="chart-container">
+          <div className="title-div"><h3>files</h3></div>
+          <p className="p"><img
+        id="logo"
+        className="chats"
+
+        src="../../src/pictures/chats.jpg"
+        alt="logo"
+      /></p>
+        </div>
+        <div className="chart-container">
+          <div className="title-div"><h3>files</h3></div>
+          <p className="p">0</p>
+        </div>
         <div className="chart-container">
           <div className="title-div"><h3>File Counts per Type</h3></div>
           <Bar className="canvas" data={barData} options={options} />

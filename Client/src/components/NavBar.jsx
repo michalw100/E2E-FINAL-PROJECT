@@ -92,7 +92,7 @@ function Navbar({ isUploading }) {
       </Link>
       <img
         id="logo"
-        src="../../src/pictures/RoundLogo-removebg-preview.png"
+        src="../../src/pictures/RoundLogo.png"
         alt="logo"
       />
     </nav>

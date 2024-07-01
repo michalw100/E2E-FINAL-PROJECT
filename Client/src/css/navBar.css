@@ -1,24 +1,16 @@
-@import url(https://dl.dropboxusercontent.com/u/15746367/fonts/carmela/style.css);
+/* @import url(https://dl.dropboxusercontent.com/u/15746367/fonts/carmela/style.css);
 @import url(https://fonts.googleapis.com/earlyaccess/alefhebrew.css);
 @import url(https://fonts.googleapis.com/earlyaccess/opensanshebrewcondensed.css);
 
-body {
-    /* font-size: 12px; */
-    margin: 0;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    opacity: 100%;
-}
 
 nav {
 
     height: 18%;
-    /* font-size: 0; */
     display: flex;
     align-items: flex-end;
     align-content: center;
     background-color: white;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', 'Arial', 'sans-serif';
-    /* background-color: black; */
     color: white;  
     border-bottom: 2px solid black;
     padding: 0;
@@ -33,7 +25,6 @@ nav a {
     color: black;
     cursor: pointer;
     text-shadow: 0 0 1px;
-    /* font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; */
     padding: 10px 20px 10px 20px;
 }
 
@@ -68,4 +59,62 @@ nav a {
     }
     
 }
+ */
 
+
+ /* navBar.css */
+ #logo {
+    order: 6;
+    height: 60px;
+}
+ body {
+    margin: 0;
+    /* font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; */
+    opacity: 100%;
+}
+nav {
+    color: #4c4084; 
+    background-color: #ffffff; /* White text color */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px; /* Padding for desktop */
+    border-bottom: 2px solid #4c4084;
+
+  }
+  
+  nav a {
+    color: #4c4084; /* White text color for links */
+    text-decoration: none;
+    margin: 0 10px;
+    padding: 10px;
+  }
+  
+  nav a:hover {
+    text-decoration: underline; /* Underline on hover */
+  }
+  
+  #logo {
+    max-width: 100px; /* Adjust logo size */
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    nav {
+      flex-direction: column; /* Stack items vertically */
+      align-items: flex-start; /* Align items to the start */
+    }
+  
+    nav a {
+      margin: 5px 0; /* Adjust margin for vertical stacking */
+    }
+    #logo {
+        display: none; 
+        order: -1;
+        height: 80px;
+        margin-right: auto;
+    }
+  }
+  
+
+  

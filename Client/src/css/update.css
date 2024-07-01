@@ -28,6 +28,10 @@
     color: #0056b3;;
 }
 
+.chats{
+  margin-left: auto;
+}
+
 .all-update{
     display: flex;
       flex-direction: column;
