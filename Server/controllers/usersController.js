@@ -73,8 +73,8 @@ async function create(userName, password, employeType, role) {
     const serverClient = StreamChat.getInstance(apiKey, apiSecret);
 
     try {
-      console.log("response.insertId");
-      console.log(response.insertId);
+      // console.log("response.insertId");
+      // console.log(response.insertId);
       await serverClient.upsertUser({
         id: `user-${response.insertId}`,
         name: userName,

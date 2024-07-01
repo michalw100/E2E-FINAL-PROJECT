@@ -26,10 +26,10 @@ async function getManagers() {
 
 async function getClientByCkientId(id) {
   try {
-    console.log(id);
+    // cosole.log(id);
     const sql = `SELECT name from clients left join users on clients.userID = users.id where clients.id = ?`;
     const result = await pool.query(sql, [id]);
-    console.log(result);
+    // console.log(result);
     return result;
   } catch (err) {
     throw err;

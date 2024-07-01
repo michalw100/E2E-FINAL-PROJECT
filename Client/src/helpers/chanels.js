@@ -3,11 +3,11 @@ import { StreamChat } from "stream-chat";
 // פונקציה ליצירת צאט חדש
 const createChatChannel = async (userToken, fileId, userId, name) => {
   const chatId = await getChatID(fileId, userId);
-  console.log("chatId");
-  console.log(chatId);
+  // console.log("chatId");
+  // console.log(chatId);
   if (chatId) {
   } else {
-    console.log("new chet");
+    // console.log("new chet");
     const userIds = await getChatMembers(userId);
     const chatMembers = userIds.map(
       (member) => `user-${member.employeeUserID || member.userID}`
@@ -16,8 +16,8 @@ const createChatChannel = async (userToken, fileId, userId, name) => {
     const apiKey = await getApiKey();
     const client = StreamChat.getInstance(apiKey);
     const newChatId = await createChatID(fileId, userId);
-    console.log("newChatId");
-    console.log(newChatId);
+    // console.log("newChatId");
+    // console.log(newChatId);
     try {
       if (newChatId && userId) {
         console.log("chatId && userId");
@@ -34,7 +34,6 @@ const createChatChannel = async (userToken, fileId, userId, name) => {
         return channel.data;
       }
     } catch (error) {
-      console.error("Error creating channel:", error);
       throw error;
     }
   }
@@ -47,16 +46,16 @@ const getApiKey = async () => {
       headers: { "Content-Type": "application/json" },
       credentials: "include",
     });
-    console.log(data);
+    // console.log(data);
     if (!data) {
     } else {
       const [apiKey] = await data.json();
-      console.log("apiKey");
-      console.log(apiKey);
+      // console.log("apiKey");
+      // console.log(apiKey);
       return apiKey;
     }
   } catch (err) {
-    console.log(err);
+     throw err;
   }
 };
 
@@ -69,14 +68,14 @@ const getChatMembers = async (userId) => {
   })
     .then((response) => {
       if (!response.ok) {
-        console.log(response);
+        // console.log(response);
       }
-      console.log(response);
+      // console.log(response);
       return response.json();
     })
     .then((data) => {
       // const chat = data.json();
-      console.log(data[0]);
+      // console.log(data[0]);
       members = data[0];
     });
   return members;
@@ -92,20 +91,20 @@ const getChatID = async (fileID, userID) => {
     }
   )
     .then((response) => {
-      console.log("response.status");
-      console.log(response.status);
+      // console.log("response.status");
+      // console.log(response.status);
       if (!response.ok) {
-        console.log("response.status = " + response.status);
-        console.log(response);
+        // console.log("response.status = " + response.status);
+        // console.log(response);
       }
       if (response.status == 204) return false;
 
-      console.log(response);
+      // console.log(response);
       return response.json();
     })
     .then((data) => {
       // const chat = data.json();
-      console.log(data);
+      // console.log(data);
       chat = data;
     });
   return chat;
@@ -121,7 +120,7 @@ const createChatID = async (fileID, userId) => {
   })
     .then((response) => {
       if (!response.ok) {
-        console.log(response);
+        // console.log(response);
       }
       return response.json();
     })

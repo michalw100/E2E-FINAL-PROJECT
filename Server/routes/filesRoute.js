@@ -14,6 +14,7 @@ const {
   numFilesPerMonth,
   getStatus,
   numberFilesTypes,
+  getFilesNumber,  
 } = require("../controllers/filesController");
 const checkAbilities = require("../Middlewares/checkAbilities");
 
@@ -27,8 +28,8 @@ router.get("/", checkAbilities("read", "files"), async (req, res) => {
     const files = await listFiles(userID, type);
     res.status(200).send(files);
   } catch (err) {
-    console.log("err");
-    console.log(err);
+    // console.log("err");
+    // console.log(err);
     res.status(500).send({ message: err.message });
   }
 });
@@ -44,15 +45,14 @@ router.get("/type", checkAbilities("read", "files"), async (req, res) => {
   }
 });
 
-router.get(
-  "/number-files-uploaded-per-month",
+router.get("/number-files-uploaded-per-month",
   checkAbilities("read", "files"),
   async (req, res) => {
     try {
       const userID = req.query.id;
       const numberFilesPerWeek = await numFilesPerMonth(userID);
-      console.log("numberFilesPerWeek");
-      console.log(numberFilesPerWeek);
+      // console.log("numberFilesPerWeek");
+      // console.log(numberFilesPerWeek);
       res.status(200).send(numberFilesPerWeek);
     } catch (err) {
       res.status(500).send({ message: err.message });
@@ -60,15 +60,23 @@ router.get(
   }
 );
 
-router.get(
-  "/number-files-in-type",
+router.get("/number-files", checkAbilities("read", "files"), async (req, res) => {
+    try {
+      const userID = req.query.id;
+      const getFilesNum = await getFilesNumber(userID);
+      res.status(200).send(getFilesNum);
+    } catch (err) {
+      res.status(500).send({ message: err.message });
+    }
+  }
+);
+
+router.get( "/number-files-in-type",
   checkAbilities("read", "files"),
   async (req, res) => {
     try {
       const userID = req.query.id;
       const numberFilesType = await numberFilesTypes(userID);
-      console.log("numberFilesType");
-      console.log(numberFilesType);
       res.status(200).send(numberFilesType);
     } catch (err) {
       res.status(500).send({ message: err.message });
@@ -101,8 +109,6 @@ router.post(
       }
 
       const filesNames1 = filesNames.split(",");
-      // console.log(typeFile);
-
       const files = await uploadFile(
         uploaderID,
         clientID,
@@ -177,7 +183,6 @@ router.put("/", checkAbilities("update", "files"), async (req, res) => {
       res.status(200).send({ message: "update file successfully" });
     } else return res.status(400).send({ message: "No field to change" });
   } catch (err) {
-    console.log(err);
     res.status(500).send({ message: err.message });
   }
 });
