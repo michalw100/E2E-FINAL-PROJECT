@@ -21,12 +21,11 @@ const createChatChannel = async (userToken, fileId, userId, name) => {
     try {
       if (newChatId && userId) {
         console.log("chatId && userId");
-        // confirmChat(newChatId, userId)
         await client.connectUser({ id: `user-${userId}` }, userToken);
         const members = chatMembers;
         console.log("members");
         console.log(members);
-        const channel = client.channel("messaging", `chats-${newChatId}`, {
+        const channel = client.channel("messaging", `myChat-${newChatId}`, {
           members: members,
           name: name,
           // description: "This is a team chat for project XYZ",
@@ -133,4 +132,45 @@ const createChatID = async (fileID, userId) => {
   return chat;
 };
 
-export default { createChatChannel, getApiKey };
+// פונקציה לקבלת כל הצ'אטים
+const getAllChats = async (userId, userToken) => {
+  const apiKey = await getApiKey();
+  const client = StreamChat.getInstance(apiKey);
+
+  await client.connectUser({ id: `user-${userId}` }, userToken); // התחברות עם משתמש מנהל או בעל הרשאות מתאימות
+
+  const filters = {}; // התאמת פילטרים לפי הצורך
+  const sort = [{ field: "created_at", direction: -1 }];
+  const channels = await client.queryChannels(filters, sort, {});
+
+  await client.disconnectUser(); // ניתוק המשתמש לאחר השגת הרשימה
+  return channels;
+};
+
+// פונקציה למחיקת צ'אט
+const deleteChat = async (channelId, userToken) => {
+  const apiKey = await getApiKey();
+  const client = StreamChat.getInstance(apiKey);
+
+  await client.connectUser({ id: `admin-user` }, userToken); // התחברות עם משתמש מנהל או בעל הרשאות מתאימות
+
+  const channel = client.channel("messaging", channelId);
+  await channel.delete();
+
+  await client.disconnectUser(); // ניתוק המשתמש לאחר המחיקה
+};
+
+// פונקציה למחיקת כל הצ'אטים
+const deleteAllChats = async (userId, userToken) => {
+  try {
+    const channels = await getAllChats(userId, userToken);
+    for (const channel of channels) {
+      await deleteChat(channel.id, userToken);
+    }
+    console.log("All chats deleted successfully");
+  } catch (error) {
+    console.error("Error deleting chats:", error);
+  }
+};
+
+export default { createChatChannel, getApiKey, deleteAllChats };
