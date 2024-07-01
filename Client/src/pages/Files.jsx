@@ -34,10 +34,10 @@ function Files({ setIsUploading, isUploading,apiKey }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [pendingIndex, setPendingIndex] = useState(null);
 
-  // const response = fetch("http://localhost:3000/files/deleteAllFiles", {
-  //   method: "DELETE",
-  //   credentials: "include",
-  // });
+  const response = fetch("http://localhost:3000/files/deleteAllFiles", {
+    method: "DELETE",
+    credentials: "include",
+  });
 
   useEffect(() => {
     switch (sortCriteria) {

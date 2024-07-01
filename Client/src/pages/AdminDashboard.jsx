@@ -131,13 +131,16 @@ const AdminDashboard = () => {
 
   const fetchEmployees = async () => {
     try {
-      const response = await fetch("http://localhost:3000/employees/employees", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-      });
+      const response = await fetch(
+        "http://localhost:3000/employees/employees",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        }
+      );
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -240,7 +243,7 @@ const AdminDashboard = () => {
       Math.random() < 0.5
         ? Math.floor(Math.random() * 128)
         : 128 + Math.floor(Math.random() * 128);
-    return `rgb(${getByte()}, ${getByte()}, ${getByte()})`;
+    return `rgb(${getByte()}, ${getByte()}, ${getByte()}, 0.1)`;
   };
 
   const getEmployeeMargin = () => {
