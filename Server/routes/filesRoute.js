@@ -60,16 +60,16 @@ router.get("/number-files-uploaded-per-month",
   }
 );
 
-router.get("/number-files", checkAbilities("read", "files"), async (req, res) => {
-    try {
-      const userID = req.query.id;
-      const getFilesNum = await getFilesNumber(userID);
-      res.status(200).send(getFilesNum);
-    } catch (err) {
-      res.status(500).send({ message: err.message });
-    }
-  }
-);
+// router.get("/number-files", checkAbilities("read", "files"), async (req, res) => {
+//     try {
+//       const userID = req.query.id;
+//       const getFilesNum = await getFilesNumber(userID);
+//       res.status(200).send(getFilesNum);
+//     } catch (err) {
+//       res.status(500).send({ message: err.message });
+//     }
+//   }
+// );
 
 router.get( "/number-files-in-type",
   checkAbilities("read", "files"),
@@ -96,10 +96,7 @@ router.get("/all-status", checkAbilities("read", "files"), async (req, res) => {
   }
 });
 
-router.post(
-  "/upload",
-  checkAbilities("create", "files"),
-  upload.array("files"),
+router.post("/upload", checkAbilities("create", "files"), upload.array("files"),
   async (req, res) => {
     try {
       const { uploaderID, clientID, filesNames, typeFile } = req.body;
@@ -123,8 +120,7 @@ router.post(
   }
 );
 
-router.delete(
-  "/deleteAllFiles",
+router.delete("/deleteAllFiles",
   checkAbilities("delete", "files"),
   async (req, res) => {
     try {
@@ -136,8 +132,7 @@ router.delete(
   }
 );
 
-router.get(
-  "/download/:fileId",
+router.get("/download/:fileId",
   checkAbilities("read", "files"),
   async (req, res) => {
     try {
@@ -150,8 +145,7 @@ router.get(
   }
 );
 
-router.get(
-  "/view/:fileId",
+router.get( "/view/:fileId",
   checkAbilities("read", "files"),
   async (req, res) => {
     try {
