@@ -241,13 +241,20 @@ async function updateTypeFile(id, type) {
 
 async function numFilesPerMonth(userID) {
   try {
-    const numFilesPerMonth = await model.numFilesPerMonth(userID);
+    let numFilesPerMonth;
+    const realID = await getClientIDOrEmployeeIDByUserID(userID);
+    if (realID[0].client_id) {
+      const result = await model.numFilesPerMonthClient(userID);
+      numFilesPerMonth = result;
+    } else {
+      const result = await model.numFilesPerMonthEmployee(userID);
+      numFilesPerMonth = result;}
     return numFilesPerMonth[0];
+    
   } catch (err) {
     throw err;
   }
 }
-
 
 async function numberFilesTypes(userID) {
   try {
@@ -257,7 +264,6 @@ async function numberFilesTypes(userID) {
     throw err;
   }
 }
-
 
 async function getStatus(userID) {
   try {

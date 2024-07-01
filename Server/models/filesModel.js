@@ -28,7 +28,7 @@ GROUP BY
 }
 
 
-async function numFilesPerMonth(userID) {
+async function numFilesPerMonthClient(userID) {
   try {
     const sql = `WITH RECURSIVE months AS (
     SELECT 1 AS month
@@ -58,6 +58,36 @@ LEFT JOIN (
   }
 }
 
+
+async function numFilesPerMonthEmployee(userID) {
+  try {
+    const sql = `WITH RECURSIVE months AS (
+    SELECT 1 AS month
+    UNION ALL
+    SELECT month + 1
+    FROM months
+    WHERE month < 12
+)
+SELECT 
+    m.month, 
+    COALESCE(f.count, 0) AS count
+FROM 
+    months m
+LEFT JOIN (
+    SELECT 
+        MONTH(createdAt) AS month,
+        COUNT(*) AS count
+    FROM 
+        files
+    WHERE 
+        clientID = 4 AND YEAR(createdAt) = YEAR(CURDATE()) 
+      GROUP BY MONTH(createdAt)) f ON m.month = f.month ORDER BY m.month`;
+    const result = await pool.query(sql, [userID]);
+    return result;
+  } catch (err) {
+    throw err;
+  }
+}
 
 
 async function getStatusClient(userID) {
@@ -166,7 +196,8 @@ module.exports = {
   updateTypeFile,
   countTypeFileByClientID,
   countTypeFileByEmployeeID,
-  numFilesPerMonth,
+  numFilesPerMonthClient,
+  numFilesPerMonthEmployee,
   numberFilesTypes,
   getFilesNumber,
   getStatusEmployee,
