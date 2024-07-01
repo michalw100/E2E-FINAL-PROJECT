@@ -48,7 +48,7 @@ async function uploadFile(
   type
 ) {
   try {
-    const realclientID = await getClientIDOrEmployeeIDByUserID(clientID);
+    // const realclientID = await getClientIDOrEmployeeIDByUserID(clientID);
     for (const [index, file] of uploadedFiles.entries()) {
       if (file.mimetype !== "application/pdf") {
         throw new Error("Only PDF files are allowed");
@@ -59,7 +59,7 @@ async function uploadFile(
         filesNames[index],
         type,
         uploaderID,
-        realclientID[0].client_id
+        clientID
       );
       // console.log("saved");
     }

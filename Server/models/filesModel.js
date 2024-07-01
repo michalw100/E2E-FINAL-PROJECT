@@ -67,21 +67,31 @@ async function numFilesPerMonthEmployee(userID) {
     SELECT month + 1
     FROM months
     WHERE month < 12
+),
+client_files AS (
+    SELECT
+        e.userID AS employee_user_id,
+        MONTH(f.createdAt) AS month,
+        COUNT(*) AS file_count
+    FROM
+        files f
+        JOIN clients c ON f.clientID = c.userID
+        JOIN employee_client ec ON ec.clientID = c.id
+        JOIN employees e ON ec.employeeID = e.id
+    WHERE
+        YEAR(f.createdAt) = YEAR(CURDATE())
+        AND e.userID = ?
+    GROUP BY
+        e.userID, MONTH(f.createdAt)
 )
 SELECT 
-    m.month, 
-    COALESCE(f.count, 0) AS count
+    m.month,
+    COALESCE(cf.file_count, 0) AS file_count
 FROM 
     months m
-LEFT JOIN (
-    SELECT 
-        MONTH(createdAt) AS month,
-        COUNT(*) AS count
-    FROM 
-        files
-    WHERE 
-        clientID = 4 AND YEAR(createdAt) = YEAR(CURDATE()) 
-      GROUP BY MONTH(createdAt)) f ON m.month = f.month ORDER BY m.month`;
+    LEFT JOIN client_files cf ON m.month = cf.month
+ORDER BY 
+    m.month;`;
     const result = await pool.query(sql, [userID]);
     return result;
   } catch (err) {
@@ -109,7 +119,7 @@ async function getStatusEmployee(userID) {
 FROM employees e
 JOIN employee_client ec ON e.id = ec.employeeID
 JOIN clients c ON ec.clientID = c.id
-JOIN files f ON c.id = f.clientID
+JOIN files f ON c.userID = f.clientID
 WHERE e.userID = ?
 GROUP BY f.status`;
     const result = await pool.query(sql, [userID]);

@@ -27,7 +27,7 @@ const createChatChannel = async (fileId, userId, name) => {
         const members = chatMembers;
         console.log("members");
         console.log(members);
-        const channel = client.channel("messaging", `myChat-${newChatId}`, {
+        const channel = client.channel("messaging", `myChats-${newChatId}`, {
           members: members,
           name: name,
           // description: "This is a team chat for project XYZ",
