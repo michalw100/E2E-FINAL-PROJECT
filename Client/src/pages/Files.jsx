@@ -15,11 +15,12 @@ import { MdDelete } from "react-icons/md";
 import Modal from "react-modal";
 Modal.setAppElement("#root");
 
-function Files({ setIsUploading, isUploading,apiKey }) {
+function Files({ setIsUploading, isUploading }) {
   const location = useLocation();
   const { user } = useContext(AuthContext);
   const [currentTypeFile, setCurrentTypeFile] = useState(null);
   const [ownerOfFiles, setOwnerOfFiles] = useState(null);
+  const [ownerOfFilesToken, setOwnerOfFilesToken] = useState(null);
   const [files, setFiles] = useState([]);
   const [showDrop, setShowDrop] = useState(false);
   const [uploadStatus, setUploadStatus] = useState(null);
@@ -34,10 +35,10 @@ function Files({ setIsUploading, isUploading,apiKey }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [pendingIndex, setPendingIndex] = useState(null);
 
-  const response = fetch("http://localhost:3000/files/deleteAllFiles", {
-    method: "DELETE",
-    credentials: "include",
-  });
+  // const response = fetch("http://localhost:3000/files/deleteAllFiles", {
+  //   method: "DELETE",
+  //   credentials: "include",
+  // });
 
   useEffect(() => {
     switch (sortCriteria) {

@@ -47,9 +47,9 @@ const Client = ({ client }) => {
   const viewChat = async () => {
     try {
       console.log("ckient");
-      console.log(client);
+      console.log(client.userID);
+      console.log(client.userName);
       await chanel.createChatChannel(
-        client.userToken,
         null,
         client.userID,
         client.userName

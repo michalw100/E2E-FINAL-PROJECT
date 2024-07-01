@@ -169,7 +169,6 @@ const File = ({
       console.log("ownerOfFiles");
       console.log(ownerOfFiles);
       await chanel.createChatChannel(
-        userToken,
         file.id,
         ownerOfFiles,
         file.name

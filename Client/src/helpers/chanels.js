@@ -1,8 +1,10 @@
 import { StreamChat } from "stream-chat";
 
 // פונקציה ליצירת צאט חדש
-const createChatChannel = async (userToken, fileId, userId, name) => {
+const createChatChannel = async (fileId, userId, name) => {
+  console.log(userId, name);
   const chatId = await getChatID(fileId, userId);
+  const streamYoken = await getStreamToken(userId);
   // console.log("chatId");
   // console.log(chatId);
   if (chatId) {
@@ -21,7 +23,7 @@ const createChatChannel = async (userToken, fileId, userId, name) => {
     try {
       if (newChatId && userId) {
         console.log("chatId && userId");
-        await client.connectUser({ id: `user-${userId}` }, userToken);
+        await client.connectUser({ id: `user-${userId}` }, streamYoken);
         const members = chatMembers;
         console.log("members");
         console.log(members);
@@ -55,7 +57,23 @@ const getApiKey = async () => {
       return apiKey;
     }
   } catch (err) {
-     throw err;
+    throw err;
+  }
+};
+
+const getStreamToken = async (id) => {
+  try {
+    const data = await fetch(
+      `http://localhost:3000/users/user?id=${id}`,
+      {
+        method: "GET",
+        credentials: "include",
+      }
+    );
+    const user = await data.json();
+    return user.streamToken;
+  } catch (err) {
+    throw err;
   }
 };
 
@@ -83,8 +101,9 @@ const getChatMembers = async (userId) => {
 
 const getChatID = async (fileID, userID) => {
   let chat;
+  console.log(fileID, userID);
   await fetch(
-    `http://localhost:3000/chat/chat?fileID=${fileID}&?userId=${userID}`,
+    `http://localhost:3000/chat/chat?fileID=${fileID}&&userID=${userID}`,
     {
       method: "GET",
       credentials: "include",
