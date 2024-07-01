@@ -134,7 +134,7 @@ GROUP BY type`;
 }
 
 async function countTypeFileByClientID(type, userID) {
-  const sql = `SELECT COUNT(*) AS count FROM files LEFT JOIN clients ON files.clientID =  clients.id WHERE type = ? AND clients.userID = ?`
+  const sql = `SELECT COUNT(*) AS count FROM files LEFT JOIN clients ON files.clientID = clients.userID WHERE type = ? AND clients.userID = ?`
   // `SELECT COUNT(*) AS count FROM files WHERE type = ? AND clientID = ?`;
   const files = await pool.query(sql, [type, userID]);
   return files[0];
@@ -153,7 +153,7 @@ JOIN
 JOIN
     clients c ON ec.clientID = c.id
 LEFT JOIN
-    files f ON c.id = f.clientID
+    files f ON c.userID = f.clientID
 WHERE
     e.id = ? AND type = ?
 GROUP BY
@@ -177,7 +177,7 @@ async function updateStatusFile(id, status) {
 }
 
 async function getFilesByEmployeeID(userID, type) {
-  const sql = `SELECT files.id, files.driveFileId, files.uploaderID, files.createdAt, files.updatedAt, files.name, files.type, files.status, files.remark, files.clientID, files.topicID FROM employee_client LEFT JOIN clients ON employee_client.clientID = clients.id LEFT JOIN files ON files.clientID = clients.id  WHERE employee_client.employeeID = ? AND files.type = ? `;
+  const sql = `SELECT files.id, files.driveFileId, files.uploaderID, files.createdAt, files.updatedAt, files.name, files.type, files.status, files.remark, files.clientID, files.topicID FROM employee_client LEFT JOIN clients ON employee_client.clientID = clients.id LEFT JOIN files ON files.clientID = clients.userID  WHERE employee_client.employeeID = ? AND files.type = ? `;
   const files = await pool.query(sql, [userID, type]);
   return files[0];
 }

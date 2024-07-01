@@ -23,7 +23,7 @@ async function listFiles(userID, type) {
     // console.log(userID);
     const realID = await getClientIDOrEmployeeIDByUserID(userID);
     if (realID[0].client_id) {
-      const result = await model.getFilesByClientID(realID[0].client_id, type);
+      const result = await model.getFilesByClientID(userID, type);
       files = result;
     } else {
       const result = await model.getFilesByEmployeeID(
@@ -302,14 +302,14 @@ async function countTypeFile(type, userID) {
   }
 }
 
-async function getFilesNumber(userID) {
-  try {
-    const fileNum = await model.getFilesNumber(userID);
-    return fileNum[0];
-  } catch (err) {
-    throw err;
-  }
-}
+// async function getFilesNumber(userID) {
+//   try {
+//     const fileNum = await model.getFilesNumber(userID);
+//     return fileNum[0];
+//   } catch (err) {
+//     throw err;
+//   }
+// }
 
 module.exports = {
   countTypeFile,
@@ -324,5 +324,5 @@ module.exports = {
   numFilesPerMonth,
   getStatus,
   numberFilesTypes,
-  getFilesNumber
+  // getFilesNumber
 };

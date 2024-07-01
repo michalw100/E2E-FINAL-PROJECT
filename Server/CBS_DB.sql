@@ -98,7 +98,7 @@ CREATE TABLE
         clientID INT NOT NULL,
         topicID INT,
         FOREIGN KEY (uploaderID) REFERENCES users (id),
-        FOREIGN KEY (clientID) REFERENCES clients (id),
+        FOREIGN KEY (clientID) REFERENCES users (id),
         FOREIGN KEY (topicID) REFERENCES topics (id)
     );
 
