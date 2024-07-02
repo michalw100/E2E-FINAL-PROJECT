@@ -61,60 +61,63 @@ nav a {
 }
  */
 
-
- /* navBar.css */
- #logo {
-    order: 6;
-    height: 60px;
+/* navBar.css */
+#logo {
+  order: 6;
+  height: 60px;
 }
- body {
-    margin: 0;
-    /* font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; */
-    opacity: 100%;
+body {
+  margin: 0;
+  /* font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; */
+  opacity: 100%;
 }
 nav {
-    color: #4c4084; 
-    background-color: #ffffff; /* White text color */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px; /* Padding for desktop */
-    border-bottom: 2px solid #4c4084;
+  color: #4c4084;
+  background-color: #ffffff; /* White text color */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px; /* Padding for desktop */
+  border-bottom: 2px solid #4c4084;
+  position: fixed;
+  width: 98%;
+  z-index: 3;
 
+}
+
+nav a {
+  color: #4c4084; /* White text color for links */
+  text-decoration: none;
+  margin: 0 10px;
+  padding: 10px;
+}
+
+nav a:hover {
+  text-decoration: underline; /* Underline on hover */
+}
+
+#logo {
+  max-width: 100px; /* Adjust logo size */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column; /* Stack items vertically */
+    align-items: flex-start; /* Align items to the start */
   }
-  
+
   nav a {
-    color: #4c4084; /* White text color for links */
-    text-decoration: none;
-    margin: 0 10px;
-    padding: 10px;
+    margin: 5px 0; /* Adjust margin for vertical stacking */
   }
-  
-  nav a:hover {
-    text-decoration: underline; /* Underline on hover */
-  }
-  
   #logo {
-    max-width: 100px; /* Adjust logo size */
+    display: none;
+    order: -1;
+    height: 80px;
+    margin-right: auto;
   }
-  
-  /* Responsive adjustments */
-  @media (max-width: 768px) {
-    nav {
-      flex-direction: column; /* Stack items vertically */
-      align-items: flex-start; /* Align items to the start */
-    }
-  
-    nav a {
-      margin: 5px 0; /* Adjust margin for vertical stacking */
-    }
-    #logo {
-        display: none; 
-        order: -1;
-        height: 80px;
-        margin-right: auto;
-    }
-  }
-  
+}
 
-  
+.main {
+  padding-top: 6%;
+}
