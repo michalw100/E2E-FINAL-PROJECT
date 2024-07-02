@@ -19,7 +19,7 @@ const File = ({
   userToken,
 }) => {
   const navigate = useNavigate();
-  const { user } = useContext(AuthContext);
+  const { user, chatClient } = useContext(AuthContext);
   const [remark, setRemark] = useState(file.remark || "");
   const [showStatus, setShowStatus] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -164,11 +164,10 @@ const File = ({
 
   const commentsFunc = async () => {
     try {
-      // await chanel.deleteAllChats(user.id, user.streamToken);
-
       console.log("ownerOfFiles");
       console.log(ownerOfFiles);
       await chanel.createChatChannel(
+        chatClient,
         file.id,
         ownerOfFiles,
         file.name

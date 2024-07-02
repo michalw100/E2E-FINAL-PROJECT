@@ -1,37 +1,34 @@
 import { StreamChat } from "stream-chat";
 
 // פונקציה ליצירת צאט חדש
-const createChatChannel = async (fileId, userId, name) => {
-  console.log(userId, name);
+const createChatChannel = async (chatClient, fileId, userId, name) => {
   const chatId = await getChatID(fileId, userId);
-  const streamYoken = await getStreamToken(userId);
-  // console.log("chatId");
-  // console.log(chatId);
   if (chatId) {
+    console.log("chatId");
+    console.log(chatId);
   } else {
-    // console.log("new chet");
     const userIds = await getChatMembers(userId);
     const chatMembers = userIds.map(
       (member) => `user-${member.employeeUserID || member.userID}`
     );
     chatMembers.push(`user-${userId}`);
-    const apiKey = await getApiKey();
-    const client = StreamChat.getInstance(apiKey);
     const newChatId = await createChatID(fileId, userId);
-    // console.log("newChatId");
-    // console.log(newChatId);
     try {
       if (newChatId && userId) {
-        console.log("chatId && userId");
-        await client.connectUser({ id: `user-${userId}` }, streamYoken);
         const members = chatMembers;
+        console.log("chatClient");
+        console.log(chatClient);
         console.log("members");
         console.log(members);
-        const channel = client.channel("messaging", `myChats-${newChatId}`, {
-          members: members,
-          name: name,
-          // description: "This is a team chat for project XYZ",
-        });
+        const channel = chatClient.channel(
+          "messaging",
+          `myChats-${newChatId}`,
+          {
+            members: members,
+            name: name,
+            // description: "This is a team chat for project XYZ",
+          }
+        );
         await channel.create();
         return channel.data;
       }
@@ -63,13 +60,10 @@ const getApiKey = async () => {
 
 const getStreamToken = async (id) => {
   try {
-    const data = await fetch(
-      `http://localhost:3000/users/user?id=${id}`,
-      {
-        method: "GET",
-        credentials: "include",
-      }
-    );
+    const data = await fetch(`http://localhost:3000/users/user?id=${id}`, {
+      method: "GET",
+      credentials: "include",
+    });
     const user = await data.json();
     return user.streamToken;
   } catch (err) {
@@ -110,20 +104,13 @@ const getChatID = async (fileID, userID) => {
     }
   )
     .then((response) => {
-      // console.log("response.status");
-      // console.log(response.status);
       if (!response.ok) {
-        // console.log("response.status = " + response.status);
-        // console.log(response);
       }
       if (response.status == 204) return false;
 
-      // console.log(response);
       return response.json();
     })
     .then((data) => {
-      // const chat = data.json();
-      // console.log(data);
       chat = data;
     });
   return chat;
@@ -139,7 +126,6 @@ const createChatID = async (fileID, userId) => {
   })
     .then((response) => {
       if (!response.ok) {
-        // console.log(response);
       }
       return response.json();
     })
@@ -152,30 +138,30 @@ const createChatID = async (fileID, userId) => {
 
 // פונקציה לקבלת כל הצ'אטים
 const getAllChats = async (userId, userToken) => {
-  const apiKey = await getApiKey();
-  const client = StreamChat.getInstance(apiKey);
+  // const apiKey = await getApiKey();
+  // const client = StreamChat.getInstance(apiKey);
 
-  await client.connectUser({ id: `user-${userId}` }, userToken); // התחברות עם משתמש מנהל או בעל הרשאות מתאימות
+  // await client.connectUser({ id: `user-${userId}` }, userToken); // התחברות עם משתמש מנהל או בעל הרשאות מתאימות
 
   const filters = {}; // התאמת פילטרים לפי הצורך
   const sort = [{ field: "created_at", direction: -1 }];
-  const channels = await client.queryChannels(filters, sort, {});
+  const channels = await chatClient.queryChannels(filters, sort, {});
 
-  await client.disconnectUser(); // ניתוק המשתמש לאחר השגת הרשימה
+  // await client.disconnectUser(); // ניתוק המשתמש לאחר השגת הרשימה
   return channels;
 };
 
 // פונקציה למחיקת צ'אט
 const deleteChat = async (channelId, userToken) => {
-  const apiKey = await getApiKey();
-  const client = StreamChat.getInstance(apiKey);
+  // const apiKey = await getApiKey();
+  // const client = StreamChat.getInstance(apiKey);
 
-  await client.connectUser({ id: `admin-user` }, userToken); // התחברות עם משתמש מנהל או בעל הרשאות מתאימות
+  // await client.connectUser({ id: `admin-user` }, userToken); // התחברות עם משתמש מנהל או בעל הרשאות מתאימות
 
-  const channel = client.channel("messaging", channelId);
+  const channel = chatClient.channel("messaging", channelId);
   await channel.delete();
 
-  await client.disconnectUser(); // ניתוק המשתמש לאחר המחיקה
+  // await client.disconnectUser(); // ניתוק המשתמש לאחר המחיקה
 };
 
 // פונקציה למחיקת כל הצ'אטים

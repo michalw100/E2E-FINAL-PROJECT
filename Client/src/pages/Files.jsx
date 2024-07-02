@@ -13,6 +13,7 @@ import TypesFiles from "./TypesFiles.jsx";
 import { FaRegHandPointRight } from "react-icons/fa6";
 import { MdDelete } from "react-icons/md";
 import Modal from "react-modal";
+import chanel from "../helpers/chanels.js";
 Modal.setAppElement("#root");
 
 function Files({ setIsUploading, isUploading }) {
@@ -40,6 +41,17 @@ function Files({ setIsUploading, isUploading }) {
   //   credentials: "include",
   // });
 
+  // setTimeout(async () => {
+  //   try {
+  //     await chanel.deleteAllChats(user.id, user.streamToken);
+  //     console.log("All chats deleted successfully");
+  //   } catch (error) {
+  //     console.error("Error deleting chats:", error);
+  //   } finally {
+  //     console.error(false);
+  //   }
+  // }, 5000);
+  
   useEffect(() => {
     switch (sortCriteria) {
       case "dating":

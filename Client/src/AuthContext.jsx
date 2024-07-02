@@ -1,10 +1,65 @@
 import React, { createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { StreamChat } from "stream-chat";
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState({});
+  const [chatClient, setChatClient] = useState(null);
+  const [apiKey, setApiKey] = useState(null);
+  const [clientReady, setClientReady] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    getApiKey();
+    return () => {
+      if (clientReady) {
+        console.log("disconnecting");
+        chatClient.disconnectUser();
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (apiKey) {
+      setChatClient(StreamChat.getInstance(apiKey));
+    }
+  }, [apiKey]);
+
+  useEffect(() => {
+    if (!clientReady && user.id && apiKey) {
+      setupClient();
+    }
+  }, [user, chatClient]);
+
+  const setupClient = async () => {
+    const userId = `user-${user.id}`;
+    const userToken = user.streamToken;
+    await chatClient.connectUser(
+      {
+        id: userId,
+      },
+      userToken
+    );
+    setClientReady(true);
+  };
+
+  const getApiKey = async () => {
+    try {
+      const data = await fetch(`http://localhost:3000/chat/apiKey`, {
+        method: "GET",
+        credentials: "include",
+      });
+      console.log(data);
+      if (!data) {
+      } else {
+        const [apiKey] = await data.json();
+        setApiKey(apiKey);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const checkAuth = async () => {
     try {
@@ -44,10 +99,7 @@ export const AuthProvider = ({ children }) => {
         body: JSON.stringify({ userName, password }),
       });
       const userFromDB = await response.json();
-      // console.log(userFromDB)
       if (response.ok) {
-        // console.log("userFromDB")
-        // console.log(userFromDB)
         setUser(userFromDB);
         navigate("./");
       } else {
@@ -98,7 +150,9 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, setUser, signIn, logout, signUp }}>
+    <AuthContext.Provider
+      value={{ user, setUser, signIn, logout, signUp, chatClient ,clientReady}}
+    >
       {user === undefined ? null : children}
     </AuthContext.Provider>
   );

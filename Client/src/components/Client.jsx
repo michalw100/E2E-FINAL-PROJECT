@@ -5,8 +5,11 @@ import { LuFiles } from "react-icons/lu";
 import { ImProfile } from "react-icons/im";
 import { FaComments } from "react-icons/fa";
 import chanel from "../helpers/chanels.js";
+import { AuthContext } from "../AuthContext";
 
 const Client = ({ client }) => {
+  const { chatClient } = useContext(AuthContext);
+
   const navigate = useNavigate();
 
   const saveUserDetailsToServer = async () => {
@@ -50,6 +53,7 @@ const Client = ({ client }) => {
       console.log(client.userID);
       console.log(client.userName);
       await chanel.createChatChannel(
+        chatClient,
         null,
         client.userID,
         client.userName
