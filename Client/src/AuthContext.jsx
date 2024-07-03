@@ -11,37 +11,42 @@ export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    return () => {
-      if (clientReady) {
-        console.log("disconnecting");
-        chatClient.disconnectUser();
-      }
-    };
+    return disconnectClient;
   }, []);
 
   useEffect(() => {
     if (apiKey) {
+      console.log("connecting to")
       setChatClient(StreamChat.getInstance(apiKey));
     }
   }, [apiKey]);
-  
+
   useEffect(() => {
+    console.log("new user");
     if (user) {
+      console.log("new user", user.id);
       getApiKey();
     }
   }, [user]);
 
   useEffect(() => {
-    if (!clientReady && user&&user.streamToken && apiKey) {
+    if (!clientReady && user && user.streamToken && apiKey) {
       setupClient();
     }
   }, [user, chatClient]);
 
+  const disconnectClient = async () => {
+    if (clientReady) {
+      console.log("disconnecting");
+      chatClient.disconnectUser();
+    }
+  };
+
   const setupClient = async () => {
     const userId = `user-${user.id}`;
     const userToken = user.streamToken;
-    console.log("userToken")
-    console.log(userToken)
+    console.log("userToken");
+    console.log(userToken);
     await chatClient.connectUser(
       {
         id: userId,
@@ -106,7 +111,10 @@ export const AuthProvider = ({ children }) => {
         body: JSON.stringify({ userName, password }),
       });
       const userFromDB = await response.json();
+      console.log("userFromDB")
+      console.log(userFromDB)
       if (response.ok) {
+        console.log("userFromDB")
         setUser(userFromDB);
         navigate("./");
       } else {
@@ -149,6 +157,7 @@ export const AuthProvider = ({ children }) => {
         throw new Error(data.message || "An error occurred. Please try again.");
       } else {
         setUser(null);
+        disconnectClient();
         navigate("/aboutUs");
       }
     } catch (error) {
@@ -158,7 +167,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, setUser, signIn, logout, signUp, chatClient ,clientReady}}
+      value={{ user, setUser, signIn, logout, signUp, chatClient, clientReady }}
     >
       {user === undefined ? null : children}
     </AuthContext.Provider>
