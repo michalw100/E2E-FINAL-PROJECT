@@ -16,28 +16,24 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     if (apiKey) {
-      console.log("connecting to")
       setChatClient(StreamChat.getInstance(apiKey));
     }
   }, [apiKey]);
 
   useEffect(() => {
-    console.log("new user");
     if (user) {
-      console.log("new user", user.id);
       getApiKey();
     }
   }, [user]);
 
   useEffect(() => {
-    if (!clientReady && user && user.streamToken && apiKey) {
+    if (user && user.streamToken && apiKey) {
       setupClient();
     }
   }, [user, chatClient]);
 
   const disconnectClient = async () => {
     if (clientReady) {
-      console.log("disconnecting");
       chatClient.disconnectUser();
     }
   };
@@ -45,8 +41,6 @@ export const AuthProvider = ({ children }) => {
   const setupClient = async () => {
     const userId = `user-${user.id}`;
     const userToken = user.streamToken;
-    console.log("userToken");
-    console.log(userToken);
     await chatClient.connectUser(
       {
         id: userId,
@@ -62,7 +56,6 @@ export const AuthProvider = ({ children }) => {
         method: "GET",
         credentials: "include",
       });
-      console.log(data);
       if (!data) {
       } else {
         const [apiKey] = await data.json();
@@ -111,10 +104,7 @@ export const AuthProvider = ({ children }) => {
         body: JSON.stringify({ userName, password }),
       });
       const userFromDB = await response.json();
-      console.log("userFromDB")
-      console.log(userFromDB)
       if (response.ok) {
-        console.log("userFromDB")
         setUser(userFromDB);
         navigate("./");
       } else {
