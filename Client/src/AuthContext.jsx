@@ -32,7 +32,7 @@ export const AuthProvider = ({ children }) => {
   }, [user]);
 
   useEffect(() => {
-    if (!clientReady && user && apiKey) {
+    if (!clientReady && user&&user.streamToken && apiKey) {
       setupClient();
     }
   }, [user, chatClient]);
@@ -40,6 +40,8 @@ export const AuthProvider = ({ children }) => {
   const setupClient = async () => {
     const userId = `user-${user.id}`;
     const userToken = user.streamToken;
+    console.log("userToken")
+    console.log(userToken)
     await chatClient.connectUser(
       {
         id: userId,

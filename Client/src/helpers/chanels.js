@@ -139,7 +139,7 @@ const createChatID = async (fileID, userId) => {
 // פונקציה לקבלת כל הצ'אטים
 const getAllChats = async (chatClient) => {
   const filters = {}; // התאמת פילטרים לפי הצורך
-  const sort = { field: "created_at", direction: -1 };
+  const sort = [{ field: "created_at", direction: -1 }];
   console.log(sort);
   const channels = await chatClient.queryChannels(filters, sort, {});
   return channels;
