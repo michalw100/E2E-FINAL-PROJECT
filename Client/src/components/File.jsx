@@ -259,6 +259,10 @@ const File = ({
       setIsEditing(false);
     }
   };
+
+  const strongStyle = {
+    fontSize: "12px",
+  };
   const viewFileUrl = `http://localhost:3000/files/view/${file.driveFileId}`;
   return (
     <div
@@ -275,7 +279,7 @@ const File = ({
         <div className="file-box">
           <div className="file-info">
             <div className="file-date">
-              <strong>
+              <strong style={strongStyle}>
                 {highlightSearchTerm(
                   formatDate(file.updatedAt),
                   searchCriteria
@@ -297,7 +301,7 @@ const File = ({
           <div className="box">
             <div className="file-status-container">
               <div className="header">
-                <strong>status</strong>
+                <strong style={strongStyle}>status</strong>
               </div>
               {!showStatus && (
                 <div
@@ -350,7 +354,7 @@ const File = ({
           <div className="box">
             <div className="file-comments">
               <div className="header">
-                <strong>remark</strong>
+                <strong style={strongStyle}>remark</strong>
               </div>
               {isEditing && (
                 <input
@@ -384,14 +388,14 @@ const File = ({
           </div>
           <div className="box">
             <div className="header">
-              <strong>uploader</strong>
+              <strong style={strongStyle}>uploader</strong>
               <br />
               {highlightSearchTerm(uplodersName, searchCriteria)}
             </div>
           </div>
           <div className="box">
             <div className="header">
-              <strong>owner</strong>
+              <strong style={strongStyle}>owner</strong>
               <br />
               {highlightSearchTerm(ownerName, searchCriteria)}
             </div>
