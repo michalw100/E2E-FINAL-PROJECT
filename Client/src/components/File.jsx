@@ -9,6 +9,10 @@ import { MdDelete } from "react-icons/md";
 import { useDrag } from "react-dnd";
 import chanel from "../helpers/chanels.js";
 import { useNavigate } from "react-router-dom";
+import "../css/file.css";
+
+import { MDBBadge } from 'mdb-react-ui-kit';
+
 
 const File = ({
   file,
@@ -402,22 +406,36 @@ const File = ({
           </div>
           <div className="file-actions">
             {status !== "Deleted" && (
-              <button className="download" onClick={downloadFile}>
+              <button className="download btn-primary position-relative mx-3" onClick={downloadFile}>
                 <FaDownload />
               </button>
             )}
             {status !== "Deleted" ? (
-              <button className="delete" onClick={deleteFile}>
+              <button className='delete btn-primary position-relative mx-3'
+              onClick={deleteFile}>
                 <MdDelete />
               </button>
             ) : (
-              <button className="delete" onClick={nodeleteFile}>
+              <button className="delete btn-primary position-relative mx-3" onClick={nodeleteFile}>
                 <MdDeleteForever />
               </button>
             )}
-            <button className="comments" onClick={commentsFunc}>
+            {/* <button className="comments" onClick={commentsFunc}>
               <FaComments />
-            </button>
+            </button> */}
+            <button
+        type='comments' onClick={commentsFunc}
+        className=' btn-primary position-relative mx-3'
+        // style={{ backgroundColor: '#ac2bac' }}
+      >
+                      <FaComments />
+
+        {/* <i className='fab fa-instagram'></i> */}
+        <MDBBadge pill color='danger' className='position-absolute top-0 start-100 translate-middle'>
+           +99 {/*<span className='visually-hidden'>unread messages</span> */}
+        </MDBBadge>
+      </button>
+
           </div>
         </div>
       )}

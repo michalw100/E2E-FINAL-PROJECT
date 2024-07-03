@@ -1,4 +1,4 @@
-import "../App.css";
+// import "../App.css";
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { LuFiles } from "react-icons/lu";
@@ -6,6 +6,8 @@ import { ImProfile } from "react-icons/im";
 import { FaComments } from "react-icons/fa";
 import chanel from "../helpers/chanels.js";
 import { AuthContext } from "../AuthContext";
+import { MDBBadge } from 'mdb-react-ui-kit';
+import "../css/client.css";
 
 const Client = ({ client }) => {
   const { chatClient } = useContext(AuthContext);
@@ -71,14 +73,28 @@ const Client = ({ client }) => {
       </h4>
       <p className="clientemail">{client.email} </p>
 
-      <button className="mydetails" onClick={viewDetails}>
+      <button         className='mydetails btn-primary position-relative mx-3'
+ onClick={viewDetails}>
         <ImProfile />
       </button>
-      <button className="mydetails" onClick={viewFiles}>
+      <button         className='mydetails btn-primary position-relative mx-3'
+ onClick={viewFiles}>
         <LuFiles />
       </button>
-      <button className="mydetails" onClick={viewChat}>
+      {/* <button className="mydetails" onClick={viewChat}>
         <FaComments />
+      </button> */}
+      <button
+        type='comments'  onClick={viewChat}
+        className='mydetails btn-primary position-relative mx-3'
+        // style={{ backgroundColor: '#ac2bac' }}
+      >
+                      <FaComments />
+
+        {/* <i className='fab fa-instagram'></i> */}
+        <MDBBadge pill color='danger' className='position-absolute top-0 start-100 translate-middle'>
+           +99 {/*<span className='visually-hidden'>unread messages</span> */}
+        </MDBBadge>
       </button>
     </div>
   );

@@ -38,7 +38,7 @@ const UsersList = () => {
 
   return (
     <div className="clients">
-      <h2>Clients List</h2>
+      {/* <h2>Clients List</h2> */}
       {fetchError && (
         <p className="error" style={{ color: "red" }}>
           {fetchError}

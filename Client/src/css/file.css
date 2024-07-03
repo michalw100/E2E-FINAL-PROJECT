@@ -86,3 +86,73 @@
     font-weight: bold;
   }
    */
+
+   .btn-primary{
+border: 2px solid #cccccc;   }
+
+
+@media screen and (max-width: 768px) {
+  .file-box {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .file-info, .box, .file-actions {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .file-name {
+    font-size: 14px;
+  }
+
+  .file-date {
+    font-size: 12px;
+  }
+
+  .file-status-container, .file-comments {
+    flex-direction: column;
+  }
+
+  .file-status, select {
+    /* width: 100%; */
+    margin-top: 5px;
+  }
+
+  .file-actions {
+    justify-content: space-between;
+  }
+
+  .file-actions button {
+    padding: 5px;
+    font-size: 14px;
+  }
+
+  .update {
+    position: static;
+    margin-bottom: 5px;
+  }
+
+  input[type="text"] {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .file-box {
+    font-size: 12px;
+  }
+
+  .file-name {
+    font-size: 13px;
+  }
+
+  .file-date {
+    font-size: 11px;
+  }
+
+  .file-actions button {
+    padding: 3px;
+    font-size: 12px;
+  }
+}
