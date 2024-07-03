@@ -137,37 +137,25 @@ const createChatID = async (fileID, userId) => {
 };
 
 // פונקציה לקבלת כל הצ'אטים
-const getAllChats = async (userId, userToken) => {
-  // const apiKey = await getApiKey();
-  // const client = StreamChat.getInstance(apiKey);
-
-  // await client.connectUser({ id: `user-${userId}` }, userToken); // התחברות עם משתמש מנהל או בעל הרשאות מתאימות
-
+const getAllChats = async () => {
   const filters = {}; // התאמת פילטרים לפי הצורך
   const sort = [{ field: "created_at", direction: -1 }];
   const channels = await chatClient.queryChannels(filters, sort, {});
-
-  // await client.disconnectUser(); // ניתוק המשתמש לאחר השגת הרשימה
   return channels;
 };
 
 // פונקציה למחיקת צ'אט
-const deleteChat = async (channelId, userToken) => {
-  // const apiKey = await getApiKey();
-  // const client = StreamChat.getInstance(apiKey);
-
-  // await client.connectUser({ id: `admin-user` }, userToken); // התחברות עם משתמש מנהל או בעל הרשאות מתאימות
-
+const deleteChat = async (channelId) => {
   const channel = chatClient.channel("messaging", channelId);
   await channel.delete();
-
-  // await client.disconnectUser(); // ניתוק המשתמש לאחר המחיקה
 };
 
 // פונקציה למחיקת כל הצ'אטים
 const deleteAllChats = async (userId, userToken) => {
   try {
-    const channels = await getAllChats(userId, userToken);
+    const channels = await getAllChats(`user-${userId}`, userToken);
+    console.log("channels")
+    console.log(channels)
     for (const channel of channels) {
       await deleteChat(channel.id, userToken);
     }
