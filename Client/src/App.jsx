@@ -10,6 +10,7 @@ import AboutUs from "./pages/AboutUs.jsx";
 import SignIn from "./pages/SignIn.jsx";
 import { AuthProvider, AuthContext } from "./AuthContext";
 import NestedRoutes from "./components/NestedRoutes.jsx";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function PrivateRoute({ children }) {
   const { user } = useContext(AuthContext);

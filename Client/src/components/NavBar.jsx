@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../AuthContext";
 import { CgProfile } from "react-icons/cg";
 import "../css/navBar.css";
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Navbar({ isUploading }) {
   const { user } = useContext(AuthContext);

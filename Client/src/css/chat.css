@@ -129,3 +129,7 @@
 .str-chat-channel.messaging .str-chat__main-panel{
   padding: 2%;
 }
+
+.str-chat__input-flat .str-chat__textarea>textarea{
+  text-align: center;
+}
