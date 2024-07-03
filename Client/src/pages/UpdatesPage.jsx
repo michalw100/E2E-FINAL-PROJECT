@@ -179,16 +179,15 @@ function UpdatesPage() {
   const statusLabels = statusData.map((status) => status.status);
   const statusCounts = statusData.map((status) => status.count);
   const doughnutData = {
-    labels: ["Messages Sent", "Messages Received", "Unread Messages", "Total Messages"],
+    labels: ["Messages Sent", "Messages Received", "Unread Messages"],
     datasets: [
       {
         label: "Messages Overview",
-        data: [messagesSent, messagesReceived, unreadMessages, totalMessages],
+        data: [messagesSent, messagesReceived, unreadMessages],
         backgroundColor: [
           "rgba(255, 99, 132, 0.2)",
           "rgba(54, 162, 235, 0.2)",
           "rgba(255, 206, 86, 0.2)",
-          "rgba(75, 192, 192, 0.2)",
         ],
         borderColor: [
           "rgba(255, 99, 132, 1)",
