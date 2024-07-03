@@ -208,6 +208,7 @@ const AdminDashboard = () => {
             relationshipLine.style.width = `${length}px`;
             relationshipLine.style.transform = `rotate(${angle}deg)`;
             relationshipLine.style.transformOrigin = "0 0";
+            relationshipLine.style.zIndex = "3";
             relationshipLine.style.backgroundColor = getEmployeeColor(
               employee.userID
             );

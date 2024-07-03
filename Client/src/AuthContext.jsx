@@ -11,12 +11,7 @@ export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    return () => {
-      if (clientReady) {
-        console.log("disconnecting");
-        chatClient.disconnectUser();
-      }
-    };
+    return disconnectClient;
   }, []);
 
   useEffect(() => {
@@ -24,7 +19,7 @@ export const AuthProvider = ({ children }) => {
       setChatClient(StreamChat.getInstance(apiKey));
     }
   }, [apiKey]);
-  
+
   useEffect(() => {
     if (user) {
       getApiKey();
@@ -32,16 +27,20 @@ export const AuthProvider = ({ children }) => {
   }, [user]);
 
   useEffect(() => {
-    if (!clientReady && user&&user.streamToken && apiKey) {
+    if (user && user.streamToken && apiKey) {
       setupClient();
     }
   }, [user, chatClient]);
 
+  const disconnectClient = async () => {
+    if (clientReady) {
+      chatClient.disconnectUser();
+    }
+  };
+
   const setupClient = async () => {
     const userId = `user-${user.id}`;
     const userToken = user.streamToken;
-    console.log("userToken")
-    console.log(userToken)
     await chatClient.connectUser(
       {
         id: userId,
@@ -57,7 +56,6 @@ export const AuthProvider = ({ children }) => {
         method: "GET",
         credentials: "include",
       });
-      console.log(data);
       if (!data) {
       } else {
         const [apiKey] = await data.json();
@@ -149,6 +147,7 @@ export const AuthProvider = ({ children }) => {
         throw new Error(data.message || "An error occurred. Please try again.");
       } else {
         setUser(null);
+        disconnectClient();
         navigate("/aboutUs");
       }
     } catch (error) {
@@ -158,7 +157,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, setUser, signIn, logout, signUp, chatClient ,clientReady}}
+      value={{ user, setUser, signIn, logout, signUp, chatClient, clientReady }}
     >
       {user === undefined ? null : children}
     </AuthContext.Provider>

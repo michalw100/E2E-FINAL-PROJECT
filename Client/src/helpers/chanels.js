@@ -208,7 +208,7 @@ const getMessagesCountPerDay = async (chatClient, channelId) => {
 
     // קבל את כל ההודעות מהצ'אט
     const messagesResponse = await channel.query({
-      messages: { limit: 100 },  // מגבל את השאילתא למספר מוגבל של הודעות
+      messages: { limit: 100 }, // מגבל את השאילתא למספר מוגבל של הודעות
     });
 
     const messages = messagesResponse.messages;
@@ -216,9 +216,11 @@ const getMessagesCountPerDay = async (chatClient, channelId) => {
     // סינון וספירת ההודעות לפי יום
     const messagesPerDay = {};
 
-    messages.forEach(message => {
-      const messageDate = new Date(message.created_at);  // תאריך של ההודעה
-      const dayKey = `${messageDate.getFullYear()}-${messageDate.getMonth() + 1}-${messageDate.getDate()}`;
+    messages.forEach((message) => {
+      const messageDate = new Date(message.created_at); // תאריך של ההודעה
+      const dayKey = `${messageDate.getFullYear()}-${
+        messageDate.getMonth() + 1
+      }-${messageDate.getDate()}`;
 
       if (!messagesPerDay[dayKey]) {
         messagesPerDay[dayKey] = 0;
@@ -247,14 +249,16 @@ const getMessagesCountPerDayAcrossChats = async (chatClient, userId) => {
     // עבור כל צ'אט, ספור את מספר ההודעות לפי יום
     for (const channel of channels) {
       const messagesResponse = await channel.query({
-        messages: { limit: 100 },  // מגבל את השאילתא למספר מוגבל של הודעות
+        messages: { limit: 100 }, // מגבל את השאילתא למספר מוגבל של הודעות
       });
 
       const messages = messagesResponse.messages;
 
-      messages.forEach(message => {
-        const messageDate = new Date(message.created_at);  // תאריך של ההודעה
-        const dayKey = `${messageDate.getFullYear()}-${messageDate.getMonth() + 1}-${messageDate.getDate()}`;
+      messages.forEach((message) => {
+        const messageDate = new Date(message.created_at); // תאריך של ההודעה
+        const dayKey = `${messageDate.getFullYear()}-${
+          messageDate.getMonth() + 1
+        }-${messageDate.getDate()}`;
 
         if (!messagesPerDay[dayKey]) {
           messagesPerDay[dayKey] = 0;
