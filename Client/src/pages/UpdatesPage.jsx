@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import "../css/update.css";
 import { AuthContext } from "../AuthContext";
-import { Pie, Bar, Line } from "react-chartjs-2";
+import { Pie, Radar,Doughnut, Bar, Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
   Tooltip,
@@ -32,6 +32,10 @@ function UpdatesPage() {
   const [statusData, setStatusData] = useState([]);
   const [types, setTypes] = useState([]);
   const [messages, setMessages] = useState([]);
+  const [messagesSent, setMessagesSent] = useState([]);
+  const [messagesReceived, setMessagesReceived] = useState([]);
+  const [unreadMessages, setUnreadMessages] = useState([]);
+  const [totalMessages, setTotalMessages] = useState(0);
 
   // const [numberFiles, setNumberFiles] = useState([]);
 
@@ -42,6 +46,8 @@ function UpdatesPage() {
       getTypes();
       getMessages();
       //  getNumberFiles();
+      fetchMessagesData();
+
     }
   }, [user]);
 
@@ -58,7 +64,27 @@ function UpdatesPage() {
       console.error("Error fetching messages:", error);
     }
   };
-  
+  const fetchMessagesData = async () => {
+    try {
+      const messages = await chanels.getChatStats(chatClient, user.id);
+      console.log("Messages:", messages);
+
+      // Extracting relevant data
+      const messagesSent = messages.map((message) => message.userMessagesCount);
+      const messagesReceived = messages.map((message) => message.otherMessagesCount);
+      const unreadMessages = messages.map((message) => message.unreadMessagesCount);
+      const totalMessages = messages.reduce((total, message) => total + message.totalMessagesCount, 0);
+
+      setMessagesSent(messagesSent);
+      setMessagesReceived(messagesReceived);
+      setUnreadMessages(unreadMessages);
+      setTotalMessages(totalMessages);
+
+    } catch (error) {
+      console.error("Error fetching messages data:", error);
+    }
+  };
+
 
   const getStatus = async () => {
     try {
@@ -152,6 +178,41 @@ function UpdatesPage() {
 
   const statusLabels = statusData.map((status) => status.status);
   const statusCounts = statusData.map((status) => status.count);
+  const doughnutData = {
+    labels: ["Messages Sent", "Messages Received", "Unread Messages", "Total Messages"],
+    datasets: [
+      {
+        label: "Messages Overview",
+        data: [messagesSent, messagesReceived, unreadMessages, totalMessages],
+        backgroundColor: [
+          "rgba(255, 99, 132, 0.2)",
+          "rgba(54, 162, 235, 0.2)",
+          "rgba(255, 206, 86, 0.2)",
+          "rgba(75, 192, 192, 0.2)",
+        ],
+        borderColor: [
+          "rgba(255, 99, 132, 1)",
+          "rgba(54, 162, 235, 1)",
+          "rgba(255, 206, 86, 1)",
+          "rgba(75, 192, 192, 1)",
+        ],
+        borderWidth: 1,
+      },
+    ],
+  };
+  
+  // const radarData = {
+  //   labels: ["Messages Sent", "Messages Received", "Unread Messages", "Total Messages"],
+  //   datasets: [
+  //     {
+  //       label: "Messages Overview",
+  //       data: [messagesSent, messagesReceived, unreadMessages, totalMessages],
+  //       backgroundColor: "rgba(255, 99, 132, 0.2)",
+  //       borderColor: "rgba(255, 99, 132, 1)",
+  //       borderWidth: 1,
+  //     },
+  //   ],
+  // };
 
   const pieData = {
     labels: statusLabels,
@@ -235,14 +296,14 @@ function UpdatesPage() {
       <h2 className="title">Updates</h2>
 
       <div className="updates">
-        <div className="chart-container">
+      <div className="chart-container">
           <div className="title-div">
-            <h3>files</h3>
+            <h3>Files Uploaded per Month</h3>
           </div>
-          <p className="p">0</p>
+          <Line className="canvas" data={lineData} options={options} />
         </div>
         <div className="chart-container">
-          <div className="title-div"><h3>unread Messages</h3></div>
+          <div className="title-div"><h3>Unread Messages</h3></div>
           <p className="p">{messages}<img
         id="logo"
         className="chats"
@@ -250,11 +311,20 @@ function UpdatesPage() {
         alt="logo"
       /></p>
         </div>
+        
         <div className="chart-container">
           <div className="title-div">
             <h3>files</h3>
           </div>
           <p className="p">0</p>
+        </div>
+        <div className="chart-container">
+          <div className="title-div">
+            <h3>Messages Chat</h3>
+          </div>
+          {/* <Radar className="canvas" data={radarData} /> */}
+          <Doughnut className="canvas" data={doughnutData} />
+
         </div>
         <div className="chart-container">
           <div className="title-div">
@@ -269,18 +339,14 @@ function UpdatesPage() {
             ))}
           </div>
         </div>
+       
         <div className="chart-container">
           <div className="title-div">
             <h3>Status</h3>
           </div>
           <Pie className="canvas" data={pieData} />
         </div>
-        <div className="chart-container">
-          <div className="title-div">
-            <h3>Files Uploaded per Month</h3>
-          </div>
-          <Line className="canvas" data={lineData} options={options} />
-        </div>
+      
       </div>
     </div>
   );
