@@ -201,11 +201,10 @@ function UpdatesPage() {
         </div>
         <div className="chart-container">
           <div className="title-div"><h3>files</h3></div>
-          <p className="p"><img
+          <p className="p"><h6>gggggg</h6><img
         id="logo"
         className="chats"
-
-        src="../../src/pictures/chats.jpg"
+        src="../../src/pictures/chat.png"
         alt="logo"
       /></p>
         </div>
