@@ -29,7 +29,7 @@
 }
 
 .chats{
-  margin-left: auto;
+  /* margin-left: auto; */
 }
 
 .all-update{
@@ -50,14 +50,21 @@
     margin: 0;
  }
 
-.p{
-  text-align: center;
+ .p {
+  display: flex;
+  align-items: center;
+  padding: 5%;
   font-size: 180%;
-
 }
- /* .chart-container-1{
- 
- } */
+
+.p h6 {
+  margin: 0 5px;
+}
+
+.p img {
+  margin-left: auto;
+}
+
   
 @media screen and (max-width:900px) {
     .updates {

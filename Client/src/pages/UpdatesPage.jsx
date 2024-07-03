@@ -232,17 +232,13 @@ function UpdatesPage() {
           <p className="p">0</p>
         </div>
         <div className="chart-container">
-          <div className="title-div">
-            <h3>files</h3>
-          </div>
-          <p className="p">
-            <img
-              id="logo"
-              className="chats"
-              src="../../src/pictures/chats.jpg"
-              alt="logo"
-            />
-          </p>
+          <div className="title-div"><h3>files</h3></div>
+          <p className="p"><h6>gggggg</h6><img
+        id="logo"
+        className="chats"
+        src="../../src/pictures/chat.png"
+        alt="logo"
+      /></p>
         </div>
         <div className="chart-container">
           <div className="title-div">
