@@ -166,6 +166,7 @@ const File = ({
     try {
       console.log("ownerOfFiles");
       console.log(ownerOfFiles);
+      // const chanel1 = await chanel.deleteAllChats(user.id, user.streamToken);
       await chanel.createChatChannel(
         chatClient,
         file.id,
