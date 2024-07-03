@@ -56,19 +56,6 @@ const getApiKey = async () => {
   }
 };
 
-const getStreamToken = async (id) => {
-  try {
-    const data = await fetch(`http://localhost:3000/users/user?id=${id}`, {
-      method: "GET",
-      credentials: "include",
-    });
-    const user = await data.json();
-    return user.streamToken;
-  } catch (err) {
-    throw err;
-  }
-};
-
 const getChatMembers = async (userId) => {
   let members;
   await fetch(`http://localhost:3000/users/chatMembers?id=${userId}`, {
@@ -211,6 +198,75 @@ const getChatStats = async (chatClient, userId) => {
     return chatStats;
   } catch (error) {
     console.error("Error getting chat stats:", error);
+    throw error;
+  }
+};
+
+const getMessagesCountPerDay = async (chatClient, channelId) => {
+  try {
+    const channel = chatClient.channel("messaging", channelId);
+
+    // קבל את כל ההודעות מהצ'אט
+    const messagesResponse = await channel.query({
+      messages: { limit: 100 },  // מגבל את השאילתא למספר מוגבל של הודעות
+    });
+
+    const messages = messagesResponse.messages;
+
+    // סינון וספירת ההודעות לפי יום
+    const messagesPerDay = {};
+
+    messages.forEach(message => {
+      const messageDate = new Date(message.created_at);  // תאריך של ההודעה
+      const dayKey = `${messageDate.getFullYear()}-${messageDate.getMonth() + 1}-${messageDate.getDate()}`;
+
+      if (!messagesPerDay[dayKey]) {
+        messagesPerDay[dayKey] = 0;
+      }
+
+      messagesPerDay[dayKey]++;
+    });
+
+    return messagesPerDay;
+  } catch (error) {
+    console.error("Error getting messages count per day:", error);
+    throw error;
+  }
+};
+
+const getMessagesCountPerDayAcrossChats = async (chatClient, userId) => {
+  try {
+    const filters = { members: { $in: [`user-${userId}`] } };
+    const sort = { last_message_at: -1 };
+
+    // קבל את כל הצ'אטים בהם המשתמש נמצא
+    const channels = await chatClient.queryChannels(filters, sort, {});
+
+    const messagesPerDay = {};
+
+    // עבור כל צ'אט, ספור את מספר ההודעות לפי יום
+    for (const channel of channels) {
+      const messagesResponse = await channel.query({
+        messages: { limit: 100 },  // מגבל את השאילתא למספר מוגבל של הודעות
+      });
+
+      const messages = messagesResponse.messages;
+
+      messages.forEach(message => {
+        const messageDate = new Date(message.created_at);  // תאריך של ההודעה
+        const dayKey = `${messageDate.getFullYear()}-${messageDate.getMonth() + 1}-${messageDate.getDate()}`;
+
+        if (!messagesPerDay[dayKey]) {
+          messagesPerDay[dayKey] = 0;
+        }
+
+        messagesPerDay[dayKey]++;
+      });
+    }
+
+    return messagesPerDay;
+  } catch (error) {
+    console.error("Error getting messages count per day across chats:", error);
     throw error;
   }
 };
