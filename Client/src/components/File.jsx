@@ -174,7 +174,7 @@ const File = ({
       await chanel.createChatChannel(
         chatClient,
         file.id,
-        ownerOfFiles,
+        file.clientID,
         file.name
       );
       navigate("../chats");

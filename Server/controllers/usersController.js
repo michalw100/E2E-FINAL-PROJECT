@@ -78,6 +78,7 @@ async function create(userName, password, employeType, role) {
       await serverClient.upsertUser({
         id: `user-${response.insertId}`,
         name: userName,
+        // role: "admin"
       });
     } catch (streamError) {
       throw new Error(`Stream Chat Error: ${streamError.message}`);

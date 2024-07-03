@@ -11,15 +11,13 @@ const createChatChannel = async (chatClient, fileId, userId, name) => {
     const chatMembers = userIds.map(
       (member) => `user-${member.employeeUserID || member.userID}`
     );
+    console.log("chatMembers");
+    console.log(`user-${userId}`);
     chatMembers.push(`user-${userId}`);
     const newChatId = await createChatID(fileId, userId);
     try {
       if (newChatId && userId) {
         const members = chatMembers;
-        console.log("chatClient");
-        console.log(chatClient);
-        console.log("members");
-        console.log(members);
         const channel = chatClient.channel(
           "messaging",
           `myChats-${newChatId}`,
@@ -137,16 +135,20 @@ const createChatID = async (fileID, userId) => {
 };
 
 // פונקציה לקבלת כל הצ'אטים
-const getAllChats = async (chatClient) => {
-  const filters = {}; // התאמת פילטרים לפי הצורך
-  const sort = [{ field: "created_at", direction: -1 }];
-  console.log(sort);
-  const channels = await chatClient.queryChannels(filters, sort, {});
-  return channels;
+const getAllChats = async (chatClient, userID) => {
+  try {
+    const filters = { members: { $in: [`user-4`] } };
+    const sort = { last_message_at: -1 };
+    const channels = await chatClient.queryChannels(filters, sort, {});
+    return channels;
+  } catch (error) {
+    console.error("Error getting chats:", error);
+    throw error;
+  }
 };
 
 // פונקציה למחיקת צ'אט
-const deleteChat = async (channelId) => {
+const deleteChat = async (chatClient, channelId) => {
   const channel = chatClient.channel("messaging", channelId);
   await channel.delete();
 };
@@ -155,10 +157,15 @@ const deleteChat = async (channelId) => {
 const deleteAllChats = async (chatClient, userId, userToken) => {
   try {
     console.log("channels");
-    const channels = await getAllChats(chatClient, `user-${userId}`, userToken);
+    // await chatClient.updateUser({ id: `user-20`, role: 'admin' });
+    // const response = await chatClient.queryUsers({ id: `user-20` });
+    // const user = response.users[0];
+    // console.log("User roles:", user); // תדפיס את התפקידים של המשתמש
+
+    const channels = await getAllChats(chatClient, `user-21`, userToken);
     console.log(channels);
     for (const channel of channels) {
-      await deleteChat(channel.id, userToken);
+      await deleteChat(chatClient, channel.id, userToken);
     }
     console.log("All chats deleted successfully");
   } catch (error) {
@@ -166,4 +173,46 @@ const deleteAllChats = async (chatClient, userId, userToken) => {
   }
 };
 
-export default { createChatChannel, getApiKey, deleteAllChats };
+const getChatStats = async (chatClient, userId) => {
+  try {
+    // שליפה של כל הצ'אטים בהם המשתמש חבר
+    const filters = { members: { $in: [`user-${userId}`] } };
+    const sort = { last_message_at: -1 };
+    const channels = await chatClient.queryChannels(filters, sort, {});
+
+    const chatStats = [];
+
+    for (const channel of channels) {
+      const messages = await channel.query({
+        messages: { limit: 500 },
+      });
+
+      const userMessagesCount = messages.messages.filter(
+        (message) => message.user.id === `user-${userId}`
+      ).length;
+
+      const otherMessagesCount = messages.messages.filter(
+        (message) => message.user.id !== `user-${userId}`
+      ).length;
+
+      const unreadMessagesCount = channel.state.unreadCount;
+
+      const totalMessagesCount = userMessagesCount + otherMessagesCount;
+
+      chatStats.push({
+        chatName: channel.data.name,
+        userMessagesCount: userMessagesCount,
+        otherMessagesCount: otherMessagesCount,
+        unreadMessagesCount: unreadMessagesCount,
+        totalMessagesCount: totalMessagesCount,
+      });
+    }
+
+    return chatStats;
+  } catch (error) {
+    console.error("Error getting chat stats:", error);
+    throw error;
+  }
+};
+
+export default { createChatChannel, getApiKey, deleteAllChats, getChatStats };
