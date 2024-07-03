@@ -3,12 +3,14 @@
   overflow-x: hidden; /* הסתרת גלילה אופקית */
   flex-grow: 1;
   overflow-y: auto;
+
 }
 .messagesList {
   height: 90%;
   display: flex;
   flex-direction: column;
   overflow-x: hidden; /* הסתרת גלילה אופקית */
+
 }
 
 .chat-container {
@@ -45,6 +47,7 @@
 /* התאמה אישית של פס הגלילה עבור מחלקות ספציפיות */
 .messagesList {
   overflow: auto; /* לוודא שיש גלילה פנימית */
+  width: 100%;
 }
 
 .messagesList::-webkit-scrollbar {

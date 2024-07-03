@@ -137,9 +137,10 @@ const createChatID = async (fileID, userId) => {
 };
 
 // פונקציה לקבלת כל הצ'אטים
-const getAllChats = async () => {
+const getAllChats = async (chatClient) => {
   const filters = {}; // התאמת פילטרים לפי הצורך
-  const sort = [{ field: "created_at", direction: -1 }];
+  const sort = { field: "created_at", direction: -1 };
+  console.log(sort);
   const channels = await chatClient.queryChannels(filters, sort, {});
   return channels;
 };
@@ -151,11 +152,11 @@ const deleteChat = async (channelId) => {
 };
 
 // פונקציה למחיקת כל הצ'אטים
-const deleteAllChats = async (userId, userToken) => {
+const deleteAllChats = async (chatClient, userId, userToken) => {
   try {
-    const channels = await getAllChats(`user-${userId}`, userToken);
-    console.log("channels")
-    console.log(channels)
+    console.log("channels");
+    const channels = await getAllChats(chatClient, `user-${userId}`, userToken);
+    console.log(channels);
     for (const channel of channels) {
       await deleteChat(channel.id, userToken);
     }

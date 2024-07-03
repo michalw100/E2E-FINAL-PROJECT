@@ -11,7 +11,6 @@ export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    getApiKey();
     return () => {
       if (clientReady) {
         console.log("disconnecting");
@@ -25,6 +24,12 @@ export const AuthProvider = ({ children }) => {
       setChatClient(StreamChat.getInstance(apiKey));
     }
   }, [apiKey]);
+  
+  useEffect(() => {
+    if (user) {
+      getApiKey();
+    }
+  }, [user]);
 
   useEffect(() => {
     if (!clientReady && user && apiKey) {
