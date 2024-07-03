@@ -9667,3 +9667,9 @@ Date: Wed Jul 03 2024 18:59:48 GMT+0300 (שעון ישראל (קיץ)), Url:/use
 Date: Wed Jul 03 2024 18:59:48 GMT+0300 (שעון ישראל (קיץ)), Url:/users/user?id=4 
 Date: Wed Jul 03 2024 18:59:48 GMT+0300 (שעון ישראל (קיץ)), Url:/chat/apiKey 
 Date: Wed Jul 03 2024 18:59:48 GMT+0300 (שעון ישראל (קיץ)), Url:/chat/apiKey 
+Date: Wed Jul 03 2024 19:14:52 GMT+0300 (שעון ישראל (קיץ)), Url:/files/number-files-uploaded-per-month?id=4 
+Date: Wed Jul 03 2024 19:14:52 GMT+0300 (שעון ישראל (קיץ)), Url:/files/number-files-in-type?id=4 
+Date: Wed Jul 03 2024 19:14:52 GMT+0300 (שעון ישראל (קיץ)), Url:/files/all-status?id=4 
+Date: Wed Jul 03 2024 19:14:52 GMT+0300 (שעון ישראל (קיץ)), Url:/files/all-status?id=4 
+Date: Wed Jul 03 2024 19:14:52 GMT+0300 (שעון ישראל (קיץ)), Url:/files/number-files-uploaded-per-month?id=4 
+Date: Wed Jul 03 2024 19:14:52 GMT+0300 (שעון ישראל (קיץ)), Url:/files/number-files-in-type?id=4 
