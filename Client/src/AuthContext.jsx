@@ -27,7 +27,7 @@ export const AuthProvider = ({ children }) => {
   }, [apiKey]);
 
   useEffect(() => {
-    if (!clientReady && user.id && apiKey) {
+    if (!clientReady && user && apiKey) {
       setupClient();
     }
   }, [user, chatClient]);
