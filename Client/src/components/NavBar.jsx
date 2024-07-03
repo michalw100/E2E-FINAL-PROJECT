@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../AuthContext";
 import { CgProfile } from "react-icons/cg";
 import "../css/navBar.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Navbar({ isUploading }) {
   const { user } = useContext(AuthContext);
@@ -45,8 +46,8 @@ function Navbar({ isUploading }) {
   };
 
   return (
-    <nav>
-      <a href="#" onClick={preventLink}>
+<nav>
+<a href="#" onClick={preventLink}>
         <CgProfile /> Hello {user.name} - {user.role}
       </a>
       <Link to="./updates" onClick={(e) => handleLinkClick(e)}>

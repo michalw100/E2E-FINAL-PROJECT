@@ -31,6 +31,7 @@ function UpdatesPage() {
   const [numFilesPerMonth, setNumFilesPerMonth] = useState([]);
   const [statusData, setStatusData] = useState([]);
   const [types, setTypes] = useState([]);
+  const [messages, setMessages] = useState([]);
 
   // const [numberFiles, setNumberFiles] = useState([]);
 
@@ -45,10 +46,19 @@ function UpdatesPage() {
   }, [user]);
 
   const getMessages = async () => {
-    const massages = await chanels.getChatStats(chatClient, user.id);
-    console.log("messages");
-    console.log(massages);
+    try {
+      const messages = await chanels.getChatStats(chatClient, user.id);
+      console.log("messages", messages);
+      // Calculate the total number of unread messages
+      const totalUnreadMessages = messages.reduce((sum, message) => sum + message.unreadMessagesCount, 0);
+      console.log("Total unread messages:", totalUnreadMessages);
+      setMessages(totalUnreadMessages)
+
+    } catch (error) {
+      console.error("Error fetching messages:", error);
+    }
   };
+  
 
   const getStatus = async () => {
     try {
@@ -232,8 +242,8 @@ function UpdatesPage() {
           <p className="p">0</p>
         </div>
         <div className="chart-container">
-          <div className="title-div"><h3>files</h3></div>
-          <p className="p"><h6>gggggg</h6><img
+          <div className="title-div"><h3>unread Messages</h3></div>
+          <p className="p">{messages}<img
         id="logo"
         className="chats"
         src="../../src/pictures/chat.png"
