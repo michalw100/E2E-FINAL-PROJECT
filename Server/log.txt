@@ -8540,3 +8540,11 @@ Date: Wed Jul 03 2024 01:15:11 GMT+0300 (שעון ישראל (קיץ)), Url:/con
 Date: Wed Jul 03 2024 01:15:11 GMT+0300 (שעון ישראל (קיץ)), Url:/clients/clients 
 Date: Wed Jul 03 2024 01:15:11 GMT+0300 (שעון ישראל (קיץ)), Url:/employees/employees 
 Date: Wed Jul 03 2024 01:15:11 GMT+0300 (שעון ישראל (קיץ)), Url:/connections 
+Date: Wed Jul 03 2024 15:19:46 GMT+0300 (שעון ישראל (קיץ)), Url:/checkAuth 
+Date: Wed Jul 03 2024 15:19:46 GMT+0300 (שעון ישראל (קיץ)), Url:/chat/apiKey 
+Date: Wed Jul 03 2024 15:19:46 GMT+0300 (שעון ישראל (קיץ)), Url:/checkAuth 
+Date: Wed Jul 03 2024 15:19:46 GMT+0300 (שעון ישראל (קיץ)), Url:/chat/apiKey 
+Date: Wed Jul 03 2024 15:20:01 GMT+0300 (שעון ישראל (קיץ)), Url:/chat/apiKey 
+Date: Wed Jul 03 2024 15:20:01 GMT+0300 (שעון ישראל (קיץ)), Url:/checkAuth 
+Date: Wed Jul 03 2024 15:20:01 GMT+0300 (שעון ישראל (קיץ)), Url:/checkAuth 
+Date: Wed Jul 03 2024 15:20:01 GMT+0300 (שעון ישראל (קיץ)), Url:/chat/apiKey 

@@ -20,6 +20,7 @@ function UpdatesPage() {
   const { user } = useContext(AuthContext);
   const [statusData, setStatusData] = useState([]);
   const [types, setTypes] = useState([]);
+  
   // const [numberFiles, setNumberFiles] = useState([]);
 
 
