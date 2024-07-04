@@ -1,44 +1,56 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { ChannelList, useChatContext } from "stream-chat-react";
+import { useLocation } from "react-router-dom";
 
 const ChannelListContainer = () => {
-  const { client, clientReady } = useChatContext();
+  const { client } = useChatContext();
   const [chatId, setChatId] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const location = useLocation();
 
-  useEffect(() => {
-    fetch("http://localhost:3000/chat/getChatIDFromSession", {
-      method: "GET",
-      credentials: "include",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.chatId) {
-          setChatId(data.chatId);
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching chat ID:", error);
-        setChatId(null);
+  const fetchChatId = useCallback(async () => {
+    setIsLoading(true);
+    try {
+      const response = await fetch("http://localhost:3000/chat/getChatIDFromSession", {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
       });
+      const data = await response.json();
+      if (data.chatId) {
+        setChatId(`myChat-${data.chatId}`);
+      } else {
+        setChatId(null);
+      }
+    } catch (error) {
+      console.error("Error fetching chat ID:", error);
+      setChatId(null);
+    } finally {
+      setIsLoading(false);
+    }
   }, []);
 
   useEffect(() => {
-    console.log(chatId);
-  }, [chatId]);
+    fetchChatId();
+  }, [fetchChatId, location]); // הוספנו location כתלות
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  const filters = chatId 
+    ? { id: { $eq: chatId }, members: { $in: [client.userID] } }
+    : { members: { $in: [client.userID] } };
 
   return (
     <ChannelList
-      filters={{
-        id: chatId ? { $eq: `myChat-${chatId}` } : undefined,
-        members: { $in: [client.userID] },
-      }}
+      key={`${chatId || 'all'}-${location.pathname}`} // הוספנו את location.pathname ל-key
+      filters={filters}
       sort={{ last_message_at: -1 }}
       options={{ subscribe: true, state: true }}
-      // Preview={ChannelPreviewMessenger} // Optional: Customize the channel preview component
     />
   );
 };

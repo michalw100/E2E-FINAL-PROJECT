@@ -57,7 +57,7 @@ const Client = ({ client }) => {
         client.userID,
         client.userName
       );
-      navigate("../chats");
+      navigate(`../chats/${client.userID}`);
     } catch (err) {
       console.log(err);
     }

@@ -180,7 +180,7 @@ const File = ({
         file.clientID,
         file.name
       );
-      navigate("../chats");
+      navigate(`../chats/${file.id}`);
     } catch (err) {
       console.log(err);
     }

@@ -25,6 +25,7 @@ function NestedRoutes({ setIsUploading, isUploading }) {
       <Route path="/updates" element={<Updates />} />
       <Route path="/addUser" element={<SignUp />} />
       <Route path="/chats" element={<Chats/>} />
+      <Route path="/chats/:id" element={<Chats/>} />
       <Route path="/myClients" element={<MyClients />} />
       <Route
         path="/myFiles"

@@ -31,8 +31,10 @@ from 'mdb-react-ui-kit';
 function SignIn() {
   const { signIn } = useContext(AuthContext);
   const [loginError, setLoginError] = useState("");
-  const [userName, setUserName] = useState("");
-  const [password, setPassword] = useState("");
+  // const [userName, setUserName] = useState("");
+  const [userName, setUserName] = useState("Client 4");
+  const [password, setPassword] = useState("4");
+  // const [password, setPassword] = useState("");
 
   const handleLogin = async () => {
     if (!userName || !password) {
@@ -62,7 +64,7 @@ function SignIn() {
            
           <MDBCardBody className='px-5'>
 
-            <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Create Account</h3>
+            <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Sign in</h3>
                      <MDBInput wrapperClass='mb-4' label='user Name' id='form1' type='email' value={userName} onChange={(e) => setUserName(e.target.value)}/>
               <MDBInput wrapperClass='mb-4' label='Password' id='form2' type='password' value={password} onChange={(e) => setPassword(e.target.value)}/>
       
