@@ -89,10 +89,10 @@ function UpdatesPage() {
       const unreadMessages = messages.map(
         (message) => message.unreadMessagesCount
       );
-      const totalMessages = messages.reduce(
-        (total, message) => total + message.totalMessagesCount,
-        0
-      );
+      // const totalMessages = messages.reduce(
+      //   (total, message) => total + message.totalMessagesCount,
+      //   0
+      // );
 
       setMessagesSent(messagesSent);
       setMessagesReceived(messagesReceived);
