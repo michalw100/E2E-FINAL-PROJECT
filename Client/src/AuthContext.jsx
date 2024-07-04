@@ -21,7 +21,7 @@ export const AuthProvider = ({ children }) => {
   }, [apiKey]);
 
   useEffect(() => {
-    if (user) {
+    if (user && user.id) {
       getApiKey();
     }
   }, [user]);
@@ -106,7 +106,7 @@ export const AuthProvider = ({ children }) => {
       const userFromDB = await response.json();
       if (response.ok) {
         setUser(userFromDB);
-        navigate("./");
+        navigate("./updates");
       } else {
         throw new Error(
           userFromDB.message || "An error occurred. Please try again."

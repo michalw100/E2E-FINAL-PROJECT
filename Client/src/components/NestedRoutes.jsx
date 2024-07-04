@@ -19,7 +19,7 @@ function NestedRoutes({ setIsUploading, isUploading }) {
         .forEach((line) => line.remove());
     }
   }, [location]);
-
+  
   return (
     <Routes location={location}>
       <Route path="/updates" element={<Updates />} />
