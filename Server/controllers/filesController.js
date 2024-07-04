@@ -299,8 +299,6 @@ async function getStatus(userID, role) {
 async function countTypeFile(type, userID) {
   try {
     const realID = await getClientIDOrEmployeeIDByUserID(userID);
-    // console.log("realID");
-    // console.log(realID);
     if (realID[0].client_id) {
       const result = await model.countTypeFileByClientID(type, userID);
       return result[0];
@@ -316,10 +314,23 @@ async function countTypeFile(type, userID) {
   }
 }
 
-async function getFilesNumber(userID) {
+async function getFilesNumber(userID, role) {
   try {
-    const fileNum = await model.getFilesNumber(userID);
-    return fileNum[0];
+    let numFile;
+    if(role == "Admin")
+      {
+        numFile = await model.getFilesNumberAdmin();
+       return numFile[0]
+      } 
+    const realID = await getClientIDOrEmployeeIDByUserID(userID);
+    if (realID[0].client_id) {
+      const result = await model.getFilesNumberClient(userID);
+      numFile = result;
+    } else {
+      const result = await model.getFilesNumberEmployee(userID);
+      numFile = result;}
+    return numFile[0];
+    
   } catch (err) {
     throw err;
   }
