@@ -1,19 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { AuthContext } from "../AuthContext";
 import "../css/signup.css";
-
-// import {
-//   MDBBtn,
-//   MDBContainer,
-//   MDBRow,
-//   MDBCol,
-//   MDBCard,
-//   MDBCardBody,
-//   MDBCardImage,
-//   MDBInput,
-//   MDBIcon,
-//   MDBCheckbox
-// }
 import {
   MDBBtn,
   MDBContainer,

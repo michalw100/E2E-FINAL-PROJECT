@@ -28,8 +28,6 @@ router.get("/", checkAbilities("read", "files"), async (req, res) => {
     const files = await listFiles(userID, type);
     res.status(200).send(files);
   } catch (err) {
-    // console.log("err");
-    // console.log(err);
     res.status(500).send({ message: err.message });
   }
 });
@@ -48,9 +46,7 @@ router.get("/type", checkAbilities("read", "files"), async (req, res) => {
 router.get("/number-files-uploaded-per-month", checkAbilities("read", "files"), async (req, res) => {
     try {
       const userID = req.query.id;
-      // console.log(req.session.user)
       const numberFiles = await numFilesPerMonth(userID, req.session.user.role);
-      // console.log(numberFiles)
       res.status(200).send(numberFiles);
     } catch (err) {
       res.status(500).send({ message: err.message });
@@ -61,7 +57,7 @@ router.get("/number-files-uploaded-per-month", checkAbilities("read", "files"), 
 router.get("/number-files", checkAbilities("read", "files"), async (req, res) => {
     try {
       const userID = req.query.id;
-      const getFilesNum = await getFilesNumber(userID);
+      const getFilesNum = await getFilesNumber(userID, req.session.user.role);
       res.status(200).send(getFilesNum);
     } catch (err) {
       res.status(500).send({ message: err.message });
@@ -84,8 +80,6 @@ router.get("/all-status", checkAbilities("read", "files"), async (req, res) => {
   try {
     const userID = req.query.id;
     const status = await getStatus(userID, req.session.user.role);
-    // console.log("status");
-    // console.log(status);
     res.status(200).send(status);
   } catch (err) {
     res.status(500).send({ message: err.message });

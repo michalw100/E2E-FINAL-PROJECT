@@ -36,10 +36,10 @@ function Files({ setIsUploading, isUploading }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [pendingIndex, setPendingIndex] = useState(null);
 
-  // const response = fetch("http://localhost:3000/files/deleteAllFiles", {
-  //   method: "DELETE",
-  //   credentials: "include",
-  // });
+  const response = fetch("http://localhost:3000/files/deleteAllFiles", {
+    method: "DELETE",
+    credentials: "include",
+  });
 
   // setTimeout(async () => {
   //   try {
@@ -62,25 +62,25 @@ function Files({ setIsUploading, isUploading }) {
         });
         setFilteredFiles(sortedFiles);
         break;
-      case "Accepted":
-        const acceptedFiles = serverFiles.filter(
-          (file) => file.status === "Accepted"
+      case "Approved":
+        const ApprovedFiles = serverFiles.filter(
+          (file) => file.status === "Approved"
         );
-        setFilteredFiles(acceptedFiles);
+        setFilteredFiles(ApprovedFiles);
         break;
 
-      case "Postponed":
-        const postponedFiles = serverFiles.filter(
-          (file) => file.status === "Postponed"
+      case "Rejected":
+        const RejectedFiles = serverFiles.filter(
+          (file) => file.status === "Rejected"
         );
-        setFilteredFiles(postponedFiles);
+        setFilteredFiles(RejectedFiles);
         break;
 
-      case "Absorbed":
-        const absorbedFiles = serverFiles.filter(
-          (file) => file.status === "Absorbed"
+      case "Pending":
+        const PendingFiles = serverFiles.filter(
+          (file) => file.status === "Pending"
         );
-        setFilteredFiles(absorbedFiles);
+        setFilteredFiles(PendingFiles);
         break;
       case "Deleted":
         const deletedFiles = serverFiles.filter(
@@ -171,8 +171,8 @@ function Files({ setIsUploading, isUploading }) {
     else setIsUploading(false);
   }, [uploadStatus]);
 
-  const onDrop = useCallback((acceptedFiles) => {
-    setFiles((prevFiles) => [...prevFiles, ...acceptedFiles]);
+  const onDrop = useCallback((ApprovedFiles) => {
+    setFiles((prevFiles) => [...prevFiles, ...ApprovedFiles]);
   }, []);
 
   const onDropRejected = useCallback((rejectedFiles) => {
@@ -379,9 +379,9 @@ function Files({ setIsUploading, isUploading }) {
                 }}
               >
                 <option value="dating">dating</option>
-                <option value="Absorbed">Absorbed</option>
-                <option value="Postponed">Postponed</option>
-                <option value="Accepted">Accepted</option>
+                <option value="Pending">Pending</option>
+                <option value="Rejected">Rejected</option>
+                <option value="Approved">Approved</option>
                 <option value="alphabetical">Alphabetical</option>
                 <option value="random">random</option>
               </select>
