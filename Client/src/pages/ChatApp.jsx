@@ -6,6 +6,7 @@ import {
   ChannelHeader,
   Thread,
   Window,
+  useChannelStateContext,
 } from "stream-chat-react";
 import "stream-chat-react/dist/css/index.css";
 import ChannelListContainer from "../components/ChanelList";
@@ -19,6 +20,19 @@ const ChatApp = () => {
   if (!clientReady)
     return <img className="loading" src={MyImage} alt="Loading..." />;
 
+  const CustomChannelHeader = () => {
+    const { channel } = useChannelStateContext();
+
+    return (
+      <div className="channel-header__container">
+        <div className="channel-header__name">{channel?.data?.name}</div>
+        <div className="channel-header__description">
+          {channel?.data?.description}
+        </div>
+      </div>
+    );
+  };
+
   return (
     <Chat client={chatClient} theme="messaging light">
       <div className="chat-container">
@@ -29,7 +43,8 @@ const ChatApp = () => {
           <Channel>
             <div className="window-container">
               <Window>
-                <ChannelHeader />
+                <CustomChannelHeader  showChannelName={true} showDescription={true} />
+                <ChannelHeader showChannelName={true} showDescription={true} />
                 <ChannelMessages />
               </Window>
             </div>

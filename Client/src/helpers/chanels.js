@@ -1,7 +1,7 @@
 // import { StreamChat } from "stream-chat";
 
 // פונקציה ליצירת צאט חדש
-const createChatChannel = async (chatClient, fileId, userId, name) => {
+const createChatChannel = async (chatClient, fileId, userId, name, file) => {
   const chatId = await getChatID(fileId, userId);
   if (chatId) {
     await saveCurrentChat(chatId.id);
@@ -22,7 +22,7 @@ const createChatChannel = async (chatClient, fileId, userId, name) => {
         const channel = chatClient.channel("messaging", `myChat-${newChatId}`, {
           members: members,
           name: name,
-          // description: "This is a team chat for project XYZ",
+          description: "תיאור הצ'אט כאן", // הוסף את זה
         });
         await channel.create();
         await saveCurrentChat(newChatId);
@@ -161,7 +161,7 @@ const deleteChat = async (chatClient, channelId) => {
 // פונקציה למחיקת כל הצ'אטים
 const deleteAllChats = async (chatClient, userId, userToken) => {
   try {
-     const channels = await getAllChats(chatClient, `user-21`, userToken);
+    const channels = await getAllChats(chatClient, `user-21`, userToken);
     console.log(channels);
     for (const channel of channels) {
       await deleteChat(chatClient, channel.id, userToken);
@@ -182,7 +182,9 @@ const getUnreadMessagesForChat = async (chatsInfo, fileID, userID) => {
 
     const myChat = await getChatID(fileID, userID);
     // console.log(myChat);
-    const chat = chatsInfo.find((chat) => chat.chatId === `myChat-${myChat.id}`);
+    const chat = chatsInfo.find(
+      (chat) => chat.chatId === `myChat-${myChat.id}`
+    );
 
     if (!chat) {
       console.log(`Chat with id ${myChat.id} not found`);
@@ -221,4 +223,5 @@ export default {
   deleteAllChats,
   getUnreadMessagesForChat,
   getChatsWithUnreadMessages,
+  getChatID,
 };

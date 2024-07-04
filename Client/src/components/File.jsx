@@ -186,9 +186,7 @@ const File = ({
 
   const commentsFunc = async () => {
     try {
-      // console.log("ownerOfFiles");
-      // console.log(ownerOfFiles);
-      // const chanel1 = await chanel.deleteAllChats(
+      // const chanel1 = await chanels.deleteAllChats(
       // chatClient,
       // user.id,
       // user.streamToken
@@ -197,7 +195,8 @@ const File = ({
         chatClient,
         file.id,
         file.clientID,
-        file.name
+        file.name,
+        file
       );
       navigate(`../chats/${file.id}`);
     } catch (err) {
