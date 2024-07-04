@@ -132,6 +132,7 @@ export const AuthProvider = ({ children }) => {
           headers: { "Content-Type": "application/json" },
         });
         console.log(response);
+        console.log(allFiles);
 
         allFiles = [...allFiles, ...response.data];
       }
@@ -272,7 +273,7 @@ export const AuthProvider = ({ children }) => {
       });
       const data = await response.json();
       if (response.ok) {
-        navigate("./");
+        navigate("./updates");
       } else {
         throw new Error(data.message || "An error occurred. Please try again.");
       }
