@@ -256,3 +256,19 @@ li {
     width: 100%;
   }
 }
+
+
+.modal {
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  z-index: var(--mdb-modal-zindex);
+  /* width: auto !important; */
+  max-width: 80%; /* Adjust as needed */
+  height: auto !important;
+  max-height: 80% !important; /* Adjust as needed */
+  /* overflow-x: hidden !important; */
+  /* overflow-y: auto ; Allow vertical scrolling if content overflows */
+  outline: 0;
+  display: block !important;
+}

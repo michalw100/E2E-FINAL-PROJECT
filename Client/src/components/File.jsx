@@ -162,8 +162,8 @@ const File = ({
   };
 
   const nodeleteFile = () => {
-    setStatus("Absorbed");
-    changeStatus("Absorbed");
+    setStatus("Pending");
+    changeStatus("Pending");
   };
 
   const commentsFunc = async () => {
@@ -313,11 +313,11 @@ const File = ({
                   ref={selectRef}
                   style={{
                     background:
-                      status === "Absorbed"
+                      status === "Pending"
                         ? "rgb(114 164 216)"
-                        : status === "Accepted"
+                        : status === "Approved"
                         ? "#90e290"
-                        : status === "Postponed"
+                        : status === "Rejected"
                         ? "#d85a5a"
                         : "rgb(178 174 174)",
                   }}
@@ -340,15 +340,15 @@ const File = ({
                   {user.role == "Client" && file.uploaderID != user.id && (
                     <>
                       <option value={status}>Select status...</option>
-                      <option value="Accepted">Accepted</option>
+                      <option value="Approved">Approved</option>
                     </>
                   )}
                   {user.role != "Client" && (
                     <>
                       <option value={status}>Select status...</option>
-                      <option value="Accepted">Accepted</option>
-                      <option value="Postponed">Postponed</option>
-                      <option value="Absorbed">Absorbed</option>
+                      <option value="Approved">Approved</option>
+                      <option value="Rejected">Rejected</option>
+                      <option value="Pending">Pending</option>
                     </>
                   )}
                 </select>

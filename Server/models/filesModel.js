@@ -3,7 +3,7 @@ const pool = require("../DB.js");
 async function saveFileToDB(fileId, fileName, type, uploaderID, clientID) {
   try {
     const sql = `INSERT INTO files (driveFileId, name, type, uploaderID, clientID, status) VALUES (?, ?, ?, ?, ?, ?)`;
-    const newFile = await pool.query(sql, [fileId, fileName, type, uploaderID, clientID, "Absorbed"]);
+    const newFile = await pool.query(sql, [fileId, fileName, type, uploaderID, clientID, "Pending"]);
     return newFile[0];
 
   } catch (err) {
@@ -26,7 +26,7 @@ async function getFilesNumberEmployee(userID) {
 
     const sql = `
 SELECT 
-    COUNT(f.id) AS totalFileCount
+    COUNT(f.id) AS fileCount
 FROM 
     employees e
 JOIN 

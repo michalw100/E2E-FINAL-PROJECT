@@ -35,22 +35,26 @@ function UpdatesPage() {
   const [messagesSent, setMessagesSent] = useState([]);
   const [messagesReceived, setMessagesReceived] = useState([]);
   const [unreadMessages, setUnreadMessages] = useState([]);
-  const [totalMessages, setTotalMessages] = useState(0);
+  // const [totalMessages, setTotalMessages] = useState(0);
 
-  // const [numberFiles, setNumberFiles] = useState([]);
+  const [numberFiles, setNumberFiles] = useState([]);
 
   useEffect(() => {
     if (user && user.id) {
       fetchFilesPerMonth();
       getStatus();
       getTypes();
-      //  getNumberFiles();
+      getNumberFiles();
+      getMessages();
+
+    }
+    if (clientReady) {
+      fetchMessagesData();
     }
   }, [user]);
   
   useEffect(() => {
     if (clientReady) {
-      getMessages();
       //  getNumberFiles();
       fetchMessagesData();
     }
@@ -93,7 +97,7 @@ function UpdatesPage() {
       setMessagesSent(messagesSent);
       setMessagesReceived(messagesReceived);
       setUnreadMessages(unreadMessages);
-      setTotalMessages(totalMessages);
+      // setTotalMessages(totalMessages);
     } catch (error) {
       console.error("Error fetching messages data:", error);
     }
@@ -119,25 +123,25 @@ function UpdatesPage() {
     }
   };
 
-  // const getNumberFiles = async () => {
-  //   try {
-  //     const response = await fetch(`http://localhost:3000/files/number-files?id=${user.id}`, {
-  //       method: "GET",
-  //       credentials: "include",
-  //       headers: {
-  //         Accept: "application/json",
-  //         "Content-Type": "application/json",
-  //       },
-  //     });
-  //     const data = await response.json();
-  //     setNumberFiles(data.fileCount);
-  //     console.log("number files")
-  //     console.log(data.fileCount)
+  const getNumberFiles = async () => {
+    try {
+      const response = await fetch(`http://localhost:3000/files/number-files?id=${user.id}`, {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await response.json();
+      setNumberFiles(data.fileCount);
+      console.log("number files")
+      console.log(data.fileCount)
 
-  //   } catch (error) {
-  //     console.error("Error fetching status data:", error);
-  //   }
-  // };
+    } catch (error) {
+      console.error("Error fetching status data:", error);
+    }
+  };
 
   const getTypes = async () => {
     try {
@@ -191,12 +195,37 @@ function UpdatesPage() {
 
   const statusLabels = statusData.map((status) => status.status);
   const statusCounts = statusData.map((status) => status.count);
+  // const doughnutData1 = {
+  //   labels: ["Messages Sent", "Messages Received", "Unread Messages"],
+  //   datasets: [
+  //     {
+  //       label: "Messages Overview",
+  //       data: [messagesSent, messagesReceived, unreadMessages],
+  //       backgroundColor: [
+  //         "rgba(255, 99, 132, 0.2)",
+  //         "rgba(54, 162, 235, 0.2)",
+  //         "rgba(255, 206, 86, 0.2)",
+  //       ],
+  //       borderColor: [
+  //         "rgba(255, 99, 132, 1)",
+  //         "rgba(54, 162, 235, 1)",
+  //         "rgba(255, 206, 86, 1)",
+  //         "rgba(75, 192, 192, 1)",
+  //       ],
+  //       borderWidth: 1,
+  //     },
+  //   ],
+  // };
   const doughnutData = {
     labels: ["Messages Sent", "Messages Received", "Unread Messages"],
     datasets: [
       {
         label: "Messages Overview",
-        data: [messagesSent, messagesReceived, unreadMessages],
+        data: [
+          messagesSent.reduce((a, b) => a + b, 0),
+          messagesReceived.reduce((a, b) => a + b, 0),
+          unreadMessages.reduce((a, b) => a + b, 0)
+        ],
         backgroundColor: [
           "rgba(255, 99, 132, 0.2)",
           "rgba(54, 162, 235, 0.2)",
@@ -206,13 +235,13 @@ function UpdatesPage() {
           "rgba(255, 99, 132, 1)",
           "rgba(54, 162, 235, 1)",
           "rgba(255, 206, 86, 1)",
-          "rgba(75, 192, 192, 1)",
         ],
         borderWidth: 1,
       },
     ],
   };
-
+  
+  
   // const radarData = {
   //   labels: ["Messages Sent", "Messages Received", "Unread Messages", "Total Messages"],
   //   datasets: [
@@ -324,16 +353,24 @@ function UpdatesPage() {
               id="logo"
               className="chats"
               src="../../src/pictures/chat.png"
-              alt="logo"
+              alt="chat"
             />
           </p>
         </div>
 
         <div className="chart-container">
           <div className="title-div">
-            <h3>files</h3>
+            <h3>Number Files</h3>
           </div>
-          <p className="p">0</p>
+          <p className="p">
+            {numberFiles}
+            <img
+              id="logo"
+              className="chats"
+              src="../../src/pictures/document.png"
+              alt="document"
+            />
+          </p>
         </div>
         <div className="chart-container">
           <div className="title-div">
