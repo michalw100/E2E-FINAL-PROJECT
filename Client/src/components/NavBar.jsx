@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../AuthContext";
 import { CgProfile } from "react-icons/cg";
 import "../css/navBar.css";
+import { MDBBadge } from "mdb-react-ui-kit";
+import { FaComments } from "react-icons/fa";
 
 function Navbar({ isUploading }) {
   const { user } = useContext(AuthContext);
@@ -45,15 +47,26 @@ function Navbar({ isUploading }) {
   };
 
   return (
-<nav>
-<a href="#" onClick={preventLink}>
+    <nav>
+      <a href="#" onClick={preventLink}>
         <CgProfile /> Hello {user.name} - {user.role}
       </a>
       <Link to="./updates" onClick={(e) => handleLinkClick(e)}>
         Updates
-      </Link> 
-      <Link to="./chats" onClick={(e) => handleLinkClick(e)}>
-        Chats
+      </Link>
+      <Link
+        className=" btn-primary position-relative mx-3"
+        to="./chats"
+        onClick={(e) => handleLinkClick(e)}
+      >
+        <FaComments />
+        <MDBBadge
+          pill
+          color="danger"
+          className="position-absolute top-0 start-100 translate-middle"
+        >
+          +99 {/*<span className='visually-hidden'>unread messages</span> */}
+        </MDBBadge>
       </Link>
       {user.role != "Client" && (
         <Link to="./addUser" onClick={(e) => handleLinkClick(e)}>
@@ -90,11 +103,7 @@ function Navbar({ isUploading }) {
       >
         Logout
       </Link>
-      <img
-        id="logo"
-        src="../../src/pictures/RoundLogo.png"
-        alt="logo"
-      />
+      <img id="logo" src="../../src/pictures/RoundLogo.png" alt="logo" />
     </nav>
   );
 }

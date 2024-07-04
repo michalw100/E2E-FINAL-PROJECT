@@ -27,13 +27,10 @@ router.post("/chat", async (req, res) => {
 router.get("/chat", async (req, res) => {
   try {
     const { fileID, userID } = req.query;
-    console.log(fileID);
-    console.log(userID);
     let chat;
-    if (fileID != null) chat = await getChatControllerByFileID(fileID);
-    else if (userID) chat = await getChatControlleryByUserID(userID);
-    console.log("chatchatchatchatchatchat");
-    console.log(chat);
+    if (!fileID == "null") {
+      chat = await getChatControllerByFileID(fileID);
+    } else if (userID) chat = await getChatControlleryByUserID(userID);
     if (chat) res.status(200).json(chat);
     else res.status(204).send();
   } catch (error) {

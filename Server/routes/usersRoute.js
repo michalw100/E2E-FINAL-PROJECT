@@ -25,6 +25,8 @@ router.get("/chatMembers", async (req, res) => {
   try {
     const id = req.query.id;
     const members = await getManagers(id);
+    console.log("members");
+    console.log(members);
     res.status(200).send([members]);
   } catch (err) {
     res.status(500).send({ message: err.message });

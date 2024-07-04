@@ -43,6 +43,8 @@ async function getChatControllerByFileID(fileID) {
 async function getChatControlleryByUserID(userID) {
   try{
     const result = await pool.query('SELECT * FROM chats WHERE userID = ?', [userID]);
+    console.log("result");
+    console.log(result);
     return result[0];
   
   } catch(err){

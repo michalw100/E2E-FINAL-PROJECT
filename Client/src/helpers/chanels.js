@@ -15,6 +15,8 @@ const createChatChannel = async (chatClient, fileId, userId, name) => {
     console.log(`user-${userId}`);
     chatMembers.push(`user-${userId}`);
     const newChatId = await createChatID(fileId, userId);
+    console.log("newChatId");
+    console.log(newChatId);
     try {
       if (newChatId && userId) {
         const members = chatMembers;
@@ -65,14 +67,14 @@ const getChatMembers = async (userId) => {
   })
     .then((response) => {
       if (!response.ok) {
-        // console.log(response);
+        console.log(response);
       }
-      // console.log(response);
+      console.log(response);
       return response.json();
     })
     .then((data) => {
       // const chat = data.json();
-      // console.log(data[0]);
+      console.log(data[0]);
       members = data[0];
     });
   return members;
@@ -107,7 +109,7 @@ const createChatID = async (fileID, userId) => {
     method: "post",
     headers: { "Content-Type": "application/json" },
     credentials: "include",
-    body: JSON.stringify({ fileID: fileID, userId: userId }),
+    body: JSON.stringify({ fileID: fileID, userID: userId }),
   })
     .then((response) => {
       if (!response.ok) {
@@ -124,7 +126,7 @@ const createChatID = async (fileID, userId) => {
 // פונקציה לקבלת כל הצ'אטים
 const getAllChats = async (chatClient, userID) => {
   try {
-    const filters = { members: { $in: [`user-4`] } };
+    const filters = { members: { $in: [`user-20`] } };
     const sort = { last_message_at: -1 };
     const channels = await chatClient.queryChannels(filters, sort, {});
     return channels;
@@ -145,7 +147,7 @@ const deleteAllChats = async (chatClient, userId, userToken) => {
   try {
     console.log("channels");
     // await chatClient.updateUser({ id: `user-20`, role: 'admin' });
-    // const response = await chatClient.queryUsers({ id: `user-20` });
+    // const response = await chatClient.queryUsers({ id: `user-21` });
     // const user = response.users[0];
     // console.log("User roles:", user); // תדפיס את התפקידים של המשתמש
 
