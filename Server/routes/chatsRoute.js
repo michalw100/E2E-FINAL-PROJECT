@@ -59,9 +59,9 @@ router.get("/apiKey", async (req, res) => {
 });
 
 router.get("/getChatIDFromSession", (req, res) => {
-  // console.log("getClientID");
+  console.log("getchatId");
   if (req.session.chatId) {
-    // console.log(req.session.clientID);
+    console.log(req.session.chatId);
     res.status(200).send({ chatId: req.session.chatId });
   } else {
     // console.log("false");
@@ -70,17 +70,22 @@ router.get("/getChatIDFromSession", (req, res) => {
 });
 
 router.get("/clearChatIDFromSession", (req, res, next) => {
+  console.log("clearchatId");
   if (req.session.chatId) {
+    console.log(req.session.chatId);
     delete req.session.chatId;
+    console.log(req.session.chatId);
     res.sendStatus(200);
   } else res.sendStatus(404);
 });
 
 router.post("/storeChatIDToSession", async (req, res, next) => {
   const chatId = req.body.chatId || req.query.chatId;
+  console.log("storechatId");
   if (chatId) {
     // const chatId = await getChatByNameController(chatId);
     req.session.chatId = chatId;
+    console.log(req.session.chatId);
     res.status(200).json({ message: "chatId stored successfully" });
   } else {
     // console.log("false");

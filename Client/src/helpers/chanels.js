@@ -4,8 +4,7 @@
 const createChatChannel = async (chatClient, fileId, userId, name) => {
   const chatId = await getChatID(fileId, userId);
   if (chatId) {
-    console.log("chatId");
-    console.log(chatId);
+    await saveCurrentChat(chatId.id);
   } else {
     const userIds = await getChatMembers(userId);
     const chatMembers = userIds.map(
@@ -20,15 +19,11 @@ const createChatChannel = async (chatClient, fileId, userId, name) => {
     try {
       if (newChatId && userId) {
         const members = chatMembers;
-        const channel = chatClient.channel(
-          "messaging",
-          `myChatsmichal-${newChatId}`,
-          {
-            members: members,
-            name: name,
-            // description: "This is a team chat for project XYZ",
-          }
-        );
+        const channel = chatClient.channel("messaging", `myChat-${newChatId}`, {
+          members: members,
+          name: name,
+          // description: "This is a team chat for project XYZ",
+        });
         await channel.create();
         await saveCurrentChat(newChatId);
         return channel.data;
@@ -41,7 +36,6 @@ const createChatChannel = async (chatClient, fileId, userId, name) => {
 
 const saveCurrentChat = async (chatId) => {
   try {
-    console.log("saveCurrentChat", chatId);
     const response = await fetch(
       `http://localhost:3000/chat/storeChatIDToSession`,
       {
@@ -92,9 +86,7 @@ const getChatMembers = async (userId) => {
   })
     .then((response) => {
       if (!response.ok) {
-        console.log(response);
       }
-      console.log(response);
       return response.json();
     })
     .then((data) => {
@@ -107,7 +99,6 @@ const getChatMembers = async (userId) => {
 
 const getChatID = async (fileID, userID) => {
   let chat;
-  console.log(fileID, userID);
   await fetch(
     `http://localhost:3000/chat/chat?fileID=${fileID}&&userID=${userID}`,
     {
@@ -197,6 +188,7 @@ const getChatStats = async (chatClient, userId) => {
     const chatStats = [];
 
     for (const channel of channels) {
+      // console.log(channel.cid);
       const messages = await channel.query({
         messages: { limit: 500 },
       });
