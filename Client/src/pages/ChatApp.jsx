@@ -15,45 +15,26 @@ import MyImage from "../pictures/loading-bar.png";
 
 const ChatApp = () => {
   const { chatClient, clientReady } = useContext(AuthContext);
-  const [activeChannel, setActiveChannel] = useState(false);
-  const initialChannelId = null;
-
-  const clickChannelById = (channelId) => {
-    const channelElement = document.getElementById(channelId);
-    if (channelElement) {
-      channelElement.click();
-    }
-  };
-
-  useEffect(() => {
-    if (clientReady) {
-      clickChannelById('2'); // ניתן לשנות ל-ID המבוקש
-    }
-  }, [clientReady]);
 
   if (!clientReady)
     return <img className="loading" src={MyImage} alt="Loading..." />;
-  
+
   return (
     <Chat client={chatClient} theme="messaging light">
       <div className="chat-container">
         <div className="channel-list-container">
-          <ChannelListContainer setActiveChannel={setActiveChannel} />
+          <ChannelListContainer />
         </div>
         <div className="channel-container">
-          {activeChannel ? (
-            <Channel>
-              <div className="window-container">
-                <Window>
-                  <ChannelHeader />
-                  <ChannelMessages />
-                </Window>
-              </div>
-              <Thread />
-            </Channel>
-          ) : (
-            <div>Please select a chat from the list.</div>
-          )}
+          <Channel>
+            <div className="window-container">
+              <Window>
+                <ChannelHeader />
+                <ChannelMessages />
+              </Window>
+            </div>
+            <Thread />
+          </Channel>
         </div>
       </div>
     </Chat>

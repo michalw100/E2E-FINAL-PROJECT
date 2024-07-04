@@ -11,8 +11,7 @@ import chanel from "../helpers/chanels.js";
 import { useNavigate } from "react-router-dom";
 import "../css/file.css";
 
-import { MDBBadge } from 'mdb-react-ui-kit';
-
+import { MDBBadge } from "mdb-react-ui-kit";
 
 const File = ({
   file,
@@ -171,9 +170,9 @@ const File = ({
       console.log("ownerOfFiles");
       console.log(ownerOfFiles);
       // const chanel1 = await chanel.deleteAllChats(
-      //   chatClient,
-      //   user.id,
-      //   user.streamToken
+      // chatClient,
+      // user.id,
+      // user.streamToken
       // );
       await chanel.createChatChannel(
         chatClient,
@@ -406,17 +405,25 @@ const File = ({
           </div>
           <div className="file-actions">
             {status !== "Deleted" && (
-              <button className="download btn-primary position-relative mx-3" onClick={downloadFile}>
+              <button
+                className="download btn-primary position-relative mx-3"
+                onClick={downloadFile}
+              >
                 <FaDownload />
               </button>
             )}
             {status !== "Deleted" ? (
-              <button className='delete btn-primary position-relative mx-3'
-              onClick={deleteFile}>
+              <button
+                className="delete btn-primary position-relative mx-3"
+                onClick={deleteFile}
+              >
                 <MdDelete />
               </button>
             ) : (
-              <button className="delete btn-primary position-relative mx-3" onClick={nodeleteFile}>
+              <button
+                className="delete btn-primary position-relative mx-3"
+                onClick={nodeleteFile}
+              >
                 <MdDeleteForever />
               </button>
             )}
@@ -424,18 +431,23 @@ const File = ({
               <FaComments />
             </button> */}
             <button
-        type='comments' onClick={commentsFunc}
-        className=' btn-primary position-relative mx-3'
-        // style={{ backgroundColor: '#ac2bac' }}
-      >
-                      <FaComments />
+              type="comments"
+              onClick={commentsFunc}
+              className=" btn-primary position-relative mx-3"
+              // style={{ backgroundColor: '#ac2bac' }}
+            >
+              <FaComments />
 
-        {/* <i className='fab fa-instagram'></i> */}
-        <MDBBadge pill color='danger' className='position-absolute top-0 start-100 translate-middle'>
-           +99 {/*<span className='visually-hidden'>unread messages</span> */}
-        </MDBBadge>
-      </button>
-
+              {/* <i className='fab fa-instagram'></i> */}
+              <MDBBadge
+                pill
+                color="danger"
+                className="position-absolute top-0 start-100 translate-middle"
+              >
+                +99{" "}
+                {/*<span className='visually-hidden'>unread messages</span> */}
+              </MDBBadge>
+            </button>
           </div>
         </div>
       )}
