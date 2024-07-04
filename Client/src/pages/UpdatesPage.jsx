@@ -51,14 +51,14 @@ function UpdatesPage() {
     if (clientReady) {
       fetchMessagesData();
     }
-  }, [user]);
+  }, [,user]);
   
-  useEffect(() => {
-    if (clientReady) {
-      //  getNumberFiles();
-      fetchMessagesData();
-    }
-  }, [chatClient]);
+  // useEffect(() => {
+  //   if (clientReady) {
+  //     //  getNumberFiles();
+  //     fetchMessagesData();
+  //   }
+  // }, [chatClient]);
 
   const getMessages = async () => {
     try {
