@@ -27,13 +27,9 @@ router.post("/chat", async (req, res) => {
 router.get("/chat", async (req, res) => {
   try {
     const { fileID, userID } = req.query;
-    console.log(fileID);
-    console.log(userID);
     let chat;
-    if (fileID != null) chat = await getChatControllerByFileID(fileID);
+    if (fileID != "null") chat = await getChatControllerByFileID(fileID);
     else if (userID) chat = await getChatControlleryByUserID(userID);
-    console.log("chatchatchatchatchatchat");
-    console.log(chat);
     if (chat) res.status(200).json(chat);
     else res.status(204).send();
   } catch (error) {
@@ -62,37 +58,35 @@ router.get("/apiKey", async (req, res) => {
   }
 });
 
-router.get("/getChatIDFronSession", (req, res) => {
+router.get("/getChatIDFromSession", (req, res) => {
   // console.log("getClientID");
-  if (req.session.chatID) {
+  if (req.session.chatId) {
     // console.log(req.session.clientID);
-    res.status(200).send({ clientID: req.session.chatID });
+    res.status(200).send({ chatId: req.session.chatId });
   } else {
     // console.log("false");
     res.status(404).send({ message: "ChatID not found in session" });
   }
 });
 
-router.get("/clearChatIDFronSession", (req, res, next) => {
-  // console.log("clearClientID");
-  if (req.session.chatID) {
-    delete req.session.chatID;
+router.get("/clearChatIDFromSession", (req, res, next) => {
+  if (req.session.chatId) {
+    delete req.session.chatId;
     res.sendStatus(200);
   } else res.sendStatus(404);
 });
 
-// router.post("/storeChatIDFronSession", async (req, res, next) => {
-//   // console.log("storeClientID");
-//   const chatName = req.body.chatName || req.query.chatName;
-//   if (chatName) {
-//     const chatId = await getChatByNameController(chatName);
-//     req.session.chatId = chatId;
-//     res.status(200).json({ message: "chatId stored successfully" });
-//   } else {
-//     // console.log("false");
-//     res.status(400).json({ message: "No chatId provided" });
-//   }
-// });
+router.post("/storeChatIDToSession", async (req, res, next) => {
+  const chatId = req.body.chatId || req.query.chatId;
+  if (chatId) {
+    // const chatId = await getChatByNameController(chatId);
+    req.session.chatId = chatId;
+    res.status(200).json({ message: "chatId stored successfully" });
+  } else {
+    // console.log("false");
+    res.status(400).json({ message: "No chatId provided" });
+  }
+});
 
 // router.get("/:id", async (req, res) => {
 //   try {
