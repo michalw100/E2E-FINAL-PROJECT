@@ -32,7 +32,7 @@ const File = ({
   const [uplodersName, setUplodersName] = useState(file.remark || "");
   const [ownerName, setOwnerName] = useState(file.remark || "");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState(0);
   const remarkRef = useRef(null);
   const selectRef = useRef(null);
 
@@ -465,7 +465,7 @@ const File = ({
                 color="danger"
                 className="position-absolute top-0 start-100 translate-middle"
               >
-                +99{" "}
+                {messages}
                 {/*<span className='visually-hidden'>unread messages</span> */}
               </MDBBadge>
             </button>
