@@ -1,4 +1,4 @@
-import { StreamChat } from "stream-chat";
+// import { StreamChat } from "stream-chat";
 
 // פונקציה ליצירת צאט חדש
 const createChatChannel = async (chatClient, fileId, userId, name) => {
@@ -22,7 +22,7 @@ const createChatChannel = async (chatClient, fileId, userId, name) => {
         const members = chatMembers;
         const channel = chatClient.channel(
           "messaging",
-          `myChats-${newChatId}`,
+          `myChatsmichal-${newChatId}`,
           {
             members: members,
             name: name,

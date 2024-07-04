@@ -21,25 +21,25 @@ async function getFilesByClientID(clientID, type) {
   }
 }
 
-// async function getFilesNumber(userID) {
-//   try{
+async function getFilesNumber(userID) {
+  try{
 
-//     const sql = `
-//   SELECT 
-//       clientID, 
-//       COUNT(*) AS fileCount 
-//   FROM 
-//       files 
-//   WHERE 
-//       clientID = (SELECT id FROM clients WHERE userID = ?)
-//   GROUP BY 
-//       clientID;`;
-//     const files = await pool.query(sql, [userID]);
-//     return files[0];
-//   }catch (err) {
-//     throw err;
-//   }
-// }
+    const sql = `
+  SELECT 
+      clientID, 
+      COUNT(*) AS fileCount 
+  FROM 
+      files 
+  WHERE 
+      clientID = (SELECT id FROM clients WHERE userID = ?)
+  GROUP BY 
+      clientID;`;
+    const files = await pool.query(sql, [userID]);
+    return files[0];
+  }catch (err) {
+    throw err;
+  }
+}
 
 
 async function numFilesPerMonthClient(userID) {

@@ -21,7 +21,7 @@ export const AuthProvider = ({ children }) => {
   }, [apiKey]);
 
   useEffect(() => {
-    if (user) {
+    if (user && user.id) {
       getApiKey();
     }
   }, [user]);
