@@ -10,6 +10,7 @@ import { useDrag } from "react-dnd";
 import chanel from "../helpers/chanels.js";
 import { useNavigate } from "react-router-dom";
 import "../css/file.css";
+import chanels from "../helpers/chanels";
 
 import { MDBBadge } from "mdb-react-ui-kit";
 
@@ -31,6 +32,7 @@ const File = ({
   const [uplodersName, setUplodersName] = useState(file.remark || "");
   const [ownerName, setOwnerName] = useState(file.remark || "");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [messages, setMessages] = useState([]);
   const remarkRef = useRef(null);
   const selectRef = useRef(null);
 
@@ -44,6 +46,7 @@ const File = ({
 
   useEffect(() => {
     uploderName();
+    getMessages();
     const handleClickOutside = (event) => {
       if (
         selectRef.current &&
@@ -64,6 +67,24 @@ const File = ({
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+
+  const getMessages = async () => {
+    try {
+      const messages = await chanels.getChatStats(chatClient, user.id);
+      console.log("messages", messages);
+      // Calculate the total number of unread messages
+      const totalUnreadMessages = messages.reduce(
+        (sum, message) => sum + message.unreadMessagesCount,
+        0
+      );
+      console.log("Total unread messages:", totalUnreadMessages);
+      setMessages(totalUnreadMessages);
+    } catch (error) {
+      console.error("Error fetching messages:", error);
+    }
+  };
+  
 
   const uploderName = async () => {
     const data1 = await fetch(
