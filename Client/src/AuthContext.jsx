@@ -8,6 +8,7 @@ export const AuthProvider = ({ children }) => {
   const [chatClient, setChatClient] = useState(null);
   const [apiKey, setApiKey] = useState(null);
   const [clientReady, setClientReady] = useState(false);
+  const [chatsInfo, setChatsInfo] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -32,6 +33,12 @@ export const AuthProvider = ({ children }) => {
     }
   }, [user, chatClient]);
 
+  useEffect(() => {
+    if (clientReady) {
+      fetchAllChatsInfo();
+    }
+  }, [clientReady, user]);
+
   const disconnectClient = async () => {
     if (clientReady) {
       chatClient.disconnectUser();
@@ -48,6 +55,49 @@ export const AuthProvider = ({ children }) => {
       userToken
     );
     setClientReady(true);
+  };
+
+  const fetchAllChatsInfo = async () => {
+    if (!clientReady || !chatClient || !user) return;
+
+    try {
+      const filters = { members: { $in: [`user-${user.id}`] } };
+      const sort = { last_message_at: -1 };
+      const channels = await chatClient.queryChannels(filters, sort, {});
+
+      const allChatsInfo = await Promise.all(
+        channels.map(async (channel) => {
+          const messages = await channel.query({ messages: { limit: 500 } });
+
+          const userMessagesCount = messages.messages.filter(
+            (message) => message.user.id === `user-${user.id}`
+          ).length;
+
+          const otherMessagesCount = messages.messages.filter(
+            (message) => message.user.id !== `user-${user.id}`
+          ).length;
+
+          return {
+            chatId: channel.id,
+            chatType: channel.type,
+            chatName: channel.data.name,
+            members: channel.state.members,
+            userMessagesCount: userMessagesCount,
+            otherMessagesCount: otherMessagesCount,
+            unreadMessagesCount: channel.state.unreadCount,
+            totalMessagesCount: userMessagesCount + otherMessagesCount,
+            lastMessageAt: channel.state.last_message_at,
+            createdAt: channel.created_at,
+            createdBy: channel.created_by,
+            // Добавьте любые другие свойства канала, которые вам нужны
+          };
+        })
+      );
+      console.log(allChatsInfo);
+      setChatsInfo(allChatsInfo);
+    } catch (error) {
+      console.error("Error fetching chats info:", error);
+    }
   };
 
   const getApiKey = async () => {
@@ -157,7 +207,16 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, setUser, signIn, logout, signUp, chatClient, clientReady }}
+      value={{
+        user,
+        setUser,
+        signIn,
+        logout,
+        signUp,
+        chatClient,
+        clientReady,
+        chatsInfo,
+      }}
     >
       {user === undefined ? null : children}
     </AuthContext.Provider>

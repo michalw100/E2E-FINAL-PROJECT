@@ -7,12 +7,33 @@ import { FaComments } from "react-icons/fa";
 import chanel from "../helpers/chanels.js";
 import { AuthContext } from "../AuthContext";
 import { MDBBadge } from "mdb-react-ui-kit";
+import chanels from "../helpers/chanels.js";
 import "../css/client.css";
 
 const Client = ({ client }) => {
-  const { chatClient } = useContext(AuthContext);
-
+  const { user, chatClient, chatsInfo } = useContext(AuthContext);
+  const [messages, setMessages] = useState(-1);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    getMessages();
+  }, [chatsInfo]);
+
+  const getMessages = async () => {
+    try {
+      const messages = await chanels.getUnreadMessagesForChat(
+        chatsInfo,
+        null,
+        client.userID
+      );
+      console.log(client.userID)
+      console.log(messages)
+      if (messages == -1) return;
+      else setMessages(messages);
+    } catch (error) {
+      console.error("Error fetching messages:", error);
+    }
+  };
 
   const saveMyClient = async () => {
     try {
@@ -51,7 +72,7 @@ const Client = ({ client }) => {
 
   const viewChat = async () => {
     try {
-       await chanel.createChatChannel(
+      await chanel.createChatChannel(
         chatClient,
         null,
         client.userID,
@@ -92,13 +113,16 @@ const Client = ({ client }) => {
       >
         <FaComments />
         {/* <i className='fab fa-instagram'></i> */}
-        <MDBBadge
-          pill
-          color="danger"
-          className="position-absolute top-0 start-100 translate-middle"
-        >
-          +99 {/*<span className='visually-hidden'>unread messages</span> */}
-        </MDBBadge>
+        {messages != -1 && (
+          <MDBBadge
+            pill
+            color="danger"
+            className="position-absolute top-0 start-100 translate-middle"
+          >
+            {messages}
+            {/*<span className='visually-hidden'>unread messages</span> */}
+          </MDBBadge>
+        )}
       </button>
     </div>
   );

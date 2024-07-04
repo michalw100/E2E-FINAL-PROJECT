@@ -41,7 +41,7 @@ const deleteConnection = ({
         setOnChange(!onChange);
         handleModalClose();
       } else {
-        console.log(response);
+        // console.log(response);
         handleModalClose();
       }
     } catch (error) {

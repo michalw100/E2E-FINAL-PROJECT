@@ -27,7 +27,7 @@ ChartJS.register(
 );
 
 function UpdatesPage() {
-  const { user, chatClient, clientReady } = useContext(AuthContext);
+  const { user, chatClient, clientReady, chatInfo } = useContext(AuthContext);
   const [numFilesPerMonth, setNumFilesPerMonth] = useState([]);
   const [statusData, setStatusData] = useState([]);
   const [types, setTypes] = useState([]);
@@ -45,27 +45,25 @@ function UpdatesPage() {
       getStatus();
       getTypes();
       getNumberFiles();
-      getMessages();
+      // getMessages();
+    }
+    // if (clientReady) {
+    //   fetchMessagesData();
+    // }
+  }, [, user]);
 
+  useEffect(() => {
+    if (clientReady && chatInfo) {
+      // getMessages();
+      // fetchMessagesData();
     }
-    if (clientReady) {
-      fetchMessagesData();
-    }
-  }, [,user]);
-  
-  // useEffect(() => {
-  //   if (clientReady) {
-  //     //  getNumberFiles();
-  //     fetchMessagesData();
-  //   }
-  // }, [chatClient]);
+  }, [clientReady, chatClient, chatInfo]);
 
   const getMessages = async () => {
     try {
-      const messages = await chanels.getChatStats(chatClient, user.id);
-      console.log("messages", messages);
-      // Calculate the total number of unread messages
-      const totalUnreadMessages = messages.reduce(
+      const messagesData = await chanels.getChatStats(chatClient, user.id);
+      console.log("messages", messagesData);
+      const totalUnreadMessages = messagesData.reduce(
         (sum, message) => sum + message.unreadMessagesCount,
         0
       );
@@ -75,7 +73,7 @@ function UpdatesPage() {
       console.error("Error fetching messages:", error);
     }
   };
-  
+
   const fetchMessagesData = async () => {
     try {
       const messages = await chanels.getChatStats(chatClient, user.id);
@@ -125,19 +123,21 @@ function UpdatesPage() {
 
   const getNumberFiles = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/files/number-files?id=${user.id}`, {
-        method: "GET",
-        credentials: "include",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        `http://localhost:3000/files/number-files?id=${user.id}`,
+        {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      );
       const data = await response.json();
       setNumberFiles(data.fileCount);
-      console.log("number files")
-      console.log(data.fileCount)
-
+      // console.log("number files");
+      // console.log(data.fileCount);
     } catch (error) {
       console.error("Error fetching status data:", error);
     }
@@ -186,7 +186,7 @@ function UpdatesPage() {
       }
       // Sort by month
       data.sort((a, b) => a.month - b.month);
-      console.log(data);
+      // console.log(data);
       setNumFilesPerMonth(data);
     } catch (error) {
       console.error("Error fetching files per month:", error);
@@ -224,7 +224,7 @@ function UpdatesPage() {
         data: [
           messagesSent.reduce((a, b) => a + b, 0),
           messagesReceived.reduce((a, b) => a + b, 0),
-          unreadMessages.reduce((a, b) => a + b, 0)
+          unreadMessages.reduce((a, b) => a + b, 0),
         ],
         backgroundColor: [
           "rgba(255, 99, 132, 0.2)",
@@ -240,8 +240,7 @@ function UpdatesPage() {
       },
     ],
   };
-  
-  
+
   // const radarData = {
   //   labels: ["Messages Sent", "Messages Received", "Unread Messages", "Total Messages"],
   //   datasets: [

@@ -7,7 +7,6 @@ import { AuthContext } from "../AuthContext";
 import axios from "axios";
 import { MdDelete } from "react-icons/md";
 import { useDrag } from "react-dnd";
-import chanel from "../helpers/chanels.js";
 import { useNavigate } from "react-router-dom";
 import "../css/file.css";
 import chanels from "../helpers/chanels";
@@ -23,7 +22,7 @@ const File = ({
   userToken,
 }) => {
   const navigate = useNavigate();
-  const { user, chatClient } = useContext(AuthContext);
+  const { user, chatClient, chatsInfo } = useContext(AuthContext);
   const [remark, setRemark] = useState(file.remark || "");
   const [showStatus, setShowStatus] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -32,7 +31,7 @@ const File = ({
   const [uplodersName, setUplodersName] = useState(file.remark || "");
   const [ownerName, setOwnerName] = useState(file.remark || "");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [messages, setMessages] = useState(0);
+  const [messages, setMessages] = useState(-1);
   const remarkRef = useRef(null);
   const selectRef = useRef(null);
 
@@ -46,7 +45,6 @@ const File = ({
 
   useEffect(() => {
     uploderName();
-    getMessages();
     const handleClickOutside = (event) => {
       if (
         selectRef.current &&
@@ -68,23 +66,23 @@ const File = ({
     };
   }, []);
 
+  useEffect(() => {
+    getMessages();
+  }, [chatsInfo]);
 
   const getMessages = async () => {
     try {
-      const messages = await chanels.getChatStats(chatClient, user.id);
-      console.log("messages", messages);
-      // Calculate the total number of unread messages
-      const totalUnreadMessages = messages.reduce(
-        (sum, message) => sum + message.unreadMessagesCount,
-        0
+      const messages = await chanels.getUnreadMessagesForChat(
+        chatsInfo,
+        file.id,
+        user.id
       );
-      console.log("Total unread messages:", totalUnreadMessages);
-      setMessages(totalUnreadMessages);
+      if (messages == -1) return;
+      else setMessages(messages);
     } catch (error) {
       console.error("Error fetching messages:", error);
     }
   };
-  
 
   const uploderName = async () => {
     const data1 = await fetch(
@@ -188,14 +186,14 @@ const File = ({
 
   const commentsFunc = async () => {
     try {
-      console.log("ownerOfFiles");
-      console.log(ownerOfFiles);
+      // console.log("ownerOfFiles");
+      // console.log(ownerOfFiles);
       // const chanel1 = await chanel.deleteAllChats(
       // chatClient,
       // user.id,
       // user.streamToken
       // );
-      await chanel.createChatChannel(
+      await chanels.createChatChannel(
         chatClient,
         file.id,
         file.clientID,
@@ -460,14 +458,16 @@ const File = ({
               <FaComments />
 
               {/* <i className='fab fa-instagram'></i> */}
-              <MDBBadge
-                pill
-                color="danger"
-                className="position-absolute top-0 start-100 translate-middle"
-              >
-                {messages}
-                {/*<span className='visually-hidden'>unread messages</span> */}
-              </MDBBadge>
+              {messages != -1 && (
+                <MDBBadge
+                  pill
+                  color="danger"
+                  className="position-absolute top-0 start-100 translate-middle"
+                >
+                  {messages}
+                  {/*<span className='visually-hidden'>unread messages</span> */}
+                </MDBBadge>
+              )}
             </button>
           </div>
         </div>

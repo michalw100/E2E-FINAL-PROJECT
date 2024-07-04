@@ -4,11 +4,28 @@ import { AuthContext } from "../AuthContext";
 import { CgProfile } from "react-icons/cg";
 import "../css/navBar.css";
 import { MDBBadge } from "mdb-react-ui-kit";
-import { FaComments } from "react-icons/fa";
+import chanels from "../helpers/chanels.js";
 
 function Navbar({ isUploading }) {
-  const { user } = useContext(AuthContext);
-  // console.log(user.role);
+  const { user, chatsInfo } = useContext(AuthContext);
+  const [newMessages, setNewMessages] = useState(0);
+
+  useEffect(() => {
+    getMessages();
+  }, [chatsInfo]);
+
+  const getMessages = async () => {
+    try {
+      const messages = await chanels.getChatsWithUnreadMessages(
+        chatsInfo,
+        null,
+        user.id
+      );
+      setNewMessages(messages);
+    } catch (error) {
+      console.error("Error fetching messages:", error);
+    }
+  };
 
   const preventLink = (e) => {
     e.preventDefault();
@@ -86,7 +103,8 @@ function Navbar({ isUploading }) {
           color="danger"
           className="position-absolute top-0 start-100 translate-middle"
         >
-          +99 {/*<span className='visually-hidden'>unread messages</span> */}
+          {newMessages}{" "}
+          {/*<span className='visually-hidden'>unread messages</span> */}
         </MDBBadge>
       </Link>
       {user.role != "Client" && (

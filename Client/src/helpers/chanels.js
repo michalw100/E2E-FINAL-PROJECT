@@ -10,12 +10,12 @@ const createChatChannel = async (chatClient, fileId, userId, name) => {
     const chatMembers = userIds.map(
       (member) => `user-${member.employeeUserID || member.userID}`
     );
-    console.log("chatMembers");
-    console.log(`user-${userId}`);
+    // console.log("chatMembers");
+    // console.log(`user-${userId}`);
     chatMembers.push(`user-${userId}`);
     const newChatId = await createChatID(fileId, userId);
-    console.log("newChatId");
-    console.log(newChatId);
+    // console.log("newChatId");
+    // console.log(newChatId);
     try {
       if (newChatId && userId) {
         const members = chatMembers;
@@ -91,7 +91,7 @@ const getChatMembers = async (userId) => {
     })
     .then((data) => {
       // const chat = data.json();
-      console.log(data[0]);
+      // console.log(data[0]);
       members = data[0];
     });
   return members;
@@ -140,7 +140,7 @@ const createChatID = async (fileID, userId) => {
 };
 
 // פונקציה לקבלת כל הצ'אטים
-const getAllChats = async (chatClient, userID) => {
+const getAllChats = async (chatClient) => {
   try {
     const filters = { members: { $in: [`user-20`] } };
     const sort = { last_message_at: -1 };
@@ -161,13 +161,7 @@ const deleteChat = async (chatClient, channelId) => {
 // פונקציה למחיקת כל הצ'אטים
 const deleteAllChats = async (chatClient, userId, userToken) => {
   try {
-    console.log("channels");
-    // await chatClient.updateUser({ id: `user-20`, role: 'admin' });
-    // const response = await chatClient.queryUsers({ id: `user-21` });
-    // const user = response.users[0];
-    // console.log("User roles:", user); // תדפיס את התפקידים של המשתמש
-
-    const channels = await getAllChats(chatClient, `user-21`, userToken);
+     const channels = await getAllChats(chatClient, `user-21`, userToken);
     console.log(channels);
     for (const channel of channels) {
       await deleteChat(chatClient, channel.id, userToken);
@@ -178,120 +172,53 @@ const deleteAllChats = async (chatClient, userId, userToken) => {
   }
 };
 
-const getChatStats = async (chatClient, userId) => {
+const getUnreadMessagesForChat = async (chatsInfo, fileID, userID) => {
+  console.log(fileID, userID);
   try {
-    // שליפה של כל הצ'אטים בהם המשתמש חבר
-    const filters = { members: { $in: [`user-${userId}`] } };
-    const sort = { last_message_at: -1 };
-    const channels = await chatClient.queryChannels(filters, sort, {});
-
-    const chatStats = [];
-
-    for (const channel of channels) {
-      // console.log(channel.cid);
-      const messages = await channel.query({
-        messages: { limit: 500 },
-      });
-
-      const userMessagesCount = messages.messages.filter(
-        (message) => message.user.id === `user-${userId}`
-      ).length;
-
-      const otherMessagesCount = messages.messages.filter(
-        (message) => message.user.id !== `user-${userId}`
-      ).length;
-
-      const unreadMessagesCount = channel.state.unreadCount;
-
-      const totalMessagesCount = userMessagesCount + otherMessagesCount;
-
-      chatStats.push({
-        chatName: channel.data.name,
-        userMessagesCount: userMessagesCount,
-        otherMessagesCount: otherMessagesCount,
-        unreadMessagesCount: unreadMessagesCount,
-        totalMessagesCount: totalMessagesCount,
-      });
+    if (!chatsInfo || chatsInfo.length === 0) {
+      console.log("No chats info available");
+      return -1;
     }
 
-    return chatStats;
-  } catch (error) {
-    console.error("Error getting chat stats:", error);
-    throw error;
-  }
-};
+    const myChat = await getChatID(fileID, userID);
+    // console.log(myChat);
+    const chat = chatsInfo.find((chat) => chat.chatId === `myChat-${myChat.id}`);
 
-const getMessagesCountPerDay = async (chatClient, channelId) => {
-  try {
-    const channel = chatClient.channel("messaging", channelId);
-
-    // קבל את כל ההודעות מהצ'אט
-    const messagesResponse = await channel.query({
-      messages: { limit: 100 }, // מגבל את השאילתא למספר מוגבל של הודעות
-    });
-
-    const messages = messagesResponse.messages;
-
-    // סינון וספירת ההודעות לפי יום
-    const messagesPerDay = {};
-
-    messages.forEach((message) => {
-      const messageDate = new Date(message.created_at); // תאריך של ההודעה
-      const dayKey = `${messageDate.getFullYear()}-${
-        messageDate.getMonth() + 1
-      }-${messageDate.getDate()}`;
-
-      if (!messagesPerDay[dayKey]) {
-        messagesPerDay[dayKey] = 0;
-      }
-
-      messagesPerDay[dayKey]++;
-    });
-
-    return messagesPerDay;
-  } catch (error) {
-    console.error("Error getting messages count per day:", error);
-    throw error;
-  }
-};
-
-const getMessagesCountPerDayAcrossChats = async (chatClient, userId) => {
-  try {
-    const filters = { members: { $in: [`user-${userId}`] } };
-    const sort = { last_message_at: -1 };
-
-    // קבל את כל הצ'אטים בהם המשתמש נמצא
-    const channels = await chatClient.queryChannels(filters, sort, {});
-
-    const messagesPerDay = {};
-
-    // עבור כל צ'אט, ספור את מספר ההודעות לפי יום
-    for (const channel of channels) {
-      const messagesResponse = await channel.query({
-        messages: { limit: 100 }, // מגבל את השאילתא למספר מוגבל של הודעות
-      });
-
-      const messages = messagesResponse.messages;
-
-      messages.forEach((message) => {
-        const messageDate = new Date(message.created_at); // תאריך של ההודעה
-        const dayKey = `${messageDate.getFullYear()}-${
-          messageDate.getMonth() + 1
-        }-${messageDate.getDate()}`;
-
-        if (!messagesPerDay[dayKey]) {
-          messagesPerDay[dayKey] = 0;
-        }
-
-        messagesPerDay[dayKey]++;
-      });
+    if (!chat) {
+      console.log(`Chat with id ${myChat.id} not found`);
+      return -1;
     }
 
-    return messagesPerDay;
+    console.log(
+      `Unread messages for chat ${myChat.id}:`,
+      chat.unreadMessagesCount
+    );
+    return chat.unreadMessagesCount;
   } catch (error) {
-    console.error("Error getting messages count per day across chats:", error);
-    throw error;
+    console.error("Error processing messages:", error);
+    return -1;
   }
 };
 
-export default { createChatChannel, getApiKey, deleteAllChats, getChatStats };
+const getChatsWithUnreadMessages = async (chatsInfo) => {
+  if (!chatsInfo || chatsInfo.length === 0) {
+    console.log("No chats info available");
+    return 0;
+  }
+
+  const chatsWithUnread = chatsInfo.filter(
+    (chat) => chat.unreadMessagesCount > 0
+  );
+  const count = chatsWithUnread.length;
+
+  console.log("Number of chats with unread messages:", count);
+  return count;
+};
+
+export default {
+  createChatChannel,
+  getApiKey,
+  deleteAllChats,
+  getUnreadMessagesForChat,
+  getChatsWithUnreadMessages,
+};
