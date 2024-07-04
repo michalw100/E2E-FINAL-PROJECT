@@ -6,7 +6,7 @@ import { ImProfile } from "react-icons/im";
 import { FaComments } from "react-icons/fa";
 import chanel from "../helpers/chanels.js";
 import { AuthContext } from "../AuthContext";
-import { MDBBadge } from 'mdb-react-ui-kit';
+import { MDBBadge } from "mdb-react-ui-kit";
 import "../css/client.css";
 
 const Client = ({ client }) => {
@@ -14,7 +14,7 @@ const Client = ({ client }) => {
 
   const navigate = useNavigate();
 
-  const saveUserDetailsToServer = async () => {
+  const saveMyClient = async () => {
     try {
       const response = await fetch(
         `http://localhost:3000/myClient/storeClientID`,
@@ -39,22 +39,19 @@ const Client = ({ client }) => {
   };
 
   const viewDetails = async () => {
-    await saveUserDetailsToServer();
+    await saveMyClient();
     navigate(`/userDetails/${client.userID}`);
   };
 
   const viewFiles = async () => {
-    await saveUserDetailsToServer();
+    await saveMyClient();
     localStorage.removeItem("selectedTypeFile");
     navigate(`/myFiles/${client.userID}`);
   };
 
   const viewChat = async () => {
     try {
-      console.log("ckient");
-      console.log(client.userID);
-      console.log(client.userName);
-      await chanel.createChatChannel(
+       await chanel.createChatChannel(
         chatClient,
         null,
         client.userID,
@@ -72,28 +69,35 @@ const Client = ({ client }) => {
         {client.id}. {client.userName}
       </h4>
       <p className="clientemail">{client.email} </p>
-
-      <button         className='mydetails btn-primary position-relative mx-3'
- onClick={viewDetails}>
+      <button
+        className="mydetails btn-primary position-relative mx-3"
+        onClick={viewDetails}
+      >
         <ImProfile />
       </button>
-      <button         className='mydetails btn-primary position-relative mx-3'
- onClick={viewFiles}>
+      <button
+        className="mydetails btn-primary position-relative mx-3"
+        onClick={viewFiles}
+      >
         <LuFiles />
       </button>
       {/* <button className="mydetails" onClick={viewChat}>
         <FaComments />
       </button> */}
       <button
-        type='comments'  onClick={viewChat}
-        className='mydetails btn-primary position-relative mx-3'
+        type="comments"
+        onClick={viewChat}
+        className="mydetails btn-primary position-relative mx-3"
         // style={{ backgroundColor: '#ac2bac' }}
       >
-                      <FaComments />
-
+        <FaComments />
         {/* <i className='fab fa-instagram'></i> */}
-        <MDBBadge pill color='danger' className='position-absolute top-0 start-100 translate-middle'>
-           +99 {/*<span className='visually-hidden'>unread messages</span> */}
+        <MDBBadge
+          pill
+          color="danger"
+          className="position-absolute top-0 start-100 translate-middle"
+        >
+          +99 {/*<span className='visually-hidden'>unread messages</span> */}
         </MDBBadge>
       </button>
     </div>

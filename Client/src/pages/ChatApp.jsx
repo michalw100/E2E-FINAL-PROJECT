@@ -11,55 +11,49 @@ import "stream-chat-react/dist/css/index.css";
 import ChannelListContainer from "../components/ChanelList";
 import ChannelMessages from "../components/Messages";
 import "../css/chat.css";
-import MyImage from '../pictures/loading-bar.png';
-
-// const ChatApp = () => {
-//  const { chatClient, clientReady } = useContext(AuthContext);
-//   if (!clientReady) return <img className="loading" src={MyImage}/>;
-//   return (
-//     <Chat client={chatClient} theme="messaging light">
-//       <div className="chat-container">
-//         <div className="channel-list-container">
-//           <ChannelListContainer />
-//         </div>
-//         <div className="channel-container">
-//           <Channel>
-//             <div className="window-container">
-//               <Window>
-//                 <ChannelHeader />
-//                 <ChannelMessages />
-//               </Window>
-//             </div>
-//             <Thread />
-//           </Channel>
-//         </div>
-//       </div>
-//     </Chat>
-//   );
-// };
-
+import MyImage from "../pictures/loading-bar.png";
 
 const ChatApp = () => {
   const { chatClient, clientReady } = useContext(AuthContext);
+  const [activeChannel, setActiveChannel] = useState(false);
+  const initialChannelId = null;
 
-  if (!clientReady) return <img className="loading" src={MyImage} alt="Loading..." />;
+  const clickChannelById = (channelId) => {
+    const channelElement = document.getElementById(channelId);
+    if (channelElement) {
+      channelElement.click();
+    }
+  };
 
+  useEffect(() => {
+    if (clientReady) {
+      clickChannelById('2'); // ניתן לשנות ל-ID המבוקש
+    }
+  }, [clientReady]);
+
+  if (!clientReady)
+    return <img className="loading" src={MyImage} alt="Loading..." />;
+  
   return (
     <Chat client={chatClient} theme="messaging light">
       <div className="chat-container">
         <div className="channel-list-container">
-          <ChannelListContainer />
+          <ChannelListContainer setActiveChannel={setActiveChannel} />
         </div>
         <div className="channel-container">
-          <Channel>
-            <div className="window-container">
-              <Window>
-                <ChannelHeader />
-                <ChannelMessages />
-              </Window>
-            </div>
-            <Thread />
-          </Channel>
+          {activeChannel ? (
+            <Channel>
+              <div className="window-container">
+                <Window>
+                  <ChannelHeader />
+                  <ChannelMessages />
+                </Window>
+              </div>
+              <Thread />
+            </Channel>
+          ) : (
+            <div>Please select a chat from the list.</div>
+          )}
         </div>
       </div>
     </Chat>

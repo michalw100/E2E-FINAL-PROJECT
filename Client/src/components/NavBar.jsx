@@ -32,6 +32,27 @@ function Navbar({ isUploading }) {
     }
   };
 
+  const clearCurrentChat = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:3000/chat/clearChatIDFromSession",
+        {
+          method: "GET",
+          credentials: "include",
+        }
+      );
+      if (!response.ok) {
+        throw new Error(`status: ${response.status}`);
+      }
+      // console.log("ClientID cleared from session successfully");
+    } catch (error) {
+      console.error(
+        "Error clearing clearChatIDFromSession from session:",
+        error.message
+      );
+    }
+  };
+
   const clearLocalStorage = () => {
     localStorage.removeItem("selectedTypeFile");
   };
@@ -57,7 +78,7 @@ function Navbar({ isUploading }) {
       <Link
         className=" btn-primary position-relative mx-3"
         to="./chats"
-        onClick={(e) => handleLinkClick(e)}
+        onClick={(e) => handleLinkClick(e, clearCurrentChat)}
       >
         <FaComments />
         <MDBBadge

@@ -30,11 +30,36 @@ const createChatChannel = async (chatClient, fileId, userId, name) => {
           }
         );
         await channel.create();
+        await saveCurrentChat(newChatId);
         return channel.data;
       }
     } catch (error) {
       throw error;
     }
+  }
+};
+
+const saveCurrentChat = async (chatId) => {
+  try {
+    console.log("saveCurrentChat", chatId);
+    const response = await fetch(
+      `http://localhost:3000/chat/storeChatIDToSession`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ chatId: chatId }),
+        credentials: "include",
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    // console.log("User details saved successfully");
+  } catch (error) {
+    console.error("Error saving user details:", error.message);
   }
 };
 
