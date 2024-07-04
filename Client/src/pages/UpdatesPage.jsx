@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import "../css/update.css";
 import { AuthContext } from "../AuthContext";
-import { Pie, Radar,Doughnut, Bar, Line } from "react-chartjs-2";
+import { Pie, Radar, Doughnut, Bar, Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
   Tooltip,
@@ -27,7 +27,7 @@ ChartJS.register(
 );
 
 function UpdatesPage() {
-  const { user, chatClient } = useContext(AuthContext);
+  const { user, chatClient, clientReady } = useContext(AuthContext);
   const [numFilesPerMonth, setNumFilesPerMonth] = useState([]);
   const [statusData, setStatusData] = useState([]);
   const [types, setTypes] = useState([]);
@@ -44,26 +44,34 @@ function UpdatesPage() {
       fetchFilesPerMonth();
       getStatus();
       getTypes();
+      //  getNumberFiles();
+    }
+  }, [user]);
+  
+  useEffect(() => {
+    if (clientReady) {
       getMessages();
       //  getNumberFiles();
       fetchMessagesData();
-
     }
-  }, [user]);
+  }, [chatClient]);
 
   const getMessages = async () => {
     try {
       const messages = await chanels.getChatStats(chatClient, user.id);
       console.log("messages", messages);
       // Calculate the total number of unread messages
-      const totalUnreadMessages = messages.reduce((sum, message) => sum + message.unreadMessagesCount, 0);
+      const totalUnreadMessages = messages.reduce(
+        (sum, message) => sum + message.unreadMessagesCount,
+        0
+      );
       console.log("Total unread messages:", totalUnreadMessages);
-      setMessages(totalUnreadMessages)
-
+      setMessages(totalUnreadMessages);
     } catch (error) {
       console.error("Error fetching messages:", error);
     }
   };
+  
   const fetchMessagesData = async () => {
     try {
       const messages = await chanels.getChatStats(chatClient, user.id);
@@ -71,20 +79,25 @@ function UpdatesPage() {
 
       // Extracting relevant data
       const messagesSent = messages.map((message) => message.userMessagesCount);
-      const messagesReceived = messages.map((message) => message.otherMessagesCount);
-      const unreadMessages = messages.map((message) => message.unreadMessagesCount);
-      const totalMessages = messages.reduce((total, message) => total + message.totalMessagesCount, 0);
+      const messagesReceived = messages.map(
+        (message) => message.otherMessagesCount
+      );
+      const unreadMessages = messages.map(
+        (message) => message.unreadMessagesCount
+      );
+      const totalMessages = messages.reduce(
+        (total, message) => total + message.totalMessagesCount,
+        0
+      );
 
       setMessagesSent(messagesSent);
       setMessagesReceived(messagesReceived);
       setUnreadMessages(unreadMessages);
       setTotalMessages(totalMessages);
-
     } catch (error) {
       console.error("Error fetching messages data:", error);
     }
   };
-
 
   const getStatus = async () => {
     try {
@@ -199,7 +212,7 @@ function UpdatesPage() {
       },
     ],
   };
-  
+
   // const radarData = {
   //   labels: ["Messages Sent", "Messages Received", "Unread Messages", "Total Messages"],
   //   datasets: [
@@ -295,22 +308,27 @@ function UpdatesPage() {
       <h2 className="title">Updates</h2>
 
       <div className="updates">
-      <div className="chart-container">
+        <div className="chart-container">
           <div className="title-div">
             <h3>Files Uploaded per Month</h3>
           </div>
           <Line className="canvas" data={lineData} options={options} />
         </div>
         <div className="chart-container">
-          <div className="title-div"><h3>Unread Messages</h3></div>
-          <p className="p">{messages}<img
-        id="logo"
-        className="chats"
-        src="../../src/pictures/chat.png"
-        alt="logo"
-      /></p>
+          <div className="title-div">
+            <h3>Unread Messages</h3>
+          </div>
+          <p className="p">
+            {messages}
+            <img
+              id="logo"
+              className="chats"
+              src="../../src/pictures/chat.png"
+              alt="logo"
+            />
+          </p>
         </div>
-        
+
         <div className="chart-container">
           <div className="title-div">
             <h3>files</h3>
@@ -323,7 +341,6 @@ function UpdatesPage() {
           </div>
           {/* <Radar className="canvas" data={radarData} /> */}
           <Doughnut className="canvas" data={doughnutData} />
-
         </div>
         <div className="chart-container">
           <div className="title-div">
@@ -338,14 +355,13 @@ function UpdatesPage() {
             ))}
           </div>
         </div>
-       
+
         <div className="chart-container">
           <div className="title-div">
             <h3>Status</h3>
           </div>
           <Pie className="canvas" data={pieData} />
         </div>
-      
       </div>
     </div>
   );

@@ -106,7 +106,7 @@ export const AuthProvider = ({ children }) => {
       const userFromDB = await response.json();
       if (response.ok) {
         setUser(userFromDB);
-        navigate("./");
+        navigate("./updates");
       } else {
         throw new Error(
           userFromDB.message || "An error occurred. Please try again."
@@ -146,13 +146,13 @@ export const AuthProvider = ({ children }) => {
       if (response.status !== 200) {
         throw new Error(data.message || "An error occurred. Please try again.");
       } else {
-        setUser(null);
-        disconnectClient();
-        navigate("/aboutUs");
       }
     } catch (error) {
       throw new Error(error.message);
     }
+    setUser(null);
+    disconnectClient();
+    navigate("/aboutUs");
   };
 
   return (
