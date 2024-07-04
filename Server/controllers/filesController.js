@@ -39,13 +39,7 @@ async function listFiles(userID, type) {
   }
 }
 
-async function uploadFile(
-  uploaderID,
-  clientID,
-  uploadedFiles,
-  filesNames,
-  type
-) {
+async function uploadFile(uploaderID, clientID, uploadedFiles, filesNames, type) {
   try {
     // const realclientID = await getClientIDOrEmployeeIDByUserID(clientID);
     for (const [index, file] of uploadedFiles.entries()) {
@@ -322,14 +316,14 @@ async function countTypeFile(type, userID) {
   }
 }
 
-// async function getFilesNumber(userID) {
-//   try {
-//     const fileNum = await model.getFilesNumber(userID);
-//     return fileNum[0];
-//   } catch (err) {
-//     throw err;
-//   }
-// }
+async function getFilesNumber(userID) {
+  try {
+    const fileNum = await model.getFilesNumber(userID);
+    return fileNum[0];
+  } catch (err) {
+    throw err;
+  }
+}
 
 module.exports = {
   countTypeFile,
@@ -344,5 +338,5 @@ module.exports = {
   numFilesPerMonth,
   getStatus,
   numberFilesTypes,
-  // getFilesNumber
+  getFilesNumber
 };

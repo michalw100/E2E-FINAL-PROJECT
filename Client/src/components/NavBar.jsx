@@ -76,11 +76,11 @@ function Navbar({ isUploading }) {
         Updates
       </Link>
       <Link
-        className=" btn-primary position-relative mx-3"
+        className="  position-relative mx-3"
         to="./chats"
         onClick={(e) => handleLinkClick(e, clearCurrentChat)}
       >
-        <FaComments />
+        chats
         <MDBBadge
           pill
           color="danger"

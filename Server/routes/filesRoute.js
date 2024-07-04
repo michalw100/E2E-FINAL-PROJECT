@@ -14,7 +14,7 @@ const {
   numFilesPerMonth,
   getStatus,
   numberFilesTypes,
-  // getFilesNumber,  
+  getFilesNumber,  
 } = require("../controllers/filesController");
 const checkAbilities = require("../Middlewares/checkAbilities");
 
@@ -58,16 +58,16 @@ router.get("/number-files-uploaded-per-month", checkAbilities("read", "files"), 
   }
 );
 
-// router.get("/number-files", checkAbilities("read", "files"), async (req, res) => {
-//     try {
-//       const userID = req.query.id;
-//       const getFilesNum = await getFilesNumber(userID);
-//       res.status(200).send(getFilesNum);
-//     } catch (err) {
-//       res.status(500).send({ message: err.message });
-//     }
-//   }
-// );
+router.get("/number-files", checkAbilities("read", "files"), async (req, res) => {
+    try {
+      const userID = req.query.id;
+      const getFilesNum = await getFilesNumber(userID);
+      res.status(200).send(getFilesNum);
+    } catch (err) {
+      res.status(500).send({ message: err.message });
+    }
+  }
+);
 
 router.get( "/number-files-in-type", checkAbilities("read", "files"), async (req, res) => {
     try {
@@ -150,20 +150,19 @@ router.get( "/view/:fileId", checkAbilities("read", "files"), async (req, res) =
 
 router.put("/", checkAbilities("update", "files"), async (req, res) => {
   try {
-    // console.log("change");
     const fileId = req.body.id;
     const remark = req.body.remark;
     const status = req.body.status;
     const type = req.body.type;
 
     if (remark) {
-      const response = await updateRemarkFile(fileId, remark);
+      await updateRemarkFile(fileId, remark);
       res.status(200).send({ message: "update file successfully" });
     } else if (status) {
-      const response = await updateStatusFile(fileId, status);
+      await updateStatusFile(fileId, status);
       res.status(200).send({ message: "update file successfully" });
     } else if (type) {
-      const response = await updateTypeFile(fileId, type);
+      await updateTypeFile(fileId, type);
       res.status(200).send({ message: "update file successfully" });
     } else return res.status(400).send({ message: "No field to change" });
   } catch (err) {

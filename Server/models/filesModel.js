@@ -21,26 +21,58 @@ async function getFilesByClientID(clientID, type) {
   }
 }
 
-// async function getFilesNumber(userID) {
-//   try{
+async function getFilesNumberEmployee(userID) {
+  try{
 
-//     const sql = `
-//   SELECT 
-//       clientID, 
-//       COUNT(*) AS fileCount 
-//   FROM 
-//       files 
-//   WHERE 
-//       clientID = (SELECT id FROM clients WHERE userID = ?)
-//   GROUP BY 
-//       clientID;`;
-//     const files = await pool.query(sql, [userID]);
-//     return files[0];
-//   }catch (err) {
-//     throw err;
-//   }
-// }
+    const sql = `
+SELECT 
+    COUNT(f.id) AS totalFileCount
+FROM 
+    employees e
+JOIN 
+    employee_client ec ON e.id = ec.employeeID
+JOIN 
+    clients c ON ec.clientID = c.id
+LEFT JOIN 
+    files f ON c.id = f.clientID
+WHERE 
+    e.userID =?`;
+    const files = await pool.query(sql, [userID]);
+    return files[0];
+  }catch (err) {
+    throw err;
+  }
+}
 
+async function getFilesNumberClient(userID) {
+  try{
+
+    const sql = `SELECT 
+    COUNT(f.id) AS fileCount
+FROM 
+    files f
+    
+    WHERE f.clientID = ?`
+    const files = await pool.query(sql, [userID]);
+    return files[0];
+  }catch (err) {
+    throw err;
+  }
+}
+
+async function getFilesNumberAdmin() {
+  try{
+
+    const sql = `SELECT 
+    COUNT(f.id) AS fileCount
+FROM 
+    files f`
+    const files = await pool.query(sql);
+    return files[0];
+  }catch (err) {
+    throw err;
+  }
+}
 
 async function numFilesPerMonthClient(userID) {
   try {
@@ -311,7 +343,9 @@ module.exports = {
   countTypeFileByEmployeeID,
   numFilesPerMonthClient,
   numFilesPerMonthEmployee,
-  // getFilesNumber,
+  getFilesNumberAdmin,
+  getFilesNumberClient,
+  getFilesNumberEmployee,
   getStatusAdmin,
   getStatusEmployee,
   getStatusClient,
