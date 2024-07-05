@@ -173,28 +173,20 @@ const deleteAllChats = async (chatClient, userId, userToken) => {
 };
 
 const getUnreadMessagesForChat = async (chatsInfo, fileID, userID) => {
-  console.log(fileID, userID);
   try {
     if (!chatsInfo || chatsInfo.length === 0) {
-      console.log("No chats info available");
       return -1;
     }
 
     const myChat = await getChatID(fileID, userID);
-    // console.log(myChat);
     const chat = chatsInfo.find(
       (chat) => chat.chatId === `myChat-${myChat.id}`
     );
 
     if (!chat) {
-      console.log(`Chat with id ${myChat.id} not found`);
       return -1;
     }
-
-    console.log(
-      `Unread messages for chat ${myChat.id}:`,
-      chat.unreadMessagesCount
-    );
+    
     return chat.unreadMessagesCount;
   } catch (error) {
     console.error("Error processing messages:", error);
@@ -204,7 +196,6 @@ const getUnreadMessagesForChat = async (chatsInfo, fileID, userID) => {
 
 const getChatsWithUnreadMessages = async (chatsInfo) => {
   if (!chatsInfo || chatsInfo.length === 0) {
-    console.log("No chats info available");
     return 0;
   }
 
@@ -213,7 +204,6 @@ const getChatsWithUnreadMessages = async (chatsInfo) => {
   );
   const count = chatsWithUnread.length;
 
-  console.log("Number of chats with unread messages:", count);
   return count;
 };
 

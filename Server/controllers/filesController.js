@@ -257,6 +257,45 @@ async function numFilesPerMonth(userID, role) {
   }
 }
 
+async function numFilesPerDay(userID, role) {
+  try {
+    let result;
+    if (role === "Admin") {
+      result = await model.numFilesPerDayAdmin();
+    } else {
+      const realID = await getClientIDOrEmployeeIDByUserID(userID);
+      if (realID[0].client_id) {
+        result = await model.numFilesPerDayClient(userID);
+      } else {
+        result = await model.numFilesPerDayEmployee(userID);
+      }
+    }
+    
+    // מילוי תאריכים חסרים עם ערך 0
+    const filledData = fillMissingDates(result);
+    return filledData;
+  } catch (err) {
+    throw err;
+  }
+}
+
+function fillMissingDates(data) {
+  const filledData = {};
+  const today = new Date();
+  const thirtyDaysAgo = new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000);
+
+  for (let d = new Date(thirtyDaysAgo); d <= today; d.setDate(d.getDate() + 1)) {
+    const dateString = d.toISOString().split('T')[0];
+    filledData[dateString] = 0;
+  }
+
+  data.forEach(item => {
+    filledData[item.date] = item.count;
+  });
+
+  return Object.entries(filledData).map(([date, count]) => ({ date, count }));
+}
+
 async function numberFilesTypes(userID, role) {
   try {
     let numFiles;
@@ -282,18 +321,34 @@ async function numberFilesTypesAndStatus(userID, role) {
   try {
     let numFiles;
     if (role == "Admin") {
-      numFiles = await model.numberFilesTypesAdmin();
-      return numFiles[0];
-    }
-    const realID = await getClientIDOrEmployeeIDByUserID(userID);
-    if (realID[0].client_id) {
-      const result = await model.numberFilesTypesClient(userID);
-      numFiles = result;
+      numFiles = await model.numberFilesTypesAndStatusAdmin();
     } else {
-      const result = await model.numberFilesTypesEmployee(userID);
-      numFiles = result;
+      const realID = await getClientIDOrEmployeeIDByUserID(userID);
+      if (realID[0].client_id) {
+        const result = await model.numberFilesTypesAndStatusClient(userID);
+        numFiles = result;
+      } else {
+        const result = await model.numberFilesTypesAndStatusEmployee(userID);
+        numFiles = result;
+      }
     }
-    return numFiles[0];
+    const formattedResult = {};
+    numFiles[0].forEach((row) => {
+      if (!formattedResult[row.type]) {
+        formattedResult[row.type] = {
+          type: row.type,
+          total: 0,
+          pending: 0,
+          completed: 0,
+          inProgress: 0,
+        };
+      }
+      formattedResult[row.type][row.status.toLowerCase()] = row.count;
+      formattedResult[row.type].total += row.count;
+    });
+
+    return Object.values(formattedResult);
+    // return numFiles[0];
   } catch (err) {
     throw err;
   }
@@ -374,4 +429,5 @@ module.exports = {
   numberFilesTypes,
   getFilesNumber,
   numberFilesTypesAndStatus,
+  numFilesPerDay
 };

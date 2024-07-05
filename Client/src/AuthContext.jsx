@@ -100,8 +100,6 @@ export const AuthProvider = ({ children }) => {
           };
         })
       );
-      console.log("allChatsInfo");
-      console.log(allChatsInfo);
       setChatsInfo(allChatsInfo);
       loadFilesAndUpdateChats(allChatsInfo, user.id);
     } catch (error) {

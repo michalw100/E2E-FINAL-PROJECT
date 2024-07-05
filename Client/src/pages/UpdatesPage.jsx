@@ -13,7 +13,6 @@ import {
   LineElement,
   PointElement,
 } from "chart.js";
-import chanels from "../helpers/chanels";
 
 ChartJS.register(
   Tooltip,
@@ -38,23 +37,22 @@ function UpdatesPage() {
   });
   const [messagesPerDay, setMessagesPerDay] = useState({});
   const [chatStats, setChatStats] = useState([]);
+  const [numFilesPerDay, setNumFilesPerDay] = useState([]);
 
   useEffect(() => {
     if (user && user.id) {
       fetchFilesPerMonth();
       getStatus();
-      getTypes();
+      fetchFilesPerDay();
+      getTypesAndStatus();
     }
   }, [, user]);
 
   useEffect(() => {
-    console.log("changing");
-    console.log(chatsInfo);
-    console.log(clientReady);
     if (clientReady && chatsInfo) {
       const stats = Object.values(chatsInfo).map((chat) => ({
         chatName: chat.chatName,
-        totalMessages: chat.totalMessagesCount,
+        unreadMessages: chat.unreadMessagesCount,
         userMessages: chat.userMessagesCount,
         otherMessages: chat.otherMessagesCount,
       }));
@@ -63,6 +61,26 @@ function UpdatesPage() {
       setChatMessageCounts(processChatMessageCounts());
     }
   }, [clientReady, chatClient, chatsInfo]);
+
+  const getTypesAndStatus = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/files/number-files-by-type-and-status?id=${user.id}`,
+        {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const data = await response.json();
+      setTypes(data);
+    } catch (error) {
+      console.error("Error fetching types data:", error);
+    }
+  };
 
   const processMessagesPerDay = () => {
     const messagesCount = {};
@@ -96,26 +114,6 @@ function UpdatesPage() {
     }
   };
 
-  const getTypes = async () => {
-    try {
-      const response = await fetch(
-        `http://localhost:3000/files/number-files-in-type?id=${user.id}`,
-        {
-          method: "GET",
-          credentials: "include",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      const data = await response.json();
-      setTypes(data);
-    } catch (error) {
-      console.error("Error fetching types data:", error);
-    }
-  };
-
   const fetchFilesPerMonth = async () => {
     try {
       const response = await fetch(
@@ -140,6 +138,33 @@ function UpdatesPage() {
       setNumFilesPerMonth(data);
     } catch (error) {
       console.error("Error fetching files per month:", error);
+    }
+  };
+
+  const fetchFilesPerDay = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/files/number-files-uploaded-per-day?id=${user.id}`,
+        {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const data = await response.json();
+      const filteredData = data
+        .filter((item) => item.count > 0)
+        .map((item) => ({
+          ...item,
+          date: new Date(item.date).toISOString().split("T")[0],
+        }));
+
+      setNumFilesPerDay(filteredData);
+    } catch (error) {
+      console.error("Error fetching files per day:", error);
     }
   };
 
@@ -181,9 +206,9 @@ function UpdatesPage() {
           chatMessageCounts.high,
         ],
         backgroundColor: [
-          "rgba(255, 206, 86, 0.8)",
-          "rgba(75, 192, 192, 0.8)",
-          "rgba(153, 102, 255, 0.8)",
+          "rgba(255, 206, 86, 1)",
+          "rgba(75, 192, 192, 1)",
+          "rgba(153, 102, 255, 1)",
         ],
         borderColor: [
           "rgba(255, 206, 86, 1)",
@@ -202,12 +227,12 @@ function UpdatesPage() {
         label: "Status Distribution",
         data: statusCounts,
         backgroundColor: [
-          "rgba(255, 99, 132, 0.2)",
-          "rgba(54, 162, 235, 0.2)",
-          "rgba(255, 206, 86, 0.2)",
-          "rgba(75, 192, 192, 0.2)",
-          "rgba(153, 102, 255, 0.2)",
-          "rgba(255, 159, 64, 0.2)",
+          "rgba(255, 99, 132, 1)",
+          "rgba(54, 162, 235, 1)",
+          "rgba(255, 206, 86, 1)",
+          "rgba(75, 192, 192, 1)",
+          "rgba(153, 102, 255, 1)",
+          "rgba(255, 159, 64, 1)",
         ],
         borderColor: [
           "rgba(255, 99, 132, 1)",
@@ -223,28 +248,42 @@ function UpdatesPage() {
   };
 
   const lineData = {
-    labels: numFilesPerMonth.map((item) => `Month ${item.month}`),
+    labels: numFilesPerDay.map((item) => item.date),
     datasets: [
       {
         label: "Files Uploaded",
-        data: numFilesPerMonth.map((item) => item.count),
-        backgroundColor: "rgba(75, 192, 192, 0.2)",
+        data: numFilesPerDay.map((item) => item.count),
+        backgroundColor: "rgba(75, 192, 192, 1)",
         borderColor: "rgba(75, 192, 192, 1)",
         borderWidth: 1,
         fill: false,
-        pointRadius: 0, // Remove points
+        pointRadius: 3,
       },
     ],
   };
 
   const barData = {
-    labels: types.map((type, index) => `Type ${index + 1}`), // Short labels
+    labels: types.map((type) => type.type),
     datasets: [
       {
-        label: "File Counts per Type",
-        data: types.map((type) => type.count),
-        backgroundColor: "rgba(150, 120, 80, 0.2)",
-        borderColor: "rgba(150, 120, 80, 1)",
+        label: "Pending",
+        data: types.map((type) => type.pending || 0),
+        backgroundColor: "rgba(255, 206, 86, 1)",
+        borderColor: "rgba(255, 206, 86, 1)",
+        borderWidth: 1,
+      },
+      {
+        label: "Approved",
+        data: types.map((type) => type.approved || 0),
+        backgroundColor: "rgba(75, 192, 192, 1)",
+        borderColor: "rgba(75, 192, 192, 1)",
+        borderWidth: 1,
+      },
+      {
+        label: "Rejected",
+        data: types.map((type) => type.rejected || 0),
+        backgroundColor: "rgba(153, 102, 255, 1)",
+        borderColor: "rgba(153, 102, 255, 1)",
         borderWidth: 1,
       },
     ],
@@ -278,7 +317,6 @@ function UpdatesPage() {
       },
     ],
   };
-
   const messageLineData = {
     labels: Object.keys(messagesPerDay).sort(),
     datasets: [
@@ -287,7 +325,7 @@ function UpdatesPage() {
         data: Object.keys(messagesPerDay)
           .sort()
           .map((date) => messagesPerDay[date]),
-        backgroundColor: "rgba(255, 99, 132, 0.2)",
+        backgroundColor: "rgba(255, 99, 132, 1)",
         borderColor: "rgba(255, 99, 132, 1)",
         borderWidth: 1,
         fill: false,
@@ -370,13 +408,48 @@ function UpdatesPage() {
         </div>
         <div className="chart-container">
           <div className="title-div">
-            <h3>File Counts per Type</h3>
+            <h3>File Counts per Type and Status</h3>
           </div>
-          <Bar className="canvas" data={barData} options={options} />
+          <Bar
+            className="canvas"
+            data={barData}
+            options={{
+              scales: {
+                x: {
+                  stacked: true,
+                },
+                y: {
+                  stacked: true,
+                  beginAtZero: true,
+                  max: Math.max(...types.map((type) => type.total)) + 1,
+                  ticks: {
+                    stepSize: 1,
+                  },
+                },
+              },
+              plugins: {
+                tooltip: {
+                  callbacks: {
+                    label: function (context) {
+                      let label = context.dataset.label || "";
+                      if (label) {
+                        label += ": ";
+                      }
+                      if (context.parsed.y !== null) {
+                        label += Math.round(context.parsed.y * 10) / 10;
+                      }
+                      return label;
+                    },
+                  },
+                },
+              },
+            }}
+          />
           <div className="explanation">
             {types.map((type, index) => (
               <div className="types" key={index}>
-                <strong>Type {index + 1}:</strong> {type.type}
+                <strong>{type.type}:</strong> Total:{" "}
+                {type.pending + type.completed + type.inProgress}
               </div>
             ))}
           </div>

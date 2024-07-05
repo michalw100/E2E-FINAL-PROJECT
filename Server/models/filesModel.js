@@ -3,9 +3,15 @@ const pool = require("../DB.js");
 async function saveFileToDB(fileId, fileName, type, uploaderID, clientID) {
   try {
     const sql = `INSERT INTO files (driveFileId, name, type, uploaderID, clientID, status) VALUES (?, ?, ?, ?, ?, ?)`;
-    const newFile = await pool.query(sql, [fileId, fileName, type, uploaderID, clientID, "Pending"]);
+    const newFile = await pool.query(sql, [
+      fileId,
+      fileName,
+      type,
+      uploaderID,
+      clientID,
+      "Pending",
+    ]);
     return newFile[0];
-
   } catch (err) {
     throw err;
   }
@@ -22,8 +28,7 @@ async function getFilesByClientID(clientID, type) {
 }
 
 async function getFilesNumberEmployee(userID) {
-  try{
-
+  try {
     const sql = `
 SELECT 
     COUNT(f.id) AS fileCount
@@ -39,37 +44,35 @@ WHERE
     e.userID =?`;
     const files = await pool.query(sql, [userID]);
     return files[0];
-  }catch (err) {
+  } catch (err) {
     throw err;
   }
 }
 
 async function getFilesNumberClient(userID) {
-  try{
-
+  try {
     const sql = `SELECT 
     COUNT(f.id) AS fileCount
 FROM 
     files f
     
-    WHERE f.clientID = ?`
+    WHERE f.clientID = ?`;
     const files = await pool.query(sql, [userID]);
     return files[0];
-  }catch (err) {
+  } catch (err) {
     throw err;
   }
 }
 
 async function getFilesNumberAdmin() {
-  try{
-
+  try {
     const sql = `SELECT 
     COUNT(f.id) AS fileCount
 FROM 
-    files f`
+    files f`;
     const files = await pool.query(sql);
     return files[0];
-  }catch (err) {
+  } catch (err) {
     throw err;
   }
 }
@@ -106,7 +109,7 @@ LEFT JOIN (
 
 async function numFilesPerMonthAdmin() {
   try {
-    console.log("ad")
+    console.log("ad");
 
     const sql = `WITH RECURSIVE months AS (
     SELECT 1 AS month
@@ -130,7 +133,7 @@ LEFT JOIN (
       YEAR(createdAt) = YEAR(CURDATE()) 
       GROUP BY MONTH(createdAt)) f ON m.month = f.month ORDER BY m.month`;
     const result = await pool.query(sql);
-    console.log(result)
+    console.log(result);
     return result;
   } catch (err) {
     throw err;
@@ -177,6 +180,91 @@ ORDER BY
   }
 }
 
+async function numFilesPerDayClient(userID) {
+  try {
+    const sql = `
+    SELECT 
+      DATE(createdAt) AS date,
+      COUNT(*) AS count
+    FROM 
+      files
+    WHERE 
+      clientID = ? 
+      AND createdAt >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)
+    GROUP BY 
+      DATE(createdAt)
+    HAVING 
+      count > 0
+    ORDER BY 
+      date`;
+    
+    const result = await pool.query(sql, [userID]);
+    return result[0].map(row => ({
+      date: row.date.toISOString().split('T')[0],
+      count: row.count
+    }));
+  } catch (err) {
+    throw err;
+  }
+}
+
+async function numFilesPerDayAdmin() {
+  try {
+    const sql = `
+    SELECT 
+      DATE(createdAt) AS date,
+      COUNT(*) AS count
+    FROM 
+      files
+    WHERE 
+      createdAt >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)
+    GROUP BY 
+      DATE(createdAt)
+    HAVING 
+      count > 0
+    ORDER BY 
+      date`;
+    
+    const result = await pool.query(sql);
+    return result[0].map(row => ({
+      date: row.date.toISOString().split('T')[0],
+      count: row.count
+    }));
+  } catch (err) {
+    throw err;
+  }
+}
+
+async function numFilesPerDayEmployee(userID) {
+  try {
+    const sql = `
+    SELECT
+      DATE(f.createdAt) AS date,
+      COUNT(*) AS count
+    FROM
+      files f
+      JOIN clients c ON f.clientID = c.userID
+      JOIN employee_client ec ON ec.clientID = c.id
+      JOIN employees e ON ec.employeeID = e.id
+    WHERE
+      f.createdAt >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)
+      AND e.userID = ?
+    GROUP BY
+      DATE(f.createdAt)
+    HAVING
+      count > 0
+    ORDER BY 
+      date`;
+    
+    const result = await pool.query(sql, [userID]);
+    return result[0].map(row => ({
+      date: row.date.toISOString().split('T')[0],
+      count: row.count
+    }));
+  } catch (err) {
+    throw err;
+  }
+}
 
 async function getStatusClient(userID) {
   try {
@@ -246,24 +334,91 @@ GROUP BY type`;
   }
 }
 
-async function numberFilesTypesEmployee(userID) {
+async function numberFilesTypesAndStatusAdmin() {
   try {
-    const sql = `SELECT f.type, COUNT(*) AS count
-FROM files f
-JOIN clients c ON f.clientID = c.id
-JOIN employee_client ec ON c.id = ec.clientID
-JOIN employees e ON ec.employeeID = e.id
-WHERE e.userID = ?
-GROUP BY f.type`;
-    const result = await pool.query(sql, [userID]);
+    const sql = `
+      SELECT type, status, COUNT(*) AS count
+      FROM files
+      GROUP BY type, status
+      ORDER BY type, status`;
+
+    const result = await pool.query(sql);
     return result;
   } catch (err) {
     throw err;
   }
 }
 
+async function numberFilesTypesAndStatusClient(userID) {
+  try {
+    const sql = `
+      SELECT type, status, COUNT(*) AS count
+      FROM files
+      WHERE clientID = ?
+      GROUP BY type, status
+      ORDER BY type, status`;
+
+    const result = await pool.query(sql, [userID]);
+    return result;
+
+    // const formattedResult = {};
+    // result.forEach((row) => {
+    //   if (!formattedResult[row.type]) {
+    //     formattedResult[row.type] = {
+    //       type: row.type,
+    //       total: 0,
+    //       pending: 0,
+    //       completed: 0,
+    //       inProgress: 0,
+    //     };
+    //   }
+    //   formattedResult[row.type][row.status.toLowerCase()] = row.count;
+    //   formattedResult[row.type].total += row.count;
+    // });
+
+    // return Object.values(formattedResult);
+  } catch (err) {
+    throw err;
+  }
+}
+async function numberFilesTypesAndStatusEmployee(userID) {
+  try {
+    const sql = `
+      SELECT f.type, f.status, COUNT(*) AS count
+      FROM files f
+      JOIN clients c ON f.clientID = c.id
+      JOIN employee_client ec ON c.id = ec.clientID
+      JOIN employees e ON ec.employeeID = e.id
+      WHERE e.userID = ?
+      GROUP BY f.type, f.status
+      ORDER BY f.type, f.status`;
+
+    const result = await pool.query(sql, [userID]);
+
+    return result;
+    // const formattedResult = {};
+    // result.forEach((row) => {
+    //   if (!formattedResult[row.type]) {
+    //     formattedResult[row.type] = {
+    //       type: row.type,
+    //       total: 0,
+    //       pending: 0,
+    //       completed: 0,
+    //       inProgress: 0,
+    //     };
+    //   }
+    //   formattedResult[row.type][row.status.toLowerCase()] = row.count;
+    //   formattedResult[row.type].total += row.count;
+    // });
+
+    // return Object.values(formattedResult);
+  } catch (err) {
+    throw err;
+  }
+}
+
 async function countTypeFileByClientID(type, userID) {
-  const sql = `SELECT COUNT(*) AS count FROM files LEFT JOIN clients ON files.clientID = clients.userID WHERE type = ? AND clients.userID = ?`
+  const sql = `SELECT COUNT(*) AS count FROM files LEFT JOIN clients ON files.clientID = clients.userID WHERE type = ? AND clients.userID = ?`;
   const files = await pool.query(sql, [type, userID]);
   return files[0];
 }
@@ -285,7 +440,7 @@ LEFT JOIN
 WHERE
     e.id = ? AND type = ?
 GROUP BY
-    e.id`
+    e.id`;
   const files = await pool.query(sql, [userID, type]);
   return files[0];
 }
@@ -308,7 +463,6 @@ async function updateStatusFile(id, status) {
   } catch (err) {
     throw err;
   }
-
 }
 
 async function getFilesByEmployeeID(userID, type) {
@@ -326,8 +480,7 @@ async function updateTypeFile(id, type) {
     const sql = `UPDATE files SET type = ? WHERE id = ?`;
     const files = await pool.query(sql, [type, id]);
     return files[0];
-  }
-  catch (err) {
+  } catch (err) {
     throw err;
   }
 }
@@ -350,7 +503,12 @@ module.exports = {
   getStatusEmployee,
   getStatusClient,
   numberFilesTypesClient,
-  numberFilesTypesEmployee,
   numFilesPerMonthAdmin,
-  numberFilesTypesAdmin
+  numberFilesTypesAdmin,
+  numberFilesTypesAndStatusEmployee,
+  numberFilesTypesAndStatusClient,
+  numberFilesTypesAndStatusAdmin,
+  numFilesPerDayEmployee,
+  numFilesPerDayAdmin,
+  numFilesPerDayClient,
 };
