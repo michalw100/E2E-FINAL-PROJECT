@@ -27,78 +27,53 @@ ChartJS.register(
 );
 
 function UpdatesPage() {
-  const { user, chatClient, clientReady, chatInfo } = useContext(AuthContext);
+  const { user, chatClient, clientReady, chatsInfo } = useContext(AuthContext);
   const [numFilesPerMonth, setNumFilesPerMonth] = useState([]);
   const [statusData, setStatusData] = useState([]);
   const [types, setTypes] = useState([]);
-  const [messages, setMessages] = useState([]);
-  const [messagesSent, setMessagesSent] = useState([]);
-  const [messagesReceived, setMessagesReceived] = useState([]);
-  const [unreadMessages, setUnreadMessages] = useState([]);
-  // const [totalMessages, setTotalMessages] = useState(0);
-
-  const [numberFiles, setNumberFiles] = useState([]);
+  const [chatMessageCounts, setChatMessageCounts] = useState({
+    low: 0,
+    medium: 0,
+    high: 0,
+  });
+  const [messagesPerDay, setMessagesPerDay] = useState({});
+  const [chatStats, setChatStats] = useState([]);
 
   useEffect(() => {
     if (user && user.id) {
       fetchFilesPerMonth();
       getStatus();
       getTypes();
-      getNumberFiles();
-      // getMessages();
     }
-    // if (clientReady) {
-    //   fetchMessagesData();
-    // }
   }, [, user]);
 
   useEffect(() => {
-    if (clientReady && chatInfo) {
-      // getMessages();
-      // fetchMessagesData();
+    console.log("changing");
+    console.log(chatsInfo);
+    console.log(clientReady);
+    if (clientReady && chatsInfo) {
+      const stats = Object.values(chatsInfo).map((chat) => ({
+        chatName: chat.chatName,
+        totalMessages: chat.totalMessagesCount,
+        userMessages: chat.userMessagesCount,
+        otherMessages: chat.otherMessagesCount,
+      }));
+      setChatStats(stats);
+      processMessagesPerDay();
+      setChatMessageCounts(processChatMessageCounts());
     }
-  }, [clientReady, chatClient, chatInfo]);
+  }, [clientReady, chatClient, chatsInfo]);
 
-  const getMessages = async () => {
-    try {
-      const messagesData = await chanels.getChatStats(chatClient, user.id);
-      console.log("messages", messagesData);
-      const totalUnreadMessages = messagesData.reduce(
-        (sum, message) => sum + message.unreadMessagesCount,
-        0
-      );
-      console.log("Total unread messages:", totalUnreadMessages);
-      setMessages(totalUnreadMessages);
-    } catch (error) {
-      console.error("Error fetching messages:", error);
-    }
-  };
-
-  const fetchMessagesData = async () => {
-    try {
-      const messages = await chanels.getChatStats(chatClient, user.id);
-      console.log("Messages:", messages);
-
-      // Extracting relevant data
-      const messagesSent = messages.map((message) => message.userMessagesCount);
-      const messagesReceived = messages.map(
-        (message) => message.otherMessagesCount
-      );
-      const unreadMessages = messages.map(
-        (message) => message.unreadMessagesCount
-      );
-      // const totalMessages = messages.reduce(
-      //   (total, message) => total + message.totalMessagesCount,
-      //   0
-      // );
-
-      setMessagesSent(messagesSent);
-      setMessagesReceived(messagesReceived);
-      setUnreadMessages(unreadMessages);
-      // setTotalMessages(totalMessages);
-    } catch (error) {
-      console.error("Error fetching messages data:", error);
-    }
+  const processMessagesPerDay = () => {
+    const messagesCount = {};
+    Object.values(chatsInfo).forEach((chat) => {
+      const date = new Date(chat.lastMessageAt).toISOString().split("T")[0];
+      if (!messagesCount[date]) {
+        messagesCount[date] = 0;
+      }
+      messagesCount[date] += chat.totalMessagesCount;
+    });
+    setMessagesPerDay(messagesCount);
   };
 
   const getStatus = async () => {
@@ -116,28 +91,6 @@ function UpdatesPage() {
       );
       const data = await response.json();
       setStatusData(data);
-    } catch (error) {
-      console.error("Error fetching status data:", error);
-    }
-  };
-
-  const getNumberFiles = async () => {
-    try {
-      const response = await fetch(
-        `http://localhost:3000/files/number-files?id=${user.id}`,
-        {
-          method: "GET",
-          credentials: "include",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      const data = await response.json();
-      setNumberFiles(data.fileCount);
-      // console.log("number files");
-      // console.log(data.fileCount);
     } catch (error) {
       console.error("Error fetching status data:", error);
     }
@@ -177,16 +130,13 @@ function UpdatesPage() {
         }
       );
       const data = await response.json();
-      // Fill missing months with zero count
       const monthsWithData = data.map((item) => item.month);
       for (let month = 1; month <= 12; month++) {
         if (!monthsWithData.includes(month)) {
           data.push({ month, count: 0 });
         }
       }
-      // Sort by month
       data.sort((a, b) => a.month - b.month);
-      // console.log(data);
       setNumFilesPerMonth(data);
     } catch (error) {
       console.error("Error fetching files per month:", error);
@@ -195,64 +145,55 @@ function UpdatesPage() {
 
   const statusLabels = statusData.map((status) => status.status);
   const statusCounts = statusData.map((status) => status.count);
-  // const doughnutData1 = {
-  //   labels: ["Messages Sent", "Messages Received", "Unread Messages"],
-  //   datasets: [
-  //     {
-  //       label: "Messages Overview",
-  //       data: [messagesSent, messagesReceived, unreadMessages],
-  //       backgroundColor: [
-  //         "rgba(255, 99, 132, 0.2)",
-  //         "rgba(54, 162, 235, 0.2)",
-  //         "rgba(255, 206, 86, 0.2)",
-  //       ],
-  //       borderColor: [
-  //         "rgba(255, 99, 132, 1)",
-  //         "rgba(54, 162, 235, 1)",
-  //         "rgba(255, 206, 86, 1)",
-  //         "rgba(75, 192, 192, 1)",
-  //       ],
-  //       borderWidth: 1,
-  //     },
-  //   ],
-  // };
-  const doughnutData = {
-    labels: ["Messages Sent", "Messages Received", "Unread Messages"],
+
+  const processChatMessageCounts = () => {
+    const categoryCounts = {
+      low: 0, // 0-10 הודעות
+      medium: 0, // 11-50 הודעות
+      high: 0, // 51+ הודעות
+    };
+
+    Object.values(chatsInfo).forEach((chat) => {
+      const totalMessages = chat.totalMessagesCount;
+      if (totalMessages <= 10) {
+        categoryCounts.low++;
+      } else if (totalMessages <= 50) {
+        categoryCounts.medium++;
+      } else {
+        categoryCounts.high++;
+      }
+    });
+
+    return categoryCounts;
+  };
+
+  const chatCountPieData = {
+    labels: [
+      "Few Messages (0-10)",
+      "Medium Messages (11-50)",
+      "Many Messages (51+)",
+    ],
     datasets: [
       {
-        label: "Messages Overview",
         data: [
-          messagesSent.reduce((a, b) => a + b, 0),
-          messagesReceived.reduce((a, b) => a + b, 0),
-          unreadMessages.reduce((a, b) => a + b, 0),
+          chatMessageCounts.low,
+          chatMessageCounts.medium,
+          chatMessageCounts.high,
         ],
         backgroundColor: [
-          "rgba(255, 99, 132, 0.2)",
-          "rgba(54, 162, 235, 0.2)",
-          "rgba(255, 206, 86, 0.2)",
+          "rgba(255, 206, 86, 0.8)",
+          "rgba(75, 192, 192, 0.8)",
+          "rgba(153, 102, 255, 0.8)",
         ],
         borderColor: [
-          "rgba(255, 99, 132, 1)",
-          "rgba(54, 162, 235, 1)",
           "rgba(255, 206, 86, 1)",
+          "rgba(75, 192, 192, 1)",
+          "rgba(153, 102, 255, 1)",
         ],
         borderWidth: 1,
       },
     ],
   };
-
-  // const radarData = {
-  //   labels: ["Messages Sent", "Messages Received", "Unread Messages", "Total Messages"],
-  //   datasets: [
-  //     {
-  //       label: "Messages Overview",
-  //       data: [messagesSent, messagesReceived, unreadMessages, totalMessages],
-  //       backgroundColor: "rgba(255, 99, 132, 0.2)",
-  //       borderColor: "rgba(255, 99, 132, 1)",
-  //       borderWidth: 1,
-  //     },
-  //   ],
-  // };
 
   const pieData = {
     labels: statusLabels,
@@ -309,6 +250,52 @@ function UpdatesPage() {
     ],
   };
 
+  const shortenChatName = (name, maxLength = 15) => {
+    return name.length > maxLength
+      ? name.substring(0, maxLength) + "..."
+      : name;
+  };
+
+  const chatBarData = {
+    labels: chatStats
+      .slice(0, 10)
+      .map((chat) => shortenChatName(chat.chatName)),
+    datasets: [
+      {
+        label: "Unread Messages",
+        data: chatStats.slice(0, 10).map((chat) => chat.unreadMessages),
+        backgroundColor: "rgba(255, 206, 86, 1)",
+      },
+      {
+        label: "Messages Sent",
+        data: chatStats.slice(0, 10).map((chat) => chat.userMessages),
+        backgroundColor: "rgba(54, 162, 235, 1)",
+      },
+      {
+        label: "Messages Received",
+        data: chatStats.slice(0, 10).map((chat) => chat.otherMessages),
+        backgroundColor: "rgba(75, 192, 192, 1)",
+      },
+    ],
+  };
+
+  const messageLineData = {
+    labels: Object.keys(messagesPerDay).sort(),
+    datasets: [
+      {
+        label: "Messages per Day",
+        data: Object.keys(messagesPerDay)
+          .sort()
+          .map((date) => messagesPerDay[date]),
+        backgroundColor: "rgba(255, 99, 132, 0.2)",
+        borderColor: "rgba(255, 99, 132, 1)",
+        borderWidth: 1,
+        fill: false,
+        pointRadius: 0,
+      },
+    ],
+  };
+
   const options = {
     scales: {
       x: {
@@ -334,49 +321,52 @@ function UpdatesPage() {
   return (
     <div className="all-update">
       <h2 className="title">Updates</h2>
-
       <div className="updates">
         <div className="chart-container">
           <div className="title-div">
-            <h3>Files Uploaded per Month</h3>
+            <h3>Chat Messages Overview</h3>
           </div>
-          <Line className="canvas" data={lineData} options={options} />
+          <Bar
+            className="canvas"
+            data={chatBarData}
+            options={{
+              scales: {
+                x: {
+                  stacked: true,
+                },
+                y: {
+                  stacked: true,
+                },
+              },
+            }}
+          />
         </div>
         <div className="chart-container">
           <div className="title-div">
-            <h3>Unread Messages</h3>
+            <h3>Messages Sent per Day</h3>
           </div>
-          <p className="p">
-            {messages}
-            <img
-              id="logo"
-              className="chats"
-              src="../../src/pictures/chat.png"
-              alt="chat"
-            />
-          </p>
-        </div>
-
-        <div className="chart-container">
-          <div className="title-div">
-            <h3>Number Files</h3>
-          </div>
-          <p className="p">
-            {numberFiles}
-            <img
-              id="logo"
-              className="chats"
-              src="../../src/pictures/document.png"
-              alt="document"
-            />
-          </p>
+          <Line className="canvas" data={messageLineData} options={options} />
         </div>
         <div className="chart-container">
           <div className="title-div">
-            <h3>Messages Chat</h3>
+            <h3>Chat Distribution by Message Count</h3>
           </div>
-          {/* <Radar className="canvas" data={radarData} /> */}
-          <Doughnut className="canvas" data={doughnutData} />
+          <Pie
+            className="canvas"
+            data={chatCountPieData}
+            options={{
+              responsive: true,
+              plugins: {
+                legend: {
+                  position: "top",
+                },
+                title: {
+                  display: true,
+                  text: "Chats by Message Volume",
+                },
+              },
+            }}
+          />
         </div>
         <div className="chart-container">
           <div className="title-div">
@@ -391,7 +381,12 @@ function UpdatesPage() {
             ))}
           </div>
         </div>
-
+        <div className="chart-container">
+          <div className="title-div">
+            <h3>Files Uploaded per Month</h3>
+          </div>
+          <Line className="canvas" data={lineData} options={options} />
+        </div>
         <div className="chart-container">
           <div className="title-div">
             <h3>Status</h3>

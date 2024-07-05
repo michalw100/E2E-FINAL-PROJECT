@@ -100,6 +100,7 @@ export const AuthProvider = ({ children }) => {
           };
         })
       );
+      console.log("allChatsInfo");
       console.log(allChatsInfo);
       setChatsInfo(allChatsInfo);
       loadFilesAndUpdateChats(allChatsInfo, user.id);
@@ -120,9 +121,9 @@ export const AuthProvider = ({ children }) => {
       let allFiles = [];
       // ביצוע בקשה נפרדת עבור כל סוג
       for (const typeFile of types) {
-        console.log(user);
-        console.log(ownerOfFiles);
-        console.log(typeFile);
+        // console.log(user);
+        // console.log(ownerOfFiles);
+        // console.log(typeFile);
         const response = await axios.get(`http://localhost:3000/files`, {
           params: {
             userID: ownerOfFiles,
@@ -131,13 +132,13 @@ export const AuthProvider = ({ children }) => {
           withCredentials: true,
           headers: { "Content-Type": "application/json" },
         });
-        console.log(response);
-        console.log(allFiles);
+        // console.log(response);
+        // console.log(allFiles);
 
         allFiles = [...allFiles, ...response.data];
       }
-      console.log("allFiles");
-      console.log(allFiles);
+      // console.log("allFiles");
+      // console.log(allFiles);
       setFiles(allFiles);
 
       if (allFiles.length === 0) {
@@ -151,8 +152,8 @@ export const AuthProvider = ({ children }) => {
             return { ...file, chatId: chatData ? chatData.id : null };
           })
         );
-        console.log("filesWithChatIDs");
-        console.log(filesWithChatIDs);
+        // console.log("filesWithChatIDs");
+        // console.log(filesWithChatIDs);
         // עדכון תיאורי הצ'אטים
         const updatedChatsInfo = chatsInfo.map((chat) => {
           const matchingFile = filesWithChatIDs.find(
@@ -165,7 +166,7 @@ export const AuthProvider = ({ children }) => {
               description: `File Type: ${matchingFile.type}, Size: ${matchingFile.size}, Created: ${matchingFile.createdAt}`,
             };
           }
-          console.log(chat);
+          // console.log(chat);
           return chat;
         });
 
@@ -173,12 +174,12 @@ export const AuthProvider = ({ children }) => {
 
         // עדכון הצ'אטים בשרת Stream
         for (const chat of updatedChatsInfo) {
-          console.log(
-            chat.chatType,
-            `myChat-${chat.chatId}`,
-            chat.chatName,
-            chat.description
-          );
+          // console.log(
+          //   chat.chatType,
+          //   `myChat-${chat.chatId}`,
+          //   chat.chatName,
+          //   chat.description
+          // );
           if (chat.description) {
             const chat1 = await chatClient
               .channel(chat.chatType, chat.chatId)
@@ -186,7 +187,7 @@ export const AuthProvider = ({ children }) => {
                 name: chat.chatName,
                 description: chat.description,
               });
-            console.log(chat1);
+            // console.log(chat1);
           }
         }
 

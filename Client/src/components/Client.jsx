@@ -26,8 +26,8 @@ const Client = ({ client }) => {
         null,
         client.userID
       );
-      console.log(client.userID)
-      console.log(messages)
+      // console.log(client.userID)
+      // console.log(messages)
       if (messages == -1) return;
       else setMessages(messages);
     } catch (error) {

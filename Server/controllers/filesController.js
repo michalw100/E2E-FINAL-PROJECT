@@ -39,7 +39,13 @@ async function listFiles(userID, type) {
   }
 }
 
-async function uploadFile(uploaderID, clientID, uploadedFiles, filesNames, type) {
+async function uploadFile(
+  uploaderID,
+  clientID,
+  uploadedFiles,
+  filesNames,
+  type
+) {
   try {
     // const realclientID = await getClientIDOrEmployeeIDByUserID(clientID);
     for (const [index, file] of uploadedFiles.entries()) {
@@ -96,13 +102,13 @@ function bufferToStream(buffer) {
 
 async function deleteAllFiles() {
   try {
-    await deleteAllFilesInFolder( "root");
+    await deleteAllFilesInFolder("root");
   } catch (error) {
     console.error("Error deleting files:", error);
   }
 }
 
-async function deleteAllFilesInFolder( folderId) {
+async function deleteAllFilesInFolder(folderId) {
   try {
     const drive = google.drive({ version: "v3", auth });
 
@@ -233,20 +239,19 @@ async function updateTypeFile(id, type) {
 async function numFilesPerMonth(userID, role) {
   try {
     let numFilesPerMonth;
-    if(role == "Admin")
-     {
+    if (role == "Admin") {
       numFilesPerMonth = await model.numFilesPerMonthAdmin();
-      return numFilesPerMonth[0]
-     } 
+      return numFilesPerMonth[0];
+    }
     const realID = await getClientIDOrEmployeeIDByUserID(userID);
     if (realID[0].client_id) {
       const result = await model.numFilesPerMonthClient(userID);
       numFilesPerMonth = result;
     } else {
       const result = await model.numFilesPerMonthEmployee(userID);
-      numFilesPerMonth = result;}
+      numFilesPerMonth = result;
+    }
     return numFilesPerMonth[0];
-    
   } catch (err) {
     throw err;
   }
@@ -255,20 +260,40 @@ async function numFilesPerMonth(userID, role) {
 async function numberFilesTypes(userID, role) {
   try {
     let numFiles;
-    if(role == "Admin")
-      {
-       numFiles = await model.numberFilesTypesAdmin();
-       return numFiles[0]
-      } 
+    if (role == "Admin") {
+      numFiles = await model.numberFilesTypesAdmin();
+      return numFiles[0];
+    }
     const realID = await getClientIDOrEmployeeIDByUserID(userID);
     if (realID[0].client_id) {
       const result = await model.numberFilesTypesClient(userID);
       numFiles = result;
     } else {
       const result = await model.numberFilesTypesEmployee(userID);
-      numFiles = result;}
+      numFiles = result;
+    }
     return numFiles[0];
-    
+  } catch (err) {
+    throw err;
+  }
+}
+
+async function numberFilesTypesAndStatus(userID, role) {
+  try {
+    let numFiles;
+    if (role == "Admin") {
+      numFiles = await model.numberFilesTypesAdmin();
+      return numFiles[0];
+    }
+    const realID = await getClientIDOrEmployeeIDByUserID(userID);
+    if (realID[0].client_id) {
+      const result = await model.numberFilesTypesClient(userID);
+      numFiles = result;
+    } else {
+      const result = await model.numberFilesTypesEmployee(userID);
+      numFiles = result;
+    }
+    return numFiles[0];
   } catch (err) {
     throw err;
   }
@@ -277,20 +302,19 @@ async function numberFilesTypes(userID, role) {
 async function getStatus(userID, role) {
   try {
     let status;
-    if(role == "Admin")
-      {
-        status = await model.getStatusAdmin();
-       return status[0]
-      } 
+    if (role == "Admin") {
+      status = await model.getStatusAdmin();
+      return status[0];
+    }
     const realID = await getClientIDOrEmployeeIDByUserID(userID);
     if (realID[0].client_id) {
       const result = await model.getStatusClient(userID);
       status = result;
     } else {
       const result = await model.getStatusEmployee(userID);
-      status = result;}
+      status = result;
+    }
     return status[0];
-    
   } catch (err) {
     throw err;
   }
@@ -317,20 +341,19 @@ async function countTypeFile(type, userID) {
 async function getFilesNumber(userID, role) {
   try {
     let numFile;
-    if(role == "Admin")
-      {
-        numFile = await model.getFilesNumberAdmin();
-       return numFile[0]
-      } 
+    if (role == "Admin") {
+      numFile = await model.getFilesNumberAdmin();
+      return numFile[0];
+    }
     const realID = await getClientIDOrEmployeeIDByUserID(userID);
     if (realID[0].client_id) {
       const result = await model.getFilesNumberClient(userID);
       numFile = result;
     } else {
       const result = await model.getFilesNumberEmployee(userID);
-      numFile = result;}
+      numFile = result;
+    }
     return numFile[0];
-    
   } catch (err) {
     throw err;
   }
@@ -349,5 +372,6 @@ module.exports = {
   numFilesPerMonth,
   getStatus,
   numberFilesTypes,
-  getFilesNumber
+  getFilesNumber,
+  numberFilesTypesAndStatus,
 };
