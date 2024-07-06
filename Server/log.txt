@@ -3122,3 +3122,6 @@ Date: Sat Jul 06 2024 23:18:55 GMT+0300 (שעון ישראל (קיץ)), Url:/myC
 Date: Sat Jul 06 2024 23:18:55 GMT+0300 (שעון ישראל (קיץ)), Url:/myClient/getClientID 
 Date: Sat Jul 06 2024 23:18:55 GMT+0300 (שעון ישראל (קיץ)), Url:/myClient/getClientID 
 Date: Sat Jul 06 2024 23:19:01 GMT+0300 (שעון ישראל (קיץ)), Url:/logout 
+Date: Sun Jul 07 2024 00:37:21 GMT+0300 (שעון ישראל (קיץ)), Url:/checkAuth 
+Date: Sun Jul 07 2024 00:37:21 GMT+0300 (שעון ישראל (קיץ)), Url:/checkAuth 
+Date: Sun Jul 07 2024 00:37:29 GMT+0300 (שעון ישראל (קיץ)), Url:/signIn 
