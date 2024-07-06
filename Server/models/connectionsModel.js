@@ -27,7 +27,7 @@ async function deleteConnection(employeeID, clientID) {
     const sql =
       "DELETE FROM employee_client WHERE employeeID = ? AND clientID = ?";
     const result = await pool.query(sql, [employeeID, clientID]);
-    console.log(result);
+    // console.log(result);
     return result;
   } catch (err) {
     throw err;

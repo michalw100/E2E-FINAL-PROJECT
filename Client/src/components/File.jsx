@@ -156,7 +156,7 @@ const File = ({
         return response;
       })
       .then((data) => {
-        // console.log(filesChanged)
+        changeDesciptionInChats();
         setFilesChanged(!filesChanged);
         return;
       });
@@ -196,9 +196,18 @@ const File = ({
         file.id,
         file.clientID,
         file.name,
-        file
+        file,
+        ownerName
       );
       navigate(`../chats/${file.id}`);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const changeDesciptionInChats = async () => {
+    try {
+      await chanels.updateChatDescriptionForFile(chatClient, file, ownerName);
     } catch (err) {
       console.log(err);
     }
@@ -224,6 +233,7 @@ const File = ({
       .then((data) => {
         // console.log(filesChanged)
         setFilesChanged(!filesChanged);
+        changeDesciptionInChats();
         // setIsEditing(!isEditing);
       });
   };

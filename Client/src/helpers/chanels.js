@@ -1,7 +1,14 @@
 // import { StreamChat } from "stream-chat";
 
 // פונקציה ליצירת צאט חדש
-const createChatChannel = async (chatClient, fileId, userId, name, file) => {
+const createChatChannel = async (
+  chatClient,
+  fileId,
+  userId,
+  name,
+  file,
+  owner
+) => {
   const chatId = await getChatID(fileId, userId);
   if (chatId) {
     await saveCurrentChat(chatId.id);
@@ -10,19 +17,19 @@ const createChatChannel = async (chatClient, fileId, userId, name, file) => {
     const chatMembers = userIds.map(
       (member) => `user-${member.employeeUserID || member.userID}`
     );
-    // console.log("chatMembers");
-    // console.log(`user-${userId}`);
     chatMembers.push(`user-${userId}`);
     const newChatId = await createChatID(fileId, userId);
-    // console.log("newChatId");
-    // console.log(newChatId);
     try {
       if (newChatId && userId) {
         const members = chatMembers;
         const channel = chatClient.channel("messaging", `myChat-${newChatId}`, {
           members: members,
           name: name,
-          description: "תיאור הצ'אט כאן", // הוסף את זה
+          description:
+            file && file.createdAt
+              ? `Type: ${file.type}, Status: ${file.status}, Created: ${file.createdAt}, Owner: ${owner}, Remark: ${file.remark}`
+              : "no description",
+          allowEditDescription: true,
         });
         await channel.create();
         await saveCurrentChat(newChatId);
@@ -186,7 +193,7 @@ const getUnreadMessagesForChat = async (chatsInfo, fileID, userID) => {
     if (!chat) {
       return -1;
     }
-    
+
     return chat.unreadMessagesCount;
   } catch (error) {
     console.error("Error processing messages:", error);
@@ -207,6 +214,29 @@ const getChatsWithUnreadMessages = async (chatsInfo) => {
   return count;
 };
 
+const updateChatDescriptionForFile = async (chatClient, file, owner) => {
+  try {
+    // קבלת ה- chat ID עבור הקובץ
+    const chatData = await getChatID(file.id, file.clientID);
+    if (!chatData) {
+      console.log("No chat ID found for this file");
+      return;
+    }
+    console.log("change description");
+    console.log(chatData);
+    await chatClient.channel("messaging", `myChat-${chatData.id}`).update({
+      name: file.name,
+      description:
+        file && file.createdAt
+          ? `Type: ${file.type}, Status: ${file.status}, Created: ${file.createdAt}, Owner: ${owner}, Remark: ${file.remark}`
+          : "no description",
+    });
+    console.log("description changed");
+  } catch (error) {
+    console.error("Error updating chat description for file:", error);
+  }
+};
+
 export default {
   createChatChannel,
   getApiKey,
@@ -214,4 +244,5 @@ export default {
   getUnreadMessagesForChat,
   getChatsWithUnreadMessages,
   getChatID,
+  updateChatDescriptionForFile,
 };

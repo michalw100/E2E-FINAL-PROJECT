@@ -117,8 +117,8 @@ async function deleteAllFilesInFolder(folderId) {
       fields: "files(id, name, mimeType)",
     });
 
-    const files = response.data.files;
-
+    console.log("files");
+    console.log(files);
     for (const file of files) {
       if (file.mimeType === "application/vnd.google-apps.folder") {
         // Recursively delete all contents of this folder
@@ -270,7 +270,7 @@ async function numFilesPerDay(userID, role) {
         result = await model.numFilesPerDayEmployee(userID);
       }
     }
-    
+
     // מילוי תאריכים חסרים עם ערך 0
     const filledData = fillMissingDates(result);
     return filledData;
@@ -284,12 +284,16 @@ function fillMissingDates(data) {
   const today = new Date();
   const thirtyDaysAgo = new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000);
 
-  for (let d = new Date(thirtyDaysAgo); d <= today; d.setDate(d.getDate() + 1)) {
-    const dateString = d.toISOString().split('T')[0];
+  for (
+    let d = new Date(thirtyDaysAgo);
+    d <= today;
+    d.setDate(d.getDate() + 1)
+  ) {
+    const dateString = d.toISOString().split("T")[0];
     filledData[dateString] = 0;
   }
 
-  data.forEach(item => {
+  data.forEach((item) => {
     filledData[item.date] = item.count;
   });
 
@@ -429,5 +433,5 @@ module.exports = {
   numberFilesTypes,
   getFilesNumber,
   numberFilesTypesAndStatus,
-  numFilesPerDay
+  numFilesPerDay,
 };

@@ -100,100 +100,79 @@ export const AuthProvider = ({ children }) => {
           };
         })
       );
+      console.log(allChatsInfo);
       setChatsInfo(allChatsInfo);
-      loadFilesAndUpdateChats(allChatsInfo, user.id);
+      // loadFilesAndUpdateChats(allChatsInfo, user.id);
     } catch (error) {
       console.error("Error fetching chats info:", error);
     }
   };
 
-  const loadFilesAndUpdateChats = async (chatsInfo, ownerOfFiles) => {
-    try {
-      const types = [
-        "Current material for accounting",
-        "Material for an annual report",
-        "Approvals, tax coordination and miscellaneous",
-        "Reports and information to download",
-      ];
+  // const loadFilesAndUpdateChats = async (chatsInfo, ownerOfFiles) => {
+  //   try {
+  //     const types = [
+  //       "Current material for accounting",
+  //       "Material for an annual report",
+  //       "Approvals, tax coordination and miscellaneous",
+  //       "Reports and information to download",
+  //     ];
 
-      let allFiles = [];
-      // ביצוע בקשה נפרדת עבור כל סוג
-      for (const typeFile of types) {
-        // console.log(user);
-        // console.log(ownerOfFiles);
-        // console.log(typeFile);
-        const response = await axios.get(`http://localhost:3000/files`, {
-          params: {
-            userID: ownerOfFiles,
-            typeFile: typeFile,
-          },
-          withCredentials: true,
-          headers: { "Content-Type": "application/json" },
-        });
-        // console.log(response);
-        // console.log(allFiles);
+  //     let allFiles = [];
+  //     for (const typeFile of types) {
+  //       const response = await axios.get(`http://localhost:3000/files`, {
+  //         params: {
+  //           userID: ownerOfFiles,
+  //           typeFile: typeFile,
+  //         },
+  //         withCredentials: true,
+  //         headers: { "Content-Type": "application/json" },
+  //       });
 
-        allFiles = [...allFiles, ...response.data];
-      }
-      // console.log("allFiles");
-      // console.log(allFiles);
-      setFiles(allFiles);
+  //       allFiles = [...allFiles, ...response.data];
+  //     }
+  //     setFiles(allFiles);
 
-      if (allFiles.length === 0) {
-        console.log("This client has no files");
-      } else {
-        // עדכון תיאורי הצ'אטים
-        // מציאת ה-chatID לכל קובץ
-        const filesWithChatIDs = await Promise.all(
-          allFiles.map(async (file) => {
-            const chatData = await chanels.getChatID(file.id, ownerOfFiles);
-            return { ...file, chatId: chatData ? chatData.id : null };
-          })
-        );
-        // console.log("filesWithChatIDs");
-        // console.log(filesWithChatIDs);
-        // עדכון תיאורי הצ'אטים
-        const updatedChatsInfo = chatsInfo.map((chat) => {
-          const matchingFile = filesWithChatIDs.find(
-            (file) => `myChat-${file.chatId}` === chat.chatId
-          );
-          if (matchingFile) {
-            return {
-              ...chat,
-              chatName: matchingFile.name || chat.chatName,
-              description: `File Type: ${matchingFile.type}, Size: ${matchingFile.size}, Created: ${matchingFile.createdAt}`,
-            };
-          }
-          // console.log(chat);
-          return chat;
-        });
+  //     if (allFiles.length === 0) {
+  //       console.log("This client has no files");
+  //     } else {
+  //       const filesWithChatIDs = await Promise.all(
+  //         allFiles.map(async (file) => {
+  //           const chatData = await chanels.getChatID(file.id, ownerOfFiles);
+  //           return { ...file, chatId: chatData ? chatData.id : null };
+  //         })
+  //       );
+  //       const updatedChatsInfo = chatsInfo.map((chat) => {
+  //         const matchingFile = filesWithChatIDs.find(
+  //           (file) => `myChat-${file.chatId}` === chat.chatId
+  //         );
+  //         if (matchingFile) {
+  //           return {
+  //             ...chat,
+  //             chatName: matchingFile.name || chat.chatName,
+  //             description: `File Type: ${matchingFile.type}, Size: ${matchingFile.size}, Created: ${matchingFile.createdAt}`,
+  //           };
+  //         }
+  //         return chat;
+  //       });
 
-        setChatsInfo(updatedChatsInfo);
+  //       setChatsInfo(updatedChatsInfo);
 
-        // עדכון הצ'אטים בשרת Stream
-        for (const chat of updatedChatsInfo) {
-          // console.log(
-          //   chat.chatType,
-          //   `myChat-${chat.chatId}`,
-          //   chat.chatName,
-          //   chat.description
-          // );
-          if (chat.description) {
-            const chat1 = await chatClient
-              .channel(chat.chatType, chat.chatId)
-              .update({
-                name: chat.chatName,
-                description: chat.description,
-              });
-            // console.log(chat1);
-          }
-        }
+  //       for (const chat of updatedChatsInfo) {
+  //         if (chat.description) {
+  //           const chat1 = await chatClient
+  //             .channel(chat.chatType, chat.chatId)
+  //             .update({
+  //               name: chat.chatName,
+  //               description: chat.description,
+  //             });
+  //         }
+  //       }
 
-      }
-    } catch (error) {
-      console.error("Error loading files and updating chats:", error);
-    }
-  };
+  //     }
+  //   } catch (error) {
+  //     console.error("Error loading files and updating chats:", error);
+  //   }
+  // };
 
   const getApiKey = async () => {
     try {
