@@ -233,7 +233,7 @@ function Files({ setIsUploading, isUploading }) {
   // קבל את הקבצים הנוכחיים להצגה על פי העמוד הנוכחי
   const getCurrentFiles = () => {
     if (filteredFiles) {
-      const endIndex = currentPage * 15;
+      const endIndex = currentPage * 7;
       return filteredFiles.slice(0, endIndex);
     }
     return [];
@@ -388,9 +388,9 @@ function Files({ setIsUploading, isUploading }) {
                 />
               ))}
             </div>
-            {filteredFiles.length > currentPage * 15 ? (
+            {filteredFiles.length > currentPage * 7 ? (
               <button className="load-more-btn" onClick={handleLoadMore}>
-                Load More Files ({filteredFiles.length - currentPage * 15}{" "}
+                Load More Files ({filteredFiles.length - currentPage * 7}{" "}
                 remaining)
               </button>
             ) : (
