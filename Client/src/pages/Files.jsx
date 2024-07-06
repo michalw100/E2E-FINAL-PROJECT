@@ -40,17 +40,6 @@ function Files({ setIsUploading, isUploading }) {
   //   method: "DELETE",
   //   credentials: "include",
   // });
-
-  // setTimeout(async () => {
-  //   try {
-  //     await chanel.deleteAllChats(user.id, user.streamToken);
-  //     console.log("All chats deleted successfully");
-  //   } catch (error) {
-  //     console.error("Error deleting chats:", error);
-  //   } finally {
-  //     console.error(false);
-  //   }
-  // }, 5000);
   
   useEffect(() => {
     switch (sortCriteria) {

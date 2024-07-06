@@ -116,7 +116,7 @@ async function deleteAllFilesInFolder(folderId) {
       q: `'${folderId}' in parents`,
       fields: "files(id, name, mimeType)",
     });
-
+    const files = response.data.files;
     console.log("files");
     console.log(files);
     for (const file of files) {
