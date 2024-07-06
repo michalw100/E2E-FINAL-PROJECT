@@ -31,7 +31,7 @@ const ChatApp = () => {
           onMouseEnter={() => setShowTooltip(true)}
           onMouseLeave={() => setShowTooltip(false)}
         >
-          {channel?.data?.name}
+          {/* {channel?.data?.name} */}
         </div>
         {showTooltip && (
           <div className="channel-header__description tooltip">
