@@ -21,7 +21,7 @@ const ChannelListContainer = () => {
       });
       const data = await response.json();
       if (data.chatId) {
-        setChatId(`myChat-${data.chatId}`);
+        setChatId(`chat-${data.chatId}`);
       } else {
         setChatId(null);
       }
