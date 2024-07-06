@@ -63,7 +63,7 @@ const TypeFile = ({
         <strong>{typeFile}</strong>
       </button>
       <br />
-      {countOfType.count} files
+      <p className="num-files">{countOfType.count} files</p>
       <hr></hr>
     </div>
   );

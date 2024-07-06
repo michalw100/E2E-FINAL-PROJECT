@@ -36,10 +36,10 @@ function Files({ setIsUploading, isUploading }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [pendingIndex, setPendingIndex] = useState(null);
 
-  const response = fetch("http://localhost:3000/files/deleteAllFiles", {
-    method: "DELETE",
-    credentials: "include",
-  });
+  // const response = fetch("http://localhost:3000/files/deleteAllFiles", {
+  //   method: "DELETE",
+  //   credentials: "include",
+  // });
 
   // setTimeout(async () => {
   //   try {

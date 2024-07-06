@@ -16,6 +16,7 @@ import MyImage from "../pictures/loading-bar.png";
 
 const ChatApp = () => {
   const { chatClient, clientReady } = useContext(AuthContext);
+  const [showTooltip, setShowTooltip] = useState(false);
 
   if (!clientReady)
     return <img className="loading" src={MyImage} alt="Loading..." />;
@@ -25,13 +26,25 @@ const ChatApp = () => {
 
     return (
       <div className="channel-header__container">
-        <div className="channel-header__name">{channel?.data?.name}</div>
-        <div className="channel-header__description">
-          {channel?.data?.description}
+        <div 
+          className="channel-header__name"
+          onMouseEnter={() => setShowTooltip(true)}
+          onMouseLeave={() => setShowTooltip(false)}
+        >
+          {channel?.data?.name}
         </div>
+        {showTooltip && (
+          <div className="channel-header__description tooltip">
+            {channel?.data?.description}
+          </div>
+        )}
       </div>
     );
   };
+
+
+  
+    
 
   return (
     <Chat client={chatClient} theme="messaging light">

@@ -263,7 +263,7 @@ function UpdatesPage() {
   };
 
   const barData = {
-    labels: types.map((type) => type.type),
+    labels: types.map((type, index) => `Type ${index + 1}`),
     datasets: [
       {
         label: "Pending",
@@ -358,7 +358,7 @@ function UpdatesPage() {
 
   return (
     <div className="all-update">
-      <h2 className="title">Updates</h2>
+      {/* <h2 className="title">Updates</h2> */}
       <div className="updates">
         <div className="chart-container">
           <div className="title-div">
@@ -448,8 +448,7 @@ function UpdatesPage() {
           <div className="explanation">
             {types.map((type, index) => (
               <div className="types" key={index}>
-                <strong>{type.type}:</strong> Total:{" "}
-                {type.pending + type.completed + type.inProgress}
+                <strong>Type {index + 1}:</strong> {type.type}
               </div>
             ))}
           </div>
