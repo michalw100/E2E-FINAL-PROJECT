@@ -1,11 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const {
-  getConnections,
-  createConnection,
-  deleteConnection,
-  updateConnection,
-} = require("../controllers/connectionsController");
+const {getConnections, createConnection, deleteConnection} = require("../controllers/connectionsController");
 const checkAbilities = require("../Middlewares/checkAbilities");
 router.use(express.json());
 router.use(express.urlencoded({ extended: true }));

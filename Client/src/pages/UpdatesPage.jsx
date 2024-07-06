@@ -14,15 +14,7 @@ import {
   PointElement,
 } from "chart.js";
 
-ChartJS.register(
-  Tooltip,
-  Legend,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  ArcElement,
-  LineElement,
-  PointElement
+ChartJS.register(Tooltip, Legend, CategoryScale, LinearScale, BarElement, ArcElement, LineElement, PointElement
 );
 
 function UpdatesPage() {
@@ -30,11 +22,7 @@ function UpdatesPage() {
   const [numFilesPerMonth, setNumFilesPerMonth] = useState([]);
   const [statusData, setStatusData] = useState([]);
   const [types, setTypes] = useState([]);
-  const [chatMessageCounts, setChatMessageCounts] = useState({
-    low: 0,
-    medium: 0,
-    high: 0,
-  });
+  const [chatMessageCounts, setChatMessageCounts] = useState({low: 0, medium: 0, high: 0});
   const [messagesPerDay, setMessagesPerDay] = useState({});
   const [chatStats, setChatStats] = useState([]);
   const [numFilesPerDay, setNumFilesPerDay] = useState([]);
@@ -245,19 +233,19 @@ function UpdatesPage() {
         label: "Status Distribution",
         data: statusCounts,
         backgroundColor: [
-          "rgba(255, 99, 132, 1)",
-          "rgba(54, 162, 235, 1)",
-          "rgba(255, 206, 86, 1)",
-          "rgba(75, 192, 192, 1)",
+          "rgb(200, 200, 200)",
+          "#90e290",
+          "#d85a5a",
+          "rgb(114 164 216)",
           "rgba(153, 102, 255, 1)",
           "rgba(255, 159, 64, 1)",
         ],
         borderColor: [
-          "rgba(255, 99, 132, 1)",
-          "rgba(54, 162, 235, 1)",
-          "rgba(255, 206, 86, 1)",
-          "rgba(75, 192, 192, 1)",
-          "rgba(153, 102, 255, 1)",
+          "rgb(178 174 174)",
+          "#90e290",
+          "#d85a5a",
+          "rgb(120, 170, 230)",
+          "rgba(160, 120, 260, 10)",
           "rgba(255, 159, 64, 1)",
         ],
         borderWidth: 1,
