@@ -102,26 +102,6 @@ CREATE TABLE
         FOREIGN KEY (topicID) REFERENCES topics (id)
     );
 
--- Create table conversations
--- CREATE TABLE
---     conversations (
---         id INT AUTO_INCREMENT PRIMARY KEY,
---         title TEXT NOT NULL,
---         content TEXT NOT NULL,
---         clientID INT NOT NULL,
---         FOREIGN KEY (clientID) REFERENCES clients (id)
---     );
--- Create table messages
--- CREATE TABLE
---     messages (
---         id INT AUTO_INCREMENT PRIMARY KEY,
---         fileID INT,
---         conversationID INT,
---         content TEXT NOT NULL,
---         FOREIGN KEY (fileID) REFERENCES files (id),
---         FOREIGN KEY (conversationID) REFERENCES conversations (id)
---     );
--- Create table chats
 CREATE TABLE
     chats (
         id INT AUTO_INCREMENT PRIMARY KEY,
@@ -135,22 +115,22 @@ CREATE TABLE
 INSERT INTO
     addresses (street, city, zipcode)
 VALUES
-    ('רחוב 1', 'עיר 1', '12345'),
-    ('רחוב 2', 'עיר 2', '23456'),
-    ('רחוב 3', 'עיר 3', '34567'),
-    ('רחוב 4', 'עיר 4', '45678'),
-    ('רחוב 4', 'עיר 4', '45678'),
-    ('רחוב 4', 'עיר 4', '45678'),
-    ('רחוב 4', 'עיר 4', '45678'),
-    ('רחוב 4', 'עיר 4', '45678'),
-    ('רחוב 4', 'עיר 4', '45678'),
-    ('רחוב 4', 'עיר 4', '45678'),
-    ('רחוב 5', 'עיר 5', '56789'),
-    ('רחוב 4', 'עיר 4', '45678'),
-    ('רחוב 4', 'עיר 4', '45678'),
-    ('רחוב 4', 'עיר 4', '45678'),
-    ('רחוב 4', 'עיר 4', '45678'),
-    ('רחוב 5', 'עיר 5', '56789');
+    ('שדרות רוטשילד 1', 'תל אביב', '6688101'),
+    ('דרך בגין 132', 'תל אביב', '6701101'),
+    ('רחוב הרצל 16', 'חיפה', '3303130'),
+    ('שדרות בן גוריון 1', 'באר שבע', '8489101'),
+    ('רחוב יפו 97', 'ירושלים', '9462097'),
+    ('שדרות ממילא 10', 'ירושלים', '9414116'),
+    ('רחוב אחד העם 13', 'תל אביב', '6515601'),
+    ('שדרות הנשיא 123', 'חיפה', '3498123'),
+    ('רחוב ויצמן 6', 'נתניה', '4240007'),
+    ('רחוב הרצל 91', 'ראשון לציון', '7528901'),
+    ('שדרות ירושלים 2', 'אשדוד', '7752502'),
+    ('רחוב סוקולוב 48', 'הרצליה', '4644048'),
+    ('רחוב ביאליק 22', 'רמת גן', '5246022'),
+    ('שדרות מוריה 132', 'חיפה', '3457132'),
+    ('רחוב אלנבי 99', 'תל אביב', '6579909'),
+    ('דרך יצחק רבין 2', 'גבעתיים', '5348302');
 
 INSERT INTO
     users (
@@ -163,162 +143,162 @@ INSERT INTO
     )
 VALUES
     (
-        'Client1',
-        'Client 1',
-        'client1@example.com',
-        '1234567890',
+        'YossiCohen',
+        'יוסי כהן',
+        'yossi.cohen@gmail.com',
+        '052-1234567',
         1,
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlci00In0.fEKU1XglcDcdXHKf6OL-'
     ),
     (
-        'Client 2',
-        'Client 2',
-        'client2@example.com',
-        '1234567891',
+        'RachelLevi',
+        'רחל לוי',
+        'rachel.levi@walla.co.il',
+        '054-2345678',
         2,
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlci0yIn0.81erpPi88IvI_mJdv8TGrDaduKD2A9pXpV17QleJ9QQ'
     ),
     (
-        'Client 3',
-        'Client 3',
-        'client3@example.com',
-        '1234567892',
+        'MoshePeretz',
+        'משה פרץ',
+        'moshe.peretz@hotmail.com',
+        '050-3456789',
         3,
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlci0zIn0.FGNo3Zbvocxw7fRp0yTJ7hstLSnrl4DTXn-_dKksqFo'
     ),
     (
-        'Client 4',
-        'Client 4',
-        'client4@example.com',
-        '1234567893',
+        'DanaGoldstein',
+        'דנה גולדשטיין',
+        'dana.goldstein@gmail.com',
+        '053-4567890',
         4,
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlci00In0.fEKU1XglcDcdXHKf6OL-3LkNwK9CUjioTuej84639GE'
     ),
     (
-        'Client 5',
-        'Client 5',
-        'client5@example.com',
-        '1234567894',
+        'EladSharon',
+        'אלעד שרון',
+        'elad.sharon@yahoo.com',
+        '058-5678901',
         5,
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlci01In0.lddw7yhTkwnylUnk82zjx43M20pSuoHKSIpEIqFFxDI'
     ),
     (
-        'Client 6',
-        'Client 6',
-        'client6@example.com',
-        '1234567895',
+        'MichalAvraham',
+        'מיכל אברהם',
+        'michal.avraham@gmail.com',
+        '052-6789012',
         1,
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlci02In0.hB2mW7_OficCI2JaDlxB_iBQ3MoGt6RuHiQa0kmwOwI'
     ),
     (
-        'Client 7',
-        'Client 7',
-        'client7@example.com',
-        '1234567896',
+        'AviFriedman',
+        'אבי פרידמן',
+        'avi.friedman@walla.co.il',
+        '054-7890123',
         2,
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlci03In0._yCPiL-q3nvMRzPg1ttYYShjDSHmDMamPYs5TlFjXbE'
     ),
     (
-        'Client 8',
-        'Client 8',
-        'client8@example.com',
-        '1234567897',
+        'TamarKatz',
+        'תמר כץ',
+        'tamar.katz@hotmail.com',
+        '050-8901234',
         3,
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlci04In0.MFmpXLPbJ_NdGVU9HNIeOTFpCpVgQiPfptS6FSlWPe4'
     ),
     (
-        'Client 9',
-        'Client 9',
-        'client9@example.com',
-        '1234567898',
+        'GilRosen',
+        'גיל רוזן',
+        'gil.rosen@gmail.com',
+        '053-9012345',
         4,
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlci05In0.TBgCGHwJ6XjA9dRZqM3ZO1Q7LC-3y2IROtHojA47Pb0'
     ),
     (
-        'Client 10',
-        'Client 10',
-        'client10@example.com',
-        '1234567899',
+        'LiatBen',
+        'ליאת בן',
+        'liat.ben@yahoo.com',
+        '058-0123456',
         5,
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlci0xMCJ9.5hE1cob5SwcwL053UIfzDV6ukjt3C6i3dUs-lRQMIO0'
     ),
     (
-        'Employee 1',
-        'Employee 1',
-        'employee1@example.com',
-        '0987654321',
+        'NadavLevy',
+        'נדב לוי',
+        'nadav.levy@company.co.il',
+        '03-6123456',
         6,
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlci0xMSJ9.DyIfGWKeoHdz7sC4Oh0yya_N5-YRgkrGVILAgxl_164'
     ),
     (
-        'Employee 2',
-        'Employee 2',
-        'employee2@example.com',
-        '0987654322',
+        'ShiraMizrachi',
+        'שירה מזרחי',
+        'shira.mizrachi@company.co.il',
+        '03-6234567',
         7,
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlci0xMiJ9.Whw6y_ujCmrhrkCpm1xGFcNajgzGNFOvrFJ18td7stM'
     ),
     (
-        'Employee 3',
-        'Employee 3',
-        'employee3@example.com',
-        '0987654323',
+        'OmerDagan',
+        'עומר דגן',
+        'omer.dagan@company.co.il',
+        '03-6345678',
         8,
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlci0xMyJ9.Beg4rR2pldDP_lldZIdhw0_gI8Uo8RSo4vIKQHotCW4'
     ),
     (
-        'Employee 4',
-        'Employee 4',
-        'employee4@example.com',
-        '0987654324',
+        'HadasCohen',
+        'הדס כהן',
+        'hadas.cohen@company.co.il',
+        '03-6456789',
         9,
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlci0xNCJ9.34Fflof0MnBiDe7qWuhPN5f2BKDJz0Oi0RnCeERvMmM'
     ),
     (
-        'Employee 5',
-        'Employee 5',
-        'employee5@example.com',
-        '0987654325',
+        'YairGolan',
+        'יאיר גולן',
+        'yair.golan@company.co.il',
+        '03-6567890',
         10,
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlci0xNSJ9.d4n1W5AfW3ECKPvmU5ut4ZGW3mZf-lgoij92cDxizOY'
     ),
     (
-        'Employee 6',
-        'Employee 6',
-        'employee6@example.com',
-        '0987654326',
+        'LiorAvidan',
+        'ליאור אבידן',
+        'lior.avidan@company.co.il',
+        '03-6678901',
         11,
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlci0xNiJ9.aj4Q03s9EtbP6OB3astXAHrZdKpQnVQyc2nhVxKwo1k'
     ),
     (
-        'Employee 7',
-        'Employee 7',
-        'employee7@example.com',
-        '0987654327',
+        'MayaShapira',
+        'מאיה שפירא',
+        'maya.shapira@company.co.il',
+        '03-6789012',
         12,
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlci0xNyJ9.nK9Y3MQSoMjPHrW9Taa29_G0uv3lxh6XHUf9kJ0Wl-Q'
     ),
     (
-        'Employee 8',
-        'Employee 8',
-        'employee8@example.com',
-        '0987654328',
+        'TalBarOn',
+        'טל בר-און',
+        'tal.baron@company.co.il',
+        '03-6890123',
         13,
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlci0xOCJ9.MyyGBFqWBZi2c1Id70LtBHfUouhsPQbs_5gfzwW8sM4'
     ),
     (
-        'Employee 9',
-        'Employee 9',
-        'employee9@example.com',
-        '0987654329',
+        'RonitSegal',
+        'רונית סגל',
+        'ronit.segal@company.co.il',
+        '03-6901234',
         14,
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlci0xOSJ9.7ZFDVvqivtGUgZRb7bRlU1hFrBGHhAvPoBF1QhnRhJ0'
     ),
     (
-        'Employee 10',
-        'Employee 10',
-        'employee10@example.com',
-        '0987654330',
+        'IdanNaim',
+        'עידן נעים',
+        'idan.naim@company.co.il',
+        '03-7012345',
         15,
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlci0yMCJ9.ZPQLpRtbJp5xwgrIpQYmlUllTrUyKpdZtwXakdut9Ys'
     );
@@ -473,81 +453,3 @@ VALUES
     (8, 1),
     (9, 1),
     (10, 6);
-
--- Insert 10 rows into topics
--- INSERT INTO
---     topics (name, clientID)
--- VALUES
---     ('Topic 1', 1),
---     ('Topic 2', 2),
---     ('Topic 3', 3),
---     ('Topic 4', 4),
---     ('Topic 5', 5),
---     ('Topic 6', 6),
---     ('Topic 7', 7),
---     ('Topic 8', 8),
---     ('Topic 9', 9),
---     ('Topic 10', 10);
--- Insert 10 rows into files
--- INSERT INTO
---     files (
---         uploaderID,
---         name,
---         type,
---         status,
---         remark,
---         clientID,
---         topicID
---     )
--- VALUES
---     (1, 'file1.pdf', 'pdf', 'התקבל', 'remark1', 1, 1),
---     (2, 'file2.pdf', 'pdf', 'התקבל', 'remark2', 2, 2),
---     (3, 'file3.pdf', 'pdf', 'התקבל', 'remark3', 3, 3),
---     (4, 'file4.pdf', 'pdf', 'התקבל', 'remark4', 4, 4),
---     (5, 'file5.pdf', 'pdf', 'התקבל', 'remark5', 5, 5),
---     (6, 'file6.pdf', 'pdf', 'התקבל', 'remark6', 6, 6),
---     (7, 'file7.pdf', 'pdf', 'התקבל', 'remark7', 7, 7),
---     (8, 'file8.pdf', 'pdf', 'התקבל', 'remark8', 8, 8),
---     (9, 'file9.pdf', 'pdf', 'התקבל', 'remark9', 9, 9),
---     (
---         10,
---         'file10.pdf',
---         'pdf',
---         'התקבל',
---         'remark10',
---         10,
---         10
---     );
--- Insert 10 rows into conversations
--- INSERT INTO
---     conversations (title, content, clientID)
--- VALUES
---     ('Conversation 1', 'Content 1', 1),
---     ('Conversation 2', 'Content 2', 2),
---     ('Conversation 3', 'Content 3', 3),
---     ('Conversation 4', 'Content 4', 4),
---     ('Conversation 5', 'Content 5', 5),
---     ('Conversation 6', 'Content 6', 6),
---     ('Conversation 7', 'Content 7', 7),
---     ('Conversation 8', 'Content 8', 8),
---     ('Conversation 9', 'Content 9', 9),
---     ('Conversation 10', 'Content 10', 10);
--- Insert 10 rows into messages
--- INSERT INTO
---     messages (fileID, conversationID, content)
--- VALUES
--- (1, NULL, 'Message related to file 1'),
--- (2, NULL, 'Message related to file 2'),
--- (3, NULL, 'Message related to file 3'),
--- (4, NULL, 'Message related to file 4'),
--- (5, NULL, 'Message related to file 5'),
--- (NULL, 1, 'Message related to conversation 1'),
--- (NULL, 2, 'Message related to conversation 2'),
--- (NULL, 3, 'Message related to conversation 3'),
--- (NULL, 4, 'Message related to conversation 4'),
--- (NULL, 5, 'Message related to conversation 5'),
--- (NULL, 6, 'Message related to conversation 6'),
--- (NULL, 7, 'Message related to conversation 7'),
--- (NULL, 8, 'Message related to conversation 8'),
--- (NULL, 9, 'Message related to conversation 9'),
--- (NULL, 10, 'Message related to conversation 10');
