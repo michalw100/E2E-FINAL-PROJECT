@@ -2,8 +2,8 @@ const express = require("express");
 const router = express.Router();
 const { create } = require("../controllers/usersController");
 const checkAbilities = require("../Middlewares/checkAbilities");
+
 router.use(express.json());
-const verifyRole = require("../Middlewares/verifyRole");
 
 const dynamicCheckAbilities = (req, res, next) => {
   const user = req.body;
@@ -28,12 +28,7 @@ const dynamicCheckAbilities = (req, res, next) => {
 
 router.post("/", dynamicCheckAbilities, async (req, res) => {
   try {
-    const response = await create(
-      req.body.userName,
-      req.body.password,
-      req.body.employeType,
-      req.body.role
-    );
+    const response = await create(req.body.userName, req.body.password, req.body.employeType, req.body.role);
     res.status(201).send(response);
   } catch (err) {
     if (err.message == "UserName already exist")

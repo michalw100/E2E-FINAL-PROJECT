@@ -17,6 +17,7 @@ const defineAbilitiesFor = (role) => {
         can("delete", "files");
         can("read", "files");
         can("create", "files");
+        can("create", "Chat")
         cannot("delete", "Users");
         break;
       case "Role 1":
@@ -28,6 +29,7 @@ const defineAbilitiesFor = (role) => {
         can("create", "files");
         can("delete", "files");
         can("read", "files");
+        can("create", "Chat")
         break;
       case "Role 2":
         can("update", "Clients");
@@ -38,9 +40,8 @@ const defineAbilitiesFor = (role) => {
         can("create", "files");
         can("delete", "files");
         can("read", "files");
-        // can("update", "User", { type: "type1" }, ["name", "email"]);
+        can("create", "Chat")
         break;
-
       default:
         break;
     }
