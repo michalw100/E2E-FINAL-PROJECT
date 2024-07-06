@@ -36,21 +36,13 @@ function Files({ setIsUploading, isUploading }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [pendingIndex, setPendingIndex] = useState(null);
 
-  const response = fetch("http://localhost:3000/files/deleteAllFiles", {
-    method: "DELETE",
-    credentials: "include",
-  });
-
-  // setTimeout(async () => {
-  //   try {
-  //     await chanel.deleteAllChats(user.id, user.streamToken);
-  //     console.log("All chats deleted successfully");
-  //   } catch (error) {
-  //     console.error("Error deleting chats:", error);
-  //   } finally {
-  //     console.error(false);
-  //   }
-  // }, 5000);
+  // const response = fetch("http://localhost:3000/files/deleteAllFiles", {
+  //   method: "DELETE",
+  //   credentials: "include",
+  //   headers: {
+  //     Accept: "application/json",
+  //     "Content-Type": "application/json",
+  //   },  });
   
   useEffect(() => {
     switch (sortCriteria) {

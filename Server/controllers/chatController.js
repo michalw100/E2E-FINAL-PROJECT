@@ -2,7 +2,7 @@ const model = require("../models/chatModel");
 
 async function createChatControlleryByUserID(userID) {
   try {
-    console.log("Creating chat controller by user ID");
+    // console.log("Creating chat controller by user ID");
     const chat = await model.createChatControlleryByUserID(userID);
     return chat.insertId;
   } catch (err) {
@@ -12,7 +12,7 @@ async function createChatControlleryByUserID(userID) {
 
 async function createChatControllerByFileID(filedID) {
   try {
-    console.log("Creating chat controller by file ID");
+    // console.log("Creating chat controller by file ID");
     const chat = await model.createChatControllerByFileID(filedID);
     return chat.insertId;
   } catch (err) {
@@ -21,7 +21,7 @@ async function createChatControllerByFileID(filedID) {
 }
 
 async function getChatControlleryByUserID(userID) {
-  console.log("Getting chat by user ID");
+  // console.log("Getting chat by user ID");
   try {
     const chat = await model.getChatControlleryByUserID(userID);
     return chat[0];
@@ -32,7 +32,7 @@ async function getChatControlleryByUserID(userID) {
 
 async function getChatControllerByFileID(filedID) {
   try {
-    console.log("Getting chat by file ID");
+    // console.log("Getting chat by file ID");
 
     const chat = await model.getChatControllerByFileID(filedID);
     return chat[0];

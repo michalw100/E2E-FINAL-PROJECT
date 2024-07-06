@@ -85,7 +85,7 @@ async function create(userName, password, employeType, role) {
     }
 
     const myToken = serverClient.createToken(`user-${response.insertId}`);
-    console.log(myToken);
+    // console.log(myToken);
     model.updateStreamToken(myToken, response.insertId);
 
     return { userID: response.insertId };

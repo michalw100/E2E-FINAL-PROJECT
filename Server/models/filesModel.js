@@ -109,7 +109,7 @@ LEFT JOIN (
 
 async function numFilesPerMonthAdmin() {
   try {
-    console.log("ad");
+    // console.log("ad");
 
     const sql = `WITH RECURSIVE months AS (
     SELECT 1 AS month
@@ -133,7 +133,7 @@ LEFT JOIN (
       YEAR(createdAt) = YEAR(CURDATE()) 
       GROUP BY MONTH(createdAt)) f ON m.month = f.month ORDER BY m.month`;
     const result = await pool.query(sql);
-    console.log(result);
+    // console.log(result);
     return result;
   } catch (err) {
     throw err;
