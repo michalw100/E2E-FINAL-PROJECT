@@ -8,9 +8,8 @@ async function getEmployees() {
     } catch (err) {
       throw err;
     }
-  }
+}
 
-  
 module.exports = {
     getEmployees
   };

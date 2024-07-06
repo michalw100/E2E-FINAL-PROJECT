@@ -2,10 +2,8 @@ const pool = require("../DB.js");
 
 async function getClientByCkientId(id) {
   try {
-    // console.log(id);
     const sql = `SELECT name from clients left join users on clients.userID = users.id where clients.id = ?`;
     const result = await pool.query(sql, [id]);
-    // console.log(result);
     return result;
   } catch (err) {
     throw err;
@@ -15,7 +13,7 @@ async function getClientByCkientId(id) {
 async function getClients() {
   try {
     const sql =
-      "SELECT users.id, users.userName, users.name, users.email, users.phone, users.addressID, clients.id AS client_id, clients.userID, clients.isApproved, clients.notes from clients LEFT JOIN users ON clients.userID = users.id WHERE users.name IS NOT NULL";
+      "SELECT users.id, users.userName, users.name, users.email, users.phone, users.addressID, clients.id AS client_id, clients.userID from clients LEFT JOIN users ON clients.userID = users.id WHERE users.name IS NOT NULL";
     const result = await pool.query(sql);
     return result;
   } catch (err) {
@@ -26,7 +24,7 @@ async function getClients() {
 async function getClientsEmployee(id) {
   try {
     const sql =
-      "SELECT users.id, users.userName, users.name, users.email, users.phone, users.addressID, clients.id AS client_id, clients.userID, clients.isApproved, clients.notes FROM clients Left JOIN users ON users.id = clients.userID Left JOIN employee_client ON employee_client.clientID = clients.id LEFT JOIN employees ON employee_client.employeeID = employees.id WHERE employees.id = ?";
+      "SELECT users.id, users.userName, users.name, users.email, users.phone, users.addressID, clients.id AS client_id, clients.userID FROM clients Left JOIN users ON users.id = clients.userID Left JOIN employee_client ON employee_client.clientID = clients.id LEFT JOIN employees ON employee_client.employeeID = employees.id WHERE employees.id = ?";
     const result = await pool.query(sql, [id]);
     return result;
   } catch (err) {

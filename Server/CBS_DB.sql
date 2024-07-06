@@ -39,8 +39,6 @@ CREATE TABLE
     clients (
         id INT AUTO_INCREMENT PRIMARY KEY,
         userID INT NOT NULL,
-        isApproved BOOLEAN DEFAULT FALSE,
-        notes TEXT,
         FOREIGN KEY (userID) REFERENCES users (id)
     );
 
@@ -291,18 +289,18 @@ VALUES
 
 -- Insert data into clients
 INSERT INTO
-    clients (userID, isApproved, notes)
+    clients (userID)
 VALUES
-    (1, TRUE, 'Client 1 approved'),
-    (2, TRUE, 'Client 2 approved'),
-    (3, FALSE, 'Client 3 pending approval'),
-    (4, TRUE, 'Client 4 approved'),
-    (5, FALSE, 'Client 5 pending approval'),
-    (6, TRUE, 'Client 6 approved'),
-    (7, FALSE, 'Client 7 pending approval'),
-    (8, TRUE, 'Client 8 approved'),
-    (9, FALSE, 'Client 9 pending approval'),
-    (10, TRUE, 'Client 10 approved');
+    (1),
+    (2),
+    (3),
+    (4),
+    (5),
+    (6),
+    (7),
+    (8),
+    (9),
+    (10);
 
 -- Insert data into employees
 INSERT INTO
