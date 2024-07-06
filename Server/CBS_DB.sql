@@ -1074,3 +1074,30 @@ VALUES
   '6',
   'Deleted'
 );
+
+
+INSERT INTO chats (userID) VALUES
+( 3 ),
+( 2 ),
+( 6 ),
+( 5 ),
+( 4 ),
+( 7 ),
+( 1 );
+
+
+INSERT INTO chats (fileID) VALUES
+( 39 ),
+( 34 ),
+( 52 ),
+( 55 ),
+( 56 ),
+( 50 ),
+( 29 ),
+( 13 ),
+( 9 ),
+( 14 ),
+( 42 ),
+( 71 ),
+( 47 ),
+( 15 );
