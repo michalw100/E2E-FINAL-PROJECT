@@ -22,7 +22,7 @@ const createChatChannel = async (
     try {
       if (newChatId && userId) {
         const members = chatMembers;
-        const channel = chatClient.channel("messaging", `myChat-${newChatId}`, {
+        const channel = chatClient.channel("messaging", `chat-${newChatId}`, {
           members: members,
           name: name,
           description:
@@ -187,7 +187,7 @@ const getUnreadMessagesForChat = async (chatsInfo, fileID, userID) => {
 
     const myChat = await getChatID(fileID, userID);
     const chat = chatsInfo.find(
-      (chat) => chat.chatId === `myChat-${myChat.id}`
+      (chat) => chat.chatId === `chat-${myChat.id}`
     );
 
     if (!chat) {
@@ -224,7 +224,7 @@ const updateChatDescriptionForFile = async (chatClient, file, owner) => {
     }
     console.log("change description");
     console.log(chatData);
-    await chatClient.channel("messaging", `myChat-${chatData.id}`).update({
+    await chatClient.channel("messaging", `chat-${chatData.id}`).update({
       name: file.name,
       description:
         file && file.createdAt
