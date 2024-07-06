@@ -121,6 +121,9 @@
   animation-delay: 1s;
 }
 
+.num-files{
+  text-align: center;
+}
 @keyframes dotAnimation {
   from {
     transform: translateY(0) scale(1);
