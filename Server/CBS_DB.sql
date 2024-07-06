@@ -24,7 +24,6 @@ CREATE TABLE
         phone VARCHAR(20),
         addressID int,
         streamToken VARCHAR(255) default NULL,
-        -- isClient BOOLEAN DEFAULT false,
         FOREIGN KEY (addressID) REFERENCES addresses (addressID)
     );
 
@@ -35,16 +34,14 @@ CREATE TABLE
         name VARCHAR(255) NOT NULL
     );
 
--- Create table    clients
+-- Create table clients
 CREATE TABLE
     clients (
         id INT AUTO_INCREMENT PRIMARY KEY,
         userID INT NOT NULL,
-        parentClientID INT,
         isApproved BOOLEAN DEFAULT FALSE,
         notes TEXT,
-        FOREIGN KEY (userID) REFERENCES users (id),
-        FOREIGN KEY (parentClientID) REFERENCES parent_client (id)
+        FOREIGN KEY (userID) REFERENCES users (id)
     );
 
 -- Create table employees
@@ -74,15 +71,6 @@ CREATE TABLE
         PRIMARY KEY (clientID, employeeID)
     );
 
--- Create table topics
-CREATE TABLE
-    topics (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        name VARCHAR(255) NOT NULL,
-        clientID INT NOT NULL,
-        FOREIGN KEY (clientID) REFERENCES clients (id)
-    );
-
 -- Create table files
 CREATE TABLE
     files (
@@ -96,10 +84,8 @@ CREATE TABLE
         status VARCHAR(255),
         remark VARCHAR(255),
         clientID INT NOT NULL,
-        topicID INT,
         FOREIGN KEY (uploaderID) REFERENCES users (id),
-        FOREIGN KEY (clientID) REFERENCES users (id),
-        FOREIGN KEY (topicID) REFERENCES topics (id)
+        FOREIGN KEY (clientID) REFERENCES users (id)
     );
 
 CREATE TABLE
@@ -303,35 +289,20 @@ VALUES
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlci0yMCJ9.ZPQLpRtbJp5xwgrIpQYmlUllTrUyKpdZtwXakdut9Ys'
     );
 
--- Insert 10 rows into parent_client
-INSERT INTO
-    parent_client (name)
-VALUES
-    ('Parent Client 1'),
-    ('Parent Client 2'),
-    ('Parent Client 3'),
-    ('Parent Client 4'),
-    ('Parent Client 5'),
-    ('Parent Client 6'),
-    ('Parent Client 7'),
-    ('Parent Client 8'),
-    ('Parent Client 9'),
-    ('Parent Client 10');
-
 -- Insert data into clients
 INSERT INTO
-    clients (userID, parentClientID, isApproved, notes)
+    clients (userID, isApproved, notes)
 VALUES
-    (1, 1, TRUE, 'Client 1 approved'),
-    (2, 2, TRUE, 'Client 2 approved'),
-    (3, 3, FALSE, 'Client 3 pending approval'),
-    (4, 4, TRUE, 'Client 4 approved'),
-    (5, 5, FALSE, 'Client 5 pending approval'),
-    (6, 6, TRUE, 'Client 6 approved'),
-    (7, 7, FALSE, 'Client 7 pending approval'),
-    (8, 8, TRUE, 'Client 8 approved'),
-    (9, 9, FALSE, 'Client 9 pending approval'),
-    (10, 10, TRUE, 'Client 10 approved');
+    (1, TRUE, 'Client 1 approved'),
+    (2, TRUE, 'Client 2 approved'),
+    (3, FALSE, 'Client 3 pending approval'),
+    (4, TRUE, 'Client 4 approved'),
+    (5, FALSE, 'Client 5 pending approval'),
+    (6, TRUE, 'Client 6 approved'),
+    (7, FALSE, 'Client 7 pending approval'),
+    (8, TRUE, 'Client 8 approved'),
+    (9, FALSE, 'Client 9 pending approval'),
+    (10, TRUE, 'Client 10 approved');
 
 -- Insert data into employees
 INSERT INTO

@@ -26,7 +26,6 @@ async function getManagers(id) {
   }
 }
 
-
 async function getClientIDOrEmployeeIDByUserID(id) {
   try {
     const type = await model.getClientIDOrEmployeeIDByUserID(id);
