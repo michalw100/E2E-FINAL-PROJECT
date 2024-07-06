@@ -433,7 +433,7 @@ VALUES
   'Current material for accounting',
   '6',
   '6',
-  'Pending'
+  'Deleted'
 ),
 (
   '1Z5F516tig6otzDXaghQ3VkeCH-NyvXdI',
@@ -441,92 +441,91 @@ VALUES
   'Current material for accounting',
   '6',
   '6',
-  'Pending'
+  'Approved'
 ),
 (  '19hrI6kwjhYkxdOJDY5jhcGZOl7bktTnQ',
   'אלגוריתמים 3.pdf',
   'Current material for accounting',
   '6',
   '6',
-  'Pending'
+  'Rejected'
 ),
 (  '1lRgQtDPuxygWXiVacrvDflO4dnve0PXi',
   'אלגוריתמים 4.pdf',
   'Current material for accounting',
   '6',
   '6',
-  'Pending'
-
+  'Deleted'
 ),
 (  '1OF7_AErO7LiRlfI_97gSNjDEj5bzfNPv',
   'אלגוריתמים 6.pdf',
   'Current material for accounting',
   '6',
   '6',
-  'Pending'
+  'Approved'
 ),
 (  '1uLydItu_0x1Ln3MXFFfUn90v7X1Dyn9q',
   'אלגוריתמים 8.pdf',
   'Current material for accounting',
   '6',
   '6',
-  'Pending'
+  'Approved'
 ),
 (  '1rFY-T8tXu5yggkCBMa-FVqgO-PkWxEhd',
   'אלגוריתמים 9.pdf',
   'Current material for accounting',
   '6',
   '6',
-  'Pending'
+  'Approved'
 ),
 ( '1eFzlcTSfMH16aD-5OdsvXZIKipsqF8NJ',
   'אלגורתימים 7.pdf',
   'Current material for accounting',
   '6',
   '6',
-  'Pending'
+  'Approved'
 ),
 (  '1WeET8hrYGYgn5Tmlae3GTEsK_gIlGbYL',
   'חומרה 1.pdf',
   'Material for an annual report',
   '6',
   '6',
-  'Pending'
+  'Approved'
 ),
 (  '1GppicuLujtRvLCrziw8MenLVGjY6XOUW',
   'חומרה 2.pdf',
   'Material for an annual report',
   '6',
   '6',
-  'Pending'
+  'Approved'
 ),
 (  '14Fel6Gx5pgt6TGgXSTWWMtOiXY8o79-5',
   'חומרה 3.pdf',
   'Material for an annual report',
   '6',
   '6',
-  'Pending'
+  'Deleted'
 ),
 (  '1Oa3xHiAVY3A9FLFqcrrzvxCwpDlW0JbJ',
   'חומרה 4.pdf',
   'Material for an annual report',
   '6',
   '6',
-  'Pending'
+  'Approved'
 ),
 (  '1T9FiVu_uAHuIZxm7mPeQth2aoDMKSCUT',
   'חומרה 5.pdf',
   'Material for an annual report',
   '6',
   '6',
-  'Pending'
+  'Rejected'
 ),
 (  '1Je5dF1T5chbeb8_ZC5H8i6NUr8-xCncX',
   'חומרה 6.pdf',
   'Material for an annual report',
   '6',
   '6',
-  'Pending'
+  'Approved'
 ),
 (  '18j8bDUJyCpbPoEc2-QtD0B2tNUbWPs7-',
   'חומרה 7.pdf',
@@ -540,7 +539,7 @@ VALUES
   'Approvals, tax coordination and miscellaneous',
   '1',
   '1',
-  'Pending'
+  'Approved'
 ),
 (  '1mTmQ0FhBjb1bXc909FbDzToyr5V7GBDv',
   'לוגיקה 3.pdf',
@@ -555,14 +554,14 @@ VALUES
   'Approvals, tax coordination and miscellaneous',
   '6',
   '6',
-  'Pending'
+  'Deleted'
 ),
 (  '14GiXT11YXpKEzAuJfzl3PKkIn3_dyOM4',
   'לוגיקה 5.pdf',
   'Approvals, tax coordination and miscellaneous',
   '6',
   '6',
-  'Pending'
+  'Rejected'
 ),
 (  '10JRoYSVLPkaivL3dpqC4i_8U9vFVQWn8',
   'לוגיקה 6.pdf',
@@ -576,49 +575,49 @@ VALUES
   'Approvals, tax coordination and miscellaneous',
   '6',
   '6',
-  'Pending'
+  'Approved'
 ),
 (  '1eR6vCURW76GCuBIWKItmclfQkVudI8dv',
   'לוגיקה 8.pdf',
   'Approvals, tax coordination and miscellaneous',
  '6',
   '6',
-  'Pending'
+  'Deleted'
 ),
 (  '1gM3aBjnRnj5wIbtIfdoKCFemYG-R_Z9l',
   'לוגיקה 9.pdf',
   'Approvals, tax coordination and miscellaneous',
   '6',
   '6',
-  'Pending'
+  'Approved'
 ),
 (  '1g20kcLFYyjQkLJ_khBrkZZKXj-k6bWH3',
   'לוגיקה 10.pdf',
   'Approvals, tax coordination and miscellaneous',
   '6',
   '6',
-  'Pending'
+  'Approved'
 ),
 (  '12xNwQ6YAbcGIXWMEvSFxJQ38i10VxsY4',
   'לוגיקה 11.pdf',
   'Approvals, tax coordination and miscellaneous',
  '6',
   '6',
-  'Pending'
+  'Approved'
 ),
 (  '1yrUDNDWCo_2HXCvu2DGf7LA7EteXeWPI',
   'מבנת 2.pdf',
   'Reports and information to download',
   '2',
   '2',
-  'Pending'
+  'Rejected'
 ),
 (  '1pyQ4vUHtjDa-7A80cvj5ox5e0ew_5O0K',
   'מבנת 3.pdf',
   'Reports and information to download',
   '2',
   '2',
-  'Pending'
+  'Deleted'
 ),
 (  '1EwE0pTcoShu-guTTpEvY_qNHm4zBKiZS',
   'מבנת 5.pdf',
@@ -639,21 +638,21 @@ VALUES
   'Material for an annual report',
   '2',
   '2',
-  'Pending'
+  'Approved'
 ),
 (  '1uAnWTnLNkqjzo-vPtokiKV6Ia4M3Nf2z',
   'חומרה 8 שירה ברוורמן.pdf',
   'Material for an annual report',
   '2',
   '2',
-  'Pending'
+  'Rejected'
 ),
 (  '10LFUdcYqe_H1mWIc1g6gFyo9Es-SeLj_',
   'לוגיקה 3.pdf',
   'Material for an annual report',
   '2',
   '2',
-  'Pending'
+  'Approved'
 ),
 (  '1XeDT1l30edaYtuWZirQtVC12qsTB3lOV',
   'אלגוריתמים 4.pdf',
@@ -667,28 +666,28 @@ VALUES
   'Material for an annual report',
   '3',
   '3',
-  'Pending'
+  'Deleted'
 ),
 (  '16u0QxOdV0TUKUrtEOVfR80GxfokYQAqc',
   'אלגוריתמים 6.pdf',
   'Approvals, tax coordination and miscellaneous',
   '3',
   '3',
-  'Pending'
+  'Rejected'
 ),
 (  '1LzyDRPoa7XabLsbiypWfWMX1tIJ36FJW',
   'אלגורתימים 7.pdf',
   'Approvals, tax coordination and miscellaneous',
   '3',
   '3',
-  'Pending'
+  'Approved'
 ),
 (  '1NYZzu_Z2rhBYfwaE10MqsWU4G4MD8z42',
   'חומרה 1.pdf',
   'Approvals, tax coordination and miscellaneous',
   '3',
   '3',
-  'Pending'
+  'Approved'
 ),
 (  '1wneJnp5xv4adXyx9XI1CtXRPKMUsn7KH',
   'אלגוריתמים 6.pdf',
@@ -709,14 +708,14 @@ VALUES
   'Reports and information to download',
   '3',
   '3',
-  'Pending'
+  'Deleted'
 ),
 (  '1A7weiaicSAdeVQOJ5R_P8jJ5eh7O6-XH',
   'חומרה 3.pdf',
   'Reports and information to download',
   '3',
   '3',
-  'Pending'
+  'Rejected'
 ),
 (  '1a0Z7hZ1DYEIy-2egGLiW-9PnGePXChA7',
   'אלגוריתמים 1.pdf',
@@ -730,126 +729,126 @@ VALUES
   'Material for an annual report',
   '4',
   '4',
-  'Pending'
+  'Approved'
 ),
 (  '1dWX-S3WkR5Z8MXDxYofdTH7OXaE5OHAq',
   'אלגוריתמים 3.pdf',
   'Material for an annual report',
   '4',
   '4',
-  'Pending'
+  'Approved'
 ),
 (  '1w0TDQUWuYWSFcORLVjw2HT1DoAyn7lrz',
   'אלגוריתמים 4.pdf',
   'Material for an annual report',
   '4',
   '4',
-  'Pending'
+  'Deleted'
 ),
 (  '1zpCTLltsoiCCap4DUZ1SW5aSeQz8PTmQ',
   'אלגוריתמים 6.pdf',
   'Material for an annual report',
   '4',
   '4',
-  'Pending'
+  'Approved'
 ),
 (  '1WWZBa-RrK4C4gn-XK6pJtoFiBWP8XRZV',
   'אלגוריתמים 8.pdf',
   'Material for an annual report',
   '4',
   '4',
-  'Pending'
+  'Approved'
 ),
 (  '11VpC4tFAmc5WmS2qNS4cT-VIokq65zLK',
   'אלגוריתמים 9.pdf',
   'Material for an annual report',
   '4',
   '4',
-  'Pending'
+  'Rejected'
 ),
 (  '1Rzp9cuViaimhQWN8A22p4KzEXQjCH70d',
   'אלגורתימים 7.pdf',
   'Material for an annual report',
   '4',
   '4',
-  'Pending'
+  'Approved'
 ),
 (  '1ukAhvDY7nAgcI-bh-ztm9zvdLTwBFG-B',
   'חומרה 1.pdf',
   'Current material for accounting',
   '4',
   '4',
-  'Pending'
+  'Deleted'
 ),
 (  '1tvq5TZXTgCo_cwRGuY9rqWtPHWMh1Lzt',
   'חומרה 2.pdf',
   'Current material for accounting',
   '4',
   '4',
-  'Pending'
+  'Approved'
 ),
 (  '1P9Kjv5IxJbIlG5m0Eclgj4Fyv-j4G9ea',
   'חומרה 3.pdf',
   'Current material for accounting',
   '4',
   '4',
-  'Pending'
+  'Deleted'
 ),
 (  '1srUC_6nlGC-oc4p3xLw5OxeCOaKjGPGh',
   'חומרה 4.pdf',
   'Current material for accounting',
   '4',
   '4',
-  'Pending'
+  'Approved'
 ),
 (  '1_54GFAWLTNTqYifjIeNB96zKjxHIOUk9',
   'חומרה 5.pdf',
   'Current material for accounting',
   '4',
   '4',
-  'Pending'
+  'Deleted'
 ),
 (  '1aXXzSzBWD3wpwBq1eN2U7DKzcmtnh61_',
   'חומרה 6.pdf',
   'Current material for accounting',
   '4',
   '4',
-  'Pending'
+  'Rejected'
 ),
 (  '17GShLRXfyoSMvoKSwXX_yAA2tIZXMcs_',
   'חומרה 7.pdf',
   'Current material for accounting',
   '4',
   '4',
-  'Pending'
+  'Deleted'
 ),
 (  '1OFSyyJXJrOLlFTBTotxsiV62GJU70kL_',
   'חומרה 8 שירה ברוורמן.pdf',
   'Current material for accounting',
   '4',
   '4',
-  'Pending'
+  'Approved'
 ),
 (  '13K6qP5GqZAAfL35xebLyPmD7cfbEQXMw',
   'לוגיקה 2.pdf',
   'Approvals, tax coordination and miscellaneous',
   '4',
   '4',
-  'Pending'
+  'Approved'
 ),
 (  '1IgHPushueTg4vCoYrsNACrK6oOjeDuIZ',
   'לוגיקה 3.pdf',
   'Approvals, tax coordination and miscellaneous',
   '4',
   '4',
-  'Pending'
+  'Deleted'
 ),
 (  '1FBEWGHv844Mv1Sz2TEXvtyaLPJXjgn2y',
   'לוגיקה 4.pdf',
   'Approvals, tax coordination and miscellaneous',
   '4',
   '4',
-  'Pending'
+  'Rejected'
 ),
 (  '12hxtA3qJB89ndUUDEQaQJe26r_kGz362',
   'לוגיקה 5.pdf',
@@ -863,140 +862,140 @@ VALUES
   'Approvals, tax coordination and miscellaneous',
   '4',
   '4',
-  'Pending'
+  'Approved'
 ),
 (  '1lm9wlAso4TLYvFKFh_WevbnISntpuM5A',
   'לוגיקה 7.pdf',
   'Approvals, tax coordination and miscellaneous',
   '4',
   '4',
-  'Pending'
+  'Approved'
 ),
 (  '1VFGsj8rYPeSQ2smayNdw1uSOZvNWBUJ9',
   'לוגיקה 8.pdf',
   'Approvals, tax coordination and miscellaneous',
   '4',
   '4',
-  'Pending'
+  'Deleted'
 ),
 (  '1Hea2MKWofGniOTx4JLUj3jxe2xxXbXrd',
   'לוגיקה 9.pdf',
   'Approvals, tax coordination and miscellaneous',
   '4',
   '4',
-  'Pending'
+  'Approved'
 ),
 (  '17ioA5yRHAA5Mg0nCXEXgTSZaS1s3-fuH',
   'מבנת 2.pdf',
   'Reports and information to download',
   '4',
   '4',
-  'Pending'
+  'Rejected'
 ),
 (  '1SfTRLqH9LkWldHhxclpR9Gxb_7XIrFAp',
   'מבנת 3.pdf',
   'Reports and information to download',
   '4',
   '4',
-  'Pending'
+  'Approved'
 ),
 (  '1dggfKsxIsq_nrWMJQnWvsfg2eH1CJG65',
   'מבנת 5.pdf',
   'Reports and information to download',
   '4',
   '4',
-  'Pending'
+  'Deleted'
 ),
 (  '11a3UJVI4MjtuPSVz_xzldeivvpEezcCF',
   'אלגוריתמים 4.pdf',
   'Material for an annual report',
   '14',
   '3',
-  'Pending'
+  'Approved'
 ),
 (  '14AB97tzzHXqMLv0ryCfvTES0DuENfFHR',
   'אלגוריתמים 6.pdf',
   'Material for an annual report',
   '14',
   '3',
-  'Pending'
+  'Rejected'
 ),
 (  '1bJOC4t-qc7d92SGgS-ENZqmmx99h1MDO',
   'אלגוריתמים 8.pdf',
   'Material for an annual report',
   '14',
   '3',
-  'Pending'
+  'Approved'
 ),
 (  '1SFMxDhy-qCEx9SU828qw-47IBOVTx_XU',
   'מבנת 2.pdf',
   'Approvals, tax coordination and miscellaneous',
   '14',
   '3',
-  'Pending'
+  'Approved'
 ),
 (  '1-2_ahIhFyfSC4Ay17GvjYHDOpURJOHKw',
   'מבנת 3.pdf',
   'Approvals, tax coordination and miscellaneous',
   '14',
   '3',
-  'Pending'
+  'Deleted'
 ),
 (  '1ooL3oRPbNGnaaLL18cz9qEqcaZwgfg25',
   'מבנת 5.pdf',
   'Approvals, tax coordination and miscellaneous',
   '14',
   '3',
-  'Pending'
+  'Approved'
 ),
 (  '1wAKwEpbkElgckBSEQgq24oB4xco2lh2J',
   'חומרה 1.pdf',
   'Current material for accounting',
   '14',
   '4',
-  'Pending'
+  'Approved'
 ),
 (  '185RmCGSr_q4pQDxfSdQytzjyJifQd0fP',
   'חומרה 2.pdf',
   'Current material for accounting',
   '14',
   '4',
-  'Pending'
+  'Rejected'
 ),
 (  '1ONPVNJe5W5Wd_UQzgkPvhWL53YyeXpYf',
   'חומרה 3.pdf',
   'Current material for accounting',
   '14',
   '4',
-  'Pending'
+  'Approved'
 ),
 (  '1LGuAAPU_Xm2M-gjGBYh40uApJNawqdhy',
   'חומרה 4.pdf',
   'Current material for accounting',
   '14',
   '4',
-  'Pending'
+  'Deleted'
 ),
 (  '1v1h95LjOBouynsmNxG3-9TdICuGdTAuj',
   'חומרה 5.pdf',
   'Current material for accounting',
   '14',
   '4',
-  'Pending'
+  'Approved'
 ),
 (  '1hfbxWPAG9r5x63ceNDYrOc6ivbGl3Nl_',
   'אלגוריתמים 3.pdf',
   'Reports and information to download',
   '14',
   '4',
-  'Pending'
+  'Approved'
 ),
 (  '145v1rCMwHfZGDdGtTxzxj2Cv6GQ5DX4F',
   'אלגוריתמים 4.pdf',
   'Reports and information to download',
   '14',
   '4',
-  'Pending'
+  'Rejected'
 ),
 (  '1jPXqYxB31LLti2hlMWorHnbqkTKcW2c4',
   'אלגוריתמים 6.pdf',
@@ -1010,21 +1009,21 @@ VALUES
   'Reports and information to download',
   '14',
   '4',
-  'Pending'
+  'Approved'
 ),
 (  '13TZ1q8WSdmDk4b4tXjEt84YKSCBLC8pM',
   'אלגוריתמים 2.pdf',
   'Reports and information to download',
   '20',
   '6',
-  'Pending'
+  'Deleted'
 ),
 (  '1gfHSiiHlciZOSTT_WngiUB9wRyfvF0zE',
   'אלגוריתמים 3.pdf',
   'Reports and information to download',
   '20',
   '6',
-  'Pending'
+  'Rejected'
 ),
 (  '1BVduBRnTVVuxfC57arGER1fglMloj8Bz',
   'אלגוריתמים 4.pdf',
@@ -1045,21 +1044,21 @@ VALUES
   'Material for an annual report',
   '20',
   '6',
-  'Pending'
+  'Deleted'
 ),
 (  '1emVeV64UGaACghmC83m9ilP2NAHDNh5b',
   'אלגוריתמים 1.pdf',
   'Material for an annual report',
   '20',
   '6',
-  'Pending'
+  'Approved'
 ),
 (  '1a54f-dDjRhTuGDbNUeFv0VLrQ1GvVT2M',
   'אלגוריתמים 2.pdf',
   'Material for an annual report',
   '20',
   '6',
-  'Pending'
+  'Rejected'
 ),
 (  '1U_C4xgmh6OKutpX5irLExJz-y0aRl8T6',
   'אלגוריתמים 3.pdf',
@@ -1073,5 +1072,5 @@ VALUES
   'Material for an annual report',
   '20',
   '6',
-  'Pending'
+  'Deleted'
 );

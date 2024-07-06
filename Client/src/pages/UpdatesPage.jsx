@@ -155,12 +155,30 @@ function UpdatesPage() {
         }
       );
       const data = await response.json();
+      const today = new Date().toISOString().split("T")[0];
+      const newYearDate = "2024-01-01";
+      
       const filteredData = data
         .filter((item) => item.count > 0)
         .map((item) => ({
           ...item,
           date: new Date(item.date).toISOString().split("T")[0],
         }));
+      
+      // בדיקה אם התאריכים קיימים
+      const hasToday = filteredData.some((item) => item.date === today);
+      const hasNewYear = filteredData.some((item) => item.date === newYearDate);
+      
+      // הוספת התאריכים החסרים
+      if (!hasToday) {
+        filteredData.push({ date: today, count: 0 });
+      }
+      if (!hasNewYear) {
+        filteredData.push({ date: newYearDate, count: 0 });
+      }
+      
+      // מיון התאריכים
+      filteredData.sort((a, b) => new Date(a.date) - new Date(b.date));
 
       setNumFilesPerDay(filteredData);
     } catch (error) {

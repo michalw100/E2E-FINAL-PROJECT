@@ -3,6 +3,7 @@ const pool = require("../DB.js");
 async function createChat(name) {
   try{
     const result = await pool.query('INSERT INTO chats (name) VALUES (?)', [name]);
+    console.log(sql, [name]);
     return result[0];
   
   } catch(err){
@@ -13,6 +14,7 @@ async function createChat(name) {
 async function createChatControllerByFileID(fileID) {
   try{
     const result = await pool.query('INSERT INTO chats (fileID) VALUES (?)', [fileID]);
+    console.log(sql, [fileID]);
     return result[0];
   
   } catch(err){
@@ -23,6 +25,7 @@ async function createChatControllerByFileID(fileID) {
 async function createChatControlleryByUserID(userID) {
   try{
     const result = await pool.query('INSERT INTO chats (userID) VALUES (?)', [userID]);
+    console.log(sql, [userID]);
     return result[0];
   
   } catch(err){
