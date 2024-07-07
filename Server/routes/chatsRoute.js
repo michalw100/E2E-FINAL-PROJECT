@@ -1,7 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const {
-  createChatControllerByFileID, createChatControlleryByUserID, getChatControlleryByUserID, getChatControllerByFileID } = require("../controllers/chatController");
+  createChatControllerByFileID,
+  createChatControlleryByUserID,
+  getChatControlleryByUserID,
+  getChatControllerByFileID
+} = require("../controllers/chatController");
 require("dotenv").config();
 
 router.use(express.json());

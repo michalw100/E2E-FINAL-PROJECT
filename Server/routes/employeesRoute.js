@@ -3,14 +3,10 @@ const router = express.Router();
 const {
   getEmployees,
 } = require("../controllers/employeeController");
-const checkAbilities = require("../Middlewares/checkAbilities");
 router.use(express.json());
 router.use(express.urlencoded({ extended: true }));
 
-router.get(
-  "/employees",
-  checkAbilities("create", "employees"),
-  async (req, res) => {
+router.get("/employees", async (req, res) => {
     try {
       const employees = await getEmployees();
       res.status(200).send(employees);
