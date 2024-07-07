@@ -149,11 +149,26 @@
   background-color: #c2ecf766;
 
 }
-
 .str-chat__channel-preview-messenger {
-  border: 0.5px solid black;
-  background-color: #c2ecf766;
-  border-bottom-left-radius: var(--border-radius-md);
-  border-bottom-right-radius: var(--border-radius-md);
+  border: 1px solid #000;
+  background-color: rgba(194, 236, 247, 0.4);
+  border-radius: 0 0 var(--border-radius-md) var(--border-radius-md);
+}
 
+.custom-channel-header {
+  position: relative;
+}
+
+.channel-description-tooltip {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  max-width: 300px;
+  word-wrap: break-word;
 }
