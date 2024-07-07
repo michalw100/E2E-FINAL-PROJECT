@@ -14,7 +14,7 @@ const {
   numFilesPerMonth,
   getStatus,
   numberFilesTypes,
-  getFilesNumber,
+  // getFilesNumber,
   numberFilesTypesAndStatus,
   numFilesPerDay,
 } = require("../controllers/filesController");
