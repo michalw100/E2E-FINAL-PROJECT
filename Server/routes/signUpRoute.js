@@ -7,7 +7,6 @@ router.use(express.json());
 
 router.post("/", dynamicCheckAbilities, async (req, res) => {
   try {
-  if (!CheckPassword(password)) return;
     const userName = req.body.userName;
     const password = req.body.password;
     const role = req.body.role;
