@@ -155,7 +155,7 @@ const UserDetails = () => {
               <MDBRow>
                 <MDBCol md="6">
                   <MDBInput
-                    label="Name"
+                    label={t("Name")}
                     id="form1"
                     type="text"
                     wrapperClass="datepicker mb-4"
@@ -167,7 +167,7 @@ const UserDetails = () => {
 
                 <MDBCol md="6">
                   <MDBInput
-                    label="UserName"
+                    label={t("UserName")}
                     id="form2"
                     type="text"
                     wrapperClass="datepicker mb-4"
@@ -179,7 +179,7 @@ const UserDetails = () => {
 
                 <MDBCol md="6">
                   <MDBInput
-                    label="email"
+                    label={t("email")}
                     id="form3"
                     wrapperClass="datepicker mb-4"
                     name="email"
@@ -191,7 +191,7 @@ const UserDetails = () => {
 
                 <MDBCol md="6" className="mb-4">
                   <MDBInput
-                    label="city"
+                    label={t("city")}
                     id="form4"
                     type="text"
                     name="city"
@@ -203,7 +203,7 @@ const UserDetails = () => {
               <MDBRow>
                 <MDBCol md="6">
                   <MDBInput
-                    label="street"
+                    label={t("street")}
                     id="form5"
                     type="text"
                     name="street"
@@ -214,7 +214,7 @@ const UserDetails = () => {
 
                 <MDBCol md="6" className="mb-4">
                   <MDBInput
-                    label="zipcode"
+                    label={t("zipcode")}
                     id="form6"
                     type="zipcode"
                     name="zipcode"
@@ -224,7 +224,7 @@ const UserDetails = () => {
                 </MDBCol>
               </MDBRow>
               <MDBBtn className="mb-4" size="lg" onClick={postUser}>
-              {t("Save")}
+                {t("Save")}
               </MDBBtn>
               {signUpError && (
                 <p
@@ -236,7 +236,7 @@ const UserDetails = () => {
                         : "red",
                   }}
                 >
-                  {signUpError}
+                  {t(`${signUpError}`)}
                 </p>
               )}
             </MDBCardBody>
