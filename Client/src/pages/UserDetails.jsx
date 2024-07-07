@@ -104,29 +104,26 @@ const UserDetails = () => {
       credentials: "include",
       body: JSON.stringify(userDetails),
     };
-
-    fetch(
-      `http://localhost:3000/users/user?id=${currentUser.id}`,
-      requestOptions
-    )
-      .then((response) => {
-        if (!response.ok) {
-          setSignUpError(response.message);
-          return;
-        }
-        return response.json();
-      })
+     console.log(userDetails)
+     fetch(`http://localhost:3000/users/user?id=${currentUser.id}`, requestOptions)
+     .then((response) => {
+       if (!response.ok) {
+         return response.json().then((data) => {
+          console.log(data.message)
+           throw new Error(data.message);
+         });
+       }
+       return response.json();
+     })   
       .then((updatedUser) => {
         if (updatedUser) {
           setUserDetails(updatedUser);
           setSignUpError("The user has been updated successfully");
           setUser(updatedUser);
-          // setTimeout(() => {
-          //   navigate("/updates");
-          // }, 3000);
         }
       })
       .catch((error) => {
+        console.log(error)
         setSignUpError(error.message);
       });
   };

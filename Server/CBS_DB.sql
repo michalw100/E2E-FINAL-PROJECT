@@ -1071,6 +1071,20 @@ VALUES
   '20',
   '6',
   'Deleted'
+),
+(  '1AA4ndTxQ-XwsxmXGug07LLDmunNTxEar',
+  'לוגיקה 6.pdf',
+  'Current material for accounting',
+  '4',
+  '4',
+  'Pending'
+),
+(  '1s9I-WzFGkSzw6rYZBDx9rCarK1cG9KIv',
+  'אלגורתימים 7.pdf',
+  'Current material for accounting',
+  '4',
+  '4',
+  'Pending'
 );
 
 
@@ -1086,7 +1100,7 @@ INSERT INTO chats (userID) VALUES
 
 INSERT INTO chats (fileID) VALUES
 ( 39 ),
-( 34 ),
+( 34 ), 
 ( 52 ),
 ( 55 ),
 ( 56 ),
@@ -1095,6 +1109,8 @@ INSERT INTO chats (fileID) VALUES
 ( 13 ),
 ( 9 ),
 ( 14 ),
+( 80 ),
+( 46 ),
 ( 42 ),
 ( 71 ),
 ( 47 ),

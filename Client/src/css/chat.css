@@ -134,3 +134,26 @@
   text-align: center;
 }
 
+.messaging.str-chat .str-chat__header-livestream {
+  border: 0.5px solid black;
+  background-color: #c2ecf766;
+}
+
+.str-chat__input-flat .str-chat__textarea>textarea {
+  text-align: center;
+  background-color: #c2ecf766;
+
+}
+.str-chat__channel-preview-messenger--active {
+  border: 0.5px solid black;
+  background-color: #c2ecf766;
+
+}
+
+.str-chat__channel-preview-messenger {
+  border: 0.5px solid black;
+  background-color: #c2ecf766;
+  border-bottom-left-radius: var(--border-radius-md);
+  border-bottom-right-radius: var(--border-radius-md);
+
+}
