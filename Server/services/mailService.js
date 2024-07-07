@@ -10,8 +10,6 @@ const transporter = nodemailer.createTransport({
 
 const sendMail = async (email, subject, text) => {
   const mailOptions = {
-    // from: "shira7656@gmail.com",
-    // from: process.env.EMAIL_USER,
     to: process.env.EMAIL_USER,
     subject: subject,
     text: text,
@@ -19,7 +17,6 @@ const sendMail = async (email, subject, text) => {
 
   try {
     const info = await transporter.sendMail(mailOptions);
-    // console.log("Email sent: " + info.response);
   } catch (error) {
 throw error  }
 };

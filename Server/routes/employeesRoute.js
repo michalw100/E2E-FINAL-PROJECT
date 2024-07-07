@@ -1,8 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const {
-  getEmployees,
-} = require("../controllers/employeeController");
+const {getEmployees} = require("../controllers/employeeController");
 router.use(express.json());
 router.use(express.urlencoded({ extended: true }));
 
