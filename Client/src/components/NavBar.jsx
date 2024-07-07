@@ -96,7 +96,7 @@ function Navbar({ isUploading }) {
         <CgProfile /> {t("Hello")} {user.name} - {user.role}
       </a>
       <div className="language-selector">
-        <select onChange={(e) => changeLanguage(e.target.value)}>
+        <select className="lang" onChange={(e) => changeLanguage(e.target.value)}>
           <option value="en">English</option>
           <option value="he">עברית</option>
           <option value="fr">Français</option>
