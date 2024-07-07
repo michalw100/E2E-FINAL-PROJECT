@@ -11,6 +11,7 @@ const addConnection = ({
   employees,
   currentEmployees,
   isModalOpenAdd,
+  isModalOpenDelete,
   setIsModalOpenAdd,
   onChange,
   setOnChange,
@@ -103,19 +104,21 @@ const addConnection = ({
             value={searchTerm}
             className="search-input"
           />
-          {searchResults.length > 0 && (
-            <ul className="search-results visible">
-              {searchResults.map((item) => (
-                <li
-                  className="search-result"
-                  key={item.userID}
-                  onClick={() => handleSearchItemClick(item)}
-                >
-                  {item.name}
-                </li>
-              ))}
-            </ul>
-          )}
+          {!isModalOpenAdd &&
+            !isModalOpenDelete &&
+            searchResults.length > 0 && (
+              <ul className="search-results visible">
+                {searchResults.map((item) => (
+                  <li
+                    className="search-result"
+                    key={item.userID}
+                    onClick={() => handleSearchItemClick(item)}
+                  >
+                    {item.name}
+                  </li>
+                ))}
+              </ul>
+            )}
         </div>
       )}
       <Modal

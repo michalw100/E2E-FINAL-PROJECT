@@ -70,11 +70,18 @@ export const AuthProvider = ({ children }) => {
     try {
       const filters = { members: { $in: [`user-${user.id}`] } };
       const sort = { last_message_at: -1 };
-      const channels = await chatClient.queryChannels(filters, sort, { limit: 500 });
+      const channels = await chatClient.queryChannels(filters, sort, {
+        limit: 100,
+        state: true,
+        watch: true,
+        presence: true,
+      });
 
       const allChatsInfo = await Promise.all(
         channels.map(async (channel) => {
-          const messages = await channel.query({ messages: { limit: 500 } });
+          const messages = await channel.query({
+            messages: { limit: 100, state: true, watch: true, presence: true },
+          });
 
           const userMessagesCount = messages.messages.filter(
             (message) => message.user.id === `user-${user.id}`
@@ -185,7 +192,7 @@ export const AuthProvider = ({ children }) => {
       });
       const data = await response.json();
       if (response.ok) {
-        throw new Error("User successfully created")
+        throw new Error("User successfully created");
       } else {
         throw new Error(data.message || "An error occurred. Please try again.");
       }
@@ -215,7 +222,17 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{user, setUser, signIn, logout, signUp, chatClient, clientReady, chatsInfo}}>
+      value={{
+        user,
+        setUser,
+        signIn,
+        logout,
+        signUp,
+        chatClient,
+        clientReady,
+        chatsInfo,
+      }}
+    >
       {user === undefined ? null : children}
     </AuthContext.Provider>
   );

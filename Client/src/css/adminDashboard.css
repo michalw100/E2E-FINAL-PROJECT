@@ -34,7 +34,7 @@
 
 .clients-list {
   align-items: flex-end;
-  margin-right: 33vw; /* רווח של שליש מרוחב המסך */
+  margin-right: 33vw; 
 }
 
 .employees-list {
@@ -262,7 +262,7 @@ li {
   top: 50% !important;
   left: 50% !important;
   transform: translate(-50%, -50%) !important;
-  z-index: var(--mdb-modal-zindex);
+  z-index: 8;
   /* width: auto !important; */
   max-width: 80%; /* Adjust as needed */
   height: auto !important;

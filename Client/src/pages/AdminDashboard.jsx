@@ -111,6 +111,14 @@ const AdminDashboard = () => {
     makeLines();
   }, [currentClientsemployees, employeeColors]);
 
+  useEffect(() => {
+    if (isModalOpenAdd || isModalOpenDelete)
+      document
+        .querySelectorAll(".relationship-line")
+        .forEach((line) => line.remove());
+    if (!isModalOpenAdd && !isModalOpenDelete) makeLines();
+  }, [isModalOpenAdd, isModalOpenDelete]);
+
   const fetchClients = async () => {
     try {
       const response = await fetch("http://localhost:3000/clients/clients", {
@@ -210,7 +218,7 @@ const AdminDashboard = () => {
             relationshipLine.style.width = `${length}px`;
             relationshipLine.style.transform = `rotate(${angle}deg)`;
             relationshipLine.style.transformOrigin = "0 0";
-            relationshipLine.style.zIndex = "3";
+            relationshipLine.style.zIndex = "0";
             relationshipLine.style.backgroundColor = getEmployeeColor(
               employee.userID
             );
@@ -246,7 +254,7 @@ const AdminDashboard = () => {
       Math.random() < 0.5
         ? Math.floor(Math.random() * 128)
         : 128 + Math.floor(Math.random() * 128);
-    return `rgb(${getByte()}, ${getByte()}, ${getByte()}, 0.1)`;
+    return `rgb(${getByte()}, ${getByte()}, ${getByte()}, 0.5)`;
   };
 
   const getEmployeeMargin = () => {
@@ -415,6 +423,7 @@ const AdminDashboard = () => {
             employees={employees}
             currentEmployees={currentEmployees}
             isModalOpenAdd={isModalOpenAdd}
+            isModalOpenDelete={isModalOpenDelete}
             setIsModalOpenAdd={setIsModalOpenAdd}
             onChange={onChange}
             setOnChange={setOnChange}
