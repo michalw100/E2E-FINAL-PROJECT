@@ -397,26 +397,26 @@ async function countTypeFile(type, userID) {
   }
 }
 
-async function getFilesNumber(userID, role) {
-  try {
-    let numFile;
-    if (role == "Admin") {
-      numFile = await model.getFilesNumberAdmin();
-      return numFile[0];
-    }
-    const realID = await getClientIDOrEmployeeIDByUserID(userID);
-    if (realID[0].client_id) {
-      const result = await model.getFilesNumberClient(userID);
-      numFile = result;
-    } else {
-      const result = await model.getFilesNumberEmployee(userID);
-      numFile = result;
-    }
-    return numFile[0];
-  } catch (err) {
-    throw err;
-  }
-}
+// async function getFilesNumber(userID, role) {
+//   try {
+//     let numFile;
+//     if (role == "Admin") {
+//       numFile = await model.getFilesNumberAdmin();
+//       return numFile[0];
+//     }
+//     const realID = await getClientIDOrEmployeeIDByUserID(userID);
+//     if (realID[0].client_id) {
+//       const result = await model.getFilesNumberClient(userID);
+//       numFile = result;
+//     } else {
+//       const result = await model.getFilesNumberEmployee(userID);
+//       numFile = result;
+//     }
+//     return numFile[0];
+//   } catch (err) {
+//     throw err;
+//   }
+// }
 
 module.exports = {
   countTypeFile,
@@ -431,7 +431,7 @@ module.exports = {
   numFilesPerMonth,
   getStatus,
   numberFilesTypes,
-  getFilesNumber,
+  // getFilesNumber,
   numberFilesTypesAndStatus,
   numFilesPerDay,
 };

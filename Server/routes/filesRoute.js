@@ -138,16 +138,16 @@ router.get("/number-files-uploaded-per-day", checkAbilities("read", "files"), as
   }
 );
 
-router.get("/number-files", checkAbilities("read", "files"), async (req, res) => {
-    try {
-      const userID = req.query.id;
-      const getFilesNum = await getFilesNumber(userID, req.session.user.role);
-      res.status(200).send(getFilesNum);
-    } catch (err) {
-      res.status(500).send({ message: err.message });
-    }
-  }
-);
+// router.get("/number-files", checkAbilities("read", "files"), async (req, res) => {
+//     try {
+//       const userID = req.query.id;
+//       const getFilesNum = await getFilesNumber(userID, req.session.user.role);
+//       res.status(200).send(getFilesNum);
+//     } catch (err) {
+//       res.status(500).send({ message: err.message });
+//     }
+//   }
+// );
 
 router.get("/number-files-in-type", checkAbilities("read", "files"), async (req, res) => {
     try {
