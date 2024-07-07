@@ -10,8 +10,8 @@ import { useDrag } from "react-dnd";
 import { useNavigate } from "react-router-dom";
 import "../css/file.css";
 import chanels from "../helpers/chanels";
-
 import { MDBBadge } from "mdb-react-ui-kit";
+import { useTranslation } from "react-i18next";
 
 const File = ({
   file,
@@ -34,6 +34,7 @@ const File = ({
   const [messages, setMessages] = useState(-1);
   const remarkRef = useRef(null);
   const selectRef = useRef(null);
+  const { t } = useTranslation();
 
   const [{ isDragging }, drag] = useDrag(() => ({
     type: "FILE",
@@ -332,7 +333,7 @@ const File = ({
           <div className="box">
             <div className="file-status-container">
               <div className="header">
-                <strong style={strongStyle}>status</strong>
+                <strong style={strongStyle}>{t("status")}</strong>
               </div>
               {!showStatus && (
                 <div
@@ -366,16 +367,16 @@ const File = ({
                 >
                   {user.role == "Client" && file.uploaderID != user.id && (
                     <>
-                      <option value={status}>Select status...</option>
-                      <option value="Approved">Approved</option>
+                      <option value={status}>{t("Select status...")}</option>
+                      <option value="Approved">{t("Approved")}</option>
                     </>
                   )}
                   {user.role != "Client" && (
                     <>
-                      <option value={status}>Select status...</option>
-                      <option value="Approved">Approved</option>
-                      <option value="Rejected">Rejected</option>
-                      <option value="Pending">Pending</option>
+                      <option value={status}>{t("Select status...")}</option>
+                      <option value="Approved">{t("Approved")}</option>
+                      <option value="Rejected">{t("Rejected")}</option>
+                      <option value="Pending">{t("Pending")}</option>
                     </>
                   )}
                 </select>
@@ -385,7 +386,7 @@ const File = ({
           <div className="box">
             <div className="file-comments">
               <div className="header">
-                <strong style={strongStyle}>remark</strong>
+                <strong style={strongStyle}>{t("remark")}</strong>
               </div>
               {isEditing && (
                 <input
@@ -419,14 +420,14 @@ const File = ({
           </div>
           <div className="box">
             <div className="header">
-              <strong style={strongStyle}>uploader</strong>
+              <strong style={strongStyle}>{t("uploader")}</strong>
               <br />
               {highlightSearchTerm(uplodersName, searchCriteria)}
             </div>
           </div>
           <div className="box">
             <div className="header">
-              <strong style={strongStyle}>owner</strong>
+              <strong style={strongStyle}>{t("owner")}</strong>
               <br />
               {highlightSearchTerm(ownerName, searchCriteria)}
             </div>

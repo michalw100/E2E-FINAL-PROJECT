@@ -13,6 +13,7 @@ import {
   LineElement,
   PointElement,
 } from "chart.js";
+import { useTranslation } from "react-i18next";
 
 ChartJS.register(Tooltip, Legend, CategoryScale, LinearScale, BarElement, ArcElement, LineElement, PointElement
 );
@@ -26,6 +27,7 @@ function UpdatesPage() {
   const [messagesPerDay, setMessagesPerDay] = useState({});
   const [chatStats, setChatStats] = useState([]);
   const [numFilesPerDay, setNumFilesPerDay] = useState([]);
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (user && user.id) {
@@ -375,7 +377,7 @@ function UpdatesPage() {
       <div className="updates">
         <div className="chart-container">
           <div className="title-div">
-            <h3>Chat Messages Overview</h3>
+            <h3>{t("Chat Messages Overview")}</h3>
           </div>
           <Bar
             className="canvas"
@@ -394,13 +396,13 @@ function UpdatesPage() {
         </div>
         <div className="chart-container">
           <div className="title-div">
-            <h3>Messages Sent per Day</h3>
+            <h3>{t("Messages Sent per Day")}</h3>
           </div>
           <Line className="canvas" data={messageLineData} options={options} />
         </div>
         <div className="chart-container">
           <div className="title-div">
-            <h3>Chat Distribution by Message Count</h3>
+            <h3>{t("Chat Distribution by Message Count")}</h3>
           </div>
           <Pie
             className="canvas"
@@ -421,7 +423,7 @@ function UpdatesPage() {
         </div>
         <div className="chart-container">
           <div className="title-div">
-            <h3>File Counts per Type and Status</h3>
+            <h3>{t("File Counts per Type and Status")}</h3>
           </div>
           <Bar
             className="canvas"
@@ -461,20 +463,20 @@ function UpdatesPage() {
           <div className="explanation">
             {types.map((type, index) => (
               <div className="types" key={index}>
-                <strong>Type {index + 1}:</strong> {type.type}
+                <strong>{t("Type")} {index + 1}:</strong> {type.type}
               </div>
             ))}
           </div>
         </div>
         <div className="chart-container">
           <div className="title-div">
-            <h3>Files Uploaded per Month</h3>
+            <h3>{t("Files Uploaded per Month")}</h3>
           </div>
           <Line className="canvas" data={lineData} options={options} />
         </div>
         <div className="chart-container">
           <div className="title-div">
-            <h3>Status</h3>
+            <h3>{t("Status")}</h3>
           </div>
           <Pie className="canvas" data={pieData} />
         </div>

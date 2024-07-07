@@ -3,6 +3,7 @@ import "../css/adminDashboard.css";
 import AddConnection from "../components/addConnection";
 import DeleteConnection from "../components/deleteConnection";
 import { FaSearch } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
 const AdminDashboard = () => {
   const [clients, setClients] = useState([]);
@@ -21,6 +22,7 @@ const AdminDashboard = () => {
   const [widthChanged, setWidthChanged] = useState(false);
   const [onChange, setOnChange] = useState(false);
   const [searchCriteria, setSearchCriteria] = useState("");
+  const { t } = useTranslation();
 
   useEffect(() => {
     window.addEventListener("resize", handleResize);
@@ -314,7 +316,7 @@ const AdminDashboard = () => {
         {(selectedClient || selectedEmployee) && (
           <div className="reset-button-container">
             <button onClick={handleResetClick} className="reset-button">
-              Show All
+              {t("Show All")}
             </button>
           </div>
         )}
@@ -332,7 +334,7 @@ const AdminDashboard = () => {
         </div>
         <div className="content-container">
           <div className="clients-list">
-            <h3>Clients</h3>
+            <h3>{t("Clients")}</h3>
             <ul>
               {currentClients.map((client) => (
                 <li
@@ -358,7 +360,7 @@ const AdminDashboard = () => {
             </ul>
           </div>
           <div className="employees-list">
-            <h3>Employees</h3>
+            <h3>{t("Employees")}</h3>
             <ul>
               {currentEmployees.map((employee) => (
                 <li

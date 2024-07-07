@@ -10,7 +10,8 @@ import {
   MDBCol,
   MDBInput,
   // MDBSelect
-} from 'mdb-react-ui-kit';
+} from "mdb-react-ui-kit";
+import { useTranslation } from "react-i18next";
 
 const UserDetails = () => {
   const { user, setUser } = useContext(AuthContext);
@@ -25,18 +26,22 @@ const UserDetails = () => {
     zipcode: currentUser?.zipcode || "",
     phone: currentUser?.phone || "",
   });
+  const { t } = useTranslation();
 
   useEffect(() => {
     const fetchClientData = async () => {
       try {
-        const response = await fetch("http://localhost:3000/myClient/getClientID", {
-          method: "GET",
-          credentials: "include",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        });
+        const response = await fetch(
+          "http://localhost:3000/myClient/getClientID",
+          {
+            method: "GET",
+            credentials: "include",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+          }
+        );
 
         const data = await response.json();
 
@@ -104,17 +109,20 @@ const UserDetails = () => {
       credentials: "include",
       body: JSON.stringify(userDetails),
     };
-     console.log(userDetails)
-     fetch(`http://localhost:3000/users/user?id=${currentUser.id}`, requestOptions)
-     .then((response) => {
-       if (!response.ok) {
-         return response.json().then((data) => {
-          console.log(data.message)
-           throw new Error(data.message);
-         });
-       }
-       return response.json();
-     })   
+    console.log(userDetails);
+    fetch(
+      `http://localhost:3000/users/user?id=${currentUser.id}`,
+      requestOptions
+    )
+      .then((response) => {
+        if (!response.ok) {
+          return response.json().then((data) => {
+            console.log(data.message);
+            throw new Error(data.message);
+          });
+        }
+        return response.json();
+      })
       .then((updatedUser) => {
         if (updatedUser) {
           setUserDetails(updatedUser);
@@ -123,54 +131,101 @@ const UserDetails = () => {
         }
       })
       .catch((error) => {
-        console.log(error)
+        console.log(error);
         setSignUpError(error.message);
       });
   };
 
   return (
-
     <MDBContainer fluid>
+      <MDBRow className="d-flex justify-content-center align-items-center">
+        <MDBCol lg="8">
+          <MDBCard style={{ maxWidth: "600px" }}>
+            <MDBCardImage
+              src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/img3.webp"
+              className="w-100 rounded-top"
+              alt="Sample photo"
+            />
 
-      <MDBRow className='d-flex justify-content-center align-items-center'>
-
-        <MDBCol lg='8'>
-
-          <MDBCard style={{ maxWidth: '600px' }}>
-            <MDBCardImage src='https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/img3.webp' className='w-100 rounded-top' alt="Sample photo" />
-
-            <MDBCardBody className='px-5'>
-
-              <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">User Details</h3>
+            <MDBCardBody className="px-5">
+              <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">
+                {t("User Details")}
+              </h3>
 
               <MDBRow>
-                <MDBCol md='6'>
-                  <MDBInput label='Name' id='form1' type='text' wrapperClass='datepicker mb-4' value={userDetails.name || ""} onChange={handleChange} name="name" />
+                <MDBCol md="6">
+                  <MDBInput
+                    label="Name"
+                    id="form1"
+                    type="text"
+                    wrapperClass="datepicker mb-4"
+                    value={userDetails.name || ""}
+                    onChange={handleChange}
+                    name="name"
+                  />
                 </MDBCol>
 
-                <MDBCol md='6'>
-                  <MDBInput label='UserName' id='form2' type='text' wrapperClass='datepicker mb-4' value={userDetails.userName || ""} onChange={handleChange} name="userName" />
+                <MDBCol md="6">
+                  <MDBInput
+                    label="UserName"
+                    id="form2"
+                    type="text"
+                    wrapperClass="datepicker mb-4"
+                    value={userDetails.userName || ""}
+                    onChange={handleChange}
+                    name="userName"
+                  />
                 </MDBCol>
 
-                <MDBCol md='6'>
-                  <MDBInput label='email' id='form3' wrapperClass='datepicker mb-4' name="email" type='text' value={userDetails.email || ""} onChange={handleChange} />
+                <MDBCol md="6">
+                  <MDBInput
+                    label="email"
+                    id="form3"
+                    wrapperClass="datepicker mb-4"
+                    name="email"
+                    type="text"
+                    value={userDetails.email || ""}
+                    onChange={handleChange}
+                  />
                 </MDBCol>
 
-                <MDBCol md='6' className='mb-4'>
-                  <MDBInput label='city' id='form4' type='text' name='city' value={userDetails.city || ""} onChange={handleChange} />
+                <MDBCol md="6" className="mb-4">
+                  <MDBInput
+                    label="city"
+                    id="form4"
+                    type="text"
+                    name="city"
+                    value={userDetails.city || ""}
+                    onChange={handleChange}
+                  />
                 </MDBCol>
               </MDBRow>
               <MDBRow>
-                <MDBCol md='6'>
-                  <MDBInput label='street' id='form5' type='text' name='street' value={userDetails.street || ""} onChange={handleChange} />
+                <MDBCol md="6">
+                  <MDBInput
+                    label="street"
+                    id="form5"
+                    type="text"
+                    name="street"
+                    value={userDetails.street || ""}
+                    onChange={handleChange}
+                  />
                 </MDBCol>
 
-                <MDBCol md='6' className='mb-4'>
-                  <MDBInput label='zipcode' id='form6' type='zipcode' name='zipcode' value={userDetails.zipcode || ""} onChange={handleChange} />
+                <MDBCol md="6" className="mb-4">
+                  <MDBInput
+                    label="zipcode"
+                    id="form6"
+                    type="zipcode"
+                    name="zipcode"
+                    value={userDetails.zipcode || ""}
+                    onChange={handleChange}
+                  />
                 </MDBCol>
-
               </MDBRow>
-              <MDBBtn className='mb-4' size='lg' onClick={postUser}>Save</MDBBtn>
+              <MDBBtn className="mb-4" size="lg" onClick={postUser}>
+              {t("Save")}
+              </MDBBtn>
               {signUpError && (
                 <p
                   className="error"
@@ -185,15 +240,10 @@ const UserDetails = () => {
                 </p>
               )}
             </MDBCardBody>
-
           </MDBCard>
-
         </MDBCol>
       </MDBRow>
-
     </MDBContainer>
-
-
 
     // <div className="registration">
     //   <h2 className="title">User Details</h2>

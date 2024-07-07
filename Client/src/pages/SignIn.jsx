@@ -11,6 +11,7 @@ import {
   MDBCol,
   MDBInput,
 } from "mdb-react-ui-kit";
+import { useTranslation } from "react-i18next";
 
 function SignIn() {
   const { signIn } = useContext(AuthContext);
@@ -23,6 +24,7 @@ function SignIn() {
   //  const [userName, setUserName] = useState("NadavLevy");
   // const [password, setPassword] = useState("11");
   // const [password, setPassword] = useState("");
+  const { t } = useTranslation();
 
   const handleLogin = async () => {
     if (!userName || !password) {
@@ -51,7 +53,9 @@ function SignIn() {
         alt='logo' className='rounded-t-5 rounded-tr-lg-0' fluid /> */}
 
             <MDBCardBody className="px-5">
-              <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Sign in</h3>
+              <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">
+                {t("Sign in")}
+              </h3>
               <MDBInput
                 wrapperClass="mb-4"
                 label="user Name"
@@ -70,7 +74,7 @@ function SignIn() {
               />
 
               <MDBBtn className="mb-4 w-100" onClick={handleLogin}>
-                Sign in
+                {t("Sign in")}
               </MDBBtn>
               {loginError && (
                 <p className="error" style={{ color: "red" }}>
