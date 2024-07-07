@@ -1,74 +1,91 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState, useEffect, useRef } from "react";
+import { useTranslation } from "react-i18next";
+import { FaVolumeUp, FaVolumeMute } from 'react-icons/fa';
+import englishSong from "../songs/Effortless Connection (1).mp3";
+import hebrewSong from "../songs/הכל פשוט.mp3";
+import frenchSong from "../songs/Un Monde de Fichiers (1).mp3";
 
-const AudioPlayer = ({ language }) => {
-  const audioRef = useRef(null);
+const AudioPlayer = () => {
+  const [volume, setVolume] = useState(0.1);  // התחלה מ-10% (0.1)
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
   const [isMuted, setIsMuted] = useState(false);
-  const [volume, setVolume] = useState(0.5);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef(null);
+  const { i18n } = useTranslation();
+
+  const songs = {
+    en: englishSong,
+    he: hebrewSong,
+    fr: frenchSong,
+  };
 
   useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.pause();
-      if (language === 'en') {
-        audioRef.current.src = '../songs/Effortless Connection (1).mp3';
-      } else if (language === 'he') {
-        audioRef.current.src = '../songs/הכל פשוט.mp3';
-      } else if (language === 'fr') {
-        audioRef.current.src = '../songs/Un Monde de Fichiers (1).mp3';
-      }
-      if (isPlaying) {
-        audioRef.current.play().catch(error => {
-          console.error('Error playing audio:', error);
-        });
-      }
-    }
-  }, [language, isPlaying]);
+    audioRef.current.src = songs[i18n.language];
+    audioRef.current.volume = volume;
+    audioRef.current.play().catch((e) => console.log("Auto-play was prevented"));
+  }, [i18n.language]);
 
-  useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.volume = volume;
-      audioRef.current.muted = isMuted;
+  const handleVolumeChange = (e) => {
+    const newVolume = parseFloat(e.target.value);
+    setVolume(newVolume);
+    audioRef.current.volume = newVolume;
+    if (newVolume > 0) {
+      setIsMuted(false);
+      audioRef.current.muted = false;
     }
-  }, [volume, isMuted]);
+  };
 
-  const togglePlay = () => {
-    setIsPlaying(!isPlaying);
-    if (isPlaying) {
-      audioRef.current.pause();
-    } else {
-      audioRef.current.play().catch(error => {
-        console.error('Error playing audio:', error);
-      });
-    }
+  const handleTimeUpdate = () => {
+    setCurrentTime(audioRef.current.currentTime);
+    setDuration(audioRef.current.duration || 0);
+  };
+
+  const handleSeek = (e) => {
+    const time = parseFloat(e.target.value);
+    setCurrentTime(time);
+    audioRef.current.currentTime = time;
   };
 
   const toggleMute = () => {
     setIsMuted(!isMuted);
+    audioRef.current.muted = !isMuted;
   };
 
-  const handleVolumeChange = (e) => {
-    setVolume(parseFloat(e.target.value));
+  const handleEnded = () => {
+    audioRef.current.currentTime = 0;
+    audioRef.current.play();
   };
 
   return (
-    <div>
-      <audio ref={audioRef} loop />
-      <div>
-        <button onClick={togglePlay}>
-          {isPlaying ? 'Pause' : 'Play'}
-        </button>
-        <button onClick={toggleMute}>
-          {isMuted ? 'Unmute' : 'Mute'}
-        </button>
-        <input
-          type="range"
-          min="0"
-          max="1"
-          step="0.01"
-          value={volume}
-          onChange={handleVolumeChange}
-        />
-      </div>
+    <div className="audio-player">
+      <audio
+        ref={audioRef}
+        onTimeUpdate={handleTimeUpdate}
+        onLoadedMetadata={handleTimeUpdate}
+        onEnded={handleEnded}
+        loop
+      />
+      <button onClick={toggleMute}>
+        {isMuted ? <FaVolumeMute /> : <FaVolumeUp />}
+      </button>
+      <input
+        type="range"
+        min="0"
+        max="1"
+        step="0.01"
+        value={volume}
+        onChange={handleVolumeChange}
+      />
+      <input
+        type="range"
+        min="0"
+        max={isNaN(duration) ? 100 : duration}
+        value={currentTime}
+        onChange={handleSeek}
+      />
+      <span>
+        {Math.floor(currentTime)} / {Math.floor(duration || 0)}
+      </span>
     </div>
   );
 };
