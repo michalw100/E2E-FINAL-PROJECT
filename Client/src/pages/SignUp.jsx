@@ -17,7 +17,7 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [passwordVerify, setPasswordVerify] = useState("");
   const [signUpError, setSignUpError] = useState("");
-  const [employeType, setEmployeType] = useState("Role 1");
+  const [employeeType, setEmployeeType] = useState("Role 1");
   const [userRole, setUserRole] = useState("Client");
 
   const handleRegistration = async () => {
@@ -31,7 +31,7 @@ const SignUp = () => {
     }
     if (!CheckPassword(password)) return;
     try {
-      await signUp(userName, password, employeType, userRole);
+      await signUp(userName, password, employeeType, userRole);
     } catch (error) {
       setSignUpError(error.message);
     }
@@ -84,8 +84,8 @@ const SignUp = () => {
                     {userRole === "Employee" && (
                       <select
                         className="input1"
-                        value={employeType}
-                        onChange={(e) => setEmployeType(e.target.value)}
+                        value={employeeType}
+                        onChange={(e) => setEmployeeType(e.target.value)}
                       >
                         <option value="Role 1">Role 1</option>
                         <option value="Role 2">Role 2</option>

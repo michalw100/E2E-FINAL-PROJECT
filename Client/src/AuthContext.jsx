@@ -215,17 +215,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{
-        user,
-        setUser,
-        signIn,
-        logout,
-        signUp,
-        chatClient,
-        clientReady,
-        chatsInfo,
-      }}
-    >
+      value={{user, setUser, signIn, logout, signUp, chatClient, clientReady, chatsInfo}}>
       {user === undefined ? null : children}
     </AuthContext.Provider>
   );

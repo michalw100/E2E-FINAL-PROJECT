@@ -9,6 +9,9 @@ router.post("/", async (req, res) => {
   try {
     const userName = req.body.userName;
     const password = req.body.password;
+    if (!userName || !password) {
+      return res.status(400).json({ success: false, message: "Necessary details to update the user are missing" });
+    }
     const user = await getByPasswordAndUserName(password, userName);
     req.session.user = {
       id: user.id,
