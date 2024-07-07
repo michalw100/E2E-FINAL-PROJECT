@@ -6,6 +6,7 @@ import "../css/navBar.css";
 import { MDBBadge } from "mdb-react-ui-kit";
 import chanels from "../helpers/chanels.js";
 import { useTranslation } from "react-i18next";
+import AudioPlayer from './AudioPlayer';
 
 function Navbar({ isUploading }) {
   const { user, chatsInfo } = useContext(AuthContext);
@@ -156,6 +157,7 @@ function Navbar({ isUploading }) {
         {t("Logout")}
       </Link>
       <img id="logo" src="../../src/pictures/RoundLogo.png" alt="logo" />
+      <AudioPlayer language={i18n.language} />
     </nav>
   );
 }
