@@ -40,7 +40,7 @@ function Files({ setIsUploading, isUploading }) {
   //   method: "DELETE",
   //   credentials: "include",
   // });
-  
+
   useEffect(() => {
     switch (sortCriteria) {
       case "dating":

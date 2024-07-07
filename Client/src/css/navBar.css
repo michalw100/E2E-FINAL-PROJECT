@@ -118,6 +118,21 @@ nav a:hover {
   }
 }
 
-/* .main {
-  padding-top: 6%;
+/* הוסף את זה לקובץ navBar.css */
+/* .language-selector {
+  margin-left: auto;
+}
+
+.language-selector select {
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #4c4084;
+  background-color: white;
+  color: #4c4084;
+}
+
+@media (max-width: 768px) {
+  .language-selector {
+    margin: 10px 0;
+  }
 } */

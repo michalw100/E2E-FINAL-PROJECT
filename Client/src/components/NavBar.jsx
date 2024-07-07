@@ -5,14 +5,20 @@ import { CgProfile } from "react-icons/cg";
 import "../css/navBar.css";
 import { MDBBadge } from "mdb-react-ui-kit";
 import chanels from "../helpers/chanels.js";
+import { useTranslation } from "react-i18next";
 
 function Navbar({ isUploading }) {
   const { user, chatsInfo } = useContext(AuthContext);
   const [newMessages, setNewMessages] = useState(0);
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
     getMessages();
   }, [chatsInfo]);
+
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+  };
 
   const getMessages = async () => {
     try {
@@ -87,17 +93,24 @@ function Navbar({ isUploading }) {
   return (
     <nav>
       <a href="#" onClick={preventLink}>
-        <CgProfile /> Hello {user.name} - {user.role}
+        <CgProfile /> {t("Hello")} {user.name} - {user.role}
       </a>
+      <div className="language-selector">
+        <select onChange={(e) => changeLanguage(e.target.value)}>
+          <option value="en">English</option>
+          <option value="he">עברית</option>
+          <option value="fr">Français</option>
+        </select>
+      </div>
       <Link to="./updates" onClick={(e) => handleLinkClick(e)}>
-        Updates
+        {t("Updates")}
       </Link>
       <Link
         className="  position-relative mx-3"
         to="./chats"
         onClick={(e) => handleLinkClick(e, clearCurrentChat)}
       >
-        chats
+        {t("Chats")}
         <MDBBadge
           pill
           color="danger"
@@ -109,22 +122,22 @@ function Navbar({ isUploading }) {
       </Link>
       {user.role != "Client" && (
         <Link to="./addUser" onClick={(e) => handleLinkClick(e)}>
-          Add User
+          {t("Add User")}
         </Link>
       )}
       {user.role != "Client" && (
         <Link to="./myClients" onClick={(e) => handleLinkClick(e)}>
-          My Clients
+          {t("My Clients")}
         </Link>
       )}
       {user.role == "Admin" && (
-        <Link to="./adminDashboard">Admin Dashboard</Link>
+        <Link to="./adminDashboard">{t("Admin Dashboard")}</Link>
       )}
       <Link
         to="./userDetails"
         onClick={(e) => handleLinkClick(e, clearClientID)}
       >
-        My Details
+        {t("My Details")}
       </Link>
       {user.role != "Admin" && (
         <Link
@@ -132,7 +145,7 @@ function Navbar({ isUploading }) {
           className={!user ? "disabled" : ""}
           onClick={(e) => handleLinkClick(e, clearClientID, clearLocalStorage)}
         >
-          My Files
+          {t("My Files")}
         </Link>
       )}
       <Link
@@ -140,7 +153,7 @@ function Navbar({ isUploading }) {
         onClick={(e) => handleLinkClick(e)}
         className={!user ? "disabled" : ""}
       >
-        Logout
+        {t("Logout")}
       </Link>
       <img id="logo" src="../../src/pictures/RoundLogo.png" alt="logo" />
     </nav>

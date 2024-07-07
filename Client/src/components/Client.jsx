@@ -11,7 +11,7 @@ import chanels from "../helpers/chanels.js";
 import "../css/client.css";
 
 const Client = ({ client }) => {
-  const { user, chatClient, chatsInfo } = useContext(AuthContext);
+  const { chatClient, chatsInfo } = useContext(AuthContext);
   const [messages, setMessages] = useState(-1);
   const navigate = useNavigate();
 
