@@ -70,7 +70,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const filters = { members: { $in: [`user-${user.id}`] } };
       const sort = { last_message_at: -1 };
-      const channels = await chatClient.queryChannels(filters, sort, {});
+      const channels = await chatClient.queryChannels(filters, sort, { limit: 500 });
 
       const allChatsInfo = await Promise.all(
         channels.map(async (channel) => {

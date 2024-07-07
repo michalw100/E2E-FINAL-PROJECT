@@ -9,8 +9,11 @@ const createChatChannel = async (
   file,
   owner
 ) => {
+  console.log(chatClient, fileId, userId, name, file, owner);
   const chatId = await getChatID(fileId, userId);
   if (chatId) {
+    console.log("chatId");
+    console.log(chatId);
     await saveCurrentChat(chatId.id);
   } else {
     const userIds = await getChatMembers(userId);
@@ -186,9 +189,7 @@ const getUnreadMessagesForChat = async (chatsInfo, fileID, userID) => {
     }
 
     const myChat = await getChatID(fileID, userID);
-    const chat = chatsInfo.find(
-      (chat) => chat.chatId === `chat-${myChat.id}`
-    );
+    const chat = chatsInfo.find((chat) => chat.chatId === `chat-${myChat.id}`);
 
     if (!chat) {
       return -1;
