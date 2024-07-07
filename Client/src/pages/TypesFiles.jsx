@@ -5,6 +5,7 @@ import TypeFile from "../components/TypeFile";
 import { useDrop } from "react-dnd";
 import Modal from "react-modal";
 import "../css/typeFile.css";
+import { useTranslation } from "react-i18next";
 
 Modal.setAppElement("#root");
 
@@ -30,6 +31,7 @@ const TypesFiles = ({
   const [pendingType, setPendingType] = useState(null);
   const [pendingName, setPendingName] = useState(null);
   const [pendingCurrentType, setPendingCurrentType] = useState(null);
+  const { t } = useTranslation();
 
   const [{ isOver, canDrop }, dropRef] = useDrop(() => ({
     accept: "FILE",
@@ -164,7 +166,7 @@ const TypesFiles = ({
           ref={sidebarRef}
           style={!isOver ? { overflow: "hidden", right: "0" } : undefined}
         >
-          <h3>Select the file type</h3>
+          <h3>{t("Select the file type")}</h3>
 
           {types.map((type, index) => (
             <TypeFile
@@ -188,16 +190,16 @@ const TypesFiles = ({
           className="modal"
           overlayClassName="overlay"
         >
-          <h2>Are you sure?</h2>
+          <h2>{t("Are you sure?")}</h2>
           <p>
-            Do you really want to move the file <strong>{pendingName}</strong>{" "}
-            from <strong>{pendingCurrentType}</strong> to{" "}
+          {t("Do you really want to move the file")} <strong>{pendingName}</strong>{" "}
+          {t("from")} <strong>{pendingCurrentType}</strong> to{" "}
             <strong>{pendingType}</strong>?
           </p>
           <button onClick={confirmFileDrop} autoFocus>
-            Yes
+          {t("Yes")}
           </button>
-          <button onClick={cancelFileDrop}>No</button>
+          <button onClick={cancelFileDrop}>{t("No")}</button>
         </Modal>
       </div>
     </DndProvider>

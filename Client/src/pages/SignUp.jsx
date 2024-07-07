@@ -11,6 +11,8 @@ import {
   MDBCol,
   MDBInput,
 } from 'mdb-react-ui-kit';
+import { useTranslation } from "react-i18next";
+
 const SignUp = () => {
   const { signUp, user } = useContext(AuthContext);
   const [userName, setUserName] = useState("");
@@ -19,6 +21,7 @@ const SignUp = () => {
   const [signUpError, setSignUpError] = useState("");
   const [employeeType, setEmployeeType] = useState("Role 1");
   const [userRole, setUserRole] = useState("Client");
+  const { t } = useTranslation();
 
   const handleRegistration = async () => {
     if (!userName || !password || !passwordVerify) {
@@ -54,7 +57,7 @@ const SignUp = () => {
           <MDBCard style={{ maxWidth: '600px' }}>
             <MDBCardImage src='https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/img3.webp' className='w-100 rounded-top' alt="Sample photo" />
             <MDBCardBody className='px-5'>
-              <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Create Account</h3>
+              <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">{t("Create Account")}</h3>
               <MDBInput label='User Name' id='form1' type='text' wrapperClass='mb-4' value={userName} onChange={(e) => setUserName(e.target.value)} />
               <MDBRow>
                 <MDBCol md='6'>
@@ -72,11 +75,11 @@ const SignUp = () => {
                       value={userRole}
                       onChange={(e) => setUserRole(e.target.value)}
                     >
-                      <option value="Client">Client</option>
+                      <option value="Client">{t("Client")}</option>
                       {user.role == "Admin" && (
                         <>
-                          <option value="Employee">Employee</option>
-                          <option value="Admin">Admin</option>
+                          <option value="Employee">{t("Employee")}</option>
+                          <option value="Admin">{t("Admin")}</option>
                         </>
                       )}
                     </select>
@@ -87,14 +90,14 @@ const SignUp = () => {
                         value={employeeType}
                         onChange={(e) => setEmployeeType(e.target.value)}
                       >
-                        <option value="Role 1">Role 1</option>
-                        <option value="Role 2">Role 2</option>
+                        <option value="Role 1">{t("Role 1")}</option>
+                        <option value="Role 2">{t("Role 2")}</option>
                       </select>
                     )}
                   </div>
                 </MDBCol>
               </MDBRow>
-              <MDBBtn className='mb-4' size='lg' onClick={handleRegistration}>Register</MDBBtn>
+              <MDBBtn className='mb-4' size='lg' onClick={handleRegistration}>{t("Register")}</MDBBtn>
               {signUpError && (
                 <p className="error" style={{ color: signUpError != "User successfully created" ? "red" : "green" }}>
                   {signUpError}

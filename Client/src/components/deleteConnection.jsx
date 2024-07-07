@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
+import { useTranslation } from "react-i18next";
 
 const deleteConnection = ({
   selectedClient,
@@ -13,6 +14,8 @@ const deleteConnection = ({
   onChange,
   setOnChange,
 }) => {
+  const { t } = useTranslation();
+
   const handleConfirmDelete = async () => {
     const connection = currentClientsemployees.find(
       (c) =>
@@ -67,12 +70,12 @@ const deleteConnection = ({
     <div className="div_to_delete">
       {selectedClient && (
         <button onClick={handleDeleteConnection} className="delete-button">
-          Click on me and choose a employee to delete{" "}
+          {t("Click on me and choose a employee to delete")}
         </button>
       )}
       {selectedEmployee && (
         <button onClick={handleDeleteConnection} className="delete-button">
-          Click on me and choose a client to delete{" "}
+          {t(" Click on me and choose a client to delete")}
         </button>
       )}
       <Modal
@@ -82,15 +85,15 @@ const deleteConnection = ({
         className="modal"
         overlayClassName="overlay"
       >
-        <h2>Confirm Connection Deletion</h2>
+        <h2>{t("Confirm Connection Deletion")}</h2>
         <p>
-          Are you sure you want to delete the connection between{" "}
+          {t("Are you sure you want to delete the connection between")}
           <strong>
             {selectedClient
               ? selectedClient.name
               : userToDelete && userToDelete.name}
-          </strong>{" "}
-          and{" "}
+          </strong>
+          {t("and")}
           <strong>
             {selectedEmployee
               ? selectedEmployee.name
@@ -99,9 +102,9 @@ const deleteConnection = ({
           ?
         </p>
         <button onClick={handleConfirmDelete} autoFocus>
-          Yes
+          {t("Yes")}
         </button>
-        <button onClick={handleModalClose}>No</button>
+        <button onClick={handleModalClose}>{t("No")}</button>
       </Modal>
     </div>
   );

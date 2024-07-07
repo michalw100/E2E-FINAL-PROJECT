@@ -13,7 +13,7 @@ import TypesFiles from "./TypesFiles.jsx";
 import { FaRegHandPointRight } from "react-icons/fa6";
 import { MdDelete } from "react-icons/md";
 import Modal from "react-modal";
-import chanel from "../helpers/chanels.js";
+import { useTranslation } from "react-i18next";
 Modal.setAppElement("#root");
 
 function Files({ setIsUploading, isUploading }) {
@@ -35,6 +35,7 @@ function Files({ setIsUploading, isUploading }) {
   const [currentClient, setCurrentClient] = useState("?");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [pendingIndex, setPendingIndex] = useState(null);
+  const { t } = useTranslation();
 
   // const response = fetch("http://localhost:3000/files/deleteAllFiles", {
   //   method: "DELETE",
@@ -285,14 +286,16 @@ function Files({ setIsUploading, isUploading }) {
                 >
                   <input {...getInputProps()} multiple />
                   <p>
-                    <TbDragDrop /> Drag 'n' drop PDF files here, or click to
-                    select files
+                    <TbDragDrop />
+                    {t(
+                      "Drag 'n' drop PDF files here, or click to select files"
+                    )}
                   </p>
                 </div>
                 {files.length > 0 && (
                   <div>
                     <div className="files-container">
-                      <h4>Files to be uploaded:</h4>
+                      <h4>{t("Files to be uploaded:")}</h4>
                       <ul>
                         {files.map((file, index) => (
                           <div key={index} className="file-box">
@@ -314,7 +317,7 @@ function Files({ setIsUploading, isUploading }) {
                     </div>
                     {uploadStatus != "uploading files..." ? (
                       <button className="upload-btn" onClick={handleUpload}>
-                        Upload
+                        {t("Upload")}
                       </button>
                     ) : (
                       <></>
@@ -323,7 +326,7 @@ function Files({ setIsUploading, isUploading }) {
                 )}
                 {rejectedFiles.length > 0 && (
                   <div>
-                    <h4>Rejected files:</h4>
+                    <h4>{t("Rejected files:")}</h4>
                     <ul>
                       {rejectedFiles.map(({ file, errors }, index) => (
                         <li key={index}>
@@ -332,7 +335,7 @@ function Files({ setIsUploading, isUploading }) {
                         </li>
                       ))}
                     </ul>
-                    <p>Only PDF files are allowed.</p>
+                    <p>{t("Only PDF files are allowed.")}</p>
                   </div>
                 )}
               </div>
@@ -340,7 +343,10 @@ function Files({ setIsUploading, isUploading }) {
             {uploadStatus && <p>{uploadStatus}</p>}
             <div className="filesTitle">
               {currentClient && (
-                <h5 className="yourFiles">{currentClient}'s files:</h5>
+                <h5 className="yourFiles">
+                  {currentClient}
+                  {t("'s files:")}
+                </h5>
               )}
 
               <div className="search-bar">
@@ -367,12 +373,12 @@ function Files({ setIsUploading, isUploading }) {
                   setSortCriteria(event.target.value);
                 }}
               >
-                <option value="dating">dating</option>
-                <option value="Pending">Pending</option>
-                <option value="Rejected">Rejected</option>
-                <option value="Approved">Approved</option>
-                <option value="alphabetical">Alphabetical</option>
-                <option value="random">random</option>
+                <option value="dating">{t("dating")}</option>
+                <option value="Pending">{t("Pending")}</option>
+                <option value="Rejected">{t("Rejected")}</option>
+                <option value="Approved">{t("Approved")}</option>
+                <option value="alphabetical">{t("Alphabetical")}</option>
+                <option value="random">{t("random")}</option>
               </select>
             </div>
             <div className="files">
@@ -390,16 +396,16 @@ function Files({ setIsUploading, isUploading }) {
             </div>
             {filteredFiles.length > currentPage * 7 ? (
               <button className="load-more-btn" onClick={handleLoadMore}>
-                Load More Files ({filteredFiles.length - currentPage * 7}{" "}
-                remaining)
+                {t("Load More Files")} ({filteredFiles.length - currentPage * 7}{" "}
+                {t("remaining")})
               </button>
             ) : (
-              <p>There are no more files to load.</p>
+              <p>{t("There are no more files to load.")}</p>
             )}{" "}
           </div>
         ) : (
           <div className="hand">
-            turn in the 3 points on the side
+            {t("turn in the 3 points on the side")}
             <br />
             <FaRegHandPointRight />
           </div>
@@ -411,15 +417,15 @@ function Files({ setIsUploading, isUploading }) {
           className="modal"
           overlayClassName="overlay"
         >
-          <h2>Are you sure?</h2>
+          <h2>{t("Are you sure?")}</h2>
           <p>
-            Are you sure you don't want to upload the file{" "}
+            {t("Are you sure you don't want to upload the file")}{" "}
             <strong>{pendingIndex}</strong> ?
           </p>
           <button onClick={confirmNotUpload} autoFocus>
-            Yes
+            {t("Yes")}
           </button>
-          <button onClick={cancelNotUpload}>No</button>
+          <button onClick={cancelNotUpload}>{t("No")}</button>
         </Modal>
       </div>
     </DndProvider>
