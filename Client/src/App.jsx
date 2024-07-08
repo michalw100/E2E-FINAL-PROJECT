@@ -1,7 +1,8 @@
 import React, { useState, useContext } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Layout from "./components/Layout.jsx";
-import AboutUs from "./pages/AboutUs.jsx";
+// import AboutUs from "./pages/AboutUs.jsx";
+import AboutUs from "./pages/AboutUsFull.jsx";
 import SignIn from "./pages/SignIn.jsx";
 import { AuthProvider, AuthContext } from "./AuthContext";
 import NestedRoutes from "./components/NestedRoutes.jsx";

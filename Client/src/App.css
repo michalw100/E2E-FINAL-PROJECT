@@ -1,13 +1,16 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;800&display=swap");
+
 #root {
   margin: 0px;
   direction: ltr;
   width: 100%;
   height: 100%;
   overflow-x: hidden;
-
 }
 
 .body {
+  margin: 0;
+  line-height: normal;
   height: 100%;
   width: 100%;
   display: flex;
@@ -65,7 +68,7 @@
 }
 
 .button:hover {
-  background: #4c4084
+  background: #4c4084;
 }
 
 .button:active {
@@ -116,7 +119,6 @@ li {
 }
 
 button {
-
   margin: 4px;
 }
 
@@ -139,7 +141,7 @@ button {
   margin-bottom: auto;
 }
 
-@media (max-width:1400px) {
+@media (max-width: 1400px) {
   footer {
     position: fixed;
   }
@@ -170,10 +172,10 @@ button {
   background-color: #0056b3;
 }
 
-.clients{
+.clients {
   display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 .client {
   width: 100%;
@@ -187,60 +189,52 @@ button {
   margin-bottom: 1rem;
 }
 
-.allClients{
+.allClients {
   display: grid;
   grid-template-columns: repeat(4, minmax(250px, 0.5fr));
   gap: 1em;
   margin: 35px;
   margin-left: 90px;
 }
-h1, h4, h2 {
+h1,
+h4,
+h2 {
   text-align: center;
   margin-bottom: 1%;
 }
 
-.mydetails{
+.mydetails {
   border: 2px solid #cccccc;
 }
 
-
-
-h5{
+h5 {
   text-align: start;
   padding: 0%;
   font-size: large;
   margin: 1%;
 }
 
-
-
-@media screen and (max-width:900px) {
-
+@media screen and (max-width: 900px) {
   .allClients {
     display: grid;
     grid-template-columns: repeat(2, minmax(300px, 0.5fr));
     gap: 1em;
     margin: 35px;
     margin-left: 90px;
-    }
-
-  
+  }
 }
-.clientemail{
+.clientemail {
   text-align: center;
 }
 
-@media screen and (max-width:500px) {
-
+@media screen and (max-width: 500px) {
   .allClients {
     display: grid;
     grid-template-columns: repeat(1, minmax(250px, 0.5fr));
     gap: 1em;
     margin: 35px;
     margin-left: 90px;
-    }
-
-  
+  }
 }
 .container {
   padding: 20px;
@@ -253,14 +247,13 @@ h5{
 .draganddrop {
   border: 2px dashed #cccccc;
   border-radius: 4px;
-  padding:20px; /* Increased padding for more space */
+  padding: 20px; /* Increased padding for more space */
   text-align: center;
   cursor: pointer;
   margin-bottom: 20px;
   color: #007bff; /* Color of the text */
   background-color: #f0f4f7; /* Light background color to match the image */
-
-  }
+}
 
 .files-container {
   margin-top: 20px;
@@ -283,7 +276,6 @@ h5{
   font-size: 14px; /* Adjusted font size */
   color: #333333; /* Darker text color */
   text-align: start;
-
 }
 
 .file-status {
@@ -306,7 +298,6 @@ h5{
   background-color: #0056b3;
 }
 
-
 .search-bar {
   display: flex;
   align-items: center;
@@ -315,13 +306,14 @@ h5{
   padding: 10px 10px;
   margin: 15px;
   width: 300px;
-  background-color: white;}
+  background-color: white;
+}
 
 .search-bar input {
   border: none;
   outline: none;
-  }
-.filesTitle{
+}
+.filesTitle {
   display: flex;
   justify-content: start;
   align-items: center;
@@ -330,7 +322,6 @@ h5{
   padding: 2px;
   margin: 10px;
 }
-
 
 /* Responsive styles for mobile devices */
 @media (max-width: 600px) {
@@ -360,7 +351,6 @@ h5{
     width: 100%;
     margin-top: 10px;
   }
-
 }
 /* 
 .line {
@@ -370,41 +360,28 @@ h5{
   margin: 20px 0;
 } */
 
-
-.page_files{
-  
-border-radius: 4px;
-padding: 25px 10px; /* Increased padding for more space */
-text-align: center;
-cursor: pointer;
-background-color: #ffffff;
+.page_files {
+  border-radius: 4px;
+  padding: 25px 10px; /* Increased padding for more space */
+  text-align: center;
+  cursor: pointer;
+  background-color: #ffffff;
 }
 
-.file-date{
+.file-date {
   text-align: start;
-
 }
 
 button {
   border-color: #000000;
 }
 
-.download,.comments,.delete
-{
-  border: 2px solid #cccccc
+.download,
+.comments,
+.delete {
+  border: 2px solid #cccccc;
 }
 /*about us*/
-
-
-
-
-
-
-
-
-
-
-
 
 .about_us {
   display: flex;
@@ -480,7 +457,8 @@ form label {
   margin-top: 10px;
 }
 
-form input, form textarea {
+form input,
+form textarea {
   margin-top: 5px;
   padding: 7px;
   width: 100%;
@@ -496,10 +474,6 @@ form button {
   cursor: pointer;
   width: 100%;
 }
-
-
-
-
 
 .about_us {
   display: flex;
@@ -577,7 +551,8 @@ form label {
   margin-top: 10px;
 }
 
-form input, form textarea {
+form input,
+form textarea {
   margin-top: 5px;
   padding: 7px;
   width: 100%;
@@ -616,8 +591,6 @@ form button:hover {
   font-size: 0.9em;
 }
 
-
-
 /* @media only screen and (max-width: 600px) {
   .file-content .download {
     display: none;
@@ -651,15 +624,15 @@ form button:hover {
   }
 }
 
-.select{
+.select {
   display: flex;
-    align-items: center;
-    border: 1px solid #cccccc;
-    border-radius: 4px;
-    padding: 1px 1px;
-    margin: 15px;
-    width: 300px;
-    background-color: white;
+  align-items: center;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  padding: 1px 1px;
+  margin: 15px;
+  width: 300px;
+  background-color: white;
 }
 
 /* .file-box {
@@ -674,12 +647,12 @@ form button:hover {
   width: 25%; /* או כל ערך אחר של רוחב קבוע שברצונך */
 }
 
-.file-status{
+.file-status {
   width: fit-content;
-    margin-right: auto;
-    padding: 2px;
-    border-radius: 5px;
-    margin-left: auto;
+  margin-right: auto;
+  padding: 2px;
+  border-radius: 5px;
+  margin-left: auto;
 }
 
 .file-actions {
@@ -691,18 +664,17 @@ form button:hover {
   .file-status-container,
   .file-comments,
   .file-actions {
-      width: 100%; /* שינוי סוג ה-layout ל-block במקרה של רוחב קטן יותר */
+    width: 100%; /* שינוי סוג ה-layout ל-block במקרה של רוחב קטן יותר */
   }
 }
 
-.update{
+.update {
   padding: 3px 3px 3px 3px;
   background-color: white;
-  border: 0.5px solid #cccccc
-
+  border: 0.5px solid #cccccc;
 }
 
-ul{
+ul {
   padding: 0;
 }
 /* 
@@ -748,18 +720,16 @@ ul{
     margin: 0 5px;
   }
 
-
   /* .res {
     flex-direction: row;
     flex: 1;
     display: flex;
   } */
-  .file-info, .box, .file-actions {
+  .file-info,
+  .box,
+  .file-actions {
     flex-direction: column;
+  }
 }
-
-}
-
-
 
 /*  */
