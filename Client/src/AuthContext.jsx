@@ -63,7 +63,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const fetchAllChatsInfo = async () => {
-    console.log("קראו לי")
+    console.log("קראו לי");
     if (!clientReady || !chatClient || !user) return;
 
     try {
@@ -218,17 +218,16 @@ export const AuthProvider = ({ children }) => {
   };
 
   const toasting = async (type, message) => {
-    console.log("type, err")
-    console.log(type, message)
+    console.log("type, err");
+    console.log(type, message);
     switch (type) {
       case "error":
-        toast.error(message);
+        toast.error(message.message ? message.message : message);
         break;
     }
   };
 
   return (
-    
     <AuthContext.Provider
       value={{
         user,
