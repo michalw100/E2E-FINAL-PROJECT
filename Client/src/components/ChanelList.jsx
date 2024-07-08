@@ -26,7 +26,7 @@ const ChannelListContainer = () => {
       );
       const data = await response.json();
       if (data.chatId) {
-        setChatId(`bestChat-${data.chatId}`);
+        setChatId(`myBestChat-${data.chatId}`);
       } else {
         setChatId(null);
       }
@@ -52,8 +52,6 @@ const ChannelListContainer = () => {
   const filters = chatId
     ? { id: { $eq: chatId }, members: { $in: [client.userID] } }
     : { members: { $in: [client.userID] } };
-  // : { id: {  members: { $in: [client.userID] } }};
-  // : { id: { $in: ["bestChat"] }, members: { $in: [client.userID] } };
 
   return (
     <ChannelList
@@ -61,10 +59,6 @@ const ChannelListContainer = () => {
       filters={filters}
       sort={{ last_message_at: -1 }}
       options={{ subscribe: true, state: true }}
-      // channelRenderFilterFn={(channel) => {
-      //   console.log(channel);
-      //   return channel && channel.id && channel.id.startsWith("bestChat");
-      // }}
     />
   );
 };
