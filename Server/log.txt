@@ -7638,3 +7638,16 @@ Date: Mon Jul 08 2024 18:18:39 GMT+0300 (שעון ישראל (קיץ)), Url:/fil
 Date: Mon Jul 08 2024 18:18:40 GMT+0300 (שעון ישראל (קיץ)), Url:/files/all-status?id=6 
 Date: Mon Jul 08 2024 18:18:40 GMT+0300 (שעון ישראל (קיץ)), Url:/files/number-files-uploaded-per-day?id=6 
 Date: Mon Jul 08 2024 18:18:40 GMT+0300 (שעון ישראל (קיץ)), Url:/files/number-files-by-type-and-status?id=6 
+Date: Mon Jul 08 2024 19:43:13 GMT+0300 (שעון ישראל (קיץ)), Url:/checkAuth 
+Date: Mon Jul 08 2024 19:43:13 GMT+0300 (שעון ישראל (קיץ)), Url:/checkAuth 
+Date: Mon Jul 08 2024 19:43:13 GMT+0300 (שעון ישראל (קיץ)), Url:/users/user?id=6 
+Date: Mon Jul 08 2024 19:43:13 GMT+0300 (שעון ישראל (קיץ)), Url:/users/user?id=6 
+Date: Mon Jul 08 2024 19:43:13 GMT+0300 (שעון ישראל (קיץ)), Url:/chat/apiKey 
+Date: Mon Jul 08 2024 19:43:13 GMT+0300 (שעון ישראל (קיץ)), Url:/chat/apiKey 
+Date: Mon Jul 08 2024 19:43:14 GMT+0300 (שעון ישראל (קיץ)), Url:/logout 
+Date: Mon Jul 08 2024 19:57:40 GMT+0300 (שעון ישראל (קיץ)), Url:/checkAuth 
+Date: Mon Jul 08 2024 19:57:40 GMT+0300 (שעון ישראל (קיץ)), Url:/checkAuth 
+Date: Mon Jul 08 2024 19:58:36 GMT+0300 (שעון ישראל (קיץ)), Url:/checkAuth 
+Date: Mon Jul 08 2024 19:58:36 GMT+0300 (שעון ישראל (קיץ)), Url:/checkAuth 
+Date: Mon Jul 08 2024 19:58:38 GMT+0300 (שעון ישראל (קיץ)), Url:/checkAuth 
+Date: Mon Jul 08 2024 19:58:38 GMT+0300 (שעון ישראל (קיץ)), Url:/checkAuth 

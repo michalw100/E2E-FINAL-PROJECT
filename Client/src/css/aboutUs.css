@@ -1,0 +1,210 @@
+/*about us*/
+
+.about_us {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    position: relative; /* Add this line */
+  }
+  
+  .header_section {
+    background-color: #f0f0f0;
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+  
+  .sign_in_button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .sign_in_button:hover {
+    background-color: #0056b3;
+  }
+  
+  .img_about_us {
+    width: 100px; /* Adjusted logo size */
+    height: auto;
+  }
+  
+  .form_section {
+    background-color: #fff;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0;
+  }
+  
+  .contact_info {
+    width: 50%;
+    text-align: center;
+    margin: 0px;
+  }
+  
+  .img_about_us2 {
+    width: 100%;
+    height: auto;
+  }
+  
+  form {
+    width: 50%;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  form label {
+    margin-top: 10px;
+  }
+  
+  form input,
+  form textarea {
+    margin-top: 5px;
+    padding: 7px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  form button {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  .about_us {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    position: relative; /* Add this line */
+  }
+  
+  .nav_section {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+  
+  .sign_in_button {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .sign_in_button:hover {
+    background-color: #0056b3;
+  }
+  
+  .header_section {
+    background-color: #f0f0f0;
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+    position: relative;
+  }
+  
+  .img_about_us {
+    width: 100px; /* Adjusted logo size */
+    height: auto;
+  }
+  
+  .form_section {
+    background-color: #fff;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0;
+  }
+  
+  .contact_info {
+    width: 50%;
+    text-align: center;
+  }
+  
+  .img_about_us2 {
+    width: 100%;
+    height: auto;
+  }
+  
+  form {
+    width: 50%;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  form label {
+    margin-top: 10px;
+  }
+  
+  form input,
+  form textarea {
+    margin-top: 5px;
+    padding: 7px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  form button {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  form button:hover {
+    background-color: #0056b3;
+  }
+  
+  .text_section {
+    background-color: #e0e0e0;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+  
+  .text_section h1 {
+    text-align: center;
+    font-size: 1.5em;
+  }
+  
+  .text_section p {
+    text-align: justify;
+    margin: 5px 0;
+    font-size: 0.9em;
+  }
+  

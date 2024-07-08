@@ -362,7 +362,7 @@ h5 {
 
 .page_files {
   border-radius: 4px;
-  padding: 25px 10px; /* Increased padding for more space */
+  padding: 25px 10px; 
   text-align: center;
   cursor: pointer;
   background-color: #ffffff;
@@ -381,17 +381,7 @@ button {
 .delete {
   border: 2px solid #cccccc;
 }
-/*about us*/
-
-.about_us {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  padding: 0;
-  margin: 0;
-  position: relative; /* Add this line */
-}
+/* about us
 
 .header_section {
   background-color: #f0f0f0;
@@ -422,7 +412,7 @@ button {
 }
 
 .img_about_us {
-  width: 100px; /* Adjusted logo size */
+  width: 100px; 
   height: auto;
 }
 
@@ -482,7 +472,7 @@ form button {
   width: 100%;
   padding: 0;
   margin: 0;
-  position: relative; /* Add this line */
+  position: relative; 
 }
 
 .nav_section {
@@ -517,7 +507,7 @@ form button {
 }
 
 .img_about_us {
-  width: 100px; /* Adjusted logo size */
+  width: 100px; 
   height: auto;
 }
 
@@ -589,7 +579,7 @@ form button:hover {
   text-align: justify;
   margin: 5px 0;
   font-size: 0.9em;
-}
+} */
 
 /* @media only screen and (max-width: 600px) {
   .file-content .download {
