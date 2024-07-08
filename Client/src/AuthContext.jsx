@@ -13,7 +13,11 @@ export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    return disconnectClient;
+    return () => {
+      if (chatClient) {
+        chatClient.disconnectUser();
+      }
+    };
   }, []);
 
   useEffect(() => {
@@ -65,7 +69,24 @@ export const AuthProvider = ({ children }) => {
   const fetchAllChatsInfo = async () => {
     console.log("קראו לי");
     if (!clientReady || !chatClient || !user) return;
-
+    try {
+      for (let i = 1; i <= 20; i++) {
+        const userId = `user-${i}`;
+        try {
+          const user = await chatClient.queryUsers({ id: userId });
+          if (user.users && user.users.length > 0) {
+            console.log(`User ${i} details:`);
+            console.log(user.users[0]);
+          } else {
+            console.log(`User ${i} not found.`);
+          }
+        } catch (error) {
+          console.error(`Error fetching user ${i}:`, error.message);
+        }
+      }
+    } catch (error) {
+      console.error('Error in fetchUserDetails:', error);
+    }
     try {
       const filters = { members: { $in: [`user-${user.id}`] } };
       const sort = { last_message_at: -1 };
@@ -106,6 +127,7 @@ export const AuthProvider = ({ children }) => {
           };
         })
       );
+      console.log(allChatsInfo);
       setChatsInfo(allChatsInfo);
     } catch (error) {
       console.error("Error fetching chats info:", error);

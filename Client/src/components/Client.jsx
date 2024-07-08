@@ -20,6 +20,29 @@ const Client = ({ client }) => {
     getMessages();
   }, [chatsInfo]);
 
+  const getIDs = async () => {
+    try {
+      const data = await fetch(
+        `http://localhost:3000/files/type?type=${typeFile}&&clientID=${ownerOfFiles}`,
+        {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+        }
+      );
+
+      if (!data) {
+        setCountOfType(0);
+      } else {
+        const countType = await data.json();
+        setCountOfType(countType);
+      }
+    } catch (error) {
+      toasting("error" , error.message ? error.message : error );
+
+    }
+  };
+
   const getMessages = async () => {
     try {
       const messages = await chanels.getUnreadMessagesForChat(
@@ -27,12 +50,11 @@ const Client = ({ client }) => {
         null,
         client.userID
       );
-      
       if (messages == -1) return;
       else
       setMessages(messages);
     } catch (error) {
-      toasting("error" , "Error fetching messages:" + error.message ? error.message : error );
+      toast.error("Error fetching messages:", error);
     }
   };
 

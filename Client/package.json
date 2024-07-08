@@ -31,8 +31,8 @@
     "react-modal": "^3.16.1",
     "react-router-dom": "^6.23.1",
     "socket.io-client": "^4.7.5",
-    "stream-chat": "^8.36.0",
-    "stream-chat-react": "^11.22.0"
+    "stream-chat": "^8.37.0",
+    "stream-chat-react": "^11.23.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",

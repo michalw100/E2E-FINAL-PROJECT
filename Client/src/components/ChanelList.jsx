@@ -26,12 +26,15 @@ const ChannelListContainer = () => {
       );
       const data = await response.json();
       if (data.chatId) {
-        setChatId(`chat-${data.chatId}`);
+        setChatId(`bestChat-${data.chatId}`);
       } else {
         setChatId(null);
       }
     } catch (error) {
-      toasting("error" , "Error fetching chat ID:" + error.message ? error.message : error );
+      toasting(
+        "error",
+        "Error fetching chat ID:" + error.message ? error.message : error
+      );
       setChatId(null);
     } finally {
       setIsLoading(false);
@@ -40,7 +43,7 @@ const ChannelListContainer = () => {
 
   useEffect(() => {
     fetchChatId();
-  }, [fetchChatId, location]); 
+  }, [fetchChatId, location]);
 
   if (isLoading) {
     return <div> {t("Loading...")}</div>;
@@ -49,13 +52,19 @@ const ChannelListContainer = () => {
   const filters = chatId
     ? { id: { $eq: chatId }, members: { $in: [client.userID] } }
     : { members: { $in: [client.userID] } };
+  // : { id: {  members: { $in: [client.userID] } }};
+  // : { id: { $in: ["bestChat"] }, members: { $in: [client.userID] } };
 
   return (
     <ChannelList
-      key={`${chatId || "all"}-${location.pathname}`} 
+      key={`${chatId || "all"}-${location.pathname}`}
       filters={filters}
       sort={{ last_message_at: -1 }}
       options={{ subscribe: true, state: true }}
+      // channelRenderFilterFn={(channel) => {
+      //   console.log(channel);
+      //   return channel && channel.id && channel.id.startsWith("bestChat");
+      // }}
     />
   );
 };
