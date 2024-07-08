@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import "../css/update.css";
 import { AuthContext } from "../AuthContext";
 import { Pie, Bar, Line } from "react-chartjs-2";
+import { toast } from 'react-hot-toast';
 import {
   Chart as ChartJS,
   Tooltip,
@@ -20,7 +21,6 @@ ChartJS.register(Tooltip, Legend, CategoryScale, LinearScale, BarElement, ArcEle
 
 function UpdatesPage() {
   const { user, chatClient, clientReady, chatsInfo } = useContext(AuthContext);
-  // const [numFilesPerMonth, setNumFilesPerMonth] = useState([]);
   const [statusData, setStatusData] = useState([]);
   const [types, setTypes] = useState([]);
   const [chatMessageCounts, setChatMessageCounts] = useState({low: 0, medium: 0, high: 0});
@@ -31,7 +31,6 @@ function UpdatesPage() {
 
   useEffect(() => {
     if (user && user.id) {
-      // fetchFilesPerMonth();
       getStatus();
       fetchFilesPerDay();
       getTypesAndStatus();
@@ -68,6 +67,7 @@ function UpdatesPage() {
       const data = await response.json();
       setTypes(data);
     } catch (error) {
+      toast.error("Error fetching messages:");
       console.error("Error fetching types data:", error);
     }
   };
@@ -103,33 +103,6 @@ function UpdatesPage() {
       console.error("Error fetching status data:", error);
     }
   };
-
-  // const fetchFilesPerMonth = async () => {
-  //   try {
-  //     const response = await fetch(
-  //       `http://localhost:3000/files/number-files-uploaded-per-month?id=${user.id}`,
-  //       {
-  //         method: "GET",
-  //         credentials: "include",
-  //         headers: {
-  //           Accept: "application/json",
-  //           "Content-Type": "application/json",
-  //         },
-  //       }
-  //     );
-  //     const data = await response.json();
-  //     const monthsWithData = data.map((item) => item.month);
-  //     for (let month = 1; month <= 12; month++) {
-  //       if (!monthsWithData.includes(month)) {
-  //         data.push({ month, count: 0 });
-  //       }
-  //     }
-  //     data.sort((a, b) => a.month - b.month);
-  //     setNumFilesPerMonth(data);
-  //   } catch (error) {
-  //     console.error("Error fetching files per month:", error);
-  //   }
-  // };
 
   const fetchFilesPerDay = async () => {
     try {
@@ -256,7 +229,7 @@ function UpdatesPage() {
   };
 
   const lineData = {
-    labels: numFilesPerDay.map((item) => item.date),
+    labels: numFilesPerDay? numFilesPerDay.map((item) => item.date) : null,
     datasets: [
       {
         label: "Files Uploaded",
@@ -269,34 +242,35 @@ function UpdatesPage() {
       },
     ],
   };
+  console.log(types)
 
   const barData = {
-    labels: types.map((type, index) => `Type ${index + 1}`),
+    labels: types.length < 0? types.map((type, index) => `Type ${index + 1}`) : null,
     datasets: [
       {
         label: "Pending",
-        data: types.map((type) => type.pending || 0),
+        data: types.length < 0? types.map((type) => type?.pending || 0): 0,
         backgroundColor: "rgb(114 164 216)",
         borderColor: "rgb(114 164 216)",
         borderWidth: 1,
       },
       {
         label: "Approved",
-        data: types.map((type) => type.approved || 0),
+        data:types.length < 0? types.map((type) => type?.approved || 0): null,
         backgroundColor: "#90e290",
         borderColor: "#90e290",
         borderWidth: 1,
       },
       {
         label: "Rejected",
-        data: types.map((type) => type.rejected || 0),
+        data: types.length < 0?types.map((type) => type?.rejected || 0) : null,
         backgroundColor: "#d85a5a",
         borderColor: "#d85a5a",
         borderWidth: 1,
       },
       {
         label: "Deleted",
-        data: types.map((type) => type.deleted || 0),
+        data: types.length < 0?types.map((type) => type?.deleted || 0): null,
         backgroundColor: "rgb(178 174 174)",
         borderColor: "rgb(178 174 174)",
         borderWidth: 1,
@@ -313,27 +287,28 @@ function UpdatesPage() {
   const chatBarData = {
     labels: chatStats
       .slice(0, 10)
-      .map((chat) => shortenChatName(chat.chatName)),
+      .map((chat) => shortenChatName(chat?.chatName || "")),
     datasets: [
       {
         label: "Unread Messages",
-        data: chatStats.slice(0, 10).map((chat) => chat.unreadMessages),
+        data: chatStats.slice(0, 10).map((chat) => chat?.unreadMessages || 0),
         backgroundColor: "rgba(255, 206, 86, 1)",
       },
       {
         label: "Messages Sent",
-        data: chatStats.slice(0, 10).map((chat) => chat.userMessages),
+        data: chatStats.slice(0, 10).map((chat) => chat?.userMessages || 0),
         backgroundColor: "rgba(54, 162, 235, 1)",
       },
       {
         label: "Messages Received",
-        data: chatStats.slice(0, 10).map((chat) => chat.otherMessages),
+        data: chatStats.slice(0, 10).map((chat) => chat?.otherMessages || 0),
         backgroundColor: "rgba(75, 192, 192, 1)",
       },
     ],
   };
+
   const messageLineData = {
-    labels: Object.keys(messagesPerDay).sort(),
+    labels: Object? Object.keys(messagesPerDay).sort() : null,
     datasets: [
       {
         label: "Messages per Day",
@@ -436,7 +411,7 @@ function UpdatesPage() {
                 y: {
                   stacked: true,
                   beginAtZero: true,
-                  max: Math.max(...types.map((type) => type.total)) + 1,
+                  max: types.length < 0?Math.max(...types.map((type) => type.total)) + 1 : null,
                   ticks: {
                     stepSize: 1,
                   },
@@ -461,7 +436,7 @@ function UpdatesPage() {
             }}
           />
           <div className="explanation">
-            {types.map((type, index) => (
+            {types.length < 0 && types.map((type, index) => (
               <div className="types" key={index}>
                 <strong>{t("Type")} {index + 1}:</strong> {type.type}
               </div>
