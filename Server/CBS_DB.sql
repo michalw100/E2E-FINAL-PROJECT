@@ -1085,7 +1085,15 @@ VALUES
   '4',
   '4',
   'Pending'
-);
+),
+(
+  '1eu3sO9quV-BkL6GQxM-Tl61UNgvoRDv3',
+  'AWS Course for DevOps Juniors.pdf',
+  'Current material for accounting',
+  '20',
+  '3',
+  'Pending'
+];
 
 
 INSERT INTO chats (userID) VALUES
