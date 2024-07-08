@@ -63,6 +63,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const fetchAllChatsInfo = async () => {
+    console.log("קראו לי")
     if (!clientReady || !chatClient || !user) return;
 
     try {
@@ -105,6 +106,7 @@ export const AuthProvider = ({ children }) => {
           };
         })
       );
+      setChatsInfo(allChatsInfo);
     } catch (error) {
       console.error("Error fetching chats info:", error);
     }
