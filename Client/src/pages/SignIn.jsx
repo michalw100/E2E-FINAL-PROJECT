@@ -43,14 +43,13 @@ function SignIn() {
       <MDBRow className="d-flex justify-content-center align-items-center">
         <MDBCol lg="8">
           <MDBCard style={{ maxWidth: "600px" }}>
-            <MDBCardImage
+            {/* <MDBCardImage
               src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/img3.webp"
-              className="w-100 rounded-top"
               alt="Sample photo"
-            />
-            {/* <MDBCardImage 
-         src="../../src/pictures/FullLogo-removebg-preview.png"
-        alt='logo' className='rounded-t-5 rounded-tr-lg-0' fluid /> */}
+            /> */}
+            <MDBCardImage 
+         src="../../src/pictures/backGround.png"               className="w-100 rounded-top"
+        alt='logo' fluid />
 
             <MDBCardBody className="px-5">
               <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">

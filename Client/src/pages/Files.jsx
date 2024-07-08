@@ -129,7 +129,7 @@ function Files({ setIsUploading, isUploading }) {
               setShowDrop(true);
             } else setOwnerOfFiles(user.id);
           })
-          .catch((error) => {
+          .catch(() => {
             setOwnerOfFiles(user.id);
           });
       }
@@ -182,11 +182,9 @@ function Files({ setIsUploading, isUploading }) {
         toast.error(error.message);
       }
     } catch (error) {
-      toast.error(error);
+      toasting("error" , error.message ? error.message : error );
     }
   };
-
-
 
   const handleUpload = async () => {
     const formData = new FormData();
@@ -196,7 +194,7 @@ function Files({ setIsUploading, isUploading }) {
     formData.append("uploaderID", user.id);
     formData.append("clientID", ownerOfFiles);
     formData.append("typeFile", currentTypeFile);
-    formData.append("filesNames", files.map((file) => file.name).join(",")); // שליחת שמות הקבצים כמחרוזת מופרדת בפסיקים
+    formData.append("filesNames", files.map((file) => file.name).join(","));
     setUploadStatus("uploading files...");
     axios
       .post("http://localhost:3000/files/upload", formData, {

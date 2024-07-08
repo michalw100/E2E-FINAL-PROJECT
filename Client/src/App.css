@@ -721,5 +721,12 @@ ul {
     flex-direction: column;
   }
 }
-
+.mb-md-5 {
+  margin-bottom: 0rem !important;
+}
 /*  */
+@media (min-width: 768px) {
+  .mb-md-5 {
+      margin-bottom: 0rem !important;
+  }
+}

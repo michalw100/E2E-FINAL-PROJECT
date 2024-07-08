@@ -27,14 +27,10 @@ ChartJS.register(
 );
 
 function UpdatesPage() {
-  const { user, chatClient, clientReady, chatsInfo, toasting } =
-    useContext(AuthContext);
+  const { user, chatClient, clientReady, chatsInfo, toasting } = useContext(AuthContext);
   const [statusData, setStatusData] = useState([]);
   const [types, setTypes] = useState([]);
-  const [chatMessageCounts, setChatMessageCounts] = useState({
-    low: 0,
-    medium: 0,
-    high: 0,
+  const [chatMessageCounts, setChatMessageCounts] = useState({low: 0, medium: 0, high: 0
   });
   const [messagesPerDay, setMessagesPerDay] = useState({});
   const [chatStats, setChatStats] = useState([]);
@@ -79,9 +75,7 @@ function UpdatesPage() {
       const data = await response.json();
       setTypes(data);
     } catch (error) {
-      console.log("toasting(, error)");
-      toasting("error", error);
-      console.error("Error fetching types data:", error);
+      toasting("error" , "Error fetching types data:" + error.message ? error.message : error );
     }
   };
 
@@ -114,9 +108,7 @@ function UpdatesPage() {
       const data = await response.json();
       setStatusData(data);
     } catch (error) {
-      toasting("error", error);
-      console.log("toasting(, error)");
-      console.error("Error fetching status data:", error);
+      toasting("error" , "Error fetching status data:" + error.message ? error.message : error );
     }
   };
 
@@ -144,11 +136,9 @@ function UpdatesPage() {
           date: new Date(item.date).toISOString().split("T")[0],
         }));
 
-      // בדיקה אם התאריכים קיימים
       const hasToday = filteredData.some((item) => item.date === today);
       const hasNewYear = filteredData.some((item) => item.date === newYearDate);
 
-      // הוספת התאריכים החסרים
       if (!hasToday) {
         filteredData.push({ date: today, count: 0 });
       }
@@ -156,14 +146,11 @@ function UpdatesPage() {
         filteredData.push({ date: newYearDate, count: 0 });
       }
 
-      // מיון התאריכים
       filteredData.sort((a, b) => new Date(a.date) - new Date(b.date));
 
       setNumFilesPerDay(filteredData);
     } catch (error) {
-      toasting("error", error);
-      console.log("toasting(, error)");
-      console.error("Error fetching files per day:", error);
+      toasting("error" , "Error fetching files per day:" + error.message ? error.message : error );
     }
   };
 
@@ -171,11 +158,7 @@ function UpdatesPage() {
   const statusCounts = statusData.map((status) => status.count);
 
   const processChatMessageCounts = () => {
-    const categoryCounts = {
-      low: 0, // 0-10 הודעות
-      medium: 0, // 11-50 הודעות
-      high: 0, // 51+ הודעות
-    };
+    const categoryCounts = { low: 0, medium: 0, high: 0};
 
     Object.values(chatsInfo).forEach((chat) => {
       const totalMessages = chat.totalMessagesCount;
@@ -260,7 +243,6 @@ function UpdatesPage() {
       },
     ],
   };
-  console.log(types);
 
   const barData = {
     labels:
@@ -304,23 +286,21 @@ function UpdatesPage() {
   };
 
   const chatBarData = {
-    labels: chatStats
-      .slice(0, 10)
-      .map((chat) => shortenChatName(chat?.chatName || "")),
+    labels: chatStats.slice(0, 10).map((chat) => shortenChatName(chat.chatName)),
     datasets: [
       {
         label: "Unread Messages",
-        data: chatStats.slice(0, 10).map((chat) => chat?.unreadMessages || 0),
+        data: chatStats.slice(0, 10).map((chat) => chat.unreadMessages),
         backgroundColor: "rgba(255, 206, 86, 1)",
       },
       {
         label: "Messages Sent",
-        data: chatStats.slice(0, 10).map((chat) => chat?.userMessages || 0),
+        data: chatStats.slice(0, 10).map((chat) => chat.userMessages),
         backgroundColor: "rgba(54, 162, 235, 1)",
       },
       {
         label: "Messages Received",
-        data: chatStats.slice(0, 10).map((chat) => chat?.otherMessages || 0),
+        data: chatStats.slice(0, 10).map((chat) => chat.otherMessages),
         backgroundColor: "rgba(75, 192, 192, 1)",
       },
     ],
@@ -367,7 +347,6 @@ function UpdatesPage() {
 
   return (
     <div className="all-update">
-      {/* <h2 className="title">Updates</h2> */}
       <div className="updates">
         <div className="chart-container">
           <div className="title-div">

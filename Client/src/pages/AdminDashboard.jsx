@@ -135,7 +135,7 @@ const AdminDashboard = () => {
       setClients(data);
       setCurrentClients(data);
     } catch (error) {
-      console.error("Error fetching clients:", error.message);
+      toasting("error" ,"Error fetching clients:" + error.message ? error.message : error );
     }
   };
 
@@ -158,7 +158,7 @@ const AdminDashboard = () => {
       setEmployees(data);
       setCurrentEmployees(data);
     } catch (error) {
-      console.error("Error fetching employees:", error.message);
+      toasting("error" ,"Error fetching employees:" + error.message ? error.message : error );
     }
   };
 
@@ -178,7 +178,7 @@ const AdminDashboard = () => {
       setClientsemployees(data);
       setCurrentClientsemployees(data);
     } catch (error) {
-      console.error("Error fetching employees:", error.message);
+      toasting("error" ,"Error fetching employees:" + error.message ? error.message : error );
     }
   };
 
@@ -331,7 +331,6 @@ const AdminDashboard = () => {
         <div className="search_div">
           <div className="search-bar">
             <FaSearch />
-            {/* <label className="input">Search:</label> */}
             <input
               type="text"
               value={searchCriteria}

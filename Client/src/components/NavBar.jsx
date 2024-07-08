@@ -30,7 +30,7 @@ function Navbar({ isUploading }) {
       );
       setNewMessages(messages);
     } catch (error) {
-      console.error("Error fetching messages:", error);
+      toasting("error" , "Error fetching messages:" + error.message ? error.message : error );
     }
   };
 
@@ -52,7 +52,7 @@ function Navbar({ isUploading }) {
       }
       // console.log("ClientID cleared from session successfully");
     } catch (error) {
-      console.error("Error clearing ClientID from session:", error.message);
+      toasting("error" , "Error clearing ClientID from session:" + error.message ? error.message : error );
     }
   };
 
@@ -68,12 +68,8 @@ function Navbar({ isUploading }) {
       if (!response.ok) {
         throw new Error(`status: ${response.status}`);
       }
-      // console.log("ClientID cleared from session successfully");
     } catch (error) {
-      console.error(
-        "Error clearing clearChatIDFromSession from session:",
-        error.message
-      );
+      toasting("error" , "Error clearing clearChatIDFromSession from session:" + error.message ? error.message : error );
     }
   };
 
@@ -83,8 +79,8 @@ function Navbar({ isUploading }) {
 
   const handleLinkClick = (e, func1, func2) => {
     if (isUploading) {
-      e.preventDefault(); // מונע את הניגון של הקישור במידה והתנאי לא מתקיים
-      window.open(e.target.href, "_blank"); // פותח את הקישור בכרטיסיה חדשה
+      e.preventDefault();
+      window.open(e.target.href, "_blank");
     } else {
       if (func1) func1();
       if (func2) func2();

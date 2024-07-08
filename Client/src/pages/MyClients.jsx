@@ -1,12 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
-// import UserDetails from "./UserDetails";
 import { AuthContext } from "../AuthContext";
 import Client from "../components/Client";
 
 const UsersList = () => {
   const { user } = useContext(AuthContext);
   const [users, setUsers] = useState([]);
-  // const [selectedUser, setSelectedUser] = useState(null);
   const [fetchError, setFetchError] = useState("");
   useEffect(() => {
     if (user && user.id) {

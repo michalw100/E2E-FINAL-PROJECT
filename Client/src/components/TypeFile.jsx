@@ -49,8 +49,8 @@ const TypeFile = ({
         const countType = await data.json();
         setCountOfType(countType);
       }
-    } catch (err) {
-      toast.error(err);
+    } catch (error) {
+      toasting("error" , error.message ? error.message : error );
 
     }
   };

@@ -6,7 +6,6 @@ import { useDrop } from "react-dnd";
 import Modal from "react-modal";
 import "../css/typeFile.css";
 import { useTranslation } from "react-i18next";
-
 Modal.setAppElement("#root");
 
 const TypesFiles = ({
@@ -101,11 +100,8 @@ const TypesFiles = ({
   };
 
   useEffect(() => {
-    // אם isOver משתנה ל־true, הגרירה מתבצעת
     if (isOver) {
       handleSidebarMouseEnter();
-    } else {
-      // handleDragLeave();
     }
   }, [isOver]);
 
@@ -121,8 +117,8 @@ const TypesFiles = ({
       dots.forEach((dot, index) => {
         setTimeout(() => {
           dot.classList.add("animate");
-          dot.style.transform = ""; // מחזיר את הנקודה למקום המקורי שלה
-        }, index * 100); // נותן זמן סט הפעלה שונה לכל נקודה
+          dot.style.transform = "";
+        }, index * 100);
       });
     }
   };
@@ -192,8 +188,8 @@ const TypesFiles = ({
         >
           <h2>{t("Are you sure?")}</h2>
           <p>
-          {t("Do you really want to move the file")} <strong>{pendingName}</strong>{" "}
-          {t("from")} <strong>{pendingCurrentType}</strong> to{" "}
+          {t("Do you really want to move the file")} <strong>{pendingName}</strong>
+          {t("from")} <strong>{pendingCurrentType}</strong> to
             <strong>{pendingType}</strong>?
           </p>
           <button onClick={confirmFileDrop} autoFocus>

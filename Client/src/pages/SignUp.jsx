@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { AuthContext } from "../AuthContext";
 import "../css/signup.css";
 import {
@@ -55,8 +55,10 @@ const SignUp = () => {
       <MDBRow className='d-flex justify-content-center align-items-center'>
         <MDBCol lg='8'>
           <MDBCard style={{ maxWidth: '600px' }}>
-            <MDBCardImage src='https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/img3.webp' className='w-100 rounded-top' alt="Sample photo" />
-            <MDBCardBody className='px-5'>
+            <MDBCardImage
+              src="../../src/pictures/backGround.png" className="w-100 rounded-top"
+              alt='logo' fluid />       
+             <MDBCardBody className='px-5'>
               <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">{t("Create Account")}</h3>
               <MDBInput label='User Name' id='form1' type='text' wrapperClass='mb-4' value={userName} onChange={(e) => setUserName(e.target.value)} />
               <MDBRow>
@@ -108,7 +110,7 @@ const SignUp = () => {
         </MDBCol>
       </MDBRow>
     </MDBContainer>
-     );
+  );
 };
 
 export default SignUp;

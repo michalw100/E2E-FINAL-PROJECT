@@ -105,7 +105,6 @@ const UserDetails = () => {
       credentials: "include",
       body: JSON.stringify(userDetails),
     };
-    console.log(userDetails);
     fetch(
       `http://localhost:3000/users/user?id=${currentUser.id}`,
       requestOptions
@@ -127,7 +126,6 @@ const UserDetails = () => {
         }
       })
       .catch((error) => {
-        console.log(error);
         setSignUpError(error.message);
       });
   };
@@ -138,10 +136,8 @@ const UserDetails = () => {
         <MDBCol lg="8">
           <MDBCard style={{ maxWidth: "600px" }}>
             <MDBCardImage
-              src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/img3.webp"
-              className="w-100 rounded-top"
-              alt="Sample photo"
-            />
+              src="../../src/pictures/backGround1.png" className="w-100 rounded-top"
+              alt='logo' fluid />
             <MDBCardBody className="px-5">
               <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">
                 {t("User Details")}
@@ -226,7 +222,7 @@ const UserDetails = () => {
                         : "red",
                   }}
                 >
-                {t(`${signUpError}`)}
+                  {t(`${signUpError}`)}
                 </p>
               )}
             </MDBCardBody>
