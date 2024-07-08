@@ -6,7 +6,7 @@ import "../css/navBar.css";
 import { MDBBadge } from "mdb-react-ui-kit";
 import chanels from "../helpers/chanels.js";
 import { useTranslation } from "react-i18next";
-import AudioPlayer from './AudioPlayer';
+import AudioPlayer from "./AudioPlayer";
 
 function Navbar({ isUploading }) {
   const { user, chatsInfo } = useContext(AuthContext);
@@ -97,7 +97,10 @@ function Navbar({ isUploading }) {
         <CgProfile /> {t("Hello")} {user.name} - {user.role}
       </a>
       <div className="language-selector">
-        <select className="lang" onChange={(e) => changeLanguage(e.target.value)}>
+        <select
+          className="lang"
+          onChange={(e) => changeLanguage(e.target.value)}
+        >
           <option value="en">English</option>
           <option value="he">עברית</option>
           <option value="fr">Français</option>
@@ -157,7 +160,7 @@ function Navbar({ isUploading }) {
         {t("Logout")}
       </Link>
       <img id="logo" src="../../src/pictures/RoundLogo.png" alt="logo" />
-      <AudioPlayer language={i18n.language} />
+      {/* <AudioPlayer language={i18n.language} /> */}
     </nav>
   );
 }

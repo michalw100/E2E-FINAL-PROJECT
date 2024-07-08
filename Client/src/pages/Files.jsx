@@ -14,14 +14,15 @@ import { FaRegHandPointRight } from "react-icons/fa6";
 import { MdDelete } from "react-icons/md";
 import Modal from "react-modal";
 import { useTranslation } from "react-i18next";
+import chanels from "../helpers/chanels";
+
 Modal.setAppElement("#root");
 
 function Files({ setIsUploading, isUploading }) {
   const location = useLocation();
-  const { user } = useContext(AuthContext);
+  const { user, chatClient } = useContext(AuthContext);
   const [currentTypeFile, setCurrentTypeFile] = useState(null);
   const [ownerOfFiles, setOwnerOfFiles] = useState(null);
-  const [ownerOfFilesToken, setOwnerOfFilesToken] = useState(null);
   const [files, setFiles] = useState([]);
   const [showDrop, setShowDrop] = useState(false);
   const [uploadStatus, setUploadStatus] = useState(null);
@@ -41,6 +42,11 @@ function Files({ setIsUploading, isUploading }) {
   //   method: "DELETE",
   //   credentials: "include",
   // });
+  // const chanel1 =  chanels.deleteAllChats(
+  //   chatClient,
+  //   user.id,
+  //   user.streamToken
+  //   );
 
   useEffect(() => {
     switch (sortCriteria) {
@@ -389,8 +395,6 @@ function Files({ setIsUploading, isUploading }) {
                   searchCriteria={searchCriteria}
                   filesChanged={filesChanged}
                   setFilesChanged={setFilesChanged}
-                  ownerOfFiles={ownerOfFiles}
-                  userToken={user.streamToken}
                 />
               ))}
             </div>

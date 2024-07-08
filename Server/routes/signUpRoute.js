@@ -11,8 +11,16 @@ router.post("/", dynamicCheckAbilities, async (req, res) => {
     const password = req.body.password;
     const role = req.body.role;
     const employeeType = req.body.employeeType;
-    if (!userName || !password || !role || !employeeType) {
-      return res.status(400).json({ success: false, message: "Necessary details to update the user are missing" });
+    if (
+      (!userName || !password || !role) &&
+      (role == "Employee" && !employeeType)
+    ) {
+      return res
+        .status(400)
+        .json({
+          success: false,
+          message: "Necessary details to update the user are missing",
+        });
     }
     const response = await create(userName, password, employeeType, role);
     res.status(201).send(response);

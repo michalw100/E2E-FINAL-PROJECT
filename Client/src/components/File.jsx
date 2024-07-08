@@ -13,14 +13,7 @@ import chanels from "../helpers/chanels";
 import { MDBBadge } from "mdb-react-ui-kit";
 import { useTranslation } from "react-i18next";
 
-const File = ({
-  file,
-  searchCriteria,
-  filesChanged,
-  setFilesChanged,
-  ownerOfFiles,
-  userToken,
-}) => {
+const File = ({ file, searchCriteria, filesChanged, setFilesChanged }) => {
   const navigate = useNavigate();
   const { user, chatClient, chatsInfo } = useContext(AuthContext);
   const [remark, setRemark] = useState(file.remark || "");
@@ -157,7 +150,6 @@ const File = ({
         return response;
       })
       .then((data) => {
-        changeDesciptionInChats();
         setFilesChanged(!filesChanged);
         return;
       });
@@ -187,11 +179,6 @@ const File = ({
 
   const commentsFunc = async () => {
     try {
-      // const chanel1 = await chanels.deleteAllChats(
-      // chatClient,
-      // user.id,
-      // user.streamToken
-      // );
       await chanels.createChatChannel(
         chatClient,
         file.id,
@@ -232,10 +219,7 @@ const File = ({
         return response;
       })
       .then((data) => {
-        // console.log(filesChanged)
         setFilesChanged(!filesChanged);
-        changeDesciptionInChats();
-        // setIsEditing(!isEditing);
       });
   };
 

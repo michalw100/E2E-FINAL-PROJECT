@@ -71,7 +71,7 @@ export const AuthProvider = ({ children }) => {
       const filters = { members: { $in: [`user-${user.id}`] } };
       const sort = { last_message_at: -1 };
       const channels = await chatClient.queryChannels(filters, sort, {
-        limit: 100,
+        limit: 15,
         state: true,
         watch: true,
         presence: true,

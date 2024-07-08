@@ -171,7 +171,7 @@ const deleteChat = async (chatClient, channelId) => {
 // פונקציה למחיקת כל הצ'אטים
 const deleteAllChats = async (chatClient, userId, userToken) => {
   try {
-    const channels = await getAllChats(chatClient, `user-21`, userToken);
+    const channels = await getAllChats(chatClient, `user-20`, userToken);
     console.log(channels);
     for (const channel of channels) {
       await deleteChat(chatClient, channel.id, userToken);
