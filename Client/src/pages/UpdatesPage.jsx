@@ -2,7 +2,6 @@ import React, { useEffect, useState, useContext } from "react";
 import "../css/update.css";
 import { AuthContext } from "../AuthContext";
 import { Pie, Bar, Line } from "react-chartjs-2";
-import { toast } from 'react-hot-toast';
 import {
   Chart as ChartJS,
   Tooltip,
@@ -79,7 +78,6 @@ function UpdatesPage() {
       const data = await response.json();
       setTypes(data);
     } catch (error) {
-      toast.error("Error fetching messages:");
       console.error("Error fetching types data:", error);
     }
   };

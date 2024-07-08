@@ -1,8 +1,7 @@
 import React, { createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { StreamChat } from "stream-chat";
-import axios from "axios";
-import chanels from "./helpers/chanels";
+import { toast } from 'react-hot-toast';
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -109,7 +108,6 @@ export const AuthProvider = ({ children }) => {
       );
       console.log(allChatsInfo);
       setChatsInfo(allChatsInfo);
-      // loadFilesAndUpdateChats(allChatsInfo, user.id);
     } catch (error) {
       console.error("Error fetching chats info:", error);
     }
@@ -220,6 +218,10 @@ export const AuthProvider = ({ children }) => {
     navigate("/aboutUs");
   };
 
+  const toastError = async (err) => {
+    toast.error(err);
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -231,6 +233,7 @@ export const AuthProvider = ({ children }) => {
         chatClient,
         clientReady,
         chatsInfo,
+        toastError,
       }}
     >
       {user === undefined ? null : children}
