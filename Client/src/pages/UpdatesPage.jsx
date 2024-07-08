@@ -15,7 +15,15 @@ import {
 } from "chart.js";
 import { useTranslation } from "react-i18next";
 
-ChartJS.register(Tooltip, Legend, CategoryScale, LinearScale, BarElement, ArcElement, LineElement, PointElement
+ChartJS.register(
+  Tooltip,
+  Legend,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  ArcElement,
+  LineElement,
+  PointElement
 );
 
 function UpdatesPage() {
@@ -23,7 +31,11 @@ function UpdatesPage() {
   // const [numFilesPerMonth, setNumFilesPerMonth] = useState([]);
   const [statusData, setStatusData] = useState([]);
   const [types, setTypes] = useState([]);
-  const [chatMessageCounts, setChatMessageCounts] = useState({low: 0, medium: 0, high: 0});
+  const [chatMessageCounts, setChatMessageCounts] = useState({
+    low: 0,
+    medium: 0,
+    high: 0,
+  });
   const [messagesPerDay, setMessagesPerDay] = useState({});
   const [chatStats, setChatStats] = useState([]);
   const [numFilesPerDay, setNumFilesPerDay] = useState([]);
@@ -75,12 +87,15 @@ function UpdatesPage() {
   const processMessagesPerDay = () => {
     const messagesCount = {};
     Object.values(chatsInfo).forEach((chat) => {
-      const date = new Date(chat.lastMessageAt).toISOString().split("T")[0];
+      const date = new Date(chat.lastMessageAt).toISOString().split("T")[0]; 
       if (!messagesCount[date]) {
         messagesCount[date] = 0;
       }
       messagesCount[date] += chat.totalMessagesCount;
     });
+    console.log("messagesCount")
+    console.log(messagesCount)
+    messagesCount["2024-01-01"] = 0;
     setMessagesPerDay(messagesCount);
   };
 
@@ -147,18 +162,18 @@ function UpdatesPage() {
       const data = await response.json();
       const today = new Date().toISOString().split("T")[0];
       const newYearDate = "2024-01-01";
-      
+
       const filteredData = data
         .filter((item) => item.count > 0)
         .map((item) => ({
           ...item,
           date: new Date(item.date).toISOString().split("T")[0],
         }));
-      
+
       // בדיקה אם התאריכים קיימים
       const hasToday = filteredData.some((item) => item.date === today);
       const hasNewYear = filteredData.some((item) => item.date === newYearDate);
-      
+
       // הוספת התאריכים החסרים
       if (!hasToday) {
         filteredData.push({ date: today, count: 0 });
@@ -166,7 +181,7 @@ function UpdatesPage() {
       if (!hasNewYear) {
         filteredData.push({ date: newYearDate, count: 0 });
       }
-      
+
       // מיון התאריכים
       filteredData.sort((a, b) => new Date(a.date) - new Date(b.date));
 
@@ -463,7 +478,10 @@ function UpdatesPage() {
           <div className="explanation">
             {types.map((type, index) => (
               <div className="types" key={index}>
-                <strong>{t("Type")} {index + 1}:</strong> {type.type}
+                <strong>
+                  {t("Type")} {index + 1}:
+                </strong>{" "}
+                {type.type}
               </div>
             ))}
           </div>
