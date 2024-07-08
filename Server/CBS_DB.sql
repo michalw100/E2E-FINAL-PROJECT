@@ -1110,6 +1110,5 @@ INSERT INTO chats (userID) VALUES
 ( 10 ),
 ( 5 ),
 ( 7 ),
-( 2 );
-
-
+( 2 ),
+( 1 );
