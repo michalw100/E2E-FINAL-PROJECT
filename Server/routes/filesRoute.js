@@ -181,4 +181,25 @@ router.get("/all-status", checkAbilities("read", "files"), async (req, res) => {
   }
 });
 
+router.get("/IDs", checkAbilities("read", "files"), async (req, res) => {
+  try {
+    const userID = req.query.userID;
+    const files = await listIDsFiles(userID);
+    res.status(200).send(files);
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+});
+
+router.get("/IDsByType", checkAbilities("read", "files"), async (req, res) => {
+  try {
+    const type = req.query.typeFile;
+    const userID = req.query.userID;
+    const files = await listIDsFilesType(userID, type);
+    res.status(200).send(files);
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+});
+
 module.exports = router;

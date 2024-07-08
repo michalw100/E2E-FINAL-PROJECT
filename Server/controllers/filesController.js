@@ -418,12 +418,34 @@ async function countTypeFile(type, userID) {
 //   }
 // }
 
+async function listIDsFiles(userID) {
+  try {
+    const files = await model.getFilesIDByClientID(userID);
+    const filteredFiles = files.filter((file) => file.id !== null);
+    return filteredFiles;
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function listIDsFilesType(userID, type) {
+  try {
+    const files = await model.getFilesIDByClientIDType(userID, type);
+    const filteredFiles = files.filter((file) => file.id !== null);
+    return filteredFiles;
+  } catch (error) {
+    throw error;
+  }
+}
+
 module.exports = {
   countTypeFile,
   listFiles,
   uploadFile,
   deleteAllFiles,
   downloadFile,
+  listIDsFiles,
+  listIDsFilesType,
   viewFile,
   updateRemarkFile,
   updateStatusFile,

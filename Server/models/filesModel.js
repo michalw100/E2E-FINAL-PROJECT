@@ -485,7 +485,25 @@ async function updateTypeFile(id, type) {
     throw err;
   }
 }
+async function getFilesIDByClientIDType(clientID,type) {
+  try {
+    const sql = `SELECT id FROM files WHERE clientID = ? AND type = ?`;
+    const files = await pool.query(sql, [clientID,type]);
+    return files[0];
+  } catch (err) {
+    throw err;
+  }
+}
 
+async function getFilesIDByClientID(clientID) {
+  try {
+    const sql = `SELECT id FROM files WHERE clientID = ?`;
+    const files = await pool.query(sql, [clientID]);
+    return files[0];
+  } catch (err) {
+    throw err;
+  }
+}
 module.exports = {
   saveFileToDB,
   getFilesByClientID,
@@ -512,4 +530,6 @@ module.exports = {
   numFilesPerDayEmployee,
   numFilesPerDayAdmin,
   numFilesPerDayClient,
+  getFilesIDByClientID,
+  getFilesIDByClientIDType
 };
