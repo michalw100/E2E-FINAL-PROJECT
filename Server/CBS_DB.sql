@@ -1093,21 +1093,23 @@ VALUES
   '20',
   '3',
   'Pending'
-];
-
+);
 
 INSERT INTO chats (userID) VALUES
-( 2 ),
-( 3 ),
-( 4 ),
 ( 6 ),
-( 10 );
-
+( 4 ),
+( 3 );
 
 INSERT INTO chats (fileID) VALUES
 ( 2 ),
 ( 5 ),
 ( 10 ),
-( 19 ),
-( 85 ),
-( 86 );
+( 17 );
+
+INSERT INTO chats (userID) VALUES
+( 10 ),
+( 5 ),
+( 7 ),
+( 2 );
+
+
