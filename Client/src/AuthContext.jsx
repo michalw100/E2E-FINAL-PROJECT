@@ -63,7 +63,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const fetchAllChatsInfo = async () => {
-    console.log("קראו לי")
+    console.log("קראו לי");
     if (!clientReady || !chatClient || !user) return;
 
     try {
@@ -217,12 +217,12 @@ export const AuthProvider = ({ children }) => {
     navigate("/aboutUs");
   };
 
-  const toasting = async (type, err) => {
-    console.log("type, err")
-    console.log(type, err)
+  const toasting = async (type, message) => {
+    console.log("type, err");
+    console.log(type, message);
     switch (type) {
       case "error":
-        toast.error(err);
+        toast.error(message.message ? message.message : message);
         break;
     }
   };
