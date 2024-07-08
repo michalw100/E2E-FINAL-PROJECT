@@ -1089,17 +1089,17 @@ VALUES
 
 
 INSERT INTO chats (userID) VALUES
-( 2 );
-( 3 );
-( 4 );
-( 6 );
+( 2 ),
+( 3 ),
+( 4 ),
+( 6 ),
 ( 10 );
 
 
 INSERT INTO chats (fileID) VALUES
-( 2 ), 
+( 2 ),
 ( 5 ),
 ( 10 ),
 ( 19 ),
 ( 85 ),
-( 86 ),
+( 86 );

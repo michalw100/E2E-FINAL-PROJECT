@@ -9,12 +9,12 @@ import {
   MDBRow,
   MDBCol,
   MDBInput,
-  // MDBSelect
 } from "mdb-react-ui-kit";
 import { useTranslation } from "react-i18next";
 
 const UserDetails = () => {
   const { user, setUser } = useContext(AuthContext);
+  const { t } = useTranslation();
   const [currentUser, setCurrentUser] = useState(null);
   const [signUpError, setSignUpError] = useState("");
   const [userDetails, setUserDetails] = useState({
@@ -26,7 +26,6 @@ const UserDetails = () => {
     zipcode: currentUser?.zipcode || "",
     phone: currentUser?.phone || "",
   });
-  const { t } = useTranslation();
 
   useEffect(() => {
     const fetchClientData = async () => {
@@ -42,9 +41,7 @@ const UserDetails = () => {
             },
           }
         );
-
         const data = await response.json();
-
         if (data.clientID) {
           const clientResponse = await fetch(
             `http://localhost:3000/users/user?id=${data.clientID}`,
@@ -53,7 +50,6 @@ const UserDetails = () => {
               credentials: "include",
             }
           );
-
           const client = await clientResponse.json();
           setCurrentUser(client);
         } else {
@@ -146,12 +142,10 @@ const UserDetails = () => {
               className="w-100 rounded-top"
               alt="Sample photo"
             />
-
             <MDBCardBody className="px-5">
               <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">
                 {t("User Details")}
               </h3>
-
               <MDBRow>
                 <MDBCol md="6">
                   <MDBInput
@@ -164,7 +158,6 @@ const UserDetails = () => {
                     name="name"
                   />
                 </MDBCol>
-
                 <MDBCol md="6">
                   <MDBInput
                     label={t("UserName")}
@@ -176,7 +169,6 @@ const UserDetails = () => {
                     name="userName"
                   />
                 </MDBCol>
-
                 <MDBCol md="6">
                   <MDBInput
                     label={t("email")}
@@ -188,7 +180,6 @@ const UserDetails = () => {
                     onChange={handleChange}
                   />
                 </MDBCol>
-
                 <MDBCol md="6" className="mb-4">
                   <MDBInput
                     label={t("city")}
@@ -211,7 +202,6 @@ const UserDetails = () => {
                     onChange={handleChange}
                   />
                 </MDBCol>
-
                 <MDBCol md="6" className="mb-4">
                   <MDBInput
                     label={t("zipcode")}
@@ -236,7 +226,7 @@ const UserDetails = () => {
                         : "red",
                   }}
                 >
-                  {t(`${signUpError}`)}
+                {t(`${signUpError}`)}
                 </p>
               )}
             </MDBCardBody>
@@ -244,91 +234,6 @@ const UserDetails = () => {
         </MDBCol>
       </MDBRow>
     </MDBContainer>
-
-    // <div className="registration">
-    //   <h2 className="title">User Details</h2>
-    //   <br />
-    //   <input
-    //     type="text"
-    //     className="input"
-    //     value={userDetails.name || ""}
-    //     name="name"
-    //     placeholder="name"
-    //     onChange={handleChange}
-    //   />
-    //   <br />
-    //   <input
-    //     type="text"
-    //     className="input"
-    //     value={userDetails.userName || ""}
-    //     name="userName"
-    //     placeholder="userName"
-    //     onChange={handleChange}
-    //   />
-    //   <br />
-    //   <input
-    //     type="text"
-    //     className="input"
-    //     value={userDetails.email || ""}
-    //     name="email"
-    //     placeholder="email"
-    //     onChange={handleChange}
-    //   />
-    //   <br />
-    //   <input
-    //     type="text"
-    //     className="input"
-    //     value={userDetails.street || ""}
-    //     name="street"
-    //     placeholder="street"
-    //     onChange={handleChange}
-    //   />
-    //   <br />
-    //   <input
-    //     type="text"
-    //     className="input"
-    //     value={userDetails.city || ""}
-    //     name="city"
-    //     placeholder="city"
-    //     onChange={handleChange}
-    //   />
-    //   <br />
-    //   <input
-    //     type="text"
-    //     className="input"
-    //     value={userDetails.zipcode || ""}
-    //     name="zipcode"
-    //     placeholder="zipcode"
-    //     onChange={handleChange}
-    //   />
-    //   <br />
-    //   <input
-    //     type="text"
-    //     className="input"
-    //     value={userDetails.phone || ""}
-    //     name="phone"
-    //     placeholder="phone"
-    //     onChange={handleChange}
-    //   />
-    //   <br />
-    //   {signUpError && (
-    //     <p
-    //       className="error"
-    //       style={{
-    //         color:
-    //           signUpError == "The user has been updated successfully"
-    //             ? "green"
-    //             : "red",
-    //       }}
-    //     >
-    //       {signUpError}
-    //     </p>
-    //   )}
-    //   <button className="Connect" onClick={postUser}>
-    //     Save
-    //   </button>
-    //   <br />
-    // </div>
   );
 };
 
