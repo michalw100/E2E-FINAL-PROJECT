@@ -1095,20 +1095,20 @@ VALUES
   'Pending'
 );
 
-INSERT INTO chats (userID) VALUES
-( 6 ),
-( 4 ),
-( 3 );
+-- INSERT INTO chats (userID) VALUES
+-- ( 6 ),
+-- ( 4 ),
+-- ( 3 );
 
-INSERT INTO chats (fileID) VALUES
-( 2 ),
-( 5 ),
-( 10 ),
-( 17 );
+-- INSERT INTO chats (fileID) VALUES
+-- ( 2 ),
+-- ( 5 ),
+-- ( 10 ),
+-- ( 17 );
 
-INSERT INTO chats (userID) VALUES
-( 10 ),
-( 5 ),
-( 7 ),
-( 2 ),
-( 1 );
+-- INSERT INTO chats (userID) VALUES
+-- ( 10 ),
+-- ( 5 ),
+-- ( 7 ),
+-- ( 2 ),
+-- ( 1 );
