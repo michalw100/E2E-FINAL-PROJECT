@@ -230,7 +230,7 @@ function UpdatesPage() {
   };
 
   const lineData = {
-    labels: numFilesPerDay ? numFilesPerDay.map((item) => item.date) : null,
+    labels: numFilesPerDay.map((item) => item.date),
     datasets: [
       {
         label: "Files Uploaded",
@@ -257,14 +257,14 @@ function UpdatesPage() {
       },
       {
         label: "Approved",
-        data: types.map((type) => type?.approved),
+        data: types.map((type) => type.approved),
         backgroundColor: "#90e290",
         borderColor: "#90e290",
         borderWidth: 1,
       },
       {
         label: "Rejected",
-        data: types.map((type) => type?.rejected),
+        data: types.map((type) => type.rejected),
         backgroundColor: "#d85a5a",
         borderColor: "#d85a5a",
         borderWidth: 1,
@@ -410,9 +410,7 @@ function UpdatesPage() {
                   stacked: true,
                   beginAtZero: true,
                   max:
-                    types.length < 0
-                      ? Math.max(...types.map((type) => type.total)) + 1
-                      : null,
+                     Math.max(...types.map((type) => type.total)) + 1,
                   ticks: {
                     stepSize: 1,
                   },
@@ -437,8 +435,7 @@ function UpdatesPage() {
             }}
           />
           <div className="explanation">
-            {types.length < 0 &&
-              types.map((type, index) => (
+            {types.map((type, index) => (
                 <div className="types" key={index}>
                   <strong>
                     {t("Type")} {index + 1}:
