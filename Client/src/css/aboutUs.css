@@ -267,3 +267,11 @@
     font-size: 0.9em;
   }
   
+  form {
+    margin-top: 65%;
+    width: 100%;
+    margin-left: 20%;
+    /* margim-top: 20%; */
+    padding: 20px;
+    box-sizing: border-box;
+}
