@@ -25,22 +25,87 @@
   
   .sign_in_button {
     position: absolute;
-    top: 10px;
-    right: 10px;
-    padding: 5px 10px;
+    top: 30px;
+    right: calc(35% + 30px); /* Adjust 10px to the desired spacing between the button and the image */
+    z-index: 10; /* Ensure it is on top of other elements */
+    padding: 10px 20px; /* Adjust padding as needed */
     background-color: #007bff;
     color: #fff;
     border: none;
     cursor: pointer;
+    background-color: #007bff; /* Primary blue background color */
+    color: white; /* White text color */
+    border: none; /* Remove default border */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 23px; /* Font size */
+    font-weight: bold; /* Bold text */
+    cursor: pointer; /* Pointer cursor on hover */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transition effects */
+
+  }
+
+  .sign_in_button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    transform: translateY(-2px); /* Slight lift effect on hover */
+  }
+
+  .sign_in_button:active {
+    background-color: #004494; /* Even darker blue on click */
+    transform: translateY(0); /* Reset lift effect on click */
+  }
+
+  .sign_in_button:focus {
+    outline: none; /* Remove default focus outline */
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5); /* Custom focus outline */
+  }
+
+  .language{
+    position: absolute;
+    top: 30px;
+    right: calc(35% + 150px); /* Adjust 10px to the desired spacing between the button and the image */
+    z-index: 10; /* Ensure it is on top of other elements */
+    padding: 10px 20px; /* Adjust padding as needed */
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    background-color: #007bff; /* Primary blue background color */
+    color: white; /* White text color */
+    border: none; /* Remove default border */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 23px; /* Font size */
+    font-weight: bold; /* Bold text */
+    cursor: pointer; /* Pointer cursor on hover */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transition effects */
+
+  }
+
+  .language:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    transform: translateY(-2px); /* Slight lift effect on hover */
+  }
+
+  .language:active {
+    background-color: #004494; /* Even darker blue on click */
+    transform: translateY(0); /* Reset lift effect on click */
+  }
+
+  .language:focus {
+    outline: none; /* Remove default focus outline */
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5); /* Custom focus outline */
   }
   
-  .sign_in_button:hover {
-    background-color: #0056b3;
-  }
+
   
   .img_about_us {
-    width: 100px; /* Adjusted logo size */
-    height: auto;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 7%; /* Set to desired width */
+      height: auto; /* Set to desired height */
+      z-index: 10; /* Ensures the image is on top of other elements */
+      margin: 7px;
   }
   
   .form_section {
@@ -59,8 +124,12 @@
   }
   
   .img_about_us2 {
-    width: 100%;
-    height: auto;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 35%; /* Set to desired width */
+    height: auto; /* Set to desired height */
+    z-index: 10;
   }
   
   form {
@@ -113,17 +182,9 @@
     box-sizing: border-box;
   }
   
-  .sign_in_button {
-    padding: 5px 10px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-  }
+ 
   
-  .sign_in_button:hover {
-    background-color: #0056b3;
-  }
+ 
   
   .header_section {
     background-color: #f0f0f0;
@@ -133,18 +194,15 @@
     position: relative;
   }
   
-  .img_about_us {
-    width: 100px; /* Adjusted logo size */
-    height: auto;
-  }
-  
+
   .form_section {
     background-color: #fff;
-    width: 100%;
+    width: 100%; /* Ensure the container spans the full width of the page */
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0;
+    justify-content: flex-start; /* Align form to the left */
+    align-items: flex-start; /* Align items at the top */
+    padding: 20px; /* Add padding if needed */
+    box-sizing: border-box;
   }
   
   .contact_info {
@@ -152,14 +210,15 @@
     text-align: center;
   }
   
-  .img_about_us2 {
-    width: 100%;
-    height: auto;
-  }
+.hh{
+  margin-top: 30%;
+  font-size: 250%;
+}
   
   form {
-    width: 50%;
-    margin: 0;
+    margin-top: 27%;
+    width: 30%; /* Set form width as needed */
+    margin-left: 20%; /* Push the form to the left */
     padding: 20px;
     box-sizing: border-box;
   }

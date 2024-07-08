@@ -54,24 +54,37 @@ function AboutUs() {
   return (
     <div className="about_us">
       <div className="header_section">
+        
         <img
           className="img_about_us"
           src="../src/pictures/FullLogo-removebg-preview.png"
           alt="Company Logo"
         />
+        
         <Link to="/signin">
-          <button className="sign_in_button">Sign In</button>
+          <button className="sign_in_button">כניסה</button>
         </Link>
+        <Link to="/signin">
+          <button className="language">שפה</button>
+        </Link>
+        
       </div>
+
       <div className="form_section">
         <div className="contact_info">
           <img
             className="img_about_us2"
-            src="../src/pictures/cropped-view-professional-serious-finance-manager-holding-calculator-hands-checking-company-month-s-profits.jpg"
+            src="../src/pictures/Vector 2.png"
             alt="Office Image"
           />
+          <p className="hh">משרד רואי חשבון, יועצי מס והנהלת חשבונות</p>
+          <p className="kk">
+        `משרד רואי החשבון שקרון בק ושות' מעניק שירות לעסקים, עמותות ומלכ"רים, חברות ותאגידים.למשרד מגוון מחלקות מקצועיות הנותנות מענה לכלל צרכי הלקוח בתחום ראיית החשבון. `
+        </p>
         </div>
+      
         <form onSubmit={sendEmail}>
+
           <label>full name</label>
           <input
             type="text"
@@ -113,19 +126,21 @@ function AboutUs() {
             </p>
           )}
         </form>
-      </div>
+        </div>
+
       <div className="text_section">
-        <h1>משרד רואי חשבון, יועצי מס והנהלת חשבונות</h1>
+        
         <p>
-          משרד רואי החשבון רודניק וורצל ושות' הוקם בשנת 1989 ומעניק שירות
-          לעסקים, עמותות ומלכ"רים, חברות ותאגידים.
-        </p>
-        <p>
-          המשרד מעניק מגוון רחב של שירותים בתחום ראיית חשבון כגון, מחלקת ביקורת
-          ועריכת דוחות כספיים על פי תקני חשבונאות בינלאומיים (IFRS) והתקנים
-          האמריקאיים (US GAAP), ביקורת דוחות כספיים של חברות ציבוריות הנסחרות
-          בבורסות בארץ ובחו"ל, ייעוץ ותכנון מס, ביקורת פנימית, מיסוי מלכ"רים,
-          חברות, מיסוי בינלאומי ועוד.
+        כגון: מחלקת ביקורת הכוללת בקורת דוחות כספיים, בקורת פנים הכוללת איתור
+          נקודות חולשה בעסק והצעות לפתרונן, בניית מערך בקרה פנימית הולם וייעוץ
+          ארגוני לייעול הבקרה הפנימית של העסק. מחלקת מיסים הכוללת מיסוי שוטף,
+          מיסוי נדל"ן, מיסוי שוק ההון, מיסוי חברות, ייצוג בפני רשויות המס השונות
+          (מס הכנסה, מע"מ ועוד) תכנוני מס וליווי וייעוץ במיסוי הפרט. מחלקת הנהלת
+          חשבונות ומחלקת שכר וכן ייעוץ כלכלי ועסקי הכולל לווי והכוונת עסקים
+          צעירים ומיזמים חדשים, ייעוץ מול הבנקים, בחינת תזרימי מזומנים ותכנון
+          אסטרטגי-עסקי, ליווי בנושאי הקמת תשתיות למחלקת הנהלת החשבונות והשכר.
+          מחלקת ביקורות שכר ומתן מענה מול זרוע העבודה במשרד הכלכלה. ביקורת שכר
+          בהתאם לתקנות בודק השכר עם התמחות בענפי השמירה, נקיון והסעדה.
         </p>
       </div>
     </div>
