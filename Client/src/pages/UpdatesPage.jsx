@@ -264,34 +264,32 @@ function UpdatesPage() {
 
   const barData = {
     labels:
-      types.length < 0 ? types.map((type, index) => `Type ${index + 1}`) : null,
+      types.map((type, index) => `Type ${index + 1}`),
     datasets: [
       {
         label: "Pending",
-        data: types.length < 0 ? types.map((type) => type?.pending || 0) : 0,
+        data: types.map((type) => type?.pending),
         backgroundColor: "rgb(114 164 216)",
         borderColor: "rgb(114 164 216)",
         borderWidth: 1,
       },
       {
         label: "Approved",
-        data:
-          types.length < 0 ? types.map((type) => type?.approved || 0) : null,
+        data: types.map((type) => type?.approved),
         backgroundColor: "#90e290",
         borderColor: "#90e290",
         borderWidth: 1,
       },
       {
         label: "Rejected",
-        data:
-          types.length < 0 ? types.map((type) => type?.rejected || 0) : null,
+        data: types.map((type) => type?.rejected),
         backgroundColor: "#d85a5a",
         borderColor: "#d85a5a",
         borderWidth: 1,
       },
       {
         label: "Deleted",
-        data: types.length < 0 ? types.map((type) => type?.deleted || 0) : null,
+        data: types.map((type) => type.deleted),
         backgroundColor: "rgb(178 174 174)",
         borderColor: "rgb(178 174 174)",
         borderWidth: 1,
@@ -329,7 +327,7 @@ function UpdatesPage() {
   };
 
   const messageLineData = {
-    labels: Object ? Object.keys(messagesPerDay).sort() : null,
+    labels: Object.keys(messagesPerDay).sort(),
     datasets: [
       {
         label: "Messages per Day",
