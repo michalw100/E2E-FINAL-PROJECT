@@ -34,6 +34,7 @@ const SignUp = () => {
     }
     if (!CheckPassword(password)) return;
     try {
+      console.log(userName, password, employeeType, userRole)
       await signUp(userName, password, employeeType, userRole);
     } catch (error) {
       setSignUpError(error.message);

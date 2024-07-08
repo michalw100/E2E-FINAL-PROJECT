@@ -184,13 +184,14 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const signUp = async (userName, password, employeType, role) => {
+  const signUp = async (userName, password, employeeType, userRole) => {
     try {
+      console.log(userName, password, employeeType, userRole)
       const response = await fetch(`http://localhost:3000/signUp`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
-        body: JSON.stringify({ userName, password, employeType, role }),
+        body: JSON.stringify({ userName, password, employeeType, userRole }),
       });
       const data = await response.json();
       if (response.ok) {
