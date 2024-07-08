@@ -217,17 +217,18 @@ export const AuthProvider = ({ children }) => {
     navigate("/aboutUs");
   };
 
-  const toasting = async (type, err) => {
+  const toasting = async (type, message) => {
     console.log("type, err")
-    console.log(type, err)
+    console.log(type, message)
     switch (type) {
       case "error":
-        toast.error(err);
+        toast.error(message);
         break;
     }
   };
 
   return (
+    
     <AuthContext.Provider
       value={{
         user,

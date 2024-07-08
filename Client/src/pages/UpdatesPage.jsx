@@ -79,7 +79,6 @@ function UpdatesPage() {
       const data = await response.json();
       setTypes(data);
     } catch (error) {
-      console.log("toasting(, error)");
       toasting("error", error);
       console.error("Error fetching types data:", error);
     }
@@ -115,7 +114,6 @@ function UpdatesPage() {
       setStatusData(data);
     } catch (error) {
       toasting("error", error);
-      console.log("toasting(, error)");
       console.error("Error fetching status data:", error);
     }
   };
@@ -162,7 +160,6 @@ function UpdatesPage() {
       setNumFilesPerDay(filteredData);
     } catch (error) {
       toasting("error", error);
-      console.log("toasting(, error)");
       console.error("Error fetching files per day:", error);
     }
   };
@@ -260,7 +257,6 @@ function UpdatesPage() {
       },
     ],
   };
-  console.log(types);
 
   const barData = {
     labels:
