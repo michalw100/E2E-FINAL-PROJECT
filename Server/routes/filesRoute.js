@@ -11,7 +11,7 @@ const {
   updateStatusFile,
   updateTypeFile,
   countTypeFile,
-  numFilesPerMonth,
+  // numFilesPerMonth,
   getStatus,
   numberFilesTypes,
   // getFilesNumber,
@@ -116,16 +116,16 @@ router.get("/type", checkAbilities("read", "files"), async (req, res) => {
   }
 });
 
-router.get("/number-files-uploaded-per-month", checkAbilities("read", "files"), async (req, res) => {
-    try {
-      const userID = req.query.id;
-      const numberFiles = await numFilesPerMonth(userID, req.session.user.role);
-      res.status(200).send(numberFiles);
-    } catch (err) {
-      res.status(500).send({ message: err.message });
-    }
-  }
-);
+// router.get("/number-files-uploaded-per-month", checkAbilities("read", "files"), async (req, res) => {
+//     try {
+//       const userID = req.query.id;
+//       const numberFiles = await numFilesPerMonth(userID, req.session.user.role);
+//       res.status(200).send(numberFiles);
+//     } catch (err) {
+//       res.status(500).send({ message: err.message });
+//     }
+//   }
+// );
 
 router.get("/number-files-uploaded-per-day", checkAbilities("read", "files"), async (req, res) => {
     try {

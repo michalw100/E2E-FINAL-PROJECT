@@ -13,6 +13,8 @@ import TypesFiles from "./TypesFiles.jsx";
 import { FaRegHandPointRight } from "react-icons/fa6";
 import { MdDelete } from "react-icons/md";
 import Modal from "react-modal";
+import { toast } from 'react-hot-toast';
+
 import { useTranslation } from "react-i18next";
 import chanels from "../helpers/chanels";
 
@@ -100,6 +102,13 @@ function Files({ setIsUploading, isUploading }) {
   }, [sortCriteria, serverFiles]);
 
   useEffect(() => {
+    const savedTypeFile = localStorage.getItem("selectedTypeFile");
+    if (savedTypeFile && !currentTypeFile) {
+      setCurrentTypeFile(savedTypeFile);
+    }
+  }, []);
+
+  useEffect(() => {
     if (user && user.id !== undefined) {
       if (user.role === "Client") {
         setShowDrop(true);
@@ -127,6 +136,8 @@ function Files({ setIsUploading, isUploading }) {
     }
   }, [user, location]);
 
+  
+ 
   useEffect(() => {
     if (ownerOfFiles)
       if (ownerOfFiles == user.id) setCurrentClient(user.name);
@@ -134,6 +145,26 @@ function Files({ setIsUploading, isUploading }) {
         getClientName();
       }
   }, [ownerOfFiles]);
+
+  useEffect(() => {
+    if (ownerOfFiles && user.id != undefined && currentTypeFile) {
+      loadFiles();
+    }
+  }, [ownerOfFiles, filesChanged, currentTypeFile]);
+  
+  
+  useEffect(() => {
+    if (uploadStatus == "uploading files...") setIsUploading(true);
+    else setIsUploading(false);
+  }, [uploadStatus]);
+
+  const onDrop = useCallback((ApprovedFiles) => {
+    setFiles((prevFiles) => [...prevFiles, ...ApprovedFiles]);
+  }, []);
+
+  const onDropRejected = useCallback((rejectedFiles) => {
+    setRejectedFiles(rejectedFiles);
+  }, []);
 
   const getClientName = async () => {
     try {
@@ -148,32 +179,14 @@ function Files({ setIsUploading, isUploading }) {
         const client = await response.json();
         setCurrentClient(client.name);
       } else {
-        console.error(response.message);
+        toast.error(error.message);
       }
     } catch (error) {
-      console.error(error);
+      toast.error(error);
     }
   };
 
-  useEffect(() => {
-    const savedTypeFile = localStorage.getItem("selectedTypeFile");
-    if (savedTypeFile && !currentTypeFile) {
-      setCurrentTypeFile(savedTypeFile);
-    }
-  }, []);
 
-  useEffect(() => {
-    if (uploadStatus == "uploading files...") setIsUploading(true);
-    else setIsUploading(false);
-  }, [uploadStatus]);
-
-  const onDrop = useCallback((ApprovedFiles) => {
-    setFiles((prevFiles) => [...prevFiles, ...ApprovedFiles]);
-  }, []);
-
-  const onDropRejected = useCallback((rejectedFiles) => {
-    setRejectedFiles(rejectedFiles);
-  }, []);
 
   const handleUpload = async () => {
     const formData = new FormData();
@@ -202,11 +215,6 @@ function Files({ setIsUploading, isUploading }) {
       });
   };
 
-  useEffect(() => {
-    if (ownerOfFiles && user.id != undefined && currentTypeFile) {
-      loadFiles();
-    }
-  }, [ownerOfFiles, filesChanged, currentTypeFile]);
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,

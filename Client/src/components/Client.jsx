@@ -7,6 +7,8 @@ import { FaComments } from "react-icons/fa";
 import chanel from "../helpers/chanels.js";
 import { AuthContext } from "../AuthContext";
 import { MDBBadge } from "mdb-react-ui-kit";
+import { toast } from 'react-hot-toast';
+
 import chanels from "../helpers/chanels.js";
 import "../css/client.css";
 
@@ -28,10 +30,13 @@ const Client = ({ client }) => {
       );
       // console.log(client.userID)
       // console.log(messages)
+      
       if (messages == -1) return;
-      else setMessages(messages);
+      else
+      setMessages(messages);
     } catch (error) {
-      console.error("Error fetching messages:", error);
+      // console.error("Error fetching messages:", error);
+      toast.error("Error fetching messages:", error);
     }
   };
 
@@ -55,6 +60,7 @@ const Client = ({ client }) => {
 
       // console.log("User details saved successfully");
     } catch (error) {
+      toast.error("Error fetching messages:", error);
       console.error("Error saving user details:", error.message);
     }
   };

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDrop } from "react-dnd";
 import "../css/typeFile.css";
 import { useTranslation } from "react-i18next";
+import { toast } from 'react-hot-toast';
 
 const TypeFile = ({
   typeFile,
@@ -49,7 +50,8 @@ const TypeFile = ({
         setCountOfType(countType);
       }
     } catch (err) {
-      console.log(err);
+      toast.error(err);
+
     }
   };
 

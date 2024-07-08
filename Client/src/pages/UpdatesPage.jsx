@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import "../css/update.css";
 import { AuthContext } from "../AuthContext";
-import { Pie, Radar, Doughnut, Bar, Line } from "react-chartjs-2";
+import { Pie, Bar, Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
   Tooltip,
@@ -20,7 +20,7 @@ ChartJS.register(Tooltip, Legend, CategoryScale, LinearScale, BarElement, ArcEle
 
 function UpdatesPage() {
   const { user, chatClient, clientReady, chatsInfo } = useContext(AuthContext);
-  const [numFilesPerMonth, setNumFilesPerMonth] = useState([]);
+  // const [numFilesPerMonth, setNumFilesPerMonth] = useState([]);
   const [statusData, setStatusData] = useState([]);
   const [types, setTypes] = useState([]);
   const [chatMessageCounts, setChatMessageCounts] = useState({low: 0, medium: 0, high: 0});
@@ -31,7 +31,7 @@ function UpdatesPage() {
 
   useEffect(() => {
     if (user && user.id) {
-      fetchFilesPerMonth();
+      // fetchFilesPerMonth();
       getStatus();
       fetchFilesPerDay();
       getTypesAndStatus();
@@ -104,32 +104,32 @@ function UpdatesPage() {
     }
   };
 
-  const fetchFilesPerMonth = async () => {
-    try {
-      const response = await fetch(
-        `http://localhost:3000/files/number-files-uploaded-per-month?id=${user.id}`,
-        {
-          method: "GET",
-          credentials: "include",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      const data = await response.json();
-      const monthsWithData = data.map((item) => item.month);
-      for (let month = 1; month <= 12; month++) {
-        if (!monthsWithData.includes(month)) {
-          data.push({ month, count: 0 });
-        }
-      }
-      data.sort((a, b) => a.month - b.month);
-      setNumFilesPerMonth(data);
-    } catch (error) {
-      console.error("Error fetching files per month:", error);
-    }
-  };
+  // const fetchFilesPerMonth = async () => {
+  //   try {
+  //     const response = await fetch(
+  //       `http://localhost:3000/files/number-files-uploaded-per-month?id=${user.id}`,
+  //       {
+  //         method: "GET",
+  //         credentials: "include",
+  //         headers: {
+  //           Accept: "application/json",
+  //           "Content-Type": "application/json",
+  //         },
+  //       }
+  //     );
+  //     const data = await response.json();
+  //     const monthsWithData = data.map((item) => item.month);
+  //     for (let month = 1; month <= 12; month++) {
+  //       if (!monthsWithData.includes(month)) {
+  //         data.push({ month, count: 0 });
+  //       }
+  //     }
+  //     data.sort((a, b) => a.month - b.month);
+  //     setNumFilesPerMonth(data);
+  //   } catch (error) {
+  //     console.error("Error fetching files per month:", error);
+  //   }
+  // };
 
   const fetchFilesPerDay = async () => {
     try {

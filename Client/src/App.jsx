@@ -9,6 +9,7 @@ import NestedRoutes from "./components/NestedRoutes.jsx";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { I18nextProvider } from "react-i18next";
 import i18n from "./helpers/config-i18n.js";
+import { Toaster } from 'react-hot-toast';
 
 function PrivateRoute({ children }) {
   const { user } = useContext(AuthContext);
@@ -22,6 +23,7 @@ function App() {
     <BrowserRouter>
       <AuthProvider>
         <I18nextProvider i18n={i18n}>
+        <Toaster />
           <Routes>
             <Route path="/aboutUs" element={<AboutUs />} />
             <Route path="/signIn" element={<SignIn />} />
