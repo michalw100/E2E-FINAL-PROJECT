@@ -27,7 +27,8 @@ ChartJS.register(
 );
 
 function UpdatesPage() {
-  const { user, chatClient, clientReady, chatsInfo } = useContext(AuthContext);
+  const { user, chatClient, clientReady, chatsInfo, toasting } =
+    useContext(AuthContext);
   const [statusData, setStatusData] = useState([]);
   const [types, setTypes] = useState([]);
   const [chatMessageCounts, setChatMessageCounts] = useState({
@@ -78,6 +79,8 @@ function UpdatesPage() {
       const data = await response.json();
       setTypes(data);
     } catch (error) {
+      console.log("toasting(, error)");
+      toasting("error", error);
       console.error("Error fetching types data:", error);
     }
   };
@@ -85,14 +88,12 @@ function UpdatesPage() {
   const processMessagesPerDay = () => {
     const messagesCount = {};
     Object.values(chatsInfo).forEach((chat) => {
-      const date = new Date(chat.lastMessageAt).toISOString().split("T")[0]; 
+      const date = new Date(chat.lastMessageAt).toISOString().split("T")[0];
       if (!messagesCount[date]) {
         messagesCount[date] = 0;
       }
       messagesCount[date] += chat.totalMessagesCount;
     });
-    console.log("messagesCount")
-    console.log(messagesCount)
     messagesCount["2024-01-01"] = 0;
     setMessagesPerDay(messagesCount);
   };
@@ -113,6 +114,8 @@ function UpdatesPage() {
       const data = await response.json();
       setStatusData(data);
     } catch (error) {
+      toasting("error", error);
+      console.log("toasting(, error)");
       console.error("Error fetching status data:", error);
     }
   };
@@ -158,6 +161,8 @@ function UpdatesPage() {
 
       setNumFilesPerDay(filteredData);
     } catch (error) {
+      toasting("error", error);
+      console.log("toasting(, error)");
       console.error("Error fetching files per day:", error);
     }
   };
@@ -242,7 +247,7 @@ function UpdatesPage() {
   };
 
   const lineData = {
-    labels: numFilesPerDay? numFilesPerDay.map((item) => item.date) : null,
+    labels: numFilesPerDay ? numFilesPerDay.map((item) => item.date) : null,
     datasets: [
       {
         label: "Files Uploaded",
@@ -255,35 +260,38 @@ function UpdatesPage() {
       },
     ],
   };
-  console.log(types)
+  console.log(types);
 
   const barData = {
-    labels: types.length < 0? types.map((type, index) => `Type ${index + 1}`) : null,
+    labels:
+      types.length < 0 ? types.map((type, index) => `Type ${index + 1}`) : null,
     datasets: [
       {
         label: "Pending",
-        data: types.length < 0? types.map((type) => type?.pending || 0): 0,
+        data: types.length < 0 ? types.map((type) => type?.pending || 0) : 0,
         backgroundColor: "rgb(114 164 216)",
         borderColor: "rgb(114 164 216)",
         borderWidth: 1,
       },
       {
         label: "Approved",
-        data:types.length < 0? types.map((type) => type?.approved || 0): null,
+        data:
+          types.length < 0 ? types.map((type) => type?.approved || 0) : null,
         backgroundColor: "#90e290",
         borderColor: "#90e290",
         borderWidth: 1,
       },
       {
         label: "Rejected",
-        data: types.length < 0?types.map((type) => type?.rejected || 0) : null,
+        data:
+          types.length < 0 ? types.map((type) => type?.rejected || 0) : null,
         backgroundColor: "#d85a5a",
         borderColor: "#d85a5a",
         borderWidth: 1,
       },
       {
         label: "Deleted",
-        data: types.length < 0?types.map((type) => type?.deleted || 0): null,
+        data: types.length < 0 ? types.map((type) => type?.deleted || 0) : null,
         backgroundColor: "rgb(178 174 174)",
         borderColor: "rgb(178 174 174)",
         borderWidth: 1,
@@ -321,7 +329,7 @@ function UpdatesPage() {
   };
 
   const messageLineData = {
-    labels: Object? Object.keys(messagesPerDay).sort() : null,
+    labels: Object ? Object.keys(messagesPerDay).sort() : null,
     datasets: [
       {
         label: "Messages per Day",
@@ -424,7 +432,10 @@ function UpdatesPage() {
                 y: {
                   stacked: true,
                   beginAtZero: true,
-                  max: types.length < 0?Math.max(...types.map((type) => type.total)) + 1 : null,
+                  max:
+                    types.length < 0
+                      ? Math.max(...types.map((type) => type.total)) + 1
+                      : null,
                   ticks: {
                     stepSize: 1,
                   },
@@ -449,14 +460,15 @@ function UpdatesPage() {
             }}
           />
           <div className="explanation">
-            {types.length < 0 && types.map((type, index) => (
-              <div className="types" key={index}>
-                <strong>
-                  {t("Type")} {index + 1}:
-                </strong>{" "}
-                {type.type}
-              </div>
-            ))}
+            {types.length < 0 &&
+              types.map((type, index) => (
+                <div className="types" key={index}>
+                  <strong>
+                    {t("Type")} {index + 1}:
+                  </strong>{" "}
+                  {type.type}
+                </div>
+              ))}
           </div>
         </div>
         <div className="chart-container">

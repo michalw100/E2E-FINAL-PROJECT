@@ -1,7 +1,7 @@
 import React, { createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { StreamChat } from "stream-chat";
-import { toast } from 'react-hot-toast';
+import { toast } from "react-hot-toast";
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -10,7 +10,6 @@ export const AuthProvider = ({ children }) => {
   const [apiKey, setApiKey] = useState(null);
   const [clientReady, setClientReady] = useState(false);
   const [chatsInfo, setChatsInfo] = useState([]);
-  const [files, setFiles] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -106,8 +105,6 @@ export const AuthProvider = ({ children }) => {
           };
         })
       );
-      console.log(allChatsInfo);
-      setChatsInfo(allChatsInfo);
     } catch (error) {
       console.error("Error fetching chats info:", error);
     }
@@ -218,8 +215,14 @@ export const AuthProvider = ({ children }) => {
     navigate("/aboutUs");
   };
 
-  const toastError = async (err) => {
-    toast.error(err);
+  const toasting = async (type, err) => {
+    console.log("type, err")
+    console.log(type, err)
+    switch (type) {
+      case "error":
+        toast.error(err);
+        break;
+    }
   };
 
   return (
@@ -233,7 +236,7 @@ export const AuthProvider = ({ children }) => {
         chatClient,
         clientReady,
         chatsInfo,
-        toastError,
+        toasting,
       }}
     >
       {user === undefined ? null : children}
