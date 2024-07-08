@@ -13,7 +13,11 @@ export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    return disconnectClient;
+    return () => {
+      if (chatClient) {
+        chatClient.disconnectUser();
+      }
+    };
   }, []);
 
   useEffect(() => {
@@ -106,6 +110,7 @@ export const AuthProvider = ({ children }) => {
           };
         })
       );
+      console.log(allChatsInfo);
       setChatsInfo(allChatsInfo);
     } catch (error) {
       console.error("Error fetching chats info:", error);
