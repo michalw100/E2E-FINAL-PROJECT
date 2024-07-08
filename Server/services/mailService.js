@@ -14,11 +14,11 @@ const sendMail = async (email, subject, text) => {
     subject: subject,
     text: text,
   };
-
   try {
     const info = await transporter.sendMail(mailOptions);
   } catch (error) {
-throw error  }
+    throw error
+  }
 };
 
 module.exports = { sendMail };
