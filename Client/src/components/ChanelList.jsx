@@ -31,7 +31,7 @@ const ChannelListContainer = () => {
         setChatId(null);
       }
     } catch (error) {
-      console.error("Error fetching chat ID:", error);
+      toasting("error" , "Error fetching chat ID:" + error.message ? error.message : error );
       setChatId(null);
     } finally {
       setIsLoading(false);
@@ -40,7 +40,7 @@ const ChannelListContainer = () => {
 
   useEffect(() => {
     fetchChatId();
-  }, [fetchChatId, location]); // הוספנו location כתלות
+  }, [fetchChatId, location]); 
 
   if (isLoading) {
     return <div> {t("Loading...")}</div>;
@@ -52,7 +52,7 @@ const ChannelListContainer = () => {
 
   return (
     <ChannelList
-      key={`${chatId || "all"}-${location.pathname}`} // הוספנו את location.pathname ל-key
+      key={`${chatId || "all"}-${location.pathname}`} 
       filters={filters}
       sort={{ last_message_at: -1 }}
       options={{ subscribe: true, state: true }}

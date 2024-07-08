@@ -48,7 +48,7 @@ const deleteConnection = ({
         handleModalClose();
       }
     } catch (error) {
-      console.log(error);
+      toasting("error" , error.message ? error.message : error );
       handleModalClose();
     }
   };
