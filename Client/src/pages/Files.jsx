@@ -13,7 +13,7 @@ import TypesFiles from "./TypesFiles.jsx";
 import { FaRegHandPointRight } from "react-icons/fa6";
 import { MdDelete } from "react-icons/md";
 import Modal from "react-modal";
-import { toast } from 'react-hot-toast';
+import { toast } from "react-hot-toast";
 
 import { useTranslation } from "react-i18next";
 import chanels from "../helpers/chanels";
@@ -31,7 +31,9 @@ function Files({ setIsUploading, isUploading }) {
   const [rejectedFiles, setRejectedFiles] = useState([]);
   const [serverFiles, setServerFiles] = useState([]);
   const [filesChanged, setFilesChanged] = useState(false);
-  const [searchCriteria, setSearchCriteria] = useState("");
+  const [searchCriteria, setSearchCriteria] = useState(
+    (location.state && location.state.name) || ""
+  );
   const [sortCriteria, setSortCriteria] = useState("dating");
   const [filteredFiles, setFilteredFiles] = useState();
   const [currentPage, setCurrentPage] = useState(1);
@@ -136,8 +138,6 @@ function Files({ setIsUploading, isUploading }) {
     }
   }, [user, location]);
 
-  
- 
   useEffect(() => {
     if (ownerOfFiles)
       if (ownerOfFiles == user.id) setCurrentClient(user.name);
@@ -151,8 +151,7 @@ function Files({ setIsUploading, isUploading }) {
       loadFiles();
     }
   }, [ownerOfFiles, filesChanged, currentTypeFile]);
-  
-  
+
   useEffect(() => {
     if (uploadStatus == "uploading files...") setIsUploading(true);
     else setIsUploading(false);
@@ -182,7 +181,7 @@ function Files({ setIsUploading, isUploading }) {
         toast.error(error.message);
       }
     } catch (error) {
-      toasting("error" , error.message ? error.message : error );
+      toasting("error", error.message ? error.message : error);
     }
   };
 
@@ -212,7 +211,6 @@ function Files({ setIsUploading, isUploading }) {
         setUploadStatus(error.response.data);
       });
   };
-
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,

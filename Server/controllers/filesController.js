@@ -236,27 +236,6 @@ async function updateTypeFile(id, type) {
   }
 }
 
-// async function numFilesPerMonth(userID, role) {
-//   try {
-//     let numFilesPerMonth;
-//     if (role == "Admin") {
-//       numFilesPerMonth = await model.numFilesPerMonthAdmin();
-//       return numFilesPerMonth[0];
-//     }
-//     const realID = await getClientIDOrEmployeeIDByUserID(userID);
-//     if (realID[0].client_id) {
-//       const result = await model.numFilesPerMonthClient(userID);
-//       numFilesPerMonth = result;
-//     } else {
-//       const result = await model.numFilesPerMonthEmployee(userID);
-//       numFilesPerMonth = result;
-//     }
-//     return numFilesPerMonth[0];
-//   } catch (err) {
-//     throw err;
-//   }
-// }
-
 async function numFilesPerDay(userID, role) {
   try {
     let result;
@@ -379,6 +358,15 @@ async function getStatus(userID, role) {
   }
 }
 
+async function getPending(userID) {
+  try {
+      const result = await model.getPendingFilesByEmployee(userID);
+       return result[0];
+  } catch (err) {
+    throw err;
+  }
+}
+
 async function countTypeFile(type, userID) {
   try {
     const realID = await getClientIDOrEmployeeIDByUserID(userID);
@@ -396,27 +384,6 @@ async function countTypeFile(type, userID) {
     throw err;
   }
 }
-
-// async function getFilesNumber(userID, role) {
-//   try {
-//     let numFile;
-//     if (role == "Admin") {
-//       numFile = await model.getFilesNumberAdmin();
-//       return numFile[0];
-//     }
-//     const realID = await getClientIDOrEmployeeIDByUserID(userID);
-//     if (realID[0].client_id) {
-//       const result = await model.getFilesNumberClient(userID);
-//       numFile = result;
-//     } else {
-//       const result = await model.getFilesNumberEmployee(userID);
-//       numFile = result;
-//     }
-//     return numFile[0];
-//   } catch (err) {
-//     throw err;
-//   }
-// }
 
 async function listIDsFiles(userID) {
   try {
@@ -450,10 +417,9 @@ module.exports = {
   updateRemarkFile,
   updateStatusFile,
   updateTypeFile,
-  // numFilesPerMonth,
+  getPending,
   getStatus,
   numberFilesTypes,
-  // getFilesNumber,
   numberFilesTypesAndStatus,
   numFilesPerDay,
 };

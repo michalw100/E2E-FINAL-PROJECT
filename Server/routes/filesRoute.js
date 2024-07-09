@@ -11,10 +11,9 @@ const {
   updateStatusFile,
   updateTypeFile,
   countTypeFile,
-  // numFilesPerMonth,
+  getPending,
   getStatus,
   numberFilesTypes,
-  // getFilesNumber,
   numberFilesTypesAndStatus,
   numFilesPerDay,
 } = require("../controllers/filesController");
@@ -34,7 +33,10 @@ router.get("/", checkAbilities("read", "files"), async (req, res) => {
   }
 });
 
-router.post("/upload", checkAbilities("create", "files"), upload.array("files"),
+router.post(
+  "/upload",
+  checkAbilities("create", "files"),
+  upload.array("files"),
   async (req, res) => {
     try {
       const { uploaderID, clientID, filesNames, typeFile } = req.body;
@@ -43,7 +45,13 @@ router.post("/upload", checkAbilities("create", "files"), upload.array("files"),
         return res.status(400).send({ message: "No files were uploaded" });
       }
       const filesNames1 = filesNames.split(",");
-      await uploadFile(uploaderID, clientID, uploadedFiles, filesNames1, typeFile);
+      await uploadFile(
+        uploaderID,
+        clientID,
+        uploadedFiles,
+        filesNames1,
+        typeFile
+      );
       res.status(200).send({ message: `Files uploaded successfully` });
     } catch (err) {
       res.status(400).send({ message: err.message });
@@ -51,7 +59,10 @@ router.post("/upload", checkAbilities("create", "files"), upload.array("files"),
   }
 );
 
-router.delete("/deleteAllFiles", checkAbilities("delete", "files"), async (req, res) => {
+router.delete(
+  "/deleteAllFiles",
+  checkAbilities("delete", "files"),
+  async (req, res) => {
     try {
       await deleteAllFiles();
       res.status(200).send({ message: "All files deleted successfully" });
@@ -61,7 +72,10 @@ router.delete("/deleteAllFiles", checkAbilities("delete", "files"), async (req, 
   }
 );
 
-router.get("/download/:fileId", checkAbilities("read", "files"), async (req, res) => {
+router.get(
+  "/download/:fileId",
+  checkAbilities("read", "files"),
+  async (req, res) => {
     try {
       const fileId = req.params.fileId;
       const response = await downloadFile(res, fileId);
@@ -72,7 +86,10 @@ router.get("/download/:fileId", checkAbilities("read", "files"), async (req, res
   }
 );
 
-router.get("/view/:fileId", checkAbilities("read", "files"), async (req, res) => {
+router.get(
+  "/view/:fileId",
+  checkAbilities("read", "files"),
+  async (req, res) => {
     try {
       const fileId = req.params.fileId;
       const response = await viewFile(res, fileId);
@@ -116,18 +133,10 @@ router.get("/type", checkAbilities("read", "files"), async (req, res) => {
   }
 });
 
-// router.get("/number-files-uploaded-per-month", checkAbilities("read", "files"), async (req, res) => {
-//     try {
-//       const userID = req.query.id;
-//       const numberFiles = await numFilesPerMonth(userID, req.session.user.role);
-//       res.status(200).send(numberFiles);
-//     } catch (err) {
-//       res.status(500).send({ message: err.message });
-//     }
-//   }
-// );
-
-router.get("/number-files-uploaded-per-day", checkAbilities("read", "files"), async (req, res) => {
+router.get(
+  "/number-files-uploaded-per-day",
+  checkAbilities("read", "files"),
+  async (req, res) => {
     try {
       const userID = req.query.id;
       const numberFiles = await numFilesPerDay(userID, req.session.user.role);
@@ -138,21 +147,16 @@ router.get("/number-files-uploaded-per-day", checkAbilities("read", "files"), as
   }
 );
 
-// router.get("/number-files", checkAbilities("read", "files"), async (req, res) => {
-//     try {
-//       const userID = req.query.id;
-//       const getFilesNum = await getFilesNumber(userID, req.session.user.role);
-//       res.status(200).send(getFilesNum);
-//     } catch (err) {
-//       res.status(500).send({ message: err.message });
-//     }
-//   }
-// );
-
-router.get("/number-files-in-type", checkAbilities("read", "files"), async (req, res) => {
+router.get(
+  "/number-files-in-type",
+  checkAbilities("read", "files"),
+  async (req, res) => {
     try {
       const userID = req.query.id;
-      const numberFilesType = await numberFilesTypes(userID, req.session.user.role);
+      const numberFilesType = await numberFilesTypes(
+        userID,
+        req.session.user.role
+      );
       res.status(200).send(numberFilesType);
     } catch (err) {
       res.status(500).send({ message: err.message });
@@ -160,12 +164,34 @@ router.get("/number-files-in-type", checkAbilities("read", "files"), async (req,
   }
 );
 
-router.get("/number-files-by-type-and-status", checkAbilities("read", "files"), async (req, res) => {
+router.get(
+  "/number-files-by-type-and-status",
+  checkAbilities("read", "files"),
+  async (req, res) => {
     try {
       //res.status(500).send({ message: "err.message" });
       const userID = req.query.id;
-      const numberFilesType = await numberFilesTypesAndStatus(userID,req.session.user.role);
-     res.status(200).send(numberFilesType);
+      const numberFilesType = await numberFilesTypesAndStatus(
+        userID,
+        req.session.user.role
+      );
+      res.status(200).send(numberFilesType);
+    } catch (err) {
+      res.status(500).send({ message: err.message });
+    }
+  }
+);
+
+router.get(
+  "/pending-files",
+  checkAbilities("read", "files"),
+  async (req, res) => {
+    try {
+      const userID = req.query.id;
+      const files = await getPending(
+        userID,
+      );
+      res.status(200).send(files);
     } catch (err) {
       res.status(500).send({ message: err.message });
     }

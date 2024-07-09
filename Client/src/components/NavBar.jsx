@@ -30,7 +30,10 @@ function Navbar({ isUploading }) {
       );
       setNewMessages(messages);
     } catch (error) {
-      toasting("error" , "Error fetching messages:" + error.message ? error.message : error );
+      toasting(
+        "error",
+        "Error fetching messages:" + error.message ? error.message : error
+      );
     }
   };
 
@@ -52,7 +55,12 @@ function Navbar({ isUploading }) {
       }
       // console.log("ClientID cleared from session successfully");
     } catch (error) {
-      toasting("error" , "Error clearing ClientID from session:" + error.message ? error.message : error );
+      toasting(
+        "error",
+        "Error clearing ClientID from session:" + error.message
+          ? error.message
+          : error
+      );
     }
   };
 
@@ -69,7 +77,12 @@ function Navbar({ isUploading }) {
         throw new Error(`status: ${response.status}`);
       }
     } catch (error) {
-      toasting("error" , "Error clearing clearChatIDFromSession from session:" + error.message ? error.message : error );
+      toasting(
+        "error",
+        "Error clearing clearChatIDFromSession from session:" + error.message
+          ? error.message
+          : error
+      );
     }
   };
 
@@ -77,13 +90,14 @@ function Navbar({ isUploading }) {
     localStorage.removeItem("selectedTypeFile");
   };
 
-  const handleLinkClick = (e, func1, func2) => {
+  const handleLinkClick = (e, func1, func2, func3) => {
     if (isUploading) {
       e.preventDefault();
       window.open(e.target.href, "_blank");
     } else {
       if (func1) func1();
       if (func2) func2();
+      if (func3) func3();
     }
   };
 
@@ -102,7 +116,12 @@ function Navbar({ isUploading }) {
           <option value="fr">Français</option>
         </select>
       </div>
-      <Link to="./updates" onClick={(e) => handleLinkClick(e)}>
+      <Link
+        to="./updates"
+        onClick={(e) =>
+          handleLinkClick(e, clearClientID, clearLocalStorage, clearCurrentChat)
+        }
+      >
         {t("Updates")}
       </Link>
       <Link
