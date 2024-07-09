@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import "../css/update.css";
 import { AuthContext } from "../AuthContext";
-import { Pie, Bar, Line } from "react-chartjs-2";
 import { useNavigate } from "react-router-dom";
 import {
   Chart as ChartJS,
@@ -34,7 +33,7 @@ ChartJS.register(
 );
 
 function UpdatesPage() {
-  const { user, chatClient, clientReady, chatsInfo, toasting } =
+  const { user,toasting } =
     useContext(AuthContext);
   const [pendingFiles, setPendingFiles] = useState([]);
   const [pendingChats, setPendingChats] = useState([]);
@@ -103,28 +102,6 @@ function UpdatesPage() {
     }
   };
 
-  const options = {
-    scales: {
-      x: {
-        grid: {
-          display: false,
-        },
-        ticks: {
-          color: "black",
-        },
-      },
-      y: {
-        beginAtZero: true,
-        grid: {
-          color: "rgba(0, 0, 0, 0.1)",
-        },
-        ticks: {
-          color: "black",
-        },
-      },
-    },
-  };
-
   const saveMyClient = async (id) => {
     try {
       const response = await fetch(
@@ -165,13 +142,12 @@ function UpdatesPage() {
     <div className="all-update">
       <div className="updates">
         <MessagesOverview />
-        <MessagesPerDay options={options} />
+        <MessagesPerDay />
         <MessageCount />
         <FileCounts />
-        <FilesUploaded options={options} />
+        <FilesUploaded />
         <FilesStatus />
       </div>
-      {/* Add this at the end of your JSX */}
       {user && (user.role == "Role 1" || user.role == "Role 2") && (
         <div className="pending-files-container">
           <h3>{t("Pending Files")}</h3>

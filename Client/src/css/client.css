@@ -2,3 +2,17 @@
     margin: 2%;
 }
 
+.file-counts-modal .modal-dialog {
+    max-width: 90%; /* או כל ערך אחר שמתאים לצרכים שלך */
+    width: 90%;
+    height: 90vh;
+    margin: 1.75rem auto;
+  }
+  
+  .file-counts-modal .modal-content {
+    height: 100%;
+  }
+  
+  .file-counts-modal .modal-body {
+    overflow-y: auto;
+  }

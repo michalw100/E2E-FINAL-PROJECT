@@ -26,7 +26,7 @@ ChartJS.register(
   PointElement
 );
 
-function FileCounts() {
+function FileCounts({ clientId }) {
   const { user, toasting } = useContext(AuthContext);
   const [types, setTypes] = useState([]);
   const { t } = useTranslation();
@@ -39,8 +39,9 @@ function FileCounts() {
 
   const getTypesAndStatus = async () => {
     try {
+      const ownerId = clientId ? clientId : user.id;
       const response = await fetch(
-        `http://localhost:3000/files/number-files-by-type-and-status?id=${user.id}`,
+        `http://localhost:3000/files/number-files-by-type-and-status?id=${ownerId}`,
         {
           method: "GET",
           credentials: "include",
