@@ -146,6 +146,19 @@ button {
     position: fixed;
   }
 }
+
+footer {
+  position: fixed;
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  /* justify-content: flex-start; */
+  padding: 10px 0;
+  bottom: 0;
+  width: 100%;
+  z-index: 3;
+}
+
 .draganddrop {
   border: 2px dashed #cccccc;
   border-radius: 4px;
@@ -153,6 +166,10 @@ button {
   text-align: center;
   cursor: pointer;
   margin-bottom: 20px;
+}
+
+.buttomtext{
+  margin: 2%;
 }
 
 .files-container {
