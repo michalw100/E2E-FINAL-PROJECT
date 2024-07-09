@@ -159,21 +159,14 @@ const Client = ({ client }) => {
           </MDBBadge>
         )}
       </button>
-      <Modal
-        show={showModal}
-        onHide={handleCloseModal}
-        size="lg"
-        className="file-counts-modal"
-      >
+      <Modal show={showModal} onHide={handleCloseModal} size="lg" className="file-counts-modal">
         <Modal.Header closeButton>
-          <Modal.Title>
-            {t("File Counts for")} {client.userName}
-          </Modal.Title>
+          <Modal.Title>{t("File Counts for")} {client.userName}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        <FileCounts clientId={client.userID} />
-        <FilesUploaded clientId={client.userID} />
-        <FilesStatus clientId={client.userID} />
+          <FileCounts clientId={client.userID} />
+          <FilesUploaded clientId={client.userID} />
+          <FilesStatus clientId={client.userID} />
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCloseModal}>
