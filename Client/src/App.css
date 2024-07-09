@@ -152,7 +152,7 @@ footer {
   display: flex;
   flex-direction: row;
   text-align: center;
-  /* justify-content: flex-start; */
+  justify-content: flex-end;
   padding: 10px 0;
   bottom: 0;
   width: 100%;
