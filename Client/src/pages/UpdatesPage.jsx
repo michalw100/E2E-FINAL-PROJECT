@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useRef } from "react";
 import "../css/update.css";
 import { AuthContext } from "../AuthContext";
 import { useNavigate } from "react-router-dom";
@@ -21,6 +21,7 @@ import FileCounts from "../components/FileCounts";
 import FilesUploaded from "../components/FilesUploaded";
 import FilesStatus from "../components/FilesStatus";
 import chanels from "../helpers/chanels.js";
+import { MDBBadge } from "mdb-react-ui-kit";
 
 ChartJS.register(
   Tooltip,
@@ -38,16 +39,41 @@ function UpdatesPage() {
     useContext(AuthContext);
   const [pendingFiles, setPendingFiles] = useState([]);
   const [pendingChats, setPendingChats] = useState([]);
-  const [showUpdates, setShowUpdates] = useState(true);
-  const [view, setView] = useState("fileUpdates");
+  const [view, setView] = useState("");
+  const highlightRef = useRef(null);
+  const buttonsRef = useRef([]);
   const navigate = useNavigate();
   const { t } = useTranslation();
 
+  buttonsRef.current = [];
+
   useEffect(() => {
-    if (user && user.id) {
+    try {
+      const activeButton = buttonsRef.current.find(
+        (button) => button.dataset.view === view
+      );
+      if (activeButton && highlightRef.current) {
+        const buttonRect = activeButton.getBoundingClientRect();
+        const containerRect =
+          activeButton.parentElement.getBoundingClientRect();
+        const offset = buttonRect.left - containerRect.left;
+        highlightRef.current.style.transform = `translateX(${offset}px)`;
+        highlightRef.current.style.width = `${buttonRect.width}px`;
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }, [, view]);
+
+  useEffect(() => {
+    setView("fileUpdates");
+  }, []);
+
+  useEffect(() => {
+    if (user && user.id && clientReady) {
       console.log("קראו לי");
       fetchPendingFiles();
-      fetchPendingChats();
+      // fetchPendingChats();
     }
   }, [, chatClient, clientReady, user]);
 
@@ -79,26 +105,33 @@ function UpdatesPage() {
 
   const fetchPendingChats = async () => {
     try {
-      // const chatsWithClientNames1 = await Promise.all(
-      //   chatsInfo.map(async (chat) => {
-      //     const clientResponse = await fetch(
-      //       `http://localhost:3000/chats/name?id=${chat.chatId.split("-")[1]}`,
-      //       {
-      //         method: "GET",
-      //         credentials: "include",
-      //         headers: {
-      //           Accept: "application/json",
-      //           "Content-Type": "application/json",
-      //         },
-      //       }
-      //     );
-      //     const clientData = await clientResponse.json();
-      //     console.log("clientData");
-      //     console.log(clientData);
-      //     return { ...chat, clientName: clientData.name };
-      //   })
-      // );
-      const chatsWithClientNames = chatsInfo;
+      const chatsWithClientNames = await Promise.all(
+        chatsInfo.map(async (chat) => {
+          console.log(chat.chatId.split("-")[1]);
+          const clientResponse = await fetch(
+            `http://localhost:3000/chat/name?chatID=${
+              chat.chatId.split("-")[1]
+            }`,
+            {
+              method: "GET",
+              credentials: "include",
+              headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+              },
+            }
+          );
+          const clientData = await clientResponse.json();
+          console.log("clientData");
+          console.log(clientData);
+          return {
+            ...chat,
+            clientName: clientData.name,
+            userID: clientData.userID,
+          };
+        })
+      );
+      // const chatsWithClientNames = chatsInfo;
       const sortedChats = chatsWithClientNames.sort(
         (a, b) => b.unreadMessagesCount - a.unreadMessagesCount
       );
@@ -146,8 +179,8 @@ function UpdatesPage() {
 
   const handleChatClick = async (event, chat) => {
     event.preventDefault();
-    await chanels.saveCurrentChat(chat.chatId);
-    navigate(`../chats/${chat.clientId}`);
+    await chanels.saveCurrentChat(chat.chatId.split("-")[1]);
+    navigate(`../chats/${chat.chatId.split("-")[1]}`);
   };
 
   const renderContent = () => {
@@ -196,13 +229,21 @@ function UpdatesPage() {
       case "chatTasks":
         return (
           <div className="pending-chats-container">
-            <h3>{t("Empty Chats")}</h3>
+            <h3>{t("Chats")}</h3>
             <div className="pending-chats-grid">
               {pendingChats.map((chat) => (
                 <div key={chat.chatId} className="pending-chat-item">
-                  <div className="unread-count">
-                    {t("Unread Messages")}: {chat.unreadMessagesCount}
+                  <div className="file-name">
+                    {t("Chat")}: {chat.chatName}
                   </div>
+                  <div className="client-name">{chat.clientName}</div>
+                  <MDBBadge
+                    pill
+                    color="danger"
+                    className="position-absolute top-0 start-100 translate-middle"
+                  >
+                    {chat.unreadMessagesCount}
+                  </MDBBadge>
                   <a
                     href={`/chats/${chat.chatId}`}
                     onClick={(e) => handleChatClick(e, chat)}
@@ -223,34 +264,27 @@ function UpdatesPage() {
   return (
     <div className="all-update">
       <div className="toggle-buttons">
-        <div
-          className={`toggle-highlight ${view}`}
-          style={{
-            transform: `translateX(${
-              view === "fileUpdates"
-                ? 293
-                : view === "chatUpdates"
-                ? 405
-                : view === "fileTasks"
-                ? 515
-                : 628
-            }%)`,
-          }}
-        />
+        <div className="toggle-highlight" ref={highlightRef} />
         <button
+          ref={(el) => (buttonsRef.current[0] = el)}
+          data-view="fileUpdates"
           className={view === "fileUpdates" ? "active" : ""}
           onClick={() => setView("fileUpdates")}
         >
           {t("File Updates")}
         </button>
         <button
+          ref={(el) => (buttonsRef.current[1] = el)}
+          data-view="chatUpdates"
           className={view === "chatUpdates" ? "active" : ""}
           onClick={() => setView("chatUpdates")}
         >
           {t("Chat Updates")}
         </button>
-        {user && (user.role == "Role 1" || user.role == "Role 2") && (
+        {user && (user.role === "Role 1" || user.role === "Role 2") && (
           <button
+            ref={(el) => (buttonsRef.current[2] = el)}
+            data-view="fileTasks"
             className={view === "fileTasks" ? "active" : ""}
             onClick={() => setView("fileTasks")}
           >
@@ -258,8 +292,13 @@ function UpdatesPage() {
           </button>
         )}
         <button
+          ref={(el) => (buttonsRef.current[3] = el)}
+          data-view="chatTasks"
           className={view === "chatTasks" ? "active" : ""}
-          onClick={() => setView("chatTasks")}
+          onClick={() => {
+            setView("chatTasks");
+            fetchPendingChats();
+          }}
         >
           {t("Chat Tasks")}
         </button>

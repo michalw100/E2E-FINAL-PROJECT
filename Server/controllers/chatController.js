@@ -21,7 +21,6 @@ async function createChatControllerByFileID(filedID) {
 }
 
 async function getChatControlleryByUserID(userID) {
-  // console.log("Getting chat by user ID");
   try {
     const chat = await model.getChatControlleryByUserID(userID);
     return chat[0];
@@ -31,10 +30,9 @@ async function getChatControlleryByUserID(userID) {
 }
 
 async function getChatName(chatID) {
-  // console.log("Getting chat by user ID");
   try {
     const chat = await model.getChatName(chatID);
-    return chat[0];
+    return chat;
   } catch (err) {
     throw err;
   }
@@ -42,8 +40,6 @@ async function getChatName(chatID) {
 
 async function getChatControllerByFileID(filedID) {
   try {
-    // console.log("Getting chat by file ID");
-
     const chat = await model.getChatControllerByFileID(filedID);
     return chat[0];
   } catch (err) {

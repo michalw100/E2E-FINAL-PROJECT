@@ -37,7 +37,7 @@ router.get("/chat", async (req, res) => {
   }
 });
 
-router.get("/chatName", async (req, res) => {
+router.get("/name", async (req, res) => {
   try {
     const { chatID } = req.query;
     const chatName = await getChatName(chatID);

@@ -45,6 +45,8 @@ const createChatChannel = async (
 };
 
 const saveCurrentChat = async (chatId) => {
+  console.log("chatId");
+  console.log(chatId);
   try {
     const response = await fetch(
       `http://localhost:3000/chat/storeChatIDToSession`,
