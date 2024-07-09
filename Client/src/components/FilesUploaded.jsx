@@ -26,7 +26,7 @@ ChartJS.register(
   PointElement
 );
 
-function FilesUploaded() {
+function FilesUploaded({ clientId }) {
   const { user, toasting } = useContext(AuthContext);
   const [numFilesPerDay, setNumFilesPerDay] = useState([]);
   const { t } = useTranslation();
@@ -39,8 +39,9 @@ function FilesUploaded() {
 
   const fetchFilesPerDay = async () => {
     try {
+      const ownerId = clientId ? clientId : user.id;
       const response = await fetch(
-        `http://localhost:3000/files/number-files-uploaded-per-day?id=${user.id}`,
+        `http://localhost:3000/files/number-files-uploaded-per-day?id=${ownerId}`,
         {
           method: "GET",
           credentials: "include",

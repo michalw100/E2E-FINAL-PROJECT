@@ -148,7 +148,6 @@ function UpdatesPage() {
         <FilesUploaded />
         <FilesStatus />
       </div>
-      {/* Add this at the end of your JSX */}
       {user && (user.role == "Role 1" || user.role == "Role 2") && (
         <div className="pending-files-container">
           <h3>{t("Pending Files")}</h3>

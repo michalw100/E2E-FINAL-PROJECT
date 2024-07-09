@@ -26,7 +26,7 @@ ChartJS.register(
   PointElement
 );
 
-function FilesStatus() {
+function FilesStatus({clientId}) {
   const { user, toasting } = useContext(AuthContext);
   const [statusData, setStatusData] = useState([]);
   const { t } = useTranslation();
@@ -39,8 +39,9 @@ function FilesStatus() {
 
   const getStatus = async () => {
     try {
+      const ownerId = clientId ? clientId : user.id;
       const response = await fetch(
-        `http://localhost:3000/files/all-status?id=${user.id}`,
+        `http://localhost:3000/files/all-status?id=${ownerId}`,
         {
           method: "GET",
           credentials: "include",
