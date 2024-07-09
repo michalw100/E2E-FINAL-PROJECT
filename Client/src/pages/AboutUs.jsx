@@ -100,16 +100,7 @@ function AboutUs() {
                 ביקורות שכר ומתן מענה מול זרוע העבודה במשרד הכלכלה. ביקורת שכר
                 בהתאם לתקנות בודק השכר עם התמחות בענפי השמירה, נקיון והסעדה
               </p>
-            </MDBCol>
-            <MDBCol md="6" className="image-content">
-              <img
-                src="../src/pictures/Vector 2.png"
-                alt="Office Image"
-                className="office-image"
-              />
-            </MDBCol>
-          </MDBRow>
-          <MDBRow className="mt-5">
+              <MDBRow className="mtmargim">
             <MDBCol
               md="6"
               className="d-flex justify-content-center align-items-center"
@@ -119,17 +110,21 @@ function AboutUs() {
                   <p className="lilist">הנהלת חשבונות</p>
                   <p className="lilist">ביקורת שכר</p>
                   <p className="lilist">ביקורת פנים</p>
+                  <p className="lilist">ביקורת דוחות כספיים</p>
+
                 </div>
                 <div className="services-column">
                   <p className="lilist">עמותות ומלכ״רים</p>
                   <p className="lilist">ייעוץ מיסוי</p>
                   <p className="lilist">חשבות שכר</p>
+                  <p className="lilist">ייעוץ עסקי</p>
+
                 </div>
-                <div className="services-column">
+                {/* <div className="services-column">
                   <p className="lilist">ביקורת דוחות כספיים</p>
                   <p className="lilist">ייעוץ עסקי</p>
                   <p className="lilist">תכנוני מיסים והיערכות למס</p>
-                </div>
+                </div> */}
               </div>
             </MDBCol>
             <MDBCol md="6">
@@ -173,6 +168,16 @@ function AboutUs() {
               </div>
             </MDBCol>
           </MDBRow>
+            </MDBCol>
+            <MDBCol md="6" className="image-content">
+              <img
+                src="../src/pictures/Vector 2.png"
+                alt="Office Image"
+                className="office-image"
+              />
+            </MDBCol>
+          </MDBRow>
+        
         </MDBContainer>{" "}
       </div>
       <Footer />

@@ -6,7 +6,7 @@
 
 .content-wrapper {
   flex: 1 0 auto;
-  padding-bottom: 60px; /* מרווח לפוטר */
+  padding-bottom: 2%; /* מרווח לפוטר */
 }
 
 .footer {
@@ -32,7 +32,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
 }
 
 .nav-buttons {
@@ -49,7 +49,7 @@
   top: 0;
   right: 0;
   width: 100%;
-  height: 100%; 
+  /* height: 100%;  */
 }
 
 .logo {
@@ -114,13 +114,23 @@
 }
 
 .h1,
-.piska,
+
 .pAbout {
   font-size: 0.8em; 
   font-weight: bold;
   margin-right: 10px;
   margin-left: 50px;
   text-align: right;
+}
+
+.piska{
+  text-align: right;
+  margin-bottom: 0;
+
+}
+.mtmargim
+{
+  margin-top: 3% !important
 }
 
 .services-list {
