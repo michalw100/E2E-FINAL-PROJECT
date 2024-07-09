@@ -68,7 +68,7 @@ function UpdatesPage() {
       highlightRef.current.style.transform = `translateX(${offset}px)`;
       highlightRef.current.style.width = `${buttonRect.width}px`;
     }
-  }, [view]);
+  }, [,view]);
 
   useEffect(() => {
     setView("fileUpdates");
