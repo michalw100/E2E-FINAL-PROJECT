@@ -9,6 +9,7 @@
   /* align-items: center; */
   /* margin-bottom: 1rem; */
   border-left: #0056b3 2px solid;
+  overflow-x: hidden;
 }
 
 .updates {
@@ -18,21 +19,24 @@
   margin: 35px;
   margin-left: 5%; /* text-align: center; */
   margin-right: 5%; /* text-align: center; */
+  overflow-x: hidden;
 }
 
 .title-div {
   border-bottom: solid 1px;
   color: #0056b3;
+  overflow-x: hidden;
 }
 
 .chats {
-  /* margin-left: auto; */
+  overflow-x: hidden;
 }
 
 .all-update {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  overflow-x: hidden;
 }
 
 .canvas {
@@ -124,131 +128,69 @@ h3 {
   color: #721c24;
 }
 
-/* .file-link {
-  color: #007bff;
-  text-decoration: none;
-  align-self: flex-start;
-}
-
-.file-link:hover {
-  text-decoration: underline;
-}
-
-.pending-chats-container {
-  margin-top: 2rem;
-  padding: 1rem;
-  background-color: #f5f5f5;
-  border-radius: 8px;
-}
-
-.pending-chats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 1rem;
-}
-
-.pending-chat-item {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 1rem;
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s;
-}
-
-.pending-chat-item:hover {
-  transform: translateY(-5px);
-}
-
-.chat-name {
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-  word-break: break-word;
-}
-
-.unread-count {
-  color: #666;
-  margin-bottom: 0.5rem;
-}
-
-.chat-link {
-  color: #007bff;
-  text-decoration: none;
-  align-self: flex-start;
-}
-
-.chat-link:hover {
-  text-decoration: underline;
-}
-
-.toggle-buttons {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 1rem;
-}
-
-.toggle-buttons button {
-  background-color: #f5f5f5;
-  border: 1px solid #ddd;
-  padding: 0.5rem 1rem;
-  margin: 0 0.5rem;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.toggle-buttons button:hover {
-  background-color: #e0e0e0;
-}
-
-.toggle-buttons button.active {
-  background-color: #0056b3;
-  color: white;
-} */
-
 .toggle-buttons {
   display: flex;
   justify-content: center;
   position: relative;
   margin-bottom: 1rem;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border-radius: 12px;
 }
 
 .toggle-buttons button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: transparent;
-  border: 2px solid #ccc;
+  border: none;
   color: #333;
-  padding: 0.5rem 1rem;
+  padding: 10px 20px;
   cursor: pointer;
   position: relative;
   z-index: 1;
   font-size: 1rem;
   border-radius: 8px;
-  margin: 0 0.5rem;
-  min-width: 150px;
+  margin: 0 5px;
+  min-width: 140px;
   text-align: center;
-  margin-top: 1.5%;
+  transition: color 0.3s ease;
 }
+
 
 .toggle-buttons .toggle-highlight {
-  margin-top: 1.5%;
-  background-color: rgba(0, 86, 179, 0.3);
+  background-color: #ffffff;
   position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  width: 150px;
+  top: 5px;
+  bottom: 5px;
+  left: 5px;
+  width: 120px;
   border-radius: 8px;
-  transition: transform 0.3s ease;
+  transition: all 0.3s ease;
   z-index: 0;
-  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.toggle-buttons button.active {
+.button-icon {
+  margin-right: 8px;
+  font-size: 1.2em;
+}
+
+.toggle-buttons button.active .button-icon {
   color: #0056b3;
 }
 
+@media screen and (max-width: 768px) {
+  .toggle-buttons button {
+    flex-direction: column;
+    min-width: 100px;
+  }
+
+  .button-icon {
+    margin-right: 0;
+    margin-bottom: 5px;
+  }
+}
 .updates,
 .pending-files-container,
 .pending-chats-container {
@@ -309,4 +251,62 @@ h3 {
 .types {
   padding: 2%;
   /* text-align: center; */
+}
+
+
+.pending-file-item,
+.pending-chat-item {
+  padding: 1rem;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.pending-file-item:hover,
+.pending-chat-item:hover {
+  transform: translateY(-5px);
+}
+
+.file-name,
+.client-name,
+.file-status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.item-icon,
+.status-icon {
+  font-size: 1.2em;
+}
+
+.file-status.pending .status-icon {
+  color: #ffa500;
+}
+
+.file-status.approved .status-icon {
+  color: #28a745;
+}
+
+.file-status.rejected .status-icon {
+  color: #dc3545;
+}
+
+.file-link,
+.chat-link {
+  text-decoration: none;
+  color: #0056b3;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.file-link:hover,
+.chat-link:hover {
+  text-decoration: underline;
 }
