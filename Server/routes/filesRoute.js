@@ -164,10 +164,7 @@ router.get(
   }
 );
 
-router.get(
-  "/number-files-by-type-and-status",
-  checkAbilities("read", "files"),
-  async (req, res) => {
+router.get("/number-files-by-type-and-status", checkAbilities("read", "files"), async (req, res) => {
     try {
       //res.status(500).send({ message: "err.message" });
       const userID = req.query.id;
@@ -182,10 +179,7 @@ router.get(
   }
 );
 
-router.get(
-  "/pending-files",
-  checkAbilities("read", "files"),
-  async (req, res) => {
+router.get("/pending-files", checkAbilities("read", "files"), async (req, res) => {
     try {
       const userID = req.query.id;
       const files = await getPending(
@@ -202,6 +196,7 @@ router.get("/all-status", checkAbilities("read", "files"), async (req, res) => {
   try {
     const userID = req.query.id;
     const status = await getStatus(userID, req.session.user.role);
+    console.log(status)
     res.status(200).send(status);
   } catch (err) {
     res.status(500).send({ message: err.message });

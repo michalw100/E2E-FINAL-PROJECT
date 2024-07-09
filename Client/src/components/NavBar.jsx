@@ -30,8 +30,7 @@ function Navbar({ isUploading }) {
       );
       setNewMessages(messages);
     } catch (error) {
-      toasting(
-        "error",
+      console.log(
         "Error fetching messages:" + error.message ? error.message : error
       );
     }
@@ -55,8 +54,7 @@ function Navbar({ isUploading }) {
       }
       // console.log("ClientID cleared from session successfully");
     } catch (error) {
-      toasting(
-        "error",
+      console.log(
         "Error clearing ClientID from session:" + error.message
           ? error.message
           : error
@@ -77,8 +75,7 @@ function Navbar({ isUploading }) {
         throw new Error(`status: ${response.status}`);
       }
     } catch (error) {
-      toasting(
-        "error",
+      console.log(
         "Error clearing clearChatIDFromSession from session:" + error.message
           ? error.message
           : error

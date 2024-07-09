@@ -1095,10 +1095,10 @@ VALUES
   'Pending'
 );
 
-INSERT INTO chats (userID) VALUES '3'
-INSERT INTO chats (userID) VALUES '4'
-INSERT INTO chats (userID) VALUES '6'
-INSERT INTO chats (fileID) VALUES '2'
-INSERT INTO chats (fileID) VALUES '19'
-INSERT INTO chats (fileID) VALUES '17'
-INSERT INTO chats (userID) VALUES '1'
+INSERT INTO chats (userID) VALUES (3);
+INSERT INTO chats (userID) VALUES (4);
+INSERT INTO chats (userID) VALUES (6);
+INSERT INTO chats (fileID) VALUES (2);
+INSERT INTO chats (fileID) VALUES (19);
+INSERT INTO chats (fileID) VALUES (17);
+INSERT INTO chats (userID) VALUES (1);
