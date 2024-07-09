@@ -119,7 +119,8 @@ async function getStatusClient(userID) {
     const sql = `SELECT status, COUNT(*) AS count
 FROM files
 WHERE clientID = ?
-GROUP BY status;`;
+GROUP BY status
+ORDER BY status ASC;`;
     const result = await pool.query(sql, [userID]);
     return result;
   } catch (err) {
@@ -131,7 +132,8 @@ async function getStatusAdmin() {
   try {
     const sql = `SELECT status, COUNT(*) AS count
 FROM files
-GROUP BY status;`;
+GROUP BY status
+ORDER BY status ASC;`;
     const result = await pool.query(sql);
     return result;
   } catch (err) {
@@ -147,7 +149,8 @@ JOIN employee_client ec ON e.id = ec.employeeID
 JOIN clients c ON ec.clientID = c.id
 JOIN files f ON c.userID = f.clientID
 WHERE e.userID = ?
-GROUP BY f.status`;
+GROUP BY f.status
+ORDER BY status ASC`;
     const result = await pool.query(sql, [userID]);
     return result;
   } catch (err) {
