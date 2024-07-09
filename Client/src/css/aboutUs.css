@@ -28,7 +28,7 @@
   margin-right: 10px;
 }
 
-.header {
+.header1 {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -114,7 +114,6 @@
 }
 
 .h1,
-
 .pAbout {
   font-size: 0.8em; 
   font-weight: bold;

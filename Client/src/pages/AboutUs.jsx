@@ -67,7 +67,7 @@ function AboutUs() {
         <MDBContainer fluid className="main-content">
           <MDBRow>
             <MDBCol md="6" className="text-content">
-              <div className="header">
+              <div className="header1">
                 <img
                   className="logo"
                   src="../src/pictures/FullLogo-removebg-preview.png"
