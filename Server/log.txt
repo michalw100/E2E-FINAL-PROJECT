@@ -11667,3 +11667,13 @@ Date: Wed Jul 10 2024 00:49:13 GMT+0300 (שעון ישראל (קיץ)), Url:/cha
 Date: Wed Jul 10 2024 00:49:13 GMT+0300 (שעון ישראל (קיץ)), Url:/chat/storeChatIDToSession 
 Date: Wed Jul 10 2024 00:49:13 GMT+0300 (שעון ישראל (קיץ)), Url:/chat/getChatIDFromSession 
 Date: Wed Jul 10 2024 00:49:13 GMT+0300 (שעון ישראל (קיץ)), Url:/chat/getChatIDFromSession 
+Date: Wed Jul 10 2024 00:55:38 GMT+0300 (שעון ישראל (קיץ)), Url:/checkAuth 
+Date: Wed Jul 10 2024 00:55:38 GMT+0300 (שעון ישראל (קיץ)), Url:/checkAuth 
+Date: Wed Jul 10 2024 00:57:00 GMT+0300 (שעון ישראל (קיץ)), Url:/checkAuth 
+Date: Wed Jul 10 2024 00:57:00 GMT+0300 (שעון ישראל (קיץ)), Url:/checkAuth 
+Date: Wed Jul 10 2024 00:57:01 GMT+0300 (שעון ישראל (קיץ)), Url:/checkAuth 
+Date: Wed Jul 10 2024 00:57:01 GMT+0300 (שעון ישראל (קיץ)), Url:/checkAuth 
+Date: Wed Jul 10 2024 00:57:03 GMT+0300 (שעון ישראל (קיץ)), Url:/checkAuth 
+Date: Wed Jul 10 2024 00:57:03 GMT+0300 (שעון ישראל (קיץ)), Url:/checkAuth 
+Date: Wed Jul 10 2024 00:57:04 GMT+0300 (שעון ישראל (קיץ)), Url:/checkAuth 
+Date: Wed Jul 10 2024 00:57:04 GMT+0300 (שעון ישראל (קיץ)), Url:/checkAuth 

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
 
-import "../css/about.css";
+import "../css/aboutUs.css";
 import {
   MDBBtn,
   MDBContainer,
@@ -162,7 +162,7 @@ function AboutUs() {
                         value={text}
                         onChange={(e) => setText(e.target.value)}
                       /></div>
-                      <button type="submit">שלח</button>
+                      <MDBBtn type="submit">שלח</MDBBtn>
                       {error && <p className="error" style={{ color: error != "The email was sent successfully" ? "red" : "green" }}>{error}</p>}
                     </form>
                   </div>
