@@ -3,7 +3,7 @@ import Modal from "react-modal";
 import { FaSearch } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
 
-const addConnection = ({
+const AddConnection = ({
   selectedClient,
   selectedEmployee,
   clients,
@@ -151,4 +151,4 @@ const addConnection = ({
   );
 };
 
-export default addConnection;
+export default AddConnection;

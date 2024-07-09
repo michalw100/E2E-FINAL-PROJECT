@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../css/adminDashboard.css";
-import AddConnection from "../components/addConnection";
-import DeleteConnection from "../components/deleteConnection";
+import AddConnection from "../components/AddConnection";
+import DeleteConnection from "../components/DeleteConnection";
 import { FaSearch } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
 
@@ -135,7 +135,10 @@ const AdminDashboard = () => {
       setClients(data);
       setCurrentClients(data);
     } catch (error) {
-      toasting("error" ,"Error fetching clients:" + error.message ? error.message : error );
+      toasting(
+        "error",
+        "Error fetching clients:" + error.message ? error.message : error
+      );
     }
   };
 
@@ -158,7 +161,10 @@ const AdminDashboard = () => {
       setEmployees(data);
       setCurrentEmployees(data);
     } catch (error) {
-      toasting("error" ,"Error fetching employees:" + error.message ? error.message : error );
+      toasting(
+        "error",
+        "Error fetching employees:" + error.message ? error.message : error
+      );
     }
   };
 
@@ -178,7 +184,10 @@ const AdminDashboard = () => {
       setClientsemployees(data);
       setCurrentClientsemployees(data);
     } catch (error) {
-      toasting("error" ,"Error fetching employees:" + error.message ? error.message : error );
+      toasting(
+        "error",
+        "Error fetching employees:" + error.message ? error.message : error
+      );
     }
   };
 
