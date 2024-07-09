@@ -3,7 +3,6 @@ import { FaDownload } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import { FaComments } from "react-icons/fa";
 import { FaPencil } from "react-icons/fa6";
-import { AuthContext } from "../AuthContext";
 import axios from "axios";
 import { MdDelete } from "react-icons/md";
 import { useDrag } from "react-dnd";

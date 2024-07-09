@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext, useRef } from "react";
 import "../css/update.css";
-import { AuthContext } from "../AuthContext";
+import { AuthContext } from "../AuthContext.jsx";
 import {
   FaFileAlt,
   FaComments,

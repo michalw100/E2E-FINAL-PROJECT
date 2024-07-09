@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import "../css/update.css";
-import { AuthContext } from "../AuthContext";
+import { AuthContext } from "../AuthContext.jsx";
 import { useNavigate } from "react-router-dom";
 import { FaFileAlt, FaComments, FaUser } from "react-icons/fa";
 import {

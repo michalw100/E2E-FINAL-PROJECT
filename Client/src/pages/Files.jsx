@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState, useContext } from "react";
 import { useLocation } from "react-router";
-import { AuthContext } from "../AuthContext";
+import { AuthContext } from "../AuthContext.jsx";
 import { useDropzone } from "react-dropzone";
 import axios from "axios";
 import File from "../components/File";

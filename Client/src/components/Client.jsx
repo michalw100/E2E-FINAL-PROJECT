@@ -5,14 +5,13 @@ import { ImProfile } from "react-icons/im";
 import { FaComments } from "react-icons/fa";
 import { BsGraphUp } from "react-icons/bs";
 import chanel from "../helpers/chanels.js";
-import { AuthContext } from "../AuthContext";
 import { MDBBadge } from "mdb-react-ui-kit";
 import { Modal, Button } from "react-bootstrap";
 import FileCounts from "./FileCounts.jsx";
 import FilesStatus from "./FilesStatus.jsx";
 import FilesUploaded from "./FilesUploaded.jsx";
 import { useTranslation } from "react-i18next";
-import { AuthContext } from "../AuthContext";
+import { AuthContext } from "../AuthContext.jsx";
 import chanels from "../helpers/chanels.js";
 import "../css/client.css";
 

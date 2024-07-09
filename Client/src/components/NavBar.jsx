@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { AuthContext } from "../AuthContext";
+import { AuthContext } from "../AuthContext.jsx";
 import { CgProfile } from "react-icons/cg";
 import "../css/navBar.css";
 import { MDBBadge } from "mdb-react-ui-kit";
