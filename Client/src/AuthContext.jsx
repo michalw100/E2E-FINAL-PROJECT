@@ -107,10 +107,10 @@ export const AuthProvider = ({ children }) => {
           };
         })
       );
-      console.log(allChatsInfo);
+      console.log(allChatsInfo)
       setChatsInfo(allChatsInfo);
-    } catch (error) {
-      console.error("Error fetching chats info:", error);
+    } catch (err) {
+      toasting("error", err.message? err.message: err);
     }
   };
 
@@ -126,7 +126,7 @@ export const AuthProvider = ({ children }) => {
         setApiKey(apiKey);
       }
     } catch (err) {
-      console.log(err);
+      toasting("error", err.message? err.message: err);
     }
   };
 
@@ -183,7 +183,6 @@ export const AuthProvider = ({ children }) => {
 
   const signUp = async (userName, password, employeeType, userRole) => {
     try {
-      console.log(userName, password, employeeType, userRole);
       const response = await fetch(`http://localhost:3000/signUp`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -221,8 +220,6 @@ export const AuthProvider = ({ children }) => {
   };
 
   const toasting = async (type, message) => {
-    console.log("type, err");
-    console.log(type, message);
     switch (type) {
       case "error":
         toast.error(message.message ? message.message : message);

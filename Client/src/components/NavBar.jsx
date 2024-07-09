@@ -52,7 +52,6 @@ function Navbar({ isUploading }) {
       if (!response.ok) {
         throw new Error(`status: ${response.status}`);
       }
-      // console.log("ClientID cleared from session successfully");
     } catch (error) {
       console.log(
         "Error clearing ClientID from session:" + error.message
