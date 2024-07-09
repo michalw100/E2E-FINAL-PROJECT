@@ -26,7 +26,7 @@ ChartJS.register(
   PointElement
 );
 
-function FilesUploaded({ options }) {
+function FilesUploaded() {
   const { user, toasting } = useContext(AuthContext);
   const [numFilesPerDay, setNumFilesPerDay] = useState([]);
   const { t } = useTranslation();
@@ -102,7 +102,7 @@ function FilesUploaded({ options }) {
       <div className="title-div">
         <h3>{t("Files Uploaded per Month")}</h3>
       </div>
-      <Line className="canvas" data={lineData} options={options} />
+      <Line className="canvas" data={lineData} />
     </div>
   );
 }

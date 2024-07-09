@@ -26,7 +26,7 @@ ChartJS.register(
   PointElement
 );
 
-function MessagesPerDay({ options }) {
+function MessagesPerDay() {
   const { chatClient, clientReady, chatsInfo } = useContext(AuthContext);
   const [messagesPerDay, setMessagesPerDay] = useState({});
   const { t } = useTranslation();
@@ -72,7 +72,7 @@ function MessagesPerDay({ options }) {
       <div className="title-div">
         <h3>{t("Messages Sent per Day")}</h3>
       </div>
-      <Line className="canvas" data={messageLineData} options={options} />
+      <Line className="canvas" data={messageLineData} />
     </div>
   );
 }
