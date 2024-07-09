@@ -139,6 +139,9 @@ function UpdatesContainer({ pendingChats, pendingFiles, view }) {
             <div className="pending-chats-grid">
               {pendingChats.map((chat) => (
                 <div key={chat.chatId} className="pending-chat-item">
+                  <MDBBadge pill color="danger" className="point">
+                    {chat.unreadMessagesCount}
+                  </MDBBadge>
                   <div className="file-name">
                     <FaComments className="item-icon" />
                     {t("Chat")}: {chat.chatName}
@@ -147,13 +150,6 @@ function UpdatesContainer({ pendingChats, pendingFiles, view }) {
                     <FaUser className="item-icon" />
                     {chat.clientName}
                   </div>
-                  <MDBBadge
-                    pill
-                    color="danger"
-                    className="position-absolute top-0 start-100 translate-middle"
-                  >
-                    {chat.unreadMessagesCount}
-                  </MDBBadge>
                   <a
                     href={`/chats/${chat.chatId}`}
                     onClick={(e) => handleChatClick(e, chat)}
