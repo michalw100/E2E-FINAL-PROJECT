@@ -23,7 +23,6 @@ const File = ({ file, searchCriteria, filesChanged, setFilesChanged }) => {
   const [selectedStatus, setSelectedStatus] = useState("");
   const [uplodersName, setUplodersName] = useState(file.remark || "");
   const [ownerName, setOwnerName] = useState(file.remark || "");
-  // const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [messages, setMessages] = useState(-1);
   const remarkRef = useRef(null);
   const selectRef = useRef(null);
@@ -46,7 +45,6 @@ const File = ({ file, searchCriteria, filesChanged, setFilesChanged }) => {
         !event.target.classList.contains("file-status")
       ) {
         setShowStatus(false);
-        // setIsDropdownOpen(false);
       }
       if (remarkRef.current && !remarkRef.current.contains(event.target)) {
         setIsEditing(false);

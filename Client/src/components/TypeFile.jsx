@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useDrop } from "react-dnd";
 import "../css/typeFile.css";
 import { useTranslation } from "react-i18next";
@@ -12,7 +12,7 @@ const TypeFile = ({
   isUploading,
 }) => {
   const [countOfType, setCountOfType] = useState(0);
-  const {  toasting } = useContext(AuthContext);
+  const { toasting } = useContext(AuthContext);
   const { t } = useTranslation();
 
   useEffect(() => {

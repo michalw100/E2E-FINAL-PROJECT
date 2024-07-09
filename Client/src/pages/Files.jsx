@@ -22,7 +22,7 @@ Modal.setAppElement("#root");
 
 function Files({ setIsUploading, isUploading }) {
   const location = useLocation();
-  const { user, chatClient } = useContext(AuthContext);
+  const { user, toasting } = useContext(AuthContext);
   const [currentTypeFile, setCurrentTypeFile] = useState(null);
   const [ownerOfFiles, setOwnerOfFiles] = useState(null);
   const [files, setFiles] = useState([]);
@@ -32,8 +32,7 @@ function Files({ setIsUploading, isUploading }) {
   const [serverFiles, setServerFiles] = useState([]);
   const [filesChanged, setFilesChanged] = useState(false);
   const [searchCriteria, setSearchCriteria] = useState(
-    (location.state && location.state.name) || ""
-  );
+    (location.state && location.state.name) || "");
   const [sortCriteria, setSortCriteria] = useState("dating");
   const [filteredFiles, setFilteredFiles] = useState();
   const [currentPage, setCurrentPage] = useState(1);

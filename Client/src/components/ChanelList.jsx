@@ -1,10 +1,11 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useContext } from "react";
 import { ChannelList, useChatContext } from "stream-chat-react";
 import { useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 const ChannelListContainer = () => {
   const { client } = useChatContext();
+  const { toasting } = useContext(AuthContext);
   const [chatId, setChatId] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const location = useLocation();
