@@ -7,7 +7,6 @@ function Layout({ children, isUploading }) {
     <div>
       <Navbar isUploading={isUploading} />
       <main className="main">{children}</main>
-      {/* <Footer /> */}
     </div>
   );
 }
