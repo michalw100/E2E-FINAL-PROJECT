@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import "../css/adminDashboard.css";
 import AddConnection from "../components/AddConnection";
-import DeleteConnection from "../components/DeleteConnection";
+import DeleteConnection from "../components/DeleteConnections";
 import { FaSearch } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
 import { AuthContext } from "../AuthContext";
