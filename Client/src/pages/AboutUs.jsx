@@ -305,19 +305,19 @@ function AboutUs() {
                       />
                     </MDBCol>
                   </MDBRow>
-                  <MDBInput
+                  <div className="margin"> <MDBInput
                     label="אימייל"
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                  />
-                  <MDBInput
+                  /></div>
+            <div className="margin">      <MDBInput
                     label="איך נוכל לעזור?"
                     type="textarea"
                     rows="3"
                     value={text}
                     onChange={(e) => setText(e.target.value)}
-                  />
+                  /></div>
                   <MDBBtn type="submit">שלח</MDBBtn>
                   {error && <p className="error">{error}</p>}
                 </form>

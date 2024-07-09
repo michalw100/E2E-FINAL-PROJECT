@@ -87,7 +87,7 @@
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
+ }
 
 .contact-form h2 {
   color: #0056b3;
@@ -97,7 +97,6 @@
 .contact-form .mdb-input {
   margin-bottom: 20px;
 }
-
 .contact-form .mdb-btn {
   background-color: #0056b3;
   color: white;
@@ -110,14 +109,14 @@
 }
 
 .nav-btn.square-btn {
-  font-size: 1.2rem; /* הגדלת הטקסט */
-  padding: 15px 30px; /* הגדלת הפדינג */
-  margin: 0 10px; /* מרווח בין הכפתורים */
+  font-size: 1.2rem; 
+  padding: 15px 30px; 
+  margin: 0 10px;
 }
 
 h1,
 p {
-  font-size: 0.8em; /* הגדלת הטקסט של הכותרות והפסקאות */
+  font-size: 0.8em; 
   font-weight: bold;
   margin-right: 10px;
   margin-left: 50px;
@@ -134,21 +133,18 @@ p {
 
 .contact-form .mdb-input,
 .contact-form .mdb-btn {
-  margin-bottom: 15px; /* מרווח בין השדות והכפתור */
+  margin-bottom: 15px; 
 }
 
 .contact-form .mdb-btn {
-  margin-top: 20px; /* מרווח נוסף מעל הכפתור */
+  margin-top: 20px;
 }
 
 .contact-form .mdb-btn {
   font-size: 1.2rem;
-  /* padding: 10px 20px; */
 }
 
-.form-label,
-.form-control,
-.form-notch {
+.margin {
   margin-top: 2%;
 }
 
@@ -157,4 +153,4 @@ p {
 .btn,
 .btn-primary {
   margin-top: 5%;
-}
+} 
