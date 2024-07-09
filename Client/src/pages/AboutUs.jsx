@@ -54,20 +54,20 @@
 //   return (
 //     <div className="about_us">
 //       <div className="header_section">
-        
+
 //         <img
 //           className="img_about_us"
 //           src="../src/pictures/FullLogo-removebg-preview.png"
 //           alt="Company Logo"
 //         />
-        
+
 //         <Link to="/signin">
 //           <button className="sign_in_button">כניסה</button>
 //         </Link>
 //         <Link to="/signin">
 //           <button className="language">שפה</button>
 //         </Link>
-        
+
 //       </div>
 
 //       <div className="form_section">
@@ -82,7 +82,7 @@
 //         `משרד רואי החשבון שקרון בק ושות' מעניק שירות לעסקים, עמותות ומלכ"רים, חברות ותאגידים.למשרד מגוון מחלקות מקצועיות הנותנות מענה לכלל צרכי הלקוח בתחום ראיית החשבון. `
 //         </p>
 //         </div>
-      
+
 //         <form onSubmit={sendEmail}>
 
 //           <label>full name</label>
@@ -129,7 +129,7 @@
 //         </div>
 
 //       <div className="text_section">
-        
+
 //         <p>
 //         כגון: מחלקת ביקורת הכוללת בקורת דוחות כספיים, בקורת פנים הכוללת איתור
 //           נקודות חולשה בעסק והצעות לפתרונן, בניית מערך בקרה פנימית הולם וייעוץ
@@ -150,6 +150,8 @@
 // export default AboutUs;
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import Footer from "../components/Footer";
+
 import "../css/aboutUs.css"
 import {
   MDBBtn,
@@ -222,13 +224,21 @@ function AboutUs() {
         alt="Company Logo"
       />
 
-      <Link to="/signin">
-        <button className="sign_in_button">כניסה</button>
-      </Link>
-      <Link to="/signin">
-        <button className="language">שפה</button>
-      </Link>
 
+
+      <div className="btnaboutus">
+        <Link to="/signin">
+          <MDBBtn className="mb-4 w-100">שפה  <img
+            className="vectorIcon10"
+            alt=""
+            src="../../src/pictures/globus.svg"
+          /></MDBBtn>
+        </Link>
+        <Link to="/signin">
+          <MDBBtn className="mb-4 w-100">כניסה<img className="frameIcon1" alt="" src="../../src/pictures/Frame.svg" />
+          </MDBBtn>
+        </Link>
+      </div>
       {/* </div> */}
 
       <div className="form_section">
@@ -240,18 +250,31 @@ function AboutUs() {
           />
           <p className="hh">משרד רואי חשבון, יועצי מס והנהלת חשבונות</p>
           <p className="kk">
-            `משרד רואי החשבון שקרון בק ושות' מעניק שירות לעסקים, עמותות ומלכ"רים, חברות ותאגידים.למשרד מגוון מחלקות מקצועיות הנותנות מענה לכלל צרכי הלקוח בתחום ראיית החשבון. `
+            .משרד רואי החשבון שקרון בק ושות' מעניק שירות לעסקים, עמותות ומלכ"רים, חברות ותאגידים. למשרד מגוון מחלקות מקצועיות הנותנות מענה לכלל צרכי הלקוח בתחום ראיית החשבון
           </p>
+          <div className="text_section">
+
+            <p className="piska">
+              כגון: מחלקת ביקורת הכוללת בקורת דוחות כספיים, בקורת פנים הכוללת איתור
+              נקודות חולשה בעסק והצעות לפתרונן, בניית מערך בקרה פנימית הולם וייעוץ
+              ארגוני לייעול הבקרה הפנימית של העסק. מחלקת מיסים הכוללת מיסוי שוטף,
+              מיסוי נדל"ן, מיסוי שוק ההון, מיסוי חברות, ייצוג בפני רשויות המס השונות
+              (מס הכנסה, מע"מ ועוד) תכנוני מס וליווי וייעוץ במיסוי הפרט. מחלקת הנהלת
+              חשבונות ומחלקת שכר וכן ייעוץ כלכלי ועסקי הכולל לווי והכוונת עסקים
+              צעירים ומיזמים חדשים, ייעוץ מול הבנקים, בחינת תזרימי מזומנים ותכנון
+              אסטרטגי-עסקי, ליווי בנושאי הקמת תשתיות למחלקת הנהלת החשבונות והשכר.
+              מחלקת ביקורות שכר ומתן מענה מול זרוע העבודה במשרד הכלכלה. ביקורת שכר
+              .בהתאם לתקנות בודק השכר עם התמחות בענפי השמירה, נקיון והסעדה
+            </p>
+          </div>
         </div>
 
 
-        <MDBCardBody className="px-5">
-          <form onSubmit={sendEmail}>
+        {/* <MDBCardBody className="px-5"> */}
+        {/* <form onSubmit={sendEmail}>
 
 
-            {/* <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2"> */}
-              {/* vvv */}
-            {/* </h3> */}
+        
             <MDBInput
               wrapperClass="mb-4"
               className="input"
@@ -297,30 +320,34 @@ className="input"
                 {error}
               </p>
             )}
-          </form>
+          </form> */}
 
-        </MDBCardBody>
+        {/* </MDBCardBody> */}
 
+      </div>
+      <div className="services-list">
+        <div className="services-column">
+          <p className="lilist">   הנהלת חשבונות</p>
+          <p className="lilist">   ביקורת שכר</p>
+          <p className="lilist">   ביקורת פנים</p>
         </div>
-
-        {/* <div className="text_section">
-
-          <p>
-            כגון: מחלקת ביקורת הכוללת בקורת דוחות כספיים, בקורת פנים הכוללת איתור
-            נקודות חולשה בעסק והצעות לפתרונן, בניית מערך בקרה פנימית הולם וייעוץ
-            ארגוני לייעול הבקרה הפנימית של העסק. מחלקת מיסים הכוללת מיסוי שוטף,
-            מיסוי נדל"ן, מיסוי שוק ההון, מיסוי חברות, ייצוג בפני רשויות המס השונות
-            (מס הכנסה, מע"מ ועוד) תכנוני מס וליווי וייעוץ במיסוי הפרט. מחלקת הנהלת
-            חשבונות ומחלקת שכר וכן ייעוץ כלכלי ועסקי הכולל לווי והכוונת עסקים
-            צעירים ומיזמים חדשים, ייעוץ מול הבנקים, בחינת תזרימי מזומנים ותכנון
-            אסטרטגי-עסקי, ליווי בנושאי הקמת תשתיות למחלקת הנהלת החשבונות והשכר.
-            מחלקת ביקורות שכר ומתן מענה מול זרוע העבודה במשרד הכלכלה. ביקורת שכר
-            בהתאם לתקנות בודק השכר עם התמחות בענפי השמירה, נקיון והסעדה.
-          </p>
-        </div> */}
+        <div className="services-column">
+          <p className="lilist">  עמותות ומלכ״רים</p>
+          <p className="lilist">  ייעוץ מיסוי</p>
+          <p className="lilist">  חשבות שכר</p>
         </div>
+        <div className="services-column">
+          <p className="lilist"> ביקורת דוחות כספיים</p>
+          <p className="lilist"> ייעוץ עסקי</p>
+          <p className="lilist"> תכנוני מיסים והיערכות למס</p>
+        </div>
+      </div>
+      <Footer></Footer>
 
-      );
+      
+    </div>
+
+  );
 }
 
-      export default AboutUs;
+export default AboutUs;

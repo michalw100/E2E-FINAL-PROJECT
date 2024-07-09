@@ -1,13 +1,13 @@
-/*about us*/
+about us
 
 .about_us {
     display: flex;
-    flex-direction: column;
+    /* flex-direction: column; */
     align-items: center;
     width: 100%;
     padding: 0;
     margin: 0;
-    position: relative; /* Add this line */
+    height: auto;
   }
   
   .header_section {
@@ -15,7 +15,7 @@
     width: 100%;
     text-align: center;
     padding: 10px 0;
-    position: relative;
+    /* position: relative; */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -26,7 +26,7 @@
   .sign_in_button {
     position: absolute;
     top: 30px;
-    right: calc(35% + 30px); /* Adjust 10px to the desired spacing between the button and the image */
+    right: calc(35% + 250px); /* Adjust 10px to the desired spacing between the button and the image */
     z-index: 10; /* Ensure it is on top of other elements */
     padding: 10px 20px; /* Adjust padding as needed */
     background-color: #007bff;
@@ -102,7 +102,7 @@
       position: absolute;
       top: 0;
       left: 0;
-      width: 7%; /* Set to desired width */
+      width: 8%; /* Set to desired width */
       height: auto; /* Set to desired height */
       z-index: 10; /* Ensures the image is on top of other elements */
       margin: 7px;
@@ -118,7 +118,7 @@
   }
   
   .contact_info {
-    width: 50%;
+    width: 53%;
     text-align: center;
     margin: 0px;
   }
@@ -127,9 +127,9 @@
     position: absolute;
     top: 0;
     right: 0;
-    width: 35%; /* Set to desired width */
-    height: auto; /* Set to desired height */
-    z-index: 10;
+    width:45%; /* Set to desired width */
+    height: 100%; /* Set to desired height */
+    /* z-index: 10; */
   }
   
   form {
@@ -142,6 +142,7 @@
   form label {
     margin-top: 10px;
   }
+  
   
   form input,
   form textarea {
@@ -211,8 +212,9 @@
   }
   
 .hh{
-  margin-top: 30%;
-  font-size: 250%;
+  /* margin-top: 20%; */
+  font-size: 170%;
+  font-weight: bold;
 }
   
   form {
@@ -250,10 +252,14 @@
   }
   
   .text_section {
-    background-color: #e0e0e0;
+    /* background-color: #e0e0e0; */
     width: 100%;
     padding: 10px;
     box-sizing: border-box;
+    text-align: right;
+    flex-shrink: 0;
+    margin-top: 0;
+    padding-top:0 ;
   }
   
   .text_section h1 {
@@ -262,9 +268,14 @@
   }
   
   .text_section p {
-    text-align: justify;
+    text-align: right;
     margin: 5px 0;
     font-size: 0.9em;
+  }
+
+  .kk{
+    /* font-weight: bold; */
+
   }
   
   form {
@@ -275,3 +286,59 @@
     padding: 20px;
     box-sizing: border-box;
 }
+
+.btnaboutus{
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+margin-right: 5%;
+margin-top: 1%;
+}
+
+
+.btnaboutus a{
+  display: flex;
+  flex-direction: row;
+margin: 5% ;
+}
+
+/* .services-list {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+} */
+
+.services-column {
+  text-align: right;
+}
+
+.services-column p {
+  font-size: 14px;
+  color: #333;
+  margin: 5px 0;
+  position: relative;
+  padding-right: 20px;
+}
+
+.services-column p::before {
+  content: '✓';
+  color: #007bff;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.services-list {
+  display: flex;
+  justify-content: space-between;
+  justify-content: right;
+  margin-top: 20px;
+  margin-left: 10%;
+  margin-right: auto;
+}
+
+.lilist{
+  margin-left: 15% !important;
+  width: 100%;
+}
+
