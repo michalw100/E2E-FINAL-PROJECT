@@ -1,306 +1,60 @@
 .about_us {
-    display: flex;
-    /* flex-direction: column; */
-    align-items: center;
-    width: 100%;
-    padding: 0;
-    margin: 0;
-    height: auto;
-  }
-  
-  .header_section {
-    background-color: #f0f0f0;
-    width: 100%;
-    text-align: center;
-    padding: 10px 0;
-    /* position: relative; */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
-  }
-  
-  .sign_in_button {
-    position: absolute;
-    top: 30px;
-    right: calc(35% + 250px); /* Adjust 10px to the desired spacing between the button and the image */
-    z-index: 10; /* Ensure it is on top of other elements */
-    padding: 10px 20px; /* Adjust padding as needed */
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    background-color: #007bff; /* Primary blue background color */
-    color: white; /* White text color */
-    border: none; /* Remove default border */
-    border-radius: 5px; /* Rounded corners */
-    font-size: 23px; /* Font size */
-    font-weight: bold; /* Bold text */
-    cursor: pointer; /* Pointer cursor on hover */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
-    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transition effects */
-
-  }
-
-  .sign_in_button:hover {
-    background-color: #0056b3; /* Darker blue on hover */
-    transform: translateY(-2px); /* Slight lift effect on hover */
-  }
-
-  .sign_in_button:active {
-    background-color: #004494; /* Even darker blue on click */
-    transform: translateY(0); /* Reset lift effect on click */
-  }
-
-  .sign_in_button:focus {
-    outline: none; /* Remove default focus outline */
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5); /* Custom focus outline */
-  }
-
-  .language{
-    position: absolute;
-    top: 30px;
-    right: calc(35% + 150px); /* Adjust 10px to the desired spacing between the button and the image */
-    z-index: 10; /* Ensure it is on top of other elements */
-    padding: 10px 20px; /* Adjust padding as needed */
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    background-color: #007bff; /* Primary blue background color */
-    color: white; /* White text color */
-    border: none; /* Remove default border */
-    border-radius: 5px; /* Rounded corners */
-    font-size: 23px; /* Font size */
-    font-weight: bold; /* Bold text */
-    cursor: pointer; /* Pointer cursor on hover */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
-    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transition effects */
-
-  }
-
-  .language:hover {
-    background-color: #0056b3; /* Darker blue on hover */
-    transform: translateY(-2px); /* Slight lift effect on hover */
-  }
-
-  .language:active {
-    background-color: #004494; /* Even darker blue on click */
-    transform: translateY(0); /* Reset lift effect on click */
-  }
-
-  .language:focus {
-    outline: none; /* Remove default focus outline */
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5); /* Custom focus outline */
-  }
-  
-
-  
-  .img_about_us {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 8%; /* Set to desired width */
-      height: auto; /* Set to desired height */
-      z-index: 10; /* Ensures the image is on top of other elements */
-      margin: 7px;
-  }
-  
-  .form_section {
-    background-color: #fff;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0;
-  }
-  
-  .contact_info {
-    width: 53%;
-    text-align: center;
-    margin: 0px;
-  }
-  
-  .img_about_us2 {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width:45%; /* Set to desired width */
-    height: 100%; /* Set to desired height */
-    /* z-index: 10; */
-  }
-  
-  form {
-    width: 50%;
-    margin: 0;
-    padding: 20px;
-    box-sizing: border-box;
-  }
-  
-  form label {
-    margin-top: 10px;
-  }
-  
-  
-  form input,
-  form textarea {
-    margin-top: 5px;
-    padding: 7px;
-    width: 100%;
-    box-sizing: border-box;
-  }
-  
-  form button {
-    margin-top: 20px;
-    padding: 10px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-  }
-  
-  .about_us {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    padding: 0;
-    margin: 0;
-    position: relative; /* Add this line */
-  }
-  
-  .nav_section {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    display: flex;
-    justify-content: flex-end;
-    width: 100%;
-    padding: 10px;
-    box-sizing: border-box;
-  }
-
-  .header_section {
-    background-color: #f0f0f0;
-    width: 100%;
-    text-align: center;
-    padding: 10px 0;
-    position: relative;
-  }
-  
-
-  .form_section {
-    background-color: #fff;
-    width: 100%; /* Ensure the container spans the full width of the page */
-    display: flex;
-    justify-content: flex-start; /* Align form to the left */
-    align-items: flex-start; /* Align items at the top */
-    padding: 20px; /* Add padding if needed */
-    box-sizing: border-box;
-  }
-  
-  .contact_info {
-    width: 50%;
-    text-align: center;
-  }
-  
-.hh{
-  /* margin-top: 20%; */
-  font-size: 170%;
-  font-weight: bold;
-}
-  
-  form {
-    margin-top: 27%;
-    width: 30%; /* Set form width as needed */
-    margin-left: 20%; /* Push the form to the left */
-    padding: 20px;
-    box-sizing: border-box;
-  }
-  
-  form label {
-    margin-top: 10px;
-  }
-  
-  form input,
-  form textarea {
-    margin-top: 5px;
-    padding: 7px;
-    width: 100%;
-    box-sizing: border-box;
-  }
-  
-  form button {
-    margin-top: 20px;
-    padding: 10px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-  }
-  
-  form button:hover {
-    background-color: #0056b3;
-  }
-  
-  .text_section {
-    /* background-color: #e0e0e0; */
-    width: 100%;
-    padding: 10px;
-    box-sizing: border-box;
-    text-align: right;
-    flex-shrink: 0;
-    margin-top: 0;
-    padding-top:0 ;
-  }
-  
-  .text_section h1 {
-    text-align: center;
-    font-size: 1.5em;
-  }
-  
-  .text_section p {
-    text-align: right;
-    margin: 5px 0;
-    font-size: 0.9em;
-  }
-
-  .kk{
-    /* font-weight: bold; */
-
-  }
-  
-  form {
-    margin-top: 65%;
-    width: 100%;
-    margin-left: 20%;
-    /* margim-top: 20%; */
-    padding: 20px;
-    box-sizing: border-box;
-}
-
-.btnaboutus{
+  min-height: 100vh;
   display: flex;
-  flex-direction: row;
-  justify-content: right;
-margin-right: 5%;
-margin-top: 1%;
+  flex-direction: column;
 }
 
+.content-wrapper {
+  flex: 1 0 auto;
+  padding-bottom: 2%; /* מרווח לפוטר */
+}
 
-.btnaboutus a{
+.footer {
+  flex-shrink: 0;
+  padding: 0;
+  text-align: center;
+  width: 100%;
+  margin-top: 300px;
+}
+
+.buttomtext {
+  margin: 10px 0;
   display: flex;
-  flex-direction: row;
-margin: 5% ;
+  align-items: center;
+  justify-content: center;
 }
 
-/* .services-list {
+.vectorIcon10 {
+  margin-right: 10px;
+}
+
+.header {
   display: flex;
   justify-content: space-between;
-  margin-top: 20px;
-} */
+  align-items: center;
+  /* margin-bottom: 20px; */
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.text-content h1 {
+  color: #0056b3;
+  margin-bottom: 20px;
+}
+
+.office-image {
+  top: 0;
+  right: 0;
+  width: 100%;
+  /* height: 100%;  */
+}
+
+.logo {
+  height: 100px;
+}
 
 .services-column {
   text-align: right;
@@ -315,24 +69,98 @@ margin: 5% ;
 }
 
 .services-column p::before {
-  content: '✓';
+  content: "✓";
   color: #007bff;
   position: absolute;
   right: 0;
   top: 0;
 }
 
-.services-list {
-  display: flex;
-  justify-content: space-between;
-  justify-content: right;
-  margin-top: 20px;
-  margin-left: 10%;
-  margin-right: auto;
+.lilist {
+  margin-left: 70px !important;
+  width: 100%;
+  font-size: 1.2em;
 }
 
-.lilist{
-  margin-left: 15% !important;
+.contact-form {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+ }
+
+.contact-form h2 {
+  color: #0056b3;
+  margin-bottom: 20px;
+}
+
+.contact-form .mdb-input {
+  margin-bottom: 20px;
+}
+.contact-form .mdb-btn {
+  background-color: #0056b3;
+  color: white;
   width: 100%;
 }
 
+.error {
+  color: red;
+  margin-top: 10px;
+}
+
+.nav-btn.square-btn {
+  font-size: 1.2rem; 
+  margin: 0 10px;
+}
+
+.h1,
+
+.pAbout {
+  font-size: 0.8em; 
+  font-weight: bold;
+  margin-right: 10px;
+  margin-left: 50px;
+  text-align: right;
+}
+
+.piska{
+  text-align: right;
+  margin-bottom: 0;
+
+}
+.mtmargim
+{
+  margin-top: 3% !important
+}
+
+.services-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  margin-right: 100px;
+}
+
+.contact-form .mdb-input,
+.contact-form .mdb-btn {
+  margin-bottom: 15px; 
+}
+
+.contact-form .mdb-btn {
+  margin-top: 20px;
+}
+
+.contact-form .mdb-btn {
+  font-size: 1.2rem;
+}
+
+.margin {
+  margin-top: 2%;
+}
+
+.ripple,
+.ripple-surface,
+.btn,
+.btn-primary {
+  margin-top: 5%;
+} 
