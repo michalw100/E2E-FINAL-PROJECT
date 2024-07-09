@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 import { useTranslation } from "react-i18next";
 
-const deleteConnection = ({
+const DeleteConnection = ({
   selectedClient,
   selectedEmployee,
   triyngToDelete,
@@ -110,4 +110,4 @@ const deleteConnection = ({
   );
 };
 
-export default deleteConnection;
+export default DeleteConnection;
