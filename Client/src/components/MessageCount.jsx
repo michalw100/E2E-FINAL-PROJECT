@@ -60,9 +60,9 @@ function MessageCount() {
 
   const chatCountPieData = {
     labels: [
-      "Few Messages (0-10)",
-      "Medium Messages (11-50)",
-      "Many Messages (51+)",
+      t("Few Messages (0-10)"),
+      t("Medium Messages (11-50)"),
+      t("Many Messages (51+)"),
     ],
     datasets: [
       {

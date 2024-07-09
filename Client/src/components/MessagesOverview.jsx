@@ -55,17 +55,17 @@ function MessagesOverview() {
       .map((chat) => shortenChatName(chat.chatName)),
     datasets: [
       {
-        label: "Unread Messages",
+        label: t("Unread Messages"),
         data: chatStats.slice(0, 10).map((chat) => chat.unreadMessages),
         backgroundColor: "rgba(255, 206, 86, 1)",
       },
       {
-        label: "Messages Sent",
+        label: t("Messages Sent"),
         data: chatStats.slice(0, 10).map((chat) => chat.userMessages),
         backgroundColor: "rgba(54, 162, 235, 1)",
       },
       {
-        label: "Messages Received",
+        label: t("Messages Received"),
         data: chatStats.slice(0, 10).map((chat) => chat.otherMessages),
         backgroundColor: "rgba(75, 192, 192, 1)",
       },

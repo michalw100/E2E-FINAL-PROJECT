@@ -54,7 +54,7 @@ function MessagesPerDay() {
     labels: Object.keys(messagesPerDay).sort(),
     datasets: [
       {
-        label: "Messages per Day",
+        label: t("Messages per Day"),
         data: Object.keys(messagesPerDay)
           .sort()
           .map((date) => messagesPerDay[date]),
