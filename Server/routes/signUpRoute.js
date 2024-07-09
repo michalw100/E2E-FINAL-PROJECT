@@ -7,9 +7,6 @@ router.use(express.json());
 
 router.post("/", dynamicCheckAbilities, async (req, res) => {
   try {
-    console.log("userName, password, employeeType, userRole")
-    console.log(req.body)
-
     const userName = req.body.userName;
     const password = req.body.password;
     const role = req.body.userRole;
