@@ -62,31 +62,31 @@ function FileCounts({ clientId }) {
   };
 
   const barData = {
-    labels: types.map((type, index) => `Type ${index + 1}`),
+    labels: types.map((type, index) => `${t("Type")} ${index + 1}`),
     datasets: [
       {
-        label: "Pending",
+        label: t("Pending"),
         data: types.map((type) => type?.pending),
         backgroundColor: "rgb(114 164 216)",
         borderColor: "rgb(114 164 216)",
         borderWidth: 1,
       },
       {
-        label: "Approved",
+        label: t("Approved"),
         data: types.map((type) => type.approved),
         backgroundColor: "#90e290",
         borderColor: "#90e290",
         borderWidth: 1,
       },
       {
-        label: "Rejected",
+        label: t("Rejected"),
         data: types.map((type) => type.rejected),
         backgroundColor: "#d85a5a",
         borderColor: "#d85a5a",
         borderWidth: 1,
       },
       {
-        label: "Deleted",
+        label: t("Deleted"),
         data: types.map((type) => type.deleted),
         backgroundColor: "rgb(178 174 174)",
         borderColor: "rgb(178 174 174)",
@@ -135,16 +135,18 @@ function FileCounts({ clientId }) {
           },
         }}
       />
-      {!clientId&&<div className="explanation">
-        {types.map((type, index) => (
-          <div className="types" key={index}>
-            <strong>
-              {t("Type")} {index + 1}:
-            </strong>{" "}
-            {type.type}
-          </div>
-        ))}
-      </div>}
+      {!clientId && (
+        <div className="explanation">
+          {types.map((type, index) => (
+            <div className="types" key={index}>
+              <strong>
+                {t("Type")} {index + 1}:
+              </strong>{" "}
+              {t(type.type)}
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

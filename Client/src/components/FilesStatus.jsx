@@ -61,14 +61,14 @@ function FilesStatus({clientId}) {
     }
   };
 
-  const statusLabels = statusData.map((status) => status.status);
+  const statusLabels = statusData.map((status) => t(status.status));
   const statusCounts = statusData.map((status) => status.count);
 
   const pieData = {
     labels: statusLabels,
     datasets: [
       {
-        label: "Status Distribution",
+        label: t("Status Distribution"),
         data: statusCounts,
         backgroundColor: [
           "#90e290",

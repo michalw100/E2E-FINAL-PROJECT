@@ -87,7 +87,7 @@ function FilesUploaded({ clientId }) {
     labels: numFilesPerDay.map((item) => item.date),
     datasets: [
       {
-        label: "Files Uploaded",
+        label: t("Files Uploaded"),
         data: numFilesPerDay.map((item) => item.count),
         backgroundColor: "rgba(75, 192, 192, 1)",
         borderColor: "rgba(75, 192, 192, 1)",
@@ -101,7 +101,7 @@ function FilesUploaded({ clientId }) {
   return (
     <div className="chart-container">
       <div className="title-div">
-        <h3>{t("Files Uploaded per Month")}</h3>
+        <h3>{t("Files Uploaded per Day")}</h3>
       </div>
       <Line className="canvas" data={lineData} />
     </div>
