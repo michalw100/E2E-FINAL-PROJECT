@@ -30,6 +30,16 @@ async function getChatControlleryByUserID(userID) {
   }
 }
 
+async function getChatName(chatID) {
+  // console.log("Getting chat by user ID");
+  try {
+    const chat = await model.getChatName(chatID);
+    return chat[0];
+  } catch (err) {
+    throw err;
+  }
+}
+
 async function getChatControllerByFileID(filedID) {
   try {
     // console.log("Getting chat by file ID");
@@ -78,4 +88,5 @@ module.exports = {
   // getChatByIdController,
   getChatByNameController,
   getManagers,
+  getChatName,
 };

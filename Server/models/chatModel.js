@@ -67,6 +67,22 @@ async function getChatById(id) {
   }
 }
 
+
+async function getChatName(chatID) {
+  try {
+    const [rows] = await pool.query(`SELECT 'user' AS type, u.name AS name, c.userID AS userID
+FROM users u left join chats c on c.userID = u.id
+WHERE c.userID = ? 
+UNION
+SELECT 'file' AS type, u.name AS name, f.clientID AS userID
+FROM files f  left join chats c on c.fileID = f.id left join users u on f.clientID = u.id
+WHERE C.fileID = ?`, [chatID, chatID]);
+    return rows[0];
+  } catch (err) {
+    throw err;
+  }
+}
+
 async function getChatByName(name) {
   try {
     const [rows] = await pool.query("SELECT * FROM chats WHERE name = ?", [
@@ -97,4 +113,5 @@ module.exports = {
   getChatControllerByFileID,
   getChatControlleryByUserID,
   getManagers,
+  getChatName
 };

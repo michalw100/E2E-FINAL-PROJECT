@@ -4,7 +4,8 @@ const {
   createChatControllerByFileID,
   createChatControlleryByUserID,
   getChatControlleryByUserID,
-  getChatControllerByFileID
+  getChatControllerByFileID,
+  getChatName,
 } = require("../controllers/chatController");
 require("dotenv").config();
 
@@ -31,6 +32,16 @@ router.get("/chat", async (req, res) => {
     else if (userID) chat = await getChatControlleryByUserID(userID);
     if (chat) res.status(200).json(chat);
     else res.status(204).send();
+  } catch (error) {
+    res.status(500).send({ error: error.message });
+  }
+});
+
+router.get("/chatName", async (req, res) => {
+  try {
+    const { chatID } = req.query;
+    const chatName = await getChatName(chatID);
+    res.status(200).send(chatName);
   } catch (error) {
     res.status(500).send({ error: error.message });
   }
