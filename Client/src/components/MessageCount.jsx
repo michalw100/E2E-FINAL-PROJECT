@@ -28,11 +28,7 @@ ChartJS.register(
 
 function MessageCount() {
   const { chatClient, clientReady, chatsInfo } = useContext(AuthContext);
-  const [chatMessageCounts, setChatMessageCounts] = useState({
-    low: 0,
-    medium: 0,
-    high: 0,
-  });
+  const [chatMessageCounts, setChatMessageCounts] = useState({low: 0, medium: 0, high: 0});
   const { t } = useTranslation();
 
   useEffect(() => {

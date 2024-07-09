@@ -46,6 +46,7 @@ function Files({ setIsUploading, isUploading }) {
   //   method: "DELETE",
   //   credentials: "include",
   // });
+  
   // const chanel1 =  chanels.deleteAllChats(
   //   chatClient,
   //   user.id,

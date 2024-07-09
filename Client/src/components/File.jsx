@@ -194,14 +194,6 @@ const File = ({ file, searchCriteria, filesChanged, setFilesChanged }) => {
     }
   };
 
-  const changeDesciptionInChats = async () => {
-    try {
-      await chanels.updateChatDescriptionForFile(chatClient, file, ownerName);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   const changeRemark = async () => {
     setIsEditing(!isEditing);
   };
@@ -391,7 +383,6 @@ const File = ({ file, searchCriteria, filesChanged, setFilesChanged }) => {
                     <button
                       className="update"
                       onClick={() => {
-                        // changeRemarkInTheDB(),
                         changeRemark(), toggleEdit();
                       }}
                     >
@@ -429,8 +420,7 @@ const File = ({ file, searchCriteria, filesChanged, setFilesChanged }) => {
             {status !== "Deleted" ? (
               <button
                 className="delete btn-primary position-relative mx-3"
-                onClick={deleteFile}
-              >
+                onClick={deleteFile}>
                 <MdDelete />
               </button>
             ) : (
@@ -441,18 +431,11 @@ const File = ({ file, searchCriteria, filesChanged, setFilesChanged }) => {
                 <MdDeleteForever />
               </button>
             )}
-            {/* <button className="comments" onClick={commentsFunc}>
-              <FaComments />
-            </button> */}
             <button
               type="comments"
               onClick={commentsFunc}
-              className=" btn-primary position-relative mx-3"
-              // style={{ backgroundColor: '#ac2bac' }}
-            >
+              className=" btn-primary position-relative mx-3">
               <FaComments />
-
-              {/* <i className='fab fa-instagram'></i> */}
               {messages != -1 && (
                 <MDBBadge
                   pill
@@ -460,7 +443,6 @@ const File = ({ file, searchCriteria, filesChanged, setFilesChanged }) => {
                   className="position-absolute top-0 start-100 translate-middle"
                 >
                   {messages}
-                  {/*<span className='visually-hidden'>unread messages</span> */}
                 </MDBBadge>
               )}
             </button>

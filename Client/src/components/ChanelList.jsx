@@ -9,6 +9,9 @@ const ChannelListContainer = () => {
   const [isLoading, setIsLoading] = useState(true);
   const location = useLocation();
   const { t } = useTranslation();
+  const filters = chatId
+    ? { id: { $eq: chatId }, members: { $in: [client.userID] } }
+    : { members: { $in: [client.userID] } };
 
   const fetchChatId = useCallback(async () => {
     setIsLoading(true);
@@ -48,10 +51,6 @@ const ChannelListContainer = () => {
   if (isLoading) {
     return <div> {t("Loading...")}</div>;
   }
-
-  const filters = chatId
-    ? { id: { $eq: chatId }, members: { $in: [client.userID] } }
-    : { members: { $in: [client.userID] } };
 
   return (
     <ChannelList

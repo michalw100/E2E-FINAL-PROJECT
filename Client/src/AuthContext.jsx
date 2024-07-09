@@ -46,8 +46,8 @@ export const AuthProvider = ({ children }) => {
 
   const chatsData = async () => {
     await fetchAllChatsInfo();
-    // await loadFilesAndUpdateChats(user.id);
   };
+
   const disconnectClient = async () => {
     if (clientReady) {
       chatClient.disconnectUser();
@@ -67,7 +67,6 @@ export const AuthProvider = ({ children }) => {
   };
 
   const fetchAllChatsInfo = async () => {
-    console.log("קראו לי");
     try {
       const filters = { members: { $in: [`user-${user.id}`] } };
       const sort = { last_message_at: -1 };

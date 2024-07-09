@@ -23,6 +23,7 @@ const AdminDashboard = () => {
   const [onChange, setOnChange] = useState(false);
   const [searchCriteria, setSearchCriteria] = useState("");
   const { t } = useTranslation();
+  const { toasting } = useContext(AuthContext);
 
   useEffect(() => {
     window.addEventListener("resize", handleResize);

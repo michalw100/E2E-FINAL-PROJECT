@@ -36,8 +36,7 @@ ChartJS.register(
 );
 
 function UpdatesContainer({ pendingChats, pendingFiles, view }) {
-  const { user, toasting, chatClient, clientReady, chatsInfo } =
-    useContext(AuthContext);
+  const { toasting } = useContext(AuthContext);
   const navigate = useNavigate();
   const { t } = useTranslation();
 

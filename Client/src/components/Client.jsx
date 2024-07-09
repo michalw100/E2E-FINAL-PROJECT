@@ -1,4 +1,3 @@
-// import "../App.css";
 import React, { useContext, useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { LuFiles } from "react-icons/lu";
@@ -17,7 +16,7 @@ import chanels from "../helpers/chanels.js";
 import "../css/client.css";
 
 const Client = ({ client }) => {
-  const { chatClient, chatsInfo } = useContext(AuthContext);
+  const { chatClient, chatsInfo, toasting } = useContext(AuthContext);
   const [messages, setMessages] = useState(-1);
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
@@ -26,28 +25,6 @@ const Client = ({ client }) => {
   useEffect(() => {
     getMessages();
   }, [chatsInfo]);
-
-  const getIDs = async () => {
-    try {
-      const data = await fetch(
-        `http://localhost:3000/files/type?type=${typeFile}&&clientID=${ownerOfFiles}`,
-        {
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-          credentials: "include",
-        }
-      );
-
-      if (!data) {
-        setCountOfType(0);
-      } else {
-        const countType = await data.json();
-        setCountOfType(countType);
-      }
-    } catch (error) {
-      toasting("error", error.message ? error.message : error);
-    }
-  };
 
   const getMessages = async () => {
     try {
@@ -63,7 +40,6 @@ const Client = ({ client }) => {
     }
   };
 
-
   const saveMyClient = async () => {
     try {
       const response = await fetch(
@@ -77,7 +53,6 @@ const Client = ({ client }) => {
           credentials: "include",
         }
       );
-
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -138,19 +113,17 @@ const Client = ({ client }) => {
           <div className="button-row">
             <button className="btn-primary" onClick={viewDetails}>
               <ImProfile />
-            </button>{" "}
+            </button>
             <button
               type="comments"
               onClick={viewChat}
-              className="btn-info position-relative"
-            >
+              className="btn-info position-relative">
               <FaComments />
               {messages != -1 && (
                 <MDBBadge
                   pill
                   color="danger"
-                  className="position-absolute top-0 start-100 translate-middle"
-                >
+                  className="position-absolute top-0 start-100 translate-middle">
                   {messages}
                 </MDBBadge>
               )}
@@ -170,8 +143,7 @@ const Client = ({ client }) => {
         show={showModal}
         onHide={handleCloseModal}
         size="lg"
-        className="file-counts-modal"
-      >
+        className="file-counts-modal">
         <Modal.Header closeButton>
           <Modal.Title>
             {t("File Counts for")} {client.userName}

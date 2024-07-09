@@ -120,11 +120,6 @@ function AboutUs() {
                       <p className="lilist">ייעוץ עסקי</p>
 
                     </div>
-                    {/* <div className="services-column">
-                  <p className="lilist">ביקורת דוחות כספיים</p>
-                  <p className="lilist">ייעוץ עסקי</p>
-                  <p className="lilist">תכנוני מיסים והיערכות למס</p>
-                </div> */}
                   </div>
                 </MDBCol>
                 <MDBCol md="6">

@@ -133,7 +133,6 @@ function Navbar({ isUploading }) {
           className="position-absolute top-0 start-100 translate-middle"
         >
           {newMessages}{" "}
-          {/*<span className='visually-hidden'>unread messages</span> */}
         </MDBBadge>
       </Link>
       {user.role != "Client" && (

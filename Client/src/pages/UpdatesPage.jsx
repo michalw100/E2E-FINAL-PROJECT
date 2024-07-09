@@ -32,8 +32,7 @@ ChartJS.register(
 );
 
 function UpdatesPage() {
-  const { user, toasting, chatClient, clientReady, chatsInfo } =
-    useContext(AuthContext);
+  const { user, toasting, chatClient, clientReady, chatsInfo } =useContext(AuthContext);
   const [pendingFiles, setPendingFiles] = useState([]);
   const [pendingChats, setPendingChats] = useState([]);
   const [view, setView] = useState("");
@@ -64,7 +63,6 @@ function UpdatesPage() {
     if (user && user.id && clientReady) {
       console.log("קראו לי");
       fetchPendingFiles();
-      // fetchPendingChats();
     }
   }, [, chatClient, clientReady, user]);
 
@@ -122,7 +120,6 @@ function UpdatesPage() {
           };
         })
       );
-      // const chatsWithClientNames = chatsInfo;
       const sortedChats = chatsWithClientNames.sort(
         (a, b) => b.unreadMessagesCount - a.unreadMessagesCount
       );

@@ -15,6 +15,8 @@ const DeleteConnection = ({
   setOnChange,
 }) => {
   const { t } = useTranslation();
+  const { toasting } = useContext(AuthContext);
+
 
   const handleConfirmDelete = async () => {
     const connection = currentClientsemployees.find(
@@ -44,7 +46,6 @@ const DeleteConnection = ({
         setOnChange(!onChange);
         handleModalClose();
       } else {
-        // console.log(response);
         handleModalClose();
       }
     } catch (error) {
