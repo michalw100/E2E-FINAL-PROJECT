@@ -25,7 +25,7 @@ function AboutUs() {
       setError("Invalid email address");
       return;
     } else {
-      setError("");
+      setError("The email was sent successfully");
     }
 
     fetch(`http://localhost:3000/sendEmail`, {
@@ -76,7 +76,7 @@ function AboutUs() {
                 <div className="nav-buttons">
                   {/* <MDBBtn className="nav-btn square-btn">שפה</MDBBtn> */}
                   <Link to="/signin">
-                  <MDBBtn className="nav-btn square-btn" on>כניסה</MDBBtn>
+                    <MDBBtn className="nav-btn square-btn">כניסה</MDBBtn>
                   </Link>
 
                 </div>
@@ -101,73 +101,73 @@ function AboutUs() {
                 בהתאם לתקנות בודק השכר עם התמחות בענפי השמירה, נקיון והסעדה
               </p>
               <MDBRow className="mtmargim">
-            <MDBCol
-              md="6"
-              className="d-flex justify-content-center align-items-center"
-            >
-              <div className="services-list">
-                <div className="services-column">
-                  <p className="lilist">הנהלת חשבונות</p>
-                  <p className="lilist">ביקורת שכר</p>
-                  <p className="lilist">ביקורת פנים</p>
-                  <p className="lilist">ביקורת דוחות כספיים</p>
+                <MDBCol
+                  md="6"
+                  className="d-flex justify-content-center align-items-center"
+                >
+                  <div className="services-list">
+                    <div className="services-column">
+                      <p className="lilist">הנהלת חשבונות</p>
+                      <p className="lilist">ביקורת שכר</p>
+                      <p className="lilist">ביקורת פנים</p>
+                      <p className="lilist">ביקורת דוחות כספיים</p>
 
-                </div>
-                <div className="services-column">
-                  <p className="lilist">עמותות ומלכ״רים</p>
-                  <p className="lilist">ייעוץ מיסוי</p>
-                  <p className="lilist">חשבות שכר</p>
-                  <p className="lilist">ייעוץ עסקי</p>
+                    </div>
+                    <div className="services-column">
+                      <p className="lilist">עמותות ומלכ״רים</p>
+                      <p className="lilist">ייעוץ מיסוי</p>
+                      <p className="lilist">חשבות שכר</p>
+                      <p className="lilist">ייעוץ עסקי</p>
 
-                </div>
-                {/* <div className="services-column">
+                    </div>
+                    {/* <div className="services-column">
                   <p className="lilist">ביקורת דוחות כספיים</p>
                   <p className="lilist">ייעוץ עסקי</p>
                   <p className="lilist">תכנוני מיסים והיערכות למס</p>
                 </div> */}
-              </div>
-            </MDBCol>
-            <MDBCol md="6">
-              <div className="contact-form">
-                <h2>ליצירת קשר</h2>
-                <form onSubmit={sendEmail}>
-                  <MDBRow>
-                    <MDBCol md="6">
-                      <MDBInput
-                        label="שם"
-                        type="text"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                      />
-                    </MDBCol>
-                    <MDBCol md="6">
-                      <MDBInput
-                        label="טלפון"
-                        type="tel"
-                        value={phone}
-                        onChange={(e) => setPhone(e.target.value)}
-                      />
-                    </MDBCol>
-                  </MDBRow>
-                  <div className="margin"> <MDBInput
-                    label="אימייל"
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  /></div>
-            <div className="margin">      <MDBInput
-                    label="איך נוכל לעזור?"
-                    type="textarea"
-                    rows="3"
-                    value={text}
-                    onChange={(e) => setText(e.target.value)}
-                  /></div>
-                  <MDBBtn type="submit">שלח</MDBBtn>
-                  {error && <p className="error">{error}</p>}
-                </form>
-              </div>
-            </MDBCol>
-          </MDBRow>
+                  </div>
+                </MDBCol>
+                <MDBCol md="6">
+                  <div className="contact-form">
+                    <h2>ליצירת קשר</h2>
+                    <form onSubmit={sendEmail}>
+                      <MDBRow>
+                        <MDBCol md="6">
+                          <MDBInput
+                            label="שם"
+                            type="text"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                          />
+                        </MDBCol>
+                        <MDBCol md="6">
+                          <MDBInput
+                            label="טלפון"
+                            type="tel"
+                            value={phone}
+                            onChange={(e) => setPhone(e.target.value)}
+                          />
+                        </MDBCol>
+                      </MDBRow>
+                      <div className="margin"> <MDBInput
+                        label="אימייל"
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                      /></div>
+                      <div className="margin"><MDBInput
+                        label="איך נוכל לעזור?"
+                        type="textarea"
+                        rows="3"
+                        value={text}
+                        onChange={(e) => setText(e.target.value)}
+                      /></div>
+                      <button type="submit">שלח</button>
+                      {error && <p className="error" style={{ color: error != "The email was sent successfully" ? "red" : "green" }}>{error}</p>}
+                    </form>
+                  </div>
+                </MDBCol>
+              </MDBRow>
             </MDBCol>
             <MDBCol md="6" className="image-content">
               <img
@@ -177,8 +177,7 @@ function AboutUs() {
               />
             </MDBCol>
           </MDBRow>
-        
-        </MDBContainer>{" "}
+        </MDBContainer>
       </div>
       <Footer />
     </div>
