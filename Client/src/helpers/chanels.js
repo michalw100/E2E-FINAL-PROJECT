@@ -246,4 +246,5 @@ export default {
   getChatsWithUnreadMessages,
   getChatID,
   updateChatDescriptionForFile,
+  saveCurrentChat
 };
