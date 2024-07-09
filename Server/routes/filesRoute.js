@@ -147,10 +147,7 @@ router.get(
   }
 );
 
-router.get(
-  "/number-files-in-type",
-  checkAbilities("read", "files"),
-  async (req, res) => {
+router.get( "/number-files-in-type", checkAbilities("read", "files"), async (req, res) => {
     try {
       const userID = req.query.id;
       const numberFilesType = await numberFilesTypes(
