@@ -3,6 +3,16 @@ import "../css/update.css";
 import { AuthContext } from "../AuthContext";
 import { useNavigate } from "react-router-dom";
 import {
+  FaFileAlt,
+  FaComments,
+  FaTasks,
+  FaClipboardList,
+  FaUser,
+  FaCheckCircle,
+  FaTimesCircle,
+  FaClock,
+} from "react-icons/fa";
+import {
   Chart as ChartJS,
   Tooltip,
   Legend,
@@ -48,22 +58,17 @@ function UpdatesPage() {
   buttonsRef.current = [];
 
   useEffect(() => {
-    try {
-      const activeButton = buttonsRef.current.find(
-        (button) => button.dataset.view === view
-      );
-      if (activeButton && highlightRef.current) {
-        const buttonRect = activeButton.getBoundingClientRect();
-        const containerRect =
-          activeButton.parentElement.getBoundingClientRect();
-        const offset = buttonRect.left - containerRect.left;
-        highlightRef.current.style.transform = `translateX(${offset}px)`;
-        highlightRef.current.style.width = `${buttonRect.width}px`;
-      }
-    } catch (e) {
-      console.log(e);
+    const activeButton = buttonsRef.current.find(
+      (button) => button && button.dataset.view === view
+    );
+    if (activeButton && highlightRef.current) {
+      const buttonRect = activeButton.getBoundingClientRect();
+      const containerRect = activeButton.parentElement.getBoundingClientRect();
+      const offset = buttonRect.left - containerRect.left;
+      highlightRef.current.style.transform = `translateX(${offset}px)`;
+      highlightRef.current.style.width = `${buttonRect.width}px`;
     }
-  }, [, view]);
+  }, [view]);
 
   useEffect(() => {
     setView("fileUpdates");
@@ -209,8 +214,14 @@ function UpdatesPage() {
               {pendingFiles &&
                 pendingFiles.map((file) => (
                   <div key={file.id} className="pending-file-item">
-                    <div className="file-name">{file.name}</div>
-                    <div className="client-name">{file.clientName}</div>
+                    <div className="file-name">
+                      <FaFileAlt className="item-icon" />
+                      {file.name}
+                    </div>
+                    <div className="client-name">
+                      <FaUser className="item-icon" />
+                      {file.clientName}
+                    </div>
                     <div className={`file-status ${file.status.toLowerCase()}`}>
                       {t(file.status)}
                     </div>
@@ -234,9 +245,13 @@ function UpdatesPage() {
               {pendingChats.map((chat) => (
                 <div key={chat.chatId} className="pending-chat-item">
                   <div className="file-name">
+                    <FaComments className="item-icon" />
                     {t("Chat")}: {chat.chatName}
                   </div>
-                  <div className="client-name">{chat.clientName}</div>
+                  <div className="client-name">
+                    <FaUser className="item-icon" />
+                    {chat.clientName}
+                  </div>
                   <MDBBadge
                     pill
                     color="danger"
@@ -271,6 +286,7 @@ function UpdatesPage() {
           className={view === "fileUpdates" ? "active" : ""}
           onClick={() => setView("fileUpdates")}
         >
+          <FaFileAlt className="button-icon" />
           {t("File Updates")}
         </button>
         <button
@@ -279,6 +295,7 @@ function UpdatesPage() {
           className={view === "chatUpdates" ? "active" : ""}
           onClick={() => setView("chatUpdates")}
         >
+          <FaComments className="button-icon" />
           {t("Chat Updates")}
         </button>
         {user && (user.role === "Role 1" || user.role === "Role 2") && (
@@ -288,6 +305,7 @@ function UpdatesPage() {
             className={view === "fileTasks" ? "active" : ""}
             onClick={() => setView("fileTasks")}
           >
+            <FaTasks className="button-icon" />
             {t("File Tasks")}
           </button>
         )}
@@ -300,6 +318,7 @@ function UpdatesPage() {
             fetchPendingChats();
           }}
         >
+          <FaClipboardList className="button-icon" />
           {t("Chat Tasks")}
         </button>
       </div>

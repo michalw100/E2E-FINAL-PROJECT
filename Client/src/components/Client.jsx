@@ -1,9 +1,10 @@
 // import "../App.css";
-import React, { useContext, useEffect, useState,useRef } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { LuFiles } from "react-icons/lu";
 import { ImProfile } from "react-icons/im";
 import { FaComments } from "react-icons/fa";
+import { BsGraphUp } from "react-icons/bs";
 import chanel from "../helpers/chanels.js";
 import { AuthContext } from "../AuthContext";
 import { MDBBadge } from "mdb-react-ui-kit";
@@ -62,6 +63,7 @@ const Client = ({ client }) => {
     }
   };
 
+
   const saveMyClient = async () => {
     try {
       const response = await fetch(
@@ -107,7 +109,9 @@ const Client = ({ client }) => {
   };
 
   const viewFiles = async () => {
-    setShowModal(true);
+    await saveMyClient();
+    localStorage.removeItem("selectedTypeFile");
+    navigate(`/myFiles/${client.userID}`);
   };
 
   const handleCloseModal = () => {
@@ -121,47 +125,57 @@ const Client = ({ client }) => {
     setShowModal(false);
   };
 
+  const viewGraphs = async () => {
+    setShowModal(true);
+  };
+
   return (
     <div key={client.id} className="client">
       <h4 id=".clientDetails">{client.userName}</h4>
       <p className="clientemail">{client.email} </p>
-      <button
-        className="mydetails btn-primary position-relative mx-3"
-        onClick={viewDetails}
+      <div className="button-group">
+        <div className="button-grid">
+          <div className="button-row">
+            <button className="btn-primary" onClick={viewDetails}>
+              <ImProfile />
+            </button>{" "}
+            <button
+              type="comments"
+              onClick={viewChat}
+              className="btn-info position-relative"
+            >
+              <FaComments />
+              {messages != -1 && (
+                <MDBBadge
+                  pill
+                  color="danger"
+                  className="position-absolute top-0 start-100 translate-middle"
+                >
+                  {messages}
+                </MDBBadge>
+              )}
+            </button>
+          </div>
+          <div className="button-row">
+            <button className="btn-secondary" onClick={viewFiles}>
+              <LuFiles />
+            </button>
+            <button className="btn-success" onClick={viewGraphs}>
+              <BsGraphUp />
+            </button>
+          </div>
+        </div>
+      </div>
+      <Modal
+        show={showModal}
+        onHide={handleCloseModal}
+        size="lg"
+        className="file-counts-modal"
       >
-        <ImProfile />
-      </button>
-      <button
-        className="mydetails btn-primary position-relative mx-3"
-        onClick={viewFiles}
-      >
-        <LuFiles />
-      </button>
-      {/* <button className="mydetails" onClick={viewChat}>
-        <FaComments />
-      </button> */}
-      <button
-        type="comments"
-        onClick={viewChat}
-        className="mydetails btn-primary position-relative mx-3"
-        // style={{ backgroundColor: '#ac2bac' }}
-      >
-        <FaComments />
-        {/* <i className='fab fa-instagram'></i> */}
-        {messages != -1 && (
-          <MDBBadge
-            pill
-            color="danger"
-            className="position-absolute top-0 start-100 translate-middle"
-          >
-            {messages}
-            {/*<span className='visually-hidden'>unread messages</span> */}
-          </MDBBadge>
-        )}
-      </button>
-      <Modal show={showModal} onHide={handleCloseModal} size="lg" className="file-counts-modal">
         <Modal.Header closeButton>
-          <Modal.Title>{t("File Counts for")} {client.userName}</Modal.Title>
+          <Modal.Title>
+            {t("File Counts for")} {client.userName}
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <FileCounts clientId={client.userID} />
