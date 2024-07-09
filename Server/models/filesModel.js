@@ -11,7 +11,6 @@ async function saveFileToDB(fileId, fileName, type, uploaderID, clientID) {
       clientID,
       "Pending",
     ]);
-    console.log(sql, [fileId, fileName, type, uploaderID, clientID, "Pending"]);
     return newFile[0];
   } catch (err) {
     throw err;

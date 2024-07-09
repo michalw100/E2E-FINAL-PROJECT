@@ -34,7 +34,7 @@
 
 .clients-list {
   align-items: flex-end;
-  margin-right: 33vw; 
+  margin-right: 33vw;
 }
 
 .employees-list {
@@ -256,7 +256,6 @@ li {
     width: 100%;
   }
 }
-
 
 .modal {
   top: 50% !important;

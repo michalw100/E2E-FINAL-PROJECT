@@ -163,7 +163,6 @@ router.get( "/number-files-in-type", checkAbilities("read", "files"), async (req
 
 router.get("/number-files-by-type-and-status", checkAbilities("read", "files"), async (req, res) => {
     try {
-      //res.status(500).send({ message: "err.message" });
       const userID = req.query.id;
       const numberFilesType = await numberFilesTypesAndStatus(
         userID,
@@ -193,7 +192,6 @@ router.get("/all-status", checkAbilities("read", "files"), async (req, res) => {
   try {
     const userID = req.query.id;
     const status = await getStatus(userID, req.session.user.role);
-    console.log(status)
     res.status(200).send(status);
   } catch (err) {
     res.status(500).send({ message: err.message });

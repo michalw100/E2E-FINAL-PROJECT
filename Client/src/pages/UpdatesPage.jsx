@@ -62,9 +62,7 @@ function UpdatesPage() {
 
   useEffect(() => {
     if (user && user.id && clientReady) {
-      console.log("קראו לי");
       fetchPendingFiles();
-      // fetchPendingChats();
     }
   }, [, chatClient, clientReady, user]);
 
@@ -83,8 +81,6 @@ function UpdatesPage() {
           }
         );
         const data = await response.json();
-        console.log("data");
-        console.log(data);
         setPendingFiles(data);
       } catch (error) {
         toasting(
@@ -98,7 +94,6 @@ function UpdatesPage() {
     try {
       const chatsWithClientNames = await Promise.all(
         chatsInfo.map(async (chat) => {
-          console.log(chat.chatId.split("-")[1]);
           const clientResponse = await fetch(
             `http://localhost:3000/chat/name?chatID=${
               chat.chatId.split("-")[1]
@@ -113,8 +108,6 @@ function UpdatesPage() {
             }
           );
           const clientData = await clientResponse.json();
-          console.log("clientData");
-          console.log(clientData);
           return {
             ...chat,
             clientName: clientData.name,
@@ -122,7 +115,6 @@ function UpdatesPage() {
           };
         })
       );
-      // const chatsWithClientNames = chatsInfo;
       const sortedChats = chatsWithClientNames.sort(
         (a, b) => b.unreadMessagesCount - a.unreadMessagesCount
       );
