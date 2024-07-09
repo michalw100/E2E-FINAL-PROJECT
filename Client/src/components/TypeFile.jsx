@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { useDrop } from "react-dnd";
 import "../css/typeFile.css";
 import { useTranslation } from "react-i18next";
+import { AuthContext } from "../AuthContext";
 
 const TypeFile = ({
   typeFile,

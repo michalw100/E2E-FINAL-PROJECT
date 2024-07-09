@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback, useContext } from "react";
 import { ChannelList, useChatContext } from "stream-chat-react";
 import { useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { AuthContext } from "../AuthContext";
 
 const ChannelListContainer = () => {
   const { client } = useChatContext();

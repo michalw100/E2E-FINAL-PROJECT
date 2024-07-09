@@ -4,6 +4,7 @@ import AddConnection from "../components/AddConnection";
 import DeleteConnection from "../components/DeleteConnection";
 import { FaSearch } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
+import { AuthContext } from "../AuthContext";
 
 const AdminDashboard = () => {
   const [clients, setClients] = useState([]);

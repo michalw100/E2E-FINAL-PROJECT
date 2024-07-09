@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import Modal from "react-modal";
 import { useTranslation } from "react-i18next";
+import { AuthContext } from "../AuthContext";
 
 const DeleteConnection = ({
   selectedClient,

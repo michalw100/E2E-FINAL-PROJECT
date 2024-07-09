@@ -11880,3 +11880,16 @@ Date: Wed Jul 10 2024 01:31:52 GMT+0300 (שעון ישראל (קיץ)), Url:/fil
 Date: Wed Jul 10 2024 01:31:52 GMT+0300 (שעון ישראל (קיץ)), Url:/files/number-files-uploaded-per-day?id=6 
 Date: Wed Jul 10 2024 01:31:52 GMT+0300 (שעון ישראל (קיץ)), Url:/files/all-status?id=6 
 Date: Wed Jul 10 2024 01:31:57 GMT+0300 (שעון ישראל (קיץ)), Url:/myClient/storeClientID 
+Date: Wed Jul 10 2024 01:39:43 GMT+0300 (שעון ישראל (קיץ)), Url:/checkAuth 
+Date: Wed Jul 10 2024 01:39:43 GMT+0300 (שעון ישראל (קיץ)), Url:/checkAuth 
+Date: Wed Jul 10 2024 01:39:43 GMT+0300 (שעון ישראל (קיץ)), Url:/users/user?id=20 
+Date: Wed Jul 10 2024 01:39:43 GMT+0300 (שעון ישראל (קיץ)), Url:/users/user?id=20 
+Date: Wed Jul 10 2024 01:39:43 GMT+0300 (שעון ישראל (קיץ)), Url:/chat/apiKey 
+Date: Wed Jul 10 2024 01:39:43 GMT+0300 (שעון ישראל (קיץ)), Url:/myClient/getClientID 
+Date: Wed Jul 10 2024 01:39:43 GMT+0300 (שעון ישראל (קיץ)), Url:/myClient/getClientID 
+Date: Wed Jul 10 2024 01:39:43 GMT+0300 (שעון ישראל (קיץ)), Url:/chat/apiKey 
+Date: Wed Jul 10 2024 01:39:43 GMT+0300 (שעון ישראל (קיץ)), Url:/files/type?type=Current%20material%20for%20accounting&&clientID=6 
+Date: Wed Jul 10 2024 01:39:43 GMT+0300 (שעון ישראל (קיץ)), Url:/files/type?type=Material%20for%20an%20annual%20report&&clientID=6 
+Date: Wed Jul 10 2024 01:39:43 GMT+0300 (שעון ישראל (קיץ)), Url:/users/user?id=6 
+Date: Wed Jul 10 2024 01:39:43 GMT+0300 (שעון ישראל (קיץ)), Url:/files/type?type=Reports%20and%20information%20to%20download&&clientID=6 
+Date: Wed Jul 10 2024 01:39:43 GMT+0300 (שעון ישראל (קיץ)), Url:/files/type?type=Approvals,%20tax%20coordination%20and%20miscellaneous&&clientID=6 

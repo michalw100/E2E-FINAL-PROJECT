@@ -12,6 +12,7 @@ import "../css/file.css";
 import chanels from "../helpers/chanels";
 import { MDBBadge } from "mdb-react-ui-kit";
 import { useTranslation } from "react-i18next";
+import { AuthContext } from "../AuthContext";
 
 const File = ({ file, searchCriteria, filesChanged, setFilesChanged }) => {
   const navigate = useNavigate();

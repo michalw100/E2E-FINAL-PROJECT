@@ -12,6 +12,7 @@ import FileCounts from "./FileCounts.jsx";
 import FilesStatus from "./FilesStatus.jsx";
 import FilesUploaded from "./FilesUploaded.jsx";
 import { useTranslation } from "react-i18next";
+import { AuthContext } from "../AuthContext";
 import chanels from "../helpers/chanels.js";
 import "../css/client.css";
 

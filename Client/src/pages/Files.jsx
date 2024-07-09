@@ -16,7 +16,6 @@ import Modal from "react-modal";
 import { toast } from "react-hot-toast";
 
 import { useTranslation } from "react-i18next";
-import chanels from "../helpers/chanels";
 
 Modal.setAppElement("#root");
 
