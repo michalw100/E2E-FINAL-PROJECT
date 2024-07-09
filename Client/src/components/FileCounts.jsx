@@ -135,7 +135,7 @@ function FileCounts({ clientId }) {
           },
         }}
       />
-      <div className="explanation">
+      {!clientId&&<div className="explanation">
         {types.map((type, index) => (
           <div className="types" key={index}>
             <strong>
@@ -144,7 +144,7 @@ function FileCounts({ clientId }) {
             {type.type}
           </div>
         ))}
-      </div>
+      </div>}
     </div>
   );
 }

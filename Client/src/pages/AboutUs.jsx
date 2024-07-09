@@ -156,9 +156,6 @@ import "../css/about.css";
 import {
   MDBBtn,
   MDBContainer,
-  MDBCard,
-  MDBCardBody,
-  MDBCardImage,
   MDBRow,
   MDBCol,
   MDBInput,
@@ -228,7 +225,11 @@ function AboutUs() {
                 />
                 <div className="nav-buttons">
                   <MDBBtn className="nav-btn square-btn">שפה</MDBBtn>
+                  <Link to="/signin">
+
                   <MDBBtn className="nav-btn square-btn" on>כניסה</MDBBtn>
+                  </Link>
+
                 </div>
               </div>
               <h1>משרד רואי חשבון, יועצי מס והנהלת חשבונות</h1>
