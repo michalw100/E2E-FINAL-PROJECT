@@ -401,7 +401,7 @@ i18n.use(initReactI18next).init({
       },
     },
   },
-  lng: "en", // שפת ברירת מחדל
+  lng: "en",
   fallbackLng: "en",
   interpolation: {
     escapeValue: false,

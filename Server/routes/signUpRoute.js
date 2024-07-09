@@ -11,8 +11,6 @@ router.post("/", dynamicCheckAbilities, async (req, res) => {
     const password = req.body.password;
     const role = req.body.userRole;
     const employeeType = req.body.employeeType;
-    console.log(req.body)
-
     if ( (!userName || !password || !role) && (role == "Employee" && !employeeType) ) {
       return res
         .status(400)

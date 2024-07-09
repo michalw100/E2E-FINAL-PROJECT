@@ -16,10 +16,8 @@ const auth = new google.auth.GoogleAuth({
 });
 
 async function listFiles(userID, type) {
-  // console.log(type)
   try {
     let files;
-    // console.log(userID);
     const realID = await getClientIDOrEmployeeIDByUserID(userID);
     if (realID[0].client_id) {
       const result = await model.getFilesByClientID(userID, type);
@@ -47,7 +45,6 @@ async function uploadFile(
   type
 ) {
   try {
-    // const realclientID = await getClientIDOrEmployeeIDByUserID(clientID);
     for (const [index, file] of uploadedFiles.entries()) {
       if (file.mimetype !== "application/pdf") {
         throw new Error("Only PDF files are allowed");
@@ -60,7 +57,6 @@ async function uploadFile(
         uploaderID,
         clientID
       );
-      // console.log("saved");
     }
     return;
   } catch (error) {
@@ -117,15 +113,11 @@ async function deleteAllFilesInFolder(folderId) {
       fields: "files(id, name, mimeType)",
     });
     const files = response.data.files;
-    console.log("files");
-    console.log(files);
     for (const file of files) {
       if (file.mimeType === "application/vnd.google-apps.folder") {
-        // Recursively delete all contents of this folder
         await deleteAllFilesInFolder(drive, file.id);
       }
 
-      // Delete the file or folder
       try {
         await drive.files.delete({ fileId: file.id });
         console.log(`Deleted ${file.name} (${file.id})`);
@@ -149,28 +141,21 @@ async function deleteAllFilesInFolder(folderId) {
 async function downloadFile(res, fileId) {
   try {
     const drive = google.drive({ version: "v3", auth });
-
-    // Get file metadata
     const fileInfo = await drive.files.get({
       fileId: fileId,
       fields: "name, mimeType",
     });
-
     if (fileInfo.data.mimeType !== "application/pdf") {
       throw new Error("File is not a PDF");
     }
-
-    // Get file content as a stream
     const response = await drive.files.get(
       { fileId: fileId, alt: "media" },
       { responseType: "stream" }
     );
-
     res.setHeader(
       "Content-Disposition",
       `attachment; filename="${fileInfo.data.name}"`
     );
-
     return response;
   } catch (error) {
     throw error;
@@ -180,25 +165,17 @@ async function downloadFile(res, fileId) {
 async function viewFile(res, fileId) {
   try {
     const drive = google.drive({ version: "v3", auth });
-
-    // Get file metadata
     const fileInfo = await drive.files.get({
       fileId: fileId,
       fields: "name, mimeType",
     });
-
-    // Check if file is a PDF
     if (fileInfo.data.mimeType !== "application/pdf") {
       throw new Error("File is not a PDF");
     }
-
-    // Get file content as a stream
     const response = await drive.files.get(
       { fileId: fileId, alt: "media" },
       { responseType: "stream" }
     );
-
-    // Set headers to display the file inline
     res.setHeader("Content-Type", fileInfo.data.mimeType);
     res.setHeader(
       "Content-Disposition",
@@ -249,8 +226,6 @@ async function numFilesPerDay(userID, role) {
         result = await model.numFilesPerDayEmployee(userID);
       }
     }
-
-    // מילוי תאריכים חסרים עם ערך 0
     const filledData = fillMissingDates(result);
     return filledData;
   } catch (err) {
@@ -331,7 +306,6 @@ async function numberFilesTypesAndStatus(userID, role) {
     });
 
     return Object.values(formattedResult);
-    // return numFiles[0];
   } catch (err) {
     throw err;
   }
@@ -360,8 +334,8 @@ async function getStatus(userID, role) {
 
 async function getPending(userID) {
   try {
-      const result = await model.getPendingFilesByEmployee(userID);
-       return result[0];
+    const result = await model.getPendingFilesByEmployee(userID);
+    return result[0];
   } catch (err) {
     throw err;
   }

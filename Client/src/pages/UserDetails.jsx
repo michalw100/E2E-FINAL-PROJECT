@@ -112,7 +112,6 @@ const UserDetails = () => {
       .then((response) => {
         if (!response.ok) {
           return response.json().then((data) => {
-            console.log(data.message);
             throw new Error(data.message);
           });
         }
