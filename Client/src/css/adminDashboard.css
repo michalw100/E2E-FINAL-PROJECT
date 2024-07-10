@@ -53,14 +53,13 @@
 .employees-list ul {
   list-style-type: none;
   padding: 0;
-  flex: 1; /* הוספת פרמטר זה על מנת לקבוע את הגובה */
+  flex: 1;
 }
 
 .clients-list li,
 .employees-list li {
   display: flex;
   align-items: center;
-  /* margin-bottom: 10px; */
 }
 
 .circle-button {
@@ -87,7 +86,7 @@
 
 .relationship-line {
   position: absolute;
-  border: 1px solid; /* המסגרת תשתנה בהתאם לצבע שהוגרל */
+  border: 1px solid; 
   z-index: -1;
 }
 
@@ -112,17 +111,17 @@
 
 .reset-button {
   padding: 10px 20px;
-  background-color: #007bff; /* צבע רקע */
-  color: white; /* צבע טקסט */
+  background-color: #007bff; 
+  color: white;
   border: none;
-  border-radius: 5px; /* רדיוס פינות */
+  border-radius: 5px; 
   cursor: pointer;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* צל */
-  transition: background-color 0.3s ease; /* אנימציה של שטיפה */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+  transition: background-color 0.3s ease;
 }
 
 .reset-button:hover {
-  background-color: #0056b3; /* צבע רקע בעת עכבה */
+  background-color: #0056b3; 
 }
 
 .delete-button {
@@ -133,7 +132,6 @@
   border-radius: 4px;
   padding: 10px 10px;
   margin: 15px;
-  /* width: 300px; */
   background-color: white;
 }
 

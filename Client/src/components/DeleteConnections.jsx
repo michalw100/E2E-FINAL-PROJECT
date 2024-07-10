@@ -3,7 +3,7 @@ import Modal from "react-modal";
 import { useTranslation } from "react-i18next";
 import { AuthContext } from "../AuthContext";
 
-const DeleteConnection = ({
+const DeleteConnections = ({
   selectedClient,
   selectedEmployee,
   triyngToDelete,
@@ -112,4 +112,4 @@ const DeleteConnection = ({
   );
 };
 
-export default DeleteConnection;
+export default DeleteConnections;

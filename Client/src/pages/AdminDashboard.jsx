@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import "../css/adminDashboard.css";
 import AddConnection from "../components/AddConnection";
-import DeleteConnection from "../components/DeleteConnections";
+import DeleteConnections from "../components/DeleteConnections";
 import { FaSearch } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
 import { AuthContext } from "../AuthContext";
@@ -411,7 +411,7 @@ const AdminDashboard = () => {
         {selectedClient && <h2>{selectedClient.name}</h2>}
         {selectedEmployee && <h2>{selectedEmployee.name}</h2>}
         <div className="deleteConnectionContainer">
-          <DeleteConnection
+          <DeleteConnections
             selectedClient={selectedClient}
             selectedEmployee={selectedEmployee}
             triyngToDelete={triyngToDelete}
