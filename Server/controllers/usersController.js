@@ -117,16 +117,7 @@ async function getByPasswordAndUserName(password, userName) {
 
 async function update(id, userName, name, email, phone, street, city, zipcode) {
   try {
-    const user = await model.updateUser(
-      id,
-      userName,
-      name,
-      email,
-      phone,
-      street,
-      city,
-      zipcode
-    );
+    const user = await model.updateUser(id, userName, name, email, phone, street, city, zipcode);
     return user;
   } catch (err) {
     throw err;

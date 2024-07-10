@@ -3,14 +3,7 @@ const pool = require("../DB.js");
 async function saveFileToDB(fileId, fileName, type, uploaderID, clientID) {
   try {
     const sql = `INSERT INTO files (driveFileId, name, type, uploaderID, clientID, status) VALUES (?, ?, ?, ?, ?, ?)`;
-    const newFile = await pool.query(sql, [
-      fileId,
-      fileName,
-      type,
-      uploaderID,
-      clientID,
-      "Pending",
-    ]);
+    const newFile = await pool.query(sql, [fileId, fileName, type, uploaderID, clientID, "Pending",]);
     return newFile[0];
   } catch (err) {
     throw err;
@@ -46,10 +39,7 @@ async function numFilesPerDayClient(userID) {
       date`;
 
     const result = await pool.query(sql, [userID]);
-    return result[0].map((row) => ({
-      date: row.date.toISOString().split("T")[0],
-      count: row.count,
-    }));
+    return result[0];
   } catch (err) {
     throw err;
   }
@@ -73,10 +63,7 @@ async function numFilesPerDayAdmin() {
       date`;
 
     const result = await pool.query(sql);
-    return result[0].map((row) => ({
-      date: row.date.toISOString().split("T")[0],
-      count: row.count,
-    }));
+    return result[0];
   } catch (err) {
     throw err;
   }
@@ -104,10 +91,7 @@ async function numFilesPerDayEmployee(userID) {
       date`;
 
     const result = await pool.query(sql, [userID]);
-    return result[0].map((row) => ({
-      date: row.date.toISOString().split("T")[0],
-      count: row.count,
-    }));
+    return result[0];
   } catch (err) {
     throw err;
   }
@@ -210,7 +194,6 @@ async function numberFilesTypesAndStatusAdmin() {
       FROM files
       GROUP BY type, status
       ORDER BY type, status`;
-
     const result = await pool.query(sql);
     return result;
   } catch (err) {
@@ -226,13 +209,13 @@ async function numberFilesTypesAndStatusClient(userID) {
       WHERE clientID = ?
       GROUP BY type, status
       ORDER BY type, status`;
-
     const result = await pool.query(sql, [userID]);
     return result;
   } catch (err) {
     throw err;
   }
 }
+
 async function numberFilesTypesAndStatusEmployee(userID) {
   try {
     const sql = `
@@ -244,9 +227,7 @@ async function numberFilesTypesAndStatusEmployee(userID) {
       WHERE e.userID = ?
       GROUP BY f.type, f.status
       ORDER BY f.type, f.status`;
-
     const result = await pool.query(sql, [userID]);
-
     return result;
   } catch (err) {
     throw err;
@@ -320,6 +301,7 @@ async function updateTypeFile(id, type) {
     throw err;
   }
 }
+
 async function getFilesIDByClientIDType(clientID, type) {
   try {
     const sql = `SELECT id FROM files WHERE clientID = ? AND type = ?`;
@@ -339,6 +321,7 @@ async function getFilesIDByClientID(clientID) {
     throw err;
   }
 }
+
 module.exports = {
   saveFileToDB,
   getFilesByClientID,

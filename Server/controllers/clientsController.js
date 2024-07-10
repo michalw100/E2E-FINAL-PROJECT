@@ -1,8 +1,6 @@
 const model = require("../models/clientsModel");
 require("dotenv").config();
 
-
-
 async function getClientByCkientId(id) {
   try {
     const user = await model.getClientByCkientId(id);
@@ -42,8 +40,6 @@ async function getClients() {
     throw err;
   }
 }
-
-
 
 module.exports = {
   getClientsEmployee,

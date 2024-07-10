@@ -9,6 +9,7 @@ async function getEmployees() {
     throw err;
   }
 }
+
 module.exports = {
   getEmployees,
 };

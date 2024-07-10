@@ -2,9 +2,7 @@ const pool = require("../DB.js");
 
 async function createChat(name) {
   try {
-    const result = await pool.query("INSERT INTO chats (name) VALUES (?)", [
-      name,
-    ]);
+    const result = await pool.query("INSERT INTO chats (name) VALUES (?)", [name]);
     return result[0];
   } catch (err) {
     throw err;
@@ -35,9 +33,7 @@ async function createChatControlleryByUserID(userID) {
 
 async function getChatControllerByFileID(fileID) {
   try {
-    const result = await pool.query("SELECT * FROM chats WHERE fileID = ?", [
-      fileID,
-    ]);
+    const result = await pool.query("SELECT * FROM chats WHERE fileID = ?", [fileID,]);
     return result[0];
   } catch (err) {
     throw err;
@@ -46,9 +42,7 @@ async function getChatControllerByFileID(fileID) {
 
 async function getChatControlleryByUserID(userID) {
   try {
-    const result = await pool.query("SELECT * FROM chats WHERE userID = ?", [
-      userID,
-    ]);
+    const result = await pool.query("SELECT * FROM chats WHERE userID = ?", [userID,]);
     return result[0];
   } catch (err) {
     throw err;

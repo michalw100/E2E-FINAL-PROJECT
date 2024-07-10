@@ -15,6 +15,14 @@ const auth = new google.auth.GoogleAuth({
   scopes: SCOPES,
 });
 
+function bufferToStream(buffer) {
+  const stream = new Readable();
+  stream._read = () => {};
+  stream.push(buffer);
+  stream.push(null);
+  return stream;
+}
+
 async function listFiles(userID, type) {
   try {
     let files;
@@ -37,13 +45,7 @@ async function listFiles(userID, type) {
   }
 }
 
-async function uploadFile(
-  uploaderID,
-  clientID,
-  uploadedFiles,
-  filesNames,
-  type
-) {
+async function uploadFile(uploaderID, clientID, uploadedFiles, filesNames, type) {
   try {
     for (const [index, file] of uploadedFiles.entries()) {
       if (file.mimetype !== "application/pdf") {
@@ -86,14 +88,6 @@ async function uploadFileToDrive(fileBuffer, fileName) {
   } catch (err) {
     throw new Error("Error uploading file: " + err.message);
   }
-}
-
-function bufferToStream(buffer) {
-  const stream = new Readable();
-  stream._read = () => {};
-  stream.push(buffer);
-  stream.push(null);
-  return stream;
 }
 
 async function deleteAllFiles() {
@@ -186,6 +180,7 @@ async function viewFile(res, fileId) {
     throw error;
   }
 }
+
 async function updateRemarkFile(id, remark) {
   try {
     const file = await model.updateRemarkFile(id, remark);
@@ -225,8 +220,11 @@ async function numFilesPerDay(userID, role) {
       } else {
         result = await model.numFilesPerDayEmployee(userID);
       }
-    }
-    const filledData = fillMissingDates(result);
+    } 
+    const filledData = fillMissingDates(result.map((row) => ({
+      date: row.date.toISOString().split("T")[0],
+      count: row.count,
+    })));
     return filledData;
   } catch (err) {
     throw err;

@@ -52,11 +52,7 @@ app.use("/users", usersRoute);
 app.use("/chat", checkAbilities("create", "Chat"), chatsRoute);
 app.use("/myClient", checkAbilities("read", "Clients"), myClientRoute);
 app.use("/clients", clientsRoute);
-app.use(
-  "/connections",
-  checkAbilities("create", "employees"),
-  connectionsRoute
-);
+app.use( "/connections", checkAbilities("create", "employees"), connectionsRoute);
 app.use("/employees", checkAbilities("create", "employees"), employeesRoute);
 
 app.use("/checkAuth", (req, res) => {

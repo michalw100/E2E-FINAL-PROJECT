@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const {getClientsEmployee, getClients, getClientByCkientId,} = require("../controllers/clientsController");
 const {getById} = require("../controllers/usersController");
-
 const checkAbilities = require("../Middlewares/checkAbilities");
 router.use(express.json());
 router.use(express.urlencoded({ extended: true }));

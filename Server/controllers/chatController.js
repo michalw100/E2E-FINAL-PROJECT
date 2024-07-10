@@ -44,11 +44,6 @@ async function getChatControllerByFileID(filedID) {
     throw err;
   }
 }
-// async function getChatByIdController(req, res) {
-//   const { id } = req.params;
-//   const chat = await getChatById(id);
-//   return chat;
-// }
 
 async function getChatByNameController(name) {
   try {

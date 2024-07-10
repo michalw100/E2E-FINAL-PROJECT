@@ -18,16 +18,6 @@ router.get("/user", checkAbilities("read", "Clients"), async (req, res) => {
   }
 });
 
-router.get("/chatMembers", checkAbilities("create", "Chat"), async (req, res) => {
-  try {
-    const id = req.query.id;
-    const members = await getManagers(id);
-    res.status(200).send([members]);
-  } catch (err) {
-    res.status(500).send({ message: err.message });
-  }
-});
-
 router.put("/user", checkEmail, checkAbilities("update", "Users"), async (req, res) => {
   try {
     const id = req.query.id;
@@ -44,6 +34,16 @@ router.put("/user", checkEmail, checkAbilities("update", "Users"), async (req, r
     await update(id, userName, name, email, phone, street, city, zipcode);
     const result = await getById(id);
     res.status(200).send(result);
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+});
+
+router.get("/chatMembers", checkAbilities("create", "Chat"), async (req, res) => {
+  try {
+    const id = req.query.id;
+    const members = await getManagers(id);
+    res.status(200).send([members]);
   } catch (err) {
     res.status(500).send({ message: err.message });
   }

@@ -37,7 +37,7 @@ async function getClientIDOrEmployeeIDByUserID(id) {
     } catch (err) {
       throw err;
     }
-  }
+}
 
 module.exports = {
   getClientIDOrEmployeeIDByUserID,

@@ -18,7 +18,6 @@ const {
   numFilesPerDay,
 } = require("../controllers/filesController");
 const checkAbilities = require("../Middlewares/checkAbilities");
-
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
@@ -33,9 +32,7 @@ router.get("/", checkAbilities("read", "files"), async (req, res) => {
   }
 });
 
-router.post(
-  "/upload",
-  checkAbilities("create", "files"),
+router.post("/upload", checkAbilities("create", "files"),
   upload.array("files"),
   async (req, res) => {
     try {
@@ -59,10 +56,7 @@ router.post(
   }
 );
 
-router.delete(
-  "/deleteAllFiles",
-  checkAbilities("delete", "files"),
-  async (req, res) => {
+router.delete("/deleteAllFiles", checkAbilities("delete", "files"), async (req, res) => {
     try {
       await deleteAllFiles();
       res.status(200).send({ message: "All files deleted successfully" });
@@ -72,10 +66,7 @@ router.delete(
   }
 );
 
-router.get(
-  "/download/:fileId",
-  checkAbilities("read", "files"),
-  async (req, res) => {
+router.get("/download/:fileId", checkAbilities("read", "files"), async (req, res) => {
     try {
       const fileId = req.params.fileId;
       const response = await downloadFile(res, fileId);
@@ -86,10 +77,7 @@ router.get(
   }
 );
 
-router.get(
-  "/view/:fileId",
-  checkAbilities("read", "files"),
-  async (req, res) => {
+router.get("/view/:fileId", checkAbilities("read", "files"), async (req, res) => {
     try {
       const fileId = req.params.fileId;
       const response = await viewFile(res, fileId);
@@ -106,7 +94,6 @@ router.put("/", checkAbilities("update", "files"), async (req, res) => {
     const remark = req.body.remark;
     const status = req.body.status;
     const type = req.body.type;
-
     if (remark) {
       await updateRemarkFile(fileId, remark);
       res.status(200).send({ message: "update file successfully" });
@@ -133,10 +120,7 @@ router.get("/type", checkAbilities("read", "files"), async (req, res) => {
   }
 });
 
-router.get(
-  "/number-files-uploaded-per-day",
-  checkAbilities("read", "files"),
-  async (req, res) => {
+router.get("/number-files-uploaded-per-day", checkAbilities("read", "files"), async (req, res) => {
     try {
       const userID = req.query.id;
       const numberFiles = await numFilesPerDay(userID, req.session.user.role);
