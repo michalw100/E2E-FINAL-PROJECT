@@ -5,12 +5,12 @@ const checkAbilities = require("../Middlewares/checkAbilities");
 router.use(express.json());
 
 const dynamicCheckAbilities = (req, res, next) => {
-  const user = req.session.user;
-  if (!user || !user.role) {
+  const role = req.body.userRole;
+  if (!role) {
     return res.status(403).send({ message: "User not authenticated" });
   }
   let subject;
-  switch (user.role) {
+  switch (role) {
     case "Client":
       subject = "Clients";
       break;
